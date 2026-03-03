@@ -46,6 +46,21 @@ export interface DailyMetric {
   netCommission: number;
 }
 
+export interface DailyResult {
+  date: string;
+  investment: number;
+  leads: number;
+  salesQty: number;
+  grossValue: number;
+  cpl: number | null;
+  roasAgendado: number | null;
+  approvedCount: number;
+  approvedRevenue: number;
+  cpaAprovado: number | null;
+  roasAprovado: number | null;
+  lucro: number;
+}
+
 export interface SellerRanking {
   sellerId: number;
   sellerName: string;
@@ -319,6 +334,96 @@ export async function getDailyMetrics(
       profit: dayProfit,
       grossValue: agg.grossValue,
       netCommission: agg.netCommission,
+    });
+  }
+
+  return result;
+}
+
+// ---- Daily Results (for Resultado Diário page) ----
+export async function getDailyResults(
+  dateFrom: string,
+  dateTo: string
+): Promise<DailyResult[]> {
+  const fees = await getActiveFees();
+  const saleFees = fees.filter((f) => f.applies_to === "SALE");
+  const investmentFees = fees.filter((f) => f.applies_to === "INVESTMENT");
+
+  // 1. All dates in range
+  const dateRows = await sql`SELECT generate_series(${dateFrom}::date, ${dateTo}::date, '1 day'::interval)::date as date`;
+
+  // 2. Ad data grouped by date
+  const adData = await sql`SELECT date, SUM(investment) as inv, SUM(leads) as lds FROM daily_ad_metrics WHERE date >= ${dateFrom} AND date <= ${dateTo} GROUP BY date`;
+  const adMap = new Map<string, { inv: number; lds: number }>();
+  for (const r of adData) {
+    const d = new Date(r.date).toISOString().split("T")[0];
+    adMap.set(d, { inv: Number(r.inv), lds: Number(r.lds) });
+  }
+
+  // 3. Sales data grouped by date
+  const salesData = await sql`
+    SELECT dse.date, dse.quantity, dse.discount, dse.payment_method, p.sale_price_gross,
+      COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
+      COALESCE(sc.percent, 0) as commission_pct
+    FROM daily_sales_entries dse
+    JOIN plans p ON p.id = dse.plan_id
+    LEFT JOIN seller_commissions sc ON sc.seller_id = dse.seller_id AND sc.plan_id = dse.plan_id
+    WHERE dse.date >= ${dateFrom} AND dse.date <= ${dateTo}`;
+  const salesMap = new Map<string, typeof salesData>();
+  for (const r of salesData) {
+    const d = new Date(r.date).toISOString().split("T")[0];
+    if (!salesMap.has(d)) salesMap.set(d, []);
+    salesMap.get(d)!.push(r);
+  }
+
+  // 4. Approved payments grouped by date
+  const approvedData = await sql`
+    SELECT dap.date, dap.quantity, dap.discount, dap.payment_method, p.sale_price_gross, p.sale_price_net,
+      COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
+      0 as commission_pct
+    FROM daily_approved_payments dap
+    JOIN plans p ON p.id = dap.plan_id
+    WHERE dap.date >= ${dateFrom} AND dap.date <= ${dateTo}`;
+  const approvedMap = new Map<string, typeof approvedData>();
+  for (const r of approvedData) {
+    const d = new Date(r.date).toISOString().split("T")[0];
+    if (!approvedMap.has(d)) approvedMap.set(d, []);
+    approvedMap.get(d)!.push(r);
+  }
+
+  // Build results
+  const result: DailyResult[] = [];
+  for (const dr of dateRows) {
+    const d = new Date(dr.date).toISOString().split("T")[0];
+    const ad = adMap.get(d) || { inv: 0, lds: 0 };
+    const daySalesRows = salesMap.get(d) || [];
+    const dayApprovedRows = approvedMap.get(d) || [];
+
+    const salesAgg = processSalesRows(daySalesRows, saleFees);
+    const approvedAgg = processSalesRows(dayApprovedRows, saleFees);
+    const dayInvTax = calcInvestmentFeesTotal(ad.inv, investmentFees);
+
+    const lucro = approvedAgg.grossValue
+      - approvedAgg.platformFees
+      - approvedAgg.netCommission
+      - approvedAgg.productCosts
+      - approvedAgg.shippingCosts
+      - approvedAgg.discounts
+      - ad.inv - dayInvTax;
+
+    result.push({
+      date: d,
+      investment: ad.inv,
+      leads: ad.lds,
+      salesQty: salesAgg.salesQty,
+      grossValue: salesAgg.grossValue,
+      cpl: ad.lds > 0 ? ad.inv / ad.lds : null,
+      roasAgendado: ad.inv > 0 ? salesAgg.grossValue / ad.inv : null,
+      approvedCount: approvedAgg.salesQty,
+      approvedRevenue: approvedAgg.grossValue,
+      cpaAprovado: approvedAgg.salesQty > 0 ? ad.inv / approvedAgg.salesQty : null,
+      roasAprovado: ad.inv > 0 ? approvedAgg.grossValue / ad.inv : null,
+      lucro,
     });
   }
 

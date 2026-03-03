@@ -18,6 +18,7 @@ import {
   ClipboardList,
   Receipt,
   Banknote,
+  CalendarDays,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
@@ -31,6 +32,7 @@ interface AppSidebarProps {
 
 const adminLinks = [
   { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
+  { href: "/resultado-diario", label: "Resultado Diario", icon: CalendarDays },
   { href: "/ranking", label: "Ranking", icon: Trophy },
   { href: "/sales", label: "Vendas", icon: ShoppingCart },
   { href: "/history", label: "Historico", icon: ClipboardList },
