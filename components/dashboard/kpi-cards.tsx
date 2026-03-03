@@ -89,6 +89,71 @@ export function KPICards({ kpis, isAdmin }: KPICardsProps) {
         </Card>
       </div>
 
+      {/* Seller view - Agendado summary */}
+      {!isAdmin && (
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                Pedidos Agendados
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-2xl font-bold text-foreground">
+                {formatNumber(kpis.salesQty)}
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">no período</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                Faturamento Agendado
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-2xl font-bold text-blue-500">
+                {formatBRL(kpis.grossValue)}
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">Total agendado</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                Total de Leads
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-2xl font-bold text-foreground">
+                {formatNumber(kpis.leads)}
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                CPL: {kpis.cpl !== null ? formatBRL(kpis.cpl) : "N/A"}
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                Leads p/ Agendamento
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-2xl font-bold text-orange-500">
+                {leadsPerSchedule !== null ? formatNumber(leadsPerSchedule, 1) : "—"}
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {formatNumber(kpis.leads)} leads / {formatNumber(kpis.salesQty)} agend.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       {/* Bottom row - Agendado & Aprovado sections */}
       {isAdmin && (
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
