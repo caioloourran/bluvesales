@@ -12,8 +12,13 @@ export default async function DashboardLayout({
   const session = await getSession();
   if (!session) redirect("/login");
 
-  const avatarRow = await sql`SELECT avatar FROM users WHERE id = ${session.id} LIMIT 1`;
-  const userAvatar = (avatarRow[0]?.avatar as string | null) ?? null;
+  let userAvatar: string | null = null;
+  try {
+    const avatarRow = await sql`SELECT avatar FROM users WHERE id = ${session.id} LIMIT 1`;
+    userAvatar = (avatarRow[0]?.avatar as string | null) ?? null;
+  } catch {
+    // avatar column may not exist yet — run migration 011
+  }
 
   return (
     <div className="flex h-screen overflow-hidden">
