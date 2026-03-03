@@ -162,7 +162,7 @@ const userSchema = z.object({
   name: z.string().min(1, "Nome obrigatorio"),
   email: z.string().email("Email invalido"),
   password: z.string().min(4, "Senha deve ter ao menos 4 caracteres").optional(),
-  role: z.enum(["ADMIN_MASTER", "SELLER"]),
+  role: z.enum(["ADMIN_MASTER", "SELLER", "COBRANCA"]),
 });
 
 export async function createUser(data: {

@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { createHash } from "crypto";
 import { sql } from "./db";
 
-export type UserRole = "ADMIN_MASTER" | "SELLER";
+export type UserRole = "ADMIN_MASTER" | "SELLER" | "COBRANCA";
 
 export interface SessionUser {
   id: number;

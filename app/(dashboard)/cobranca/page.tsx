@@ -14,7 +14,7 @@ interface Props {
 export default async function CobrancaPage({ searchParams }: Props) {
   const session = await getSession();
   if (!session) redirect("/login");
-  if (session.role !== "ADMIN_MASTER") redirect("/dashboard");
+  if (session.role !== "ADMIN_MASTER" && session.role !== "COBRANCA") redirect("/dashboard");
 
   const params = await searchParams;
   const today = new Date().toISOString().split("T")[0];

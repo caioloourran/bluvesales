@@ -27,7 +27,7 @@ export async function loginAction(
     return { error: "Email ou senha incorretos" };
   }
 
-  redirect("/dashboard");
+  redirect(user.role === "COBRANCA" ? "/cobranca" : "/dashboard");
 }
 
 export async function logoutAction() {

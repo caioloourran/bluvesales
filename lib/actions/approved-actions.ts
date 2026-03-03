@@ -23,7 +23,7 @@ export async function saveApprovedEntries(formData: {
   entries: { planId: number; quantity: number; discount?: number; notes?: string; paymentMethod?: string }[];
 }) {
   const session = await getSession();
-  if (!session || session.role !== "ADMIN_MASTER") return { error: "Nao autorizado" };
+  if (!session || session.role !== "ADMIN_MASTER" && session.role !== "COBRANCA") return { error: "Nao autorizado" };
 
   const parsed = approvedEntrySchema.safeParse(formData);
   if (!parsed.success) {
@@ -68,7 +68,7 @@ export async function updateApprovedEntry(data: {
   notes?: string;
 }) {
   const session = await getSession();
-  if (!session || session.role !== "ADMIN_MASTER") return { error: "Nao autorizado" };
+  if (!session || session.role !== "ADMIN_MASTER" && session.role !== "COBRANCA") return { error: "Nao autorizado" };
 
   const schema = z.object({
     id: z.coerce.number().int().positive(),
@@ -96,7 +96,7 @@ export async function updateApprovedEntry(data: {
 
 export async function deleteApprovedEntry(id: number) {
   const session = await getSession();
-  if (!session || session.role !== "ADMIN_MASTER") return { error: "Nao autorizado" };
+  if (!session || session.role !== "ADMIN_MASTER" && session.role !== "COBRANCA") return { error: "Nao autorizado" };
 
   try {
     await sql`DELETE FROM daily_approved_payments WHERE id = ${id}`;

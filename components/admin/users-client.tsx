@@ -142,6 +142,7 @@ export function UsersClient({ users }: Props) {
                   <SelectContent>
                     <SelectItem value="SELLER">Vendedor</SelectItem>
                     <SelectItem value="ADMIN_MASTER">Administrador</SelectItem>
+                    <SelectItem value="COBRANCA">Cobranca</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -177,8 +178,8 @@ export function UsersClient({ users }: Props) {
                     <TableCell className="font-medium">{u.name}</TableCell>
                     <TableCell>{u.email}</TableCell>
                     <TableCell>
-                      <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${u.role === "ADMIN_MASTER" ? "bg-chart-1/10 text-chart-1" : "bg-chart-2/10 text-chart-2"}`}>
-                        {u.role === "ADMIN_MASTER" ? "Admin" : "Vendedor"}
+                      <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${u.role === "ADMIN_MASTER" ? "bg-chart-1/10 text-chart-1" : u.role === "COBRANCA" ? "bg-yellow-500/10 text-yellow-600" : "bg-chart-2/10 text-chart-2"}`}>
+                        {u.role === "ADMIN_MASTER" ? "Admin" : u.role === "COBRANCA" ? "Cobranca" : "Vendedor"}
                       </span>
                     </TableCell>
                     <TableCell>

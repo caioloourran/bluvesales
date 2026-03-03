@@ -43,6 +43,10 @@ const adminLinks = [
   { href: "/users", label: "Usuarios", icon: Users },
 ];
 
+const cobrancaLinks = [
+  { href: "/cobranca", label: "Cobranca", icon: Banknote },
+];
+
 const sellerLinks = [
   { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
   { href: "/sales", label: "Vendas", icon: ShoppingCart },
@@ -52,7 +56,7 @@ const sellerLinks = [
 export function AppSidebar({ userName, userRole }: AppSidebarProps) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  const links = userRole === "ADMIN_MASTER" ? adminLinks : sellerLinks;
+  const links = userRole === "ADMIN_MASTER" ? adminLinks : userRole === "COBRANCA" ? cobrancaLinks : sellerLinks;
 
   return (
     <aside className="flex h-full w-64 shrink-0 flex-col border-r bg-card">
@@ -97,7 +101,7 @@ export function AppSidebar({ userName, userRole }: AppSidebarProps) {
         <div className="mb-3 px-3">
           <p className="text-sm font-medium text-foreground">{userName}</p>
           <p className="text-xs text-muted-foreground">
-            {userRole === "ADMIN_MASTER" ? "Administrador" : "Vendedor"}
+            {userRole === "ADMIN_MASTER" ? "Administrador" : userRole === "COBRANCA" ? "Cobranca" : "Vendedor"}
           </p>
         </div>
         <Button
