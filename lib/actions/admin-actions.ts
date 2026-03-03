@@ -285,6 +285,7 @@ const feeSchema = z.object({
   type: z.enum(["PERCENT", "FIXED"]),
   value: z.coerce.number().min(0),
   appliesTo: z.enum(["SALE", "INVESTMENT"]),
+  paymentMethod: z.enum(["PIX", "BOLETO", "CARTAO"]).nullable().default(null),
   active: z.boolean().default(true),
 });
 
@@ -294,6 +295,7 @@ export async function createFee(data: {
   type: string;
   value: number;
   appliesTo: string;
+  paymentMethod: string | null;
   active: boolean;
 }) {
   await requireAdmin();
@@ -302,8 +304,8 @@ export async function createFee(data: {
 
   try {
     await sql`
-      INSERT INTO fees (name, slug, type, value, applies_to, active)
-      VALUES (${parsed.data.name}, ${parsed.data.slug}, ${parsed.data.type}, ${parsed.data.value}, ${parsed.data.appliesTo}, ${parsed.data.active})
+      INSERT INTO fees (name, slug, type, value, applies_to, payment_method, active)
+      VALUES (${parsed.data.name}, ${parsed.data.slug}, ${parsed.data.type}, ${parsed.data.value}, ${parsed.data.appliesTo}, ${parsed.data.paymentMethod}, ${parsed.data.active})
     `;
     revalidatePath("/fees");
     revalidatePath("/dashboard");
@@ -321,6 +323,7 @@ export async function updateFee(
     type: string;
     value: number;
     appliesTo: string;
+    paymentMethod: string | null;
     active: boolean;
   }
 ) {
@@ -331,7 +334,8 @@ export async function updateFee(
   try {
     await sql`
       UPDATE fees SET name = ${parsed.data.name}, slug = ${parsed.data.slug}, type = ${parsed.data.type},
-      value = ${parsed.data.value}, applies_to = ${parsed.data.appliesTo}, active = ${parsed.data.active}, updated_at = NOW()
+      value = ${parsed.data.value}, applies_to = ${parsed.data.appliesTo}, payment_method = ${parsed.data.paymentMethod},
+      active = ${parsed.data.active}, updated_at = NOW()
       WHERE id = ${id}
     `;
     revalidatePath("/fees");

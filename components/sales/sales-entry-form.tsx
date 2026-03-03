@@ -36,6 +36,7 @@ interface Plan {
 interface TodaySummary {
   plan_id: number;
   total_qty: number;
+  payment_method?: string;
 }
 
 interface SalesEntryFormProps {
@@ -47,9 +48,11 @@ interface SalesEntryFormProps {
   isAdmin: boolean;
 }
 
-function emptyQuantities(plans: Plan[]): Record<number, number> {
-  const m: Record<number, number> = {};
-  for (const plan of plans) m[plan.id] = 0;
+type PaymentQty = { pix: number; boleto: number; cartao: number };
+
+function emptyQuantities(plans: Plan[]): Record<number, PaymentQty> {
+  const m: Record<number, PaymentQty> = {};
+  for (const plan of plans) m[plan.id] = { pix: 0, boleto: 0, cartao: 0 };
   return m;
 }
 
@@ -77,12 +80,22 @@ export function SalesEntryForm({
   const [isPending, startTransition] = useTransition();
   const [selectedDate, setSelectedDate] = useState(date);
   const [selectedSeller, setSelectedSeller] = useState(String(sellerId));
-  const [quantities, setQuantities] = useState<Record<number, number>>(() => emptyQuantities(plans));
+  const [quantities, setQuantities] = useState<Record<number, PaymentQty>>(() => emptyQuantities(plans));
   const [discounts, setDiscounts] = useState<Record<number, number>>(() => emptyDiscounts(plans));
   const [notes, setNotes] = useState<Record<number, string>>(() => emptyNotes(plans));
   const [justSaved, setJustSaved] = useState(false);
 
-  const summaryMap = new Map(todaySummary.map((s) => [s.plan_id, Number(s.total_qty)]));
+  // Group summary by plan_id
+  const summaryMap = new Map<number, { total: number; pix: number; boleto: number; cartao: number }>();
+  for (const s of todaySummary) {
+    const existing = summaryMap.get(s.plan_id) || { total: 0, pix: 0, boleto: 0, cartao: 0 };
+    const qty = Number(s.total_qty);
+    existing.total += qty;
+    if (s.payment_method === "BOLETO") existing.boleto += qty;
+    else if (s.payment_method === "CARTAO") existing.cartao += qty;
+    else existing.pix += qty;
+    summaryMap.set(s.plan_id, existing);
+  }
 
   function handleDateChange(newDate: string) {
     setSelectedDate(newDate);
@@ -107,14 +120,20 @@ export function SalesEntryForm({
   }
 
   function handleSave() {
-    const entries = plans
-      .filter((plan) => (quantities[plan.id] || 0) > 0)
-      .map((plan) => ({
-        planId: plan.id,
-        quantity: quantities[plan.id] || 0,
-        discount: discounts[plan.id] || 0,
-        notes: notes[plan.id] || "",
-      }));
+    const entries: { planId: number; quantity: number; discount: number; notes: string; paymentMethod: string }[] = [];
+
+    for (const plan of plans) {
+      const q = quantities[plan.id];
+      const totalQty = q.pix + q.boleto + q.cartao;
+      if (totalQty === 0) continue;
+
+      const discount = discounts[plan.id] || 0;
+      const note = notes[plan.id] || "";
+
+      if (q.pix > 0) entries.push({ planId: plan.id, quantity: q.pix, discount: totalQty > 0 ? (discount * q.pix / totalQty) : 0, notes: note, paymentMethod: "PIX" });
+      if (q.boleto > 0) entries.push({ planId: plan.id, quantity: q.boleto, discount: totalQty > 0 ? (discount * q.boleto / totalQty) : 0, notes: note, paymentMethod: "BOLETO" });
+      if (q.cartao > 0) entries.push({ planId: plan.id, quantity: q.cartao, discount: totalQty > 0 ? (discount * q.cartao / totalQty) : 0, notes: note, paymentMethod: "CARTAO" });
+    }
 
     if (entries.length === 0) {
       toast.error("Insira pelo menos 1 venda para salvar.");
@@ -139,7 +158,10 @@ export function SalesEntryForm({
     });
   }
 
-  const hasEntries = plans.some((p) => (quantities[p.id] || 0) > 0);
+  const hasEntries = plans.some((p) => {
+    const q = quantities[p.id];
+    return q.pix > 0 || q.boleto > 0 || q.cartao > 0;
+  });
 
   return (
     <div className="flex flex-col gap-6">
@@ -194,19 +216,28 @@ export function SalesEntryForm({
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-3">
-              {todaySummary.map((s) => {
-                const plan = plans.find((p) => p.id === s.plan_id);
+              {Array.from(summaryMap.entries()).map(([planId, summary]) => {
+                const plan = plans.find((p) => p.id === planId);
+                const parts = [];
+                if (summary.pix > 0) parts.push(`${summary.pix} PIX`);
+                if (summary.boleto > 0) parts.push(`${summary.boleto} Bol.`);
+                if (summary.cartao > 0) parts.push(`${summary.cartao} Cart.`);
                 return (
                   <div
-                    key={s.plan_id}
+                    key={planId}
                     className="flex items-center gap-2 rounded-md border bg-muted/50 px-3 py-1.5 text-sm"
                   >
                     <span className="font-medium text-foreground">
-                      {plan?.plan_name || `Plano #${s.plan_id}`}
+                      {plan?.plan_name || `Plano #${planId}`}
                     </span>
                     <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">
-                      {s.total_qty}x
+                      {summary.total}x
                     </span>
+                    {parts.length > 0 && (
+                      <span className="text-xs text-muted-foreground">
+                        ({parts.join(", ")})
+                      </span>
+                    )}
                   </div>
                 );
               })}
@@ -238,84 +269,116 @@ export function SalesEntryForm({
               Nenhum plano ativo cadastrado. Cadastre produtos e planos primeiro.
             </p>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Produto</TableHead>
-                  <TableHead>Plano</TableHead>
-                  <TableHead className="text-right">Preco Bruto</TableHead>
-                  <TableHead className="w-24">Qtd</TableHead>
-                  <TableHead className="w-32">Desconto (R$)</TableHead>
-                  <TableHead>Observacoes</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {plans.map((plan) => {
-                  const existing = summaryMap.get(plan.id) || 0;
-                  return (
-                    <TableRow key={plan.id}>
-                      <TableCell className="font-medium">{plan.product_name}</TableCell>
-                      <TableCell>
-                        <div className="flex flex-col">
-                          <span>{plan.plan_name}</span>
-                          {existing > 0 && (
-                            <span className="text-xs text-muted-foreground">
-                              {existing} ja lancado(s)
-                            </span>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {formatBRL(Number(plan.sale_price_gross))}
-                      </TableCell>
-                      <TableCell>
-                        <Input
-                          type="number"
-                          min={0}
-                          value={quantities[plan.id] || 0}
-                          onChange={(e) =>
-                            setQuantities((prev) => ({
-                              ...prev,
-                              [plan.id]: Number(e.target.value),
-                            }))
-                          }
-                          className="w-20"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Input
-                          type="number"
-                          min={0}
-                          step="0.01"
-                          value={discounts[plan.id] || 0}
-                          onChange={(e) =>
-                            setDiscounts((prev) => ({
-                              ...prev,
-                              [plan.id]: Number(e.target.value),
-                            }))
-                          }
-                          className="w-28"
-                          placeholder="0,00"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Input
-                          value={notes[plan.id] || ""}
-                          onChange={(e) =>
-                            setNotes((prev) => ({
-                              ...prev,
-                              [plan.id]: e.target.value,
-                            }))
-                          }
-                          placeholder="Opcional"
-                          className="w-40"
-                        />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Produto</TableHead>
+                    <TableHead>Plano</TableHead>
+                    <TableHead className="text-right">Preco Bruto</TableHead>
+                    <TableHead className="w-20 text-center">PIX</TableHead>
+                    <TableHead className="w-20 text-center">Boleto</TableHead>
+                    <TableHead className="w-20 text-center">Cartao</TableHead>
+                    <TableHead className="w-28">Desconto (R$)</TableHead>
+                    <TableHead>Obs.</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {plans.map((plan) => {
+                    const existing = summaryMap.get(plan.id);
+                    return (
+                      <TableRow key={plan.id}>
+                        <TableCell className="font-medium">{plan.product_name}</TableCell>
+                        <TableCell>
+                          <div className="flex flex-col">
+                            <span>{plan.plan_name}</span>
+                            {existing && existing.total > 0 && (
+                              <span className="text-xs text-muted-foreground">
+                                {existing.total} ja lancado(s)
+                              </span>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {formatBRL(Number(plan.sale_price_gross))}
+                        </TableCell>
+                        <TableCell>
+                          <Input
+                            type="number"
+                            min={0}
+                            value={quantities[plan.id]?.pix || 0}
+                            onChange={(e) =>
+                              setQuantities((prev) => ({
+                                ...prev,
+                                [plan.id]: { ...prev[plan.id], pix: Number(e.target.value) },
+                              }))
+                            }
+                            className="w-16"
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Input
+                            type="number"
+                            min={0}
+                            value={quantities[plan.id]?.boleto || 0}
+                            onChange={(e) =>
+                              setQuantities((prev) => ({
+                                ...prev,
+                                [plan.id]: { ...prev[plan.id], boleto: Number(e.target.value) },
+                              }))
+                            }
+                            className="w-16"
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Input
+                            type="number"
+                            min={0}
+                            value={quantities[plan.id]?.cartao || 0}
+                            onChange={(e) =>
+                              setQuantities((prev) => ({
+                                ...prev,
+                                [plan.id]: { ...prev[plan.id], cartao: Number(e.target.value) },
+                              }))
+                            }
+                            className="w-16"
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Input
+                            type="number"
+                            min={0}
+                            step="0.01"
+                            value={discounts[plan.id] || 0}
+                            onChange={(e) =>
+                              setDiscounts((prev) => ({
+                                ...prev,
+                                [plan.id]: Number(e.target.value),
+                              }))
+                            }
+                            className="w-24"
+                            placeholder="0,00"
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Input
+                            value={notes[plan.id] || ""}
+                            onChange={(e) =>
+                              setNotes((prev) => ({
+                                ...prev,
+                                [plan.id]: e.target.value,
+                              }))
+                            }
+                            placeholder="Opcional"
+                            className="w-32"
+                          />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </CardContent>
       </Card>

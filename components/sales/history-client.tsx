@@ -57,6 +57,7 @@ interface Entry {
   sale_price_gross: string;
   seller_name: string;
   seller_id: number;
+  payment_method: string;
 }
 
 interface HistoryClientProps {
@@ -330,6 +331,7 @@ export function HistoryClient({
                       <TableHead>Produto</TableHead>
                       <TableHead>Plano</TableHead>
                       <TableHead className="text-right">Preco</TableHead>
+                      <TableHead className="text-center">Metodo</TableHead>
                       <TableHead className="text-right">Qtd</TableHead>
                       <TableHead className="text-right">Subtotal</TableHead>
                       <TableHead className="text-right">Desconto</TableHead>
@@ -349,6 +351,19 @@ export function HistoryClient({
                         <TableCell>{entry.plan_name}</TableCell>
                         <TableCell className="text-right">
                           {formatBRL(Number(entry.sale_price_gross))}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <span
+                            className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${
+                              entry.payment_method === "PIX"
+                                ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+                                : entry.payment_method === "BOLETO"
+                                ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400"
+                                : "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400"
+                            }`}
+                          >
+                            {entry.payment_method === "CARTAO" ? "Cartao" : entry.payment_method === "BOLETO" ? "Boleto" : "PIX"}
+                          </span>
                         </TableCell>
                         <TableCell className="text-right font-medium">
                           {entry.quantity}

@@ -32,10 +32,10 @@ export default async function SalesPage({ searchParams }: Props) {
 
   // Get summary of already-saved entries for this seller and date (aggregated)
   const todaySummary = await sql`
-    SELECT plan_id, SUM(quantity)::int as total_qty
+    SELECT plan_id, payment_method, SUM(quantity)::int as total_qty
     FROM daily_sales_entries
     WHERE date = ${date} AND seller_id = ${sellerId}
-    GROUP BY plan_id
+    GROUP BY plan_id, payment_method
   `;
 
   // Get sellers list for admin

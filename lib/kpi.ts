@@ -8,6 +8,7 @@ export interface Fee {
   type: "PERCENT" | "FIXED";
   value: number;
   applies_to: "SALE" | "INVESTMENT";
+  payment_method: "PIX" | "BOLETO" | "CARTAO" | null;
   active: boolean;
 }
 
@@ -70,13 +71,15 @@ async function getActiveFees(): Promise<Fee[]> {
     type: r.type as "PERCENT" | "FIXED",
     value: Number(r.value),
     applies_to: r.applies_to as "SALE" | "INVESTMENT",
+    payment_method: r.payment_method as "PIX" | "BOLETO" | "CARTAO" | null,
     active: true,
   }));
 }
 
-function calcSaleFeesPerUnit(grossPerUnit: number, saleFees: Fee[]): number {
+function calcSaleFeesPerUnit(grossPerUnit: number, saleFees: Fee[], paymentMethod: string | null): number {
   let total = 0;
   for (const fee of saleFees) {
+    if (fee.payment_method !== null && fee.payment_method !== paymentMethod) continue;
     if (fee.type === "PERCENT") {
       total += (grossPerUnit * fee.value) / 100;
     } else {
@@ -107,6 +110,7 @@ interface SalesRow {
   product_cost: string | number;
   shipping_cost: string | number;
   commission_pct: string | number;
+  payment_method: string | null;
 }
 
 interface SalesAgg {
@@ -138,13 +142,14 @@ function processSalesRows(rows: SalesRow[], saleFees: Fee[]): SalesAgg {
     const gross = Number(row.sale_price_gross);
     const net = row.sale_price_net ? Number(row.sale_price_net) : gross;
     const pct = Number(row.commission_pct) / 100;
+    const pm = row.payment_method || null;
 
     salesQty += qty;
     grossValue += qty * gross;
     netValue += qty * net;
     discounts += discount;
 
-    const feesPerUnit = calcSaleFeesPerUnit(gross, saleFees);
+    const feesPerUnit = calcSaleFeesPerUnit(gross, saleFees, pm);
     platformFees += feesPerUnit * qty;
 
     const afterFeesPerUnit = Math.max(gross - feesPerUnit, 0);
@@ -181,7 +186,7 @@ export async function calculateKPIs(
   // Sales - single query
   const salesRows = sellerId
     ? await sql`
-        SELECT dse.quantity, dse.discount, p.sale_price_gross, p.sale_price_net,
+        SELECT dse.quantity, dse.discount, dse.payment_method, p.sale_price_gross, p.sale_price_net,
           COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
           COALESCE(sc.percent, 0) as commission_pct
         FROM daily_sales_entries dse
@@ -189,7 +194,7 @@ export async function calculateKPIs(
         LEFT JOIN seller_commissions sc ON sc.seller_id = dse.seller_id AND sc.plan_id = dse.plan_id
         WHERE dse.date >= ${dateFrom} AND dse.date <= ${dateTo} AND dse.seller_id = ${sellerId}`
     : await sql`
-        SELECT dse.quantity, dse.discount, p.sale_price_gross, p.sale_price_net,
+        SELECT dse.quantity, dse.discount, dse.payment_method, p.sale_price_gross, p.sale_price_net,
           COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
           COALESCE(sc.percent, 0) as commission_pct
         FROM daily_sales_entries dse
@@ -254,7 +259,7 @@ export async function getDailyMetrics(
   // 3. Sales data grouped by date - single query
   const salesData = sellerId
     ? await sql`
-        SELECT dse.date, dse.quantity, dse.discount, p.sale_price_gross,
+        SELECT dse.date, dse.quantity, dse.discount, dse.payment_method, p.sale_price_gross,
           COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
           COALESCE(sc.percent, 0) as commission_pct
         FROM daily_sales_entries dse
@@ -262,7 +267,7 @@ export async function getDailyMetrics(
         LEFT JOIN seller_commissions sc ON sc.seller_id = dse.seller_id AND sc.plan_id = dse.plan_id
         WHERE dse.date >= ${dateFrom} AND dse.date <= ${dateTo} AND dse.seller_id = ${sellerId}`
     : await sql`
-        SELECT dse.date, dse.quantity, dse.discount, p.sale_price_gross,
+        SELECT dse.date, dse.quantity, dse.discount, dse.payment_method, p.sale_price_gross,
           COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
           COALESCE(sc.percent, 0) as commission_pct
         FROM daily_sales_entries dse
@@ -328,7 +333,7 @@ export async function getSellerRankings(
 
   // 3. Sales data with seller_id - single query
   const salesData = await sql`
-    SELECT dse.seller_id, dse.quantity, dse.discount, p.sale_price_gross, p.sale_price_net,
+    SELECT dse.seller_id, dse.quantity, dse.discount, dse.payment_method, p.sale_price_gross, p.sale_price_net,
       COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
       COALESCE(sc.percent, 0) as commission_pct
     FROM daily_sales_entries dse

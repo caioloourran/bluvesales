@@ -14,6 +14,7 @@ const salesEntrySchema = z.object({
       quantity: z.coerce.number().int().min(0),
       discount: z.coerce.number().min(0).default(0),
       notes: z.string().optional(),
+      paymentMethod: z.enum(["PIX", "BOLETO", "CARTAO"]).default("PIX"),
     })
   ),
 });
@@ -21,7 +22,7 @@ const salesEntrySchema = z.object({
 export async function saveSalesEntries(formData: {
   date: string;
   sellerId: number;
-  entries: { planId: number; quantity: number; discount?: number; notes?: string }[];
+  entries: { planId: number; quantity: number; discount?: number; notes?: string; paymentMethod?: string }[];
 }) {
   const session = await getSession();
   if (!session) return { error: "Nao autorizado" };
@@ -43,8 +44,8 @@ export async function saveSalesEntries(formData: {
     for (const entry of entries) {
       if (entry.quantity > 0) {
         await sql`
-          INSERT INTO daily_sales_entries (date, seller_id, plan_id, quantity, discount, notes)
-          VALUES (${date}, ${sellerId}, ${entry.planId}, ${entry.quantity}, ${entry.discount || 0}, ${entry.notes || null})
+          INSERT INTO daily_sales_entries (date, seller_id, plan_id, quantity, discount, notes, payment_method)
+          VALUES (${date}, ${sellerId}, ${entry.planId}, ${entry.quantity}, ${entry.discount || 0}, ${entry.notes || null}, ${entry.paymentMethod})
         `;
       }
     }

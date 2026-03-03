@@ -41,6 +41,7 @@ interface Fee {
   type: string;
   value: string;
   applies_to: string;
+  payment_method: string | null;
   active: boolean;
 }
 
@@ -68,6 +69,7 @@ export function FeesClient({ fees }: Props) {
   const [value, setValue] = useState("");
   const [appliesTo, setAppliesTo] = useState<"SALE" | "INVESTMENT">("SALE");
   const [active, setActive] = useState(true);
+  const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
 
   function openCreate() {
     setEditing(null);
@@ -76,6 +78,7 @@ export function FeesClient({ fees }: Props) {
     setType("PERCENT");
     setValue("");
     setAppliesTo("SALE");
+    setPaymentMethod(null);
     setActive(true);
     setDialogOpen(true);
   }
@@ -87,6 +90,7 @@ export function FeesClient({ fees }: Props) {
     setType(f.type as "PERCENT" | "FIXED");
     setValue(f.value);
     setAppliesTo(f.applies_to as "SALE" | "INVESTMENT");
+    setPaymentMethod(f.payment_method);
     setActive(f.active);
     setDialogOpen(true);
   }
@@ -99,7 +103,7 @@ export function FeesClient({ fees }: Props) {
   }
 
   function handleSave() {
-    const data = { name, slug, type, value: Number(value), appliesTo, active };
+    const data = { name, slug, type, value: Number(value), appliesTo, paymentMethod: appliesTo === "SALE" ? paymentMethod : null, active };
     startTransition(async () => {
       const result = editing
         ? await updateFee(editing.id, data)
@@ -186,6 +190,25 @@ export function FeesClient({ fees }: Props) {
                   </SelectContent>
                 </Select>
               </div>
+              {appliesTo === "SALE" && (
+                <div className="flex flex-col gap-1.5">
+                  <Label>Método de Pagamento</Label>
+                  <Select
+                    value={paymentMethod || "ALL"}
+                    onValueChange={(v) => setPaymentMethod(v === "ALL" ? null : v)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="ALL">Todos os Métodos</SelectItem>
+                      <SelectItem value="PIX">PIX</SelectItem>
+                      <SelectItem value="BOLETO">Boleto</SelectItem>
+                      <SelectItem value="CARTAO">Cartão</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
               <div className="flex flex-col gap-1.5">
                 <Label>Tipo</Label>
                 <Select
@@ -255,6 +278,7 @@ export function FeesClient({ fees }: Props) {
               <TableHeader>
                 <TableRow>
                   <TableHead>Nome</TableHead>
+                  <TableHead>Método</TableHead>
                   <TableHead>Tipo</TableHead>
                   <TableHead className="text-right">Valor</TableHead>
                   <TableHead>Status</TableHead>
@@ -265,6 +289,19 @@ export function FeesClient({ fees }: Props) {
                 {saleFees.map((f) => (
                   <TableRow key={f.id}>
                     <TableCell className="font-medium">{f.name}</TableCell>
+                    <TableCell>
+                      <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
+                        f.payment_method === "PIX" ? "bg-green-500/10 text-green-500" :
+                        f.payment_method === "BOLETO" ? "bg-yellow-500/10 text-yellow-500" :
+                        f.payment_method === "CARTAO" ? "bg-blue-500/10 text-blue-500" :
+                        "bg-muted text-muted-foreground"
+                      }`}>
+                        {f.payment_method === "PIX" ? "PIX" :
+                         f.payment_method === "BOLETO" ? "Boleto" :
+                         f.payment_method === "CARTAO" ? "Cartão" :
+                         "Todos"}
+                      </span>
+                    </TableCell>
                     <TableCell>
                       <span className="inline-flex items-center gap-1 text-sm">
                         {f.type === "PERCENT" ? (

@@ -38,7 +38,7 @@ export default async function HistoryPage({ searchParams }: Props) {
     if (filterSeller) {
       entries = await sql`
         SELECT 
-          dse.id, dse.date, dse.quantity, dse.discount, dse.notes, dse.created_at,
+          dse.id, dse.date, dse.quantity, dse.discount, dse.notes, dse.payment_method, dse.created_at,
           p.name as plan_name, pr.name as product_name,
           p.sale_price_gross,
           u.name as seller_name, u.id as seller_id
@@ -52,7 +52,7 @@ export default async function HistoryPage({ searchParams }: Props) {
     } else {
       entries = await sql`
         SELECT 
-          dse.id, dse.date, dse.quantity, dse.discount, dse.notes, dse.created_at,
+          dse.id, dse.date, dse.quantity, dse.discount, dse.notes, dse.payment_method, dse.created_at,
           p.name as plan_name, pr.name as product_name,
           p.sale_price_gross,
           u.name as seller_name, u.id as seller_id
