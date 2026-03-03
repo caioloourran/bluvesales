@@ -38,6 +38,11 @@ export async function saveApprovedEntries(formData: {
         await sql`
           INSERT INTO daily_approved_payments (date, plan_id, quantity, discount, notes, payment_method)
           VALUES (${date}, ${entry.planId}, ${entry.quantity}, ${entry.discount || 0}, ${entry.notes || null}, ${entry.paymentMethod})
+          ON CONFLICT (date, plan_id, payment_method)
+          DO UPDATE SET
+            quantity = daily_approved_payments.quantity + EXCLUDED.quantity,
+            discount = daily_approved_payments.discount + EXCLUDED.discount,
+            updated_at = NOW()
         `;
       }
     }
