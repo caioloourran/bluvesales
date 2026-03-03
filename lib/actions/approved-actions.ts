@@ -88,11 +88,21 @@ export async function updateApprovedEntry(data: {
   if (!parsed.success) return { error: parsed.error.errors[0].message };
 
   try {
-    await sql`
-      UPDATE daily_approved_payments
-      SET quantity = ${parsed.data.quantity}, discount = ${parsed.data.discount}, notes = ${parsed.data.notes || null}, updated_at = NOW()
-      WHERE id = ${parsed.data.id}
-    `;
+    // COBRANCA users can only edit their own entries; ADMIN_MASTER can edit any
+    const rows = session.role === "ADMIN_MASTER"
+      ? await sql`
+          UPDATE daily_approved_payments
+          SET quantity = ${parsed.data.quantity}, discount = ${parsed.data.discount}, notes = ${parsed.data.notes || null}, updated_at = NOW()
+          WHERE id = ${parsed.data.id}
+          RETURNING id
+        `
+      : await sql`
+          UPDATE daily_approved_payments
+          SET quantity = ${parsed.data.quantity}, discount = ${parsed.data.discount}, notes = ${parsed.data.notes || null}, updated_at = NOW()
+          WHERE id = ${parsed.data.id} AND created_by = ${session.id}
+          RETURNING id
+        `;
+    if (rows.length === 0) return { error: "Lancamento nao encontrado ou sem permissao" };
     revalidatePath("/cobranca");
     revalidatePath("/dashboard");
     return { success: true };
@@ -106,7 +116,11 @@ export async function deleteApprovedEntry(id: number) {
   if (!session || session.role !== "ADMIN_MASTER" && session.role !== "COBRANCA") return { error: "Nao autorizado" };
 
   try {
-    await sql`DELETE FROM daily_approved_payments WHERE id = ${id}`;
+    // COBRANCA users can only delete their own entries; ADMIN_MASTER can delete any
+    const rows = session.role === "ADMIN_MASTER"
+      ? await sql`DELETE FROM daily_approved_payments WHERE id = ${id} RETURNING id`
+      : await sql`DELETE FROM daily_approved_payments WHERE id = ${id} AND created_by = ${session.id} RETURNING id`;
+    if (rows.length === 0) return { error: "Lancamento nao encontrado ou sem permissao" };
     revalidatePath("/cobranca");
     revalidatePath("/dashboard");
     return { success: true };

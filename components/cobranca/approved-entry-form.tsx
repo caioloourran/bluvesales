@@ -3,11 +3,22 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { saveApprovedEntries } from "@/lib/actions/approved-actions";
+import {
+  saveApprovedEntries,
+  updateApprovedEntry,
+  deleteApprovedEntry,
+} from "@/lib/actions/approved-actions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -16,7 +27,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Loader2, Save, CheckCircle2 } from "lucide-react";
+import { Loader2, Save, CheckCircle2, Pencil, Trash2 } from "lucide-react";
 import { formatBRL } from "@/lib/format";
 
 interface Plan {
@@ -32,9 +43,19 @@ interface TodaySummary {
   payment_method?: string;
 }
 
+interface EntryRow {
+  id: number;
+  plan_id: number;
+  payment_method: string;
+  quantity: number;
+  discount: number;
+  notes: string | null;
+}
+
 interface ApprovedEntryFormProps {
   plans: Plan[];
   todaySummary: TodaySummary[];
+  todayEntries: EntryRow[];
   date: string;
 }
 
@@ -58,9 +79,16 @@ function emptyNotes(plans: Plan[]): Record<number, string> {
   return m;
 }
 
+function methodLabel(method: string) {
+  if (method === "BOLETO") return "Boleto";
+  if (method === "CARTAO") return "Cartão";
+  return "PIX";
+}
+
 export function ApprovedEntryForm({
   plans,
   todaySummary,
+  todayEntries,
   date,
 }: ApprovedEntryFormProps) {
   const router = useRouter();
@@ -71,7 +99,15 @@ export function ApprovedEntryForm({
   const [notes, setNotes] = useState<Record<number, string>>(() => emptyNotes(plans));
   const [justSaved, setJustSaved] = useState(false);
 
-  // Group summary by plan_id
+  // Edit dialog state
+  const [editEntry, setEditEntry] = useState<EntryRow | null>(null);
+  const [editQty, setEditQty] = useState(0);
+  const [editDiscount, setEditDiscount] = useState(0);
+  const [editNotes, setEditNotes] = useState("");
+  const [editPending, setEditPending] = useState(false);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+
+  // Group summary by plan_id for hints in the entry form
   const summaryMap = new Map<number, { total: number; pix: number; boleto: number; cartao: number }>();
   for (const s of todaySummary) {
     const existing = summaryMap.get(s.plan_id) || { total: 0, pix: 0, boleto: 0, cartao: 0 };
@@ -116,10 +152,7 @@ export function ApprovedEntryForm({
     }
 
     startTransition(async () => {
-      const result = await saveApprovedEntries({
-        date: selectedDate,
-        entries,
-      });
+      const result = await saveApprovedEntries({ date: selectedDate, entries });
       if (result.error) {
         toast.error(result.error);
       } else {
@@ -132,10 +165,50 @@ export function ApprovedEntryForm({
     });
   }
 
+  function openEdit(entry: EntryRow) {
+    setEditEntry(entry);
+    setEditQty(Number(entry.quantity));
+    setEditDiscount(Number(entry.discount));
+    setEditNotes(entry.notes || "");
+  }
+
+  async function handleEditSave() {
+    if (!editEntry) return;
+    setEditPending(true);
+    const result = await updateApprovedEntry({
+      id: editEntry.id,
+      quantity: editQty,
+      discount: editDiscount,
+      notes: editNotes,
+    });
+    setEditPending(false);
+    if (result.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Lancamento atualizado!");
+      setEditEntry(null);
+      router.refresh();
+    }
+  }
+
+  async function handleDelete(id: number) {
+    setDeletingId(id);
+    const result = await deleteApprovedEntry(id);
+    setDeletingId(null);
+    if (result.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Lancamento excluido!");
+      router.refresh();
+    }
+  }
+
   const hasEntries = plans.some((p) => {
     const q = quantities[p.id];
     return q.pix > 0 || q.boleto > 0 || q.cartao > 0;
   });
+
+  const entries = todayEntries as EntryRow[];
 
   return (
     <div className="flex flex-col gap-6">
@@ -165,44 +238,81 @@ export function ApprovedEntryForm({
         </CardContent>
       </Card>
 
-      {/* Summary of existing approved entries for the day */}
-      {todaySummary.length > 0 && (
+      {/* Existing entries table with edit/delete */}
+      {entries.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Ja registrado neste dia</CardTitle>
+            <CardTitle className="text-base">Lancamentos do dia</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-3">
-              {Array.from(summaryMap.entries()).map(([planId, summary]) => {
-                const plan = plans.find((p) => p.id === planId);
-                const parts = [];
-                if (summary.pix > 0) parts.push(`${summary.pix} PIX`);
-                if (summary.boleto > 0) parts.push(`${summary.boleto} Bol.`);
-                if (summary.cartao > 0) parts.push(`${summary.cartao} Cart.`);
-                return (
-                  <div
-                    key={planId}
-                    className="flex items-center gap-2 rounded-md border bg-muted/50 px-3 py-1.5 text-sm"
-                  >
-                    <span className="font-medium text-foreground">
-                      {plan?.plan_name || `Plano #${planId}`}
-                    </span>
-                    <span className="rounded-full bg-green-500/10 px-2 py-0.5 text-xs font-bold text-green-600">
-                      {summary.total}x
-                    </span>
-                    {parts.length > 0 && (
-                      <span className="text-xs text-muted-foreground">
-                        ({parts.join(", ")})
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Plano</TableHead>
+                  <TableHead>Metodo</TableHead>
+                  <TableHead className="text-right">Qtd</TableHead>
+                  <TableHead className="text-right">Desconto</TableHead>
+                  <TableHead>Obs</TableHead>
+                  <TableHead className="w-24 text-right">Acoes</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {entries.map((entry) => {
+                  const plan = plans.find((p) => p.id === entry.plan_id);
+                  return (
+                    <TableRow key={entry.id}>
+                      <TableCell className="font-medium">
+                        {plan?.plan_name || `Plano #${entry.plan_id}`}
+                      </TableCell>
+                      <TableCell>
+                        <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium">
+                          {methodLabel(entry.payment_method)}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-right font-semibold">
+                        {Number(entry.quantity)}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {Number(entry.discount) > 0 ? formatBRL(Number(entry.discount)) : "—"}
+                      </TableCell>
+                      <TableCell className="text-sm text-muted-foreground">
+                        {entry.notes || "—"}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-1">
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            className="h-7 w-7 text-muted-foreground hover:text-foreground"
+                            onClick={() => openEdit(entry)}
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            className="h-7 w-7 text-muted-foreground hover:text-destructive"
+                            disabled={deletingId === entry.id}
+                            onClick={() => handleDelete(entry.id)}
+                          >
+                            {deletingId === entry.id ? (
+                              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                            ) : (
+                              <Trash2 className="h-3.5 w-3.5" />
+                            )}
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
           </CardContent>
         </Card>
       )}
 
+      {/* New entry form */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-base">Novo lancamento de aprovados</CardTitle>
@@ -336,6 +446,63 @@ export function ApprovedEntryForm({
           )}
         </CardContent>
       </Card>
+
+      {/* Edit dialog */}
+      <Dialog open={!!editEntry} onOpenChange={(open) => { if (!open) setEditEntry(null); }}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Editar Lancamento</DialogTitle>
+          </DialogHeader>
+          {editEntry && (
+            <div className="flex flex-col gap-4">
+              <div className="rounded-md bg-muted/50 px-3 py-2 text-sm">
+                <span className="font-medium">
+                  {plans.find((p) => p.id === editEntry.plan_id)?.plan_name || `Plano #${editEntry.plan_id}`}
+                </span>
+                <span className="ml-2 text-muted-foreground">
+                  — {methodLabel(editEntry.payment_method)}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>Quantidade</Label>
+                <Input
+                  type="number"
+                  min={1}
+                  value={editQty}
+                  onChange={(e) => setEditQty(Number(e.target.value))}
+                />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>Desconto (R$)</Label>
+                <Input
+                  type="number"
+                  min={0}
+                  step="0.01"
+                  value={editDiscount}
+                  onChange={(e) => setEditDiscount(Number(e.target.value))}
+                />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>Observacao</Label>
+                <Input
+                  value={editNotes}
+                  onChange={(e) => setEditNotes(e.target.value)}
+                  placeholder="Opcional"
+                />
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditEntry(null)}>
+              Cancelar
+            </Button>
+            <Button disabled={editPending} onClick={handleEditSave}>
+              {editPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Salvar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

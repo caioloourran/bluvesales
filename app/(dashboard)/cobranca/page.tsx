@@ -37,10 +37,19 @@ export default async function CobrancaPage({ searchParams }: Props) {
     GROUP BY plan_id, payment_method
   `;
 
+  // Get individual entries (with IDs) so user can edit/delete them
+  const todayEntries = await sql`
+    SELECT id, plan_id, payment_method, quantity, discount, notes
+    FROM daily_approved_payments
+    WHERE date = ${date} AND created_by = ${session.id}
+    ORDER BY id
+  `;
+
   return (
     <ApprovedEntryForm
       plans={plans}
       todaySummary={todaySummary}
+      todayEntries={todayEntries}
       date={date}
     />
   );
