@@ -19,6 +19,7 @@ import {
   Receipt,
   Banknote,
   CalendarDays,
+  LayoutDashboard,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
@@ -46,6 +47,7 @@ const adminLinks = [
 ];
 
 const cobrancaLinks = [
+  { href: "/meu-desempenho", label: "Meu Desempenho", icon: LayoutDashboard },
   { href: "/cobranca", label: "Cobranca", icon: Banknote },
 ];
 
