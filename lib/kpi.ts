@@ -181,7 +181,6 @@ export async function calculateKPIs(
 
   const investment = Number(adRows[0].total_investment);
   const leads = Number(adRows[0].total_leads);
-  const approvedCount = Number(adRows[0].total_purchases);
   const daysInPeriod = Number(adRows[0].days_count);
 
   // Sales - single query
@@ -219,17 +218,34 @@ export async function calculateKPIs(
   const profit = agg.grossValue - agg.platformFees - agg.netCommission - agg.productCosts - agg.shippingCosts - agg.discounts - investment - investmentTax;
   const roi = investment > 0 ? profit / investment : null;
 
-  const avgTicket = agg.salesQty > 0 ? agg.grossValue / agg.salesQty : 0;
-  const approvedRevenue = approvedCount * avgTicket;
+  // Approved payments from daily_approved_payments table (real data)
+  const approvedRows = sellerId
+    ? await sql`
+        SELECT dap.quantity, dap.discount, dap.payment_method, p.sale_price_gross, p.sale_price_net,
+          COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
+          COALESCE(sc.percent, 0) as commission_pct
+        FROM daily_approved_payments dap
+        JOIN plans p ON p.id = dap.plan_id
+        LEFT JOIN seller_commissions sc ON sc.seller_id = dap.seller_id AND sc.plan_id = dap.plan_id
+        WHERE dap.date >= ${dateFrom} AND dap.date <= ${dateTo} AND dap.seller_id = ${sellerId}`
+    : await sql`
+        SELECT dap.quantity, dap.discount, dap.payment_method, p.sale_price_gross, p.sale_price_net,
+          COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
+          COALESCE(sc.percent, 0) as commission_pct
+        FROM daily_approved_payments dap
+        JOIN plans p ON p.id = dap.plan_id
+        LEFT JOIN seller_commissions sc ON sc.seller_id = dap.seller_id AND sc.plan_id = dap.plan_id
+        WHERE dap.date >= ${dateFrom} AND dap.date <= ${dateTo}`;
 
-  // Approved profit: scale per-sale costs by approved/total ratio, keep full investment costs
-  const approvedRatio = agg.salesQty > 0 ? approvedCount / agg.salesQty : 0;
+  const approvedAgg = processSalesRows(approvedRows, saleFees);
+  const approvedCount = approvedAgg.salesQty;
+  const approvedRevenue = approvedAgg.grossValue;
   const approvedProfit = approvedRevenue
-    - agg.platformFees * approvedRatio
-    - agg.netCommission * approvedRatio
-    - agg.productCosts * approvedRatio
-    - agg.shippingCosts * approvedRatio
-    - agg.discounts * approvedRatio
+    - approvedAgg.platformFees
+    - approvedAgg.netCommission
+    - approvedAgg.productCosts
+    - approvedAgg.shippingCosts
+    - approvedAgg.discounts
     - investment - investmentTax;
 
   return {

@@ -17,6 +17,7 @@ import {
   Trophy,
   ClipboardList,
   Receipt,
+  Banknote,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
@@ -34,6 +35,7 @@ const adminLinks = [
   { href: "/sales", label: "Vendas", icon: ShoppingCart },
   { href: "/history", label: "Historico", icon: ClipboardList },
   { href: "/marketing", label: "Marketing", icon: Megaphone },
+  { href: "/cobranca", label: "Cobranca", icon: Banknote },
   { href: "/products", label: "Produtos", icon: Package },
   { href: "/plans", label: "Planos", icon: Layers },
   { href: "/commissions", label: "Comissoes", icon: Percent },
