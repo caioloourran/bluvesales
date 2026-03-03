@@ -7,7 +7,7 @@ export interface Fee {
   slug: string;
   type: "PERCENT" | "FIXED";
   value: number;
-  applies_to: "SALE" | "INVESTMENT";
+  applies_to: "SALE" | "INVESTMENT" | "APPROVED";
   payment_method: "PIX" | "BOLETO" | "CARTAO" | null;
   active: boolean;
 }
@@ -86,7 +86,7 @@ async function getActiveFees(): Promise<Fee[]> {
     slug: r.slug,
     type: r.type as "PERCENT" | "FIXED",
     value: Number(r.value),
-    applies_to: r.applies_to as "SALE" | "INVESTMENT",
+    applies_to: r.applies_to as "SALE" | "INVESTMENT" | "APPROVED",
     payment_method: r.payment_method as "PIX" | "BOLETO" | "CARTAO" | null,
     active: true,
   }));
@@ -187,6 +187,7 @@ export async function calculateKPIs(
 ): Promise<KPIData> {
   const fees = await getActiveFees();
   const saleFees = fees.filter((f) => f.applies_to === "SALE");
+  const approveFees = fees.filter((f) => f.applies_to === "APPROVED");
   const investmentFees = fees.filter((f) => f.applies_to === "INVESTMENT");
 
   // Ad metrics - single query
@@ -242,7 +243,7 @@ export async function calculateKPIs(
     JOIN plans p ON p.id = dap.plan_id
     WHERE dap.date >= ${dateFrom} AND dap.date <= ${dateTo}`;
 
-  const approvedAgg = processSalesRows(approvedRows, saleFees);
+  const approvedAgg = processSalesRows(approvedRows, approveFees);
   const approvedCount = approvedAgg.salesQty;
   const approvedRevenue = approvedAgg.grossValue;
   const approvedProfit = approvedRevenue
@@ -347,6 +348,7 @@ export async function getDailyResults(
 ): Promise<DailyResult[]> {
   const fees = await getActiveFees();
   const saleFees = fees.filter((f) => f.applies_to === "SALE");
+  const approveFees = fees.filter((f) => f.applies_to === "APPROVED");
   const investmentFees = fees.filter((f) => f.applies_to === "INVESTMENT");
 
   // 1. All dates in range
@@ -400,7 +402,7 @@ export async function getDailyResults(
     const dayApprovedRows = approvedMap.get(d) || [];
 
     const salesAgg = processSalesRows(daySalesRows, saleFees);
-    const approvedAgg = processSalesRows(dayApprovedRows, saleFees);
+    const approvedAgg = processSalesRows(dayApprovedRows, approveFees);
     const dayInvTax = calcInvestmentFeesTotal(ad.inv, investmentFees);
 
     const lucro = approvedAgg.grossValue

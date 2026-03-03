@@ -284,7 +284,7 @@ const feeSchema = z.object({
   slug: z.string().min(1, "Slug obrigatorio"),
   type: z.enum(["PERCENT", "FIXED"]),
   value: z.coerce.number().min(0),
-  appliesTo: z.enum(["SALE", "INVESTMENT"]),
+  appliesTo: z.enum(["SALE", "INVESTMENT", "APPROVED"]),
   paymentMethod: z.enum(["PIX", "BOLETO", "CARTAO"]).nullable().default(null),
   active: z.boolean().default(true),
 });

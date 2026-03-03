@@ -67,7 +67,7 @@ export function FeesClient({ fees }: Props) {
   const [slug, setSlug] = useState("");
   const [type, setType] = useState<"PERCENT" | "FIXED">("PERCENT");
   const [value, setValue] = useState("");
-  const [appliesTo, setAppliesTo] = useState<"SALE" | "INVESTMENT">("SALE");
+  const [appliesTo, setAppliesTo] = useState<"SALE" | "INVESTMENT" | "APPROVED">("SALE");
   const [active, setActive] = useState(true);
   const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
 
@@ -89,7 +89,7 @@ export function FeesClient({ fees }: Props) {
     setSlug(f.slug);
     setType(f.type as "PERCENT" | "FIXED");
     setValue(f.value);
-    setAppliesTo(f.applies_to as "SALE" | "INVESTMENT");
+    setAppliesTo(f.applies_to as "SALE" | "INVESTMENT" | "APPROVED");
     setPaymentMethod(f.payment_method);
     setActive(f.active);
     setDialogOpen(true);
@@ -103,7 +103,7 @@ export function FeesClient({ fees }: Props) {
   }
 
   function handleSave() {
-    const data = { name, slug, type, value: Number(value), appliesTo, paymentMethod: appliesTo === "SALE" ? paymentMethod : null, active };
+    const data = { name, slug, type, value: Number(value), appliesTo, paymentMethod: (appliesTo === "SALE" || appliesTo === "APPROVED") ? paymentMethod : null, active };
     startTransition(async () => {
       const result = editing
         ? await updateFee(editing.id, data)
@@ -130,6 +130,7 @@ export function FeesClient({ fees }: Props) {
   }
 
   const saleFees = fees.filter((f) => f.applies_to === "SALE");
+  const approveFees = fees.filter((f) => f.applies_to === "APPROVED");
   const investmentFees = fees.filter((f) => f.applies_to === "INVESTMENT");
 
   return (
@@ -176,21 +177,20 @@ export function FeesClient({ fees }: Props) {
                 <Select
                   value={appliesTo}
                   onValueChange={(v) =>
-                    setAppliesTo(v as "SALE" | "INVESTMENT")
+                    setAppliesTo(v as "SALE" | "INVESTMENT" | "APPROVED")
                   }
                 >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="SALE">Sobre a Venda</SelectItem>
-                    <SelectItem value="INVESTMENT">
-                      Sobre o Investimento
-                    </SelectItem>
+                    <SelectItem value="SALE">Faturamento Agendado</SelectItem>
+                    <SelectItem value="APPROVED">Faturamento Aprovado</SelectItem>
+                    <SelectItem value="INVESTMENT">Sobre o Investimento</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              {appliesTo === "SALE" && (
+              {(appliesTo === "SALE" || appliesTo === "APPROVED") && (
                 <div className="flex flex-col gap-1.5">
                   <Label>Método de Pagamento</Label>
                   <Select
@@ -263,9 +263,9 @@ export function FeesClient({ fees }: Props) {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Taxas sobre Vendas</CardTitle>
+          <CardTitle className="text-base">Taxas sobre Faturamento Agendado</CardTitle>
           <CardDescription>
-            Debitadas do valor de cada venda (ex: taxa Hotmart, imposto NF)
+            Debitadas do valor de cada venda agendada (ex: taxa Hotmart, imposto NF)
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -338,6 +338,85 @@ export function FeesClient({ fees }: Props) {
                           size="icon"
                           onClick={() => handleDelete(f.id)}
                         >
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Taxas sobre Faturamento Aprovado</CardTitle>
+          <CardDescription>
+            Debitadas do valor de cada pagamento aprovado (ex: taxa operadora, imposto NF)
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {approveFees.length === 0 ? (
+            <p className="py-6 text-center text-sm text-muted-foreground">
+              Nenhuma taxa sobre faturamento aprovado cadastrada.
+            </p>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Nome</TableHead>
+                  <TableHead>Método</TableHead>
+                  <TableHead>Tipo</TableHead>
+                  <TableHead className="text-right">Valor</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="w-24">Acoes</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {approveFees.map((f) => (
+                  <TableRow key={f.id}>
+                    <TableCell className="font-medium">{f.name}</TableCell>
+                    <TableCell>
+                      <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
+                        f.payment_method === "PIX" ? "bg-green-500/10 text-green-500" :
+                        f.payment_method === "BOLETO" ? "bg-yellow-500/10 text-yellow-500" :
+                        f.payment_method === "CARTAO" ? "bg-blue-500/10 text-blue-500" :
+                        "bg-muted text-muted-foreground"
+                      }`}>
+                        {f.payment_method === "PIX" ? "PIX" :
+                         f.payment_method === "BOLETO" ? "Boleto" :
+                         f.payment_method === "CARTAO" ? "Cartão" :
+                         "Todos"}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="inline-flex items-center gap-1 text-sm">
+                        {f.type === "PERCENT" ? (
+                          <Percent className="h-3.5 w-3.5" />
+                        ) : (
+                          <DollarSign className="h-3.5 w-3.5" />
+                        )}
+                        {f.type === "PERCENT" ? "Percentual" : "Fixo"}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-right font-mono">
+                      {f.type === "PERCENT"
+                        ? `${Number(f.value)}%`
+                        : formatBRL(Number(f.value))}
+                    </TableCell>
+                    <TableCell>
+                      <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${f.active ? "bg-chart-2/10 text-chart-2" : "bg-muted text-muted-foreground"}`}>
+                        {f.active ? "Ativa" : "Inativa"}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-1">
+                        <Button variant="ghost" size="icon" onClick={() => openEdit(f)}>
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => handleDelete(f.id)}>
                           <Trash2 className="h-4 w-4 text-destructive" />
                         </Button>
                       </div>
