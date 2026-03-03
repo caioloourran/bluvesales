@@ -40,7 +40,7 @@ export async function saveApprovedEntries(formData: {
         await sql`
           INSERT INTO daily_approved_payments (date, plan_id, quantity, discount, notes, payment_method, created_by)
           VALUES (${date}, ${entry.planId}, ${entry.quantity}, ${entry.discount || 0}, ${entry.notes || null}, ${entry.paymentMethod}, ${userId})
-          ON CONFLICT (date, plan_id, payment_method, created_by)
+          ON CONFLICT (date, plan_id, payment_method, created_by) WHERE created_by IS NOT NULL
           DO UPDATE SET
             quantity = daily_approved_payments.quantity + EXCLUDED.quantity,
             discount = daily_approved_payments.discount + EXCLUDED.discount,
