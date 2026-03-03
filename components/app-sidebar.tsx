@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRef, useState } from "react";
 import {
   BarChart3,
   ShoppingCart,
@@ -20,15 +21,25 @@ import {
   Banknote,
   CalendarDays,
   LayoutDashboard,
+  Camera,
 } from "lucide-react";
 import { useTheme } from "next-themes";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { logoutAction } from "@/lib/actions/auth-actions";
+import { updateAvatarAction } from "@/lib/actions/profile-actions";
 
 interface AppSidebarProps {
   userName: string;
   userRole: string;
+  userAvatar?: string | null;
 }
 
 const adminLinks = [
@@ -57,10 +68,88 @@ const sellerLinks = [
   { href: "/history", label: "Historico", icon: ClipboardList },
 ];
 
-export function AppSidebar({ userName, userRole }: AppSidebarProps) {
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function resizeToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const img = new window.Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 150;
+      canvas.height = 150;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return reject(new Error("Canvas not supported"));
+      const size = Math.min(img.width, img.height);
+      const x = (img.width - size) / 2;
+      const y = (img.height - size) / 2;
+      ctx.drawImage(img, x, y, size, size, 0, 0, 150, 150);
+      resolve(canvas.toDataURL("image/jpeg", 0.82));
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+export function AppSidebar({ userName, userRole, userAvatar }: AppSidebarProps) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const links = userRole === "ADMIN_MASTER" ? adminLinks : userRole === "COBRANCA" ? cobrancaLinks : sellerLinks;
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const base64 = await resizeToBase64(file);
+      setPreview(base64);
+    } catch {
+      toast.error("Erro ao processar imagem");
+    }
+  }
+
+  async function handleSave() {
+    if (!preview) return;
+    setSaving(true);
+    const result = await updateAvatarAction(preview);
+    setSaving(false);
+    if (result.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Foto atualizada!");
+      setDialogOpen(false);
+      setPreview(null);
+    }
+  }
+
+  async function handleRemove() {
+    setSaving(true);
+    const result = await updateAvatarAction("");
+    setSaving(false);
+    if (result.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Foto removida");
+      setDialogOpen(false);
+      setPreview(null);
+    }
+  }
+
+  function openDialog() {
+    setPreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    setDialogOpen(true);
+  }
+
+  const initials = getInitials(userName);
+  const currentAvatar = userAvatar || null;
 
   return (
     <aside className="flex h-full w-64 shrink-0 flex-col border-r bg-card">
@@ -102,12 +191,38 @@ export function AppSidebar({ userName, userRole }: AppSidebarProps) {
       </nav>
 
       <div className="border-t px-3 py-4">
-        <div className="mb-3 px-3">
-          <p className="text-sm font-medium text-foreground">{userName}</p>
-          <p className="text-xs text-muted-foreground">
-            {userRole === "ADMIN_MASTER" ? "Administrador" : userRole === "COBRANCA" ? "Cobranca" : "Vendedor"}
-          </p>
+        {/* User info with avatar */}
+        <div className="mb-3 flex items-center gap-3 px-3">
+          <button
+            type="button"
+            onClick={openDialog}
+            className="group relative shrink-0 focus:outline-none"
+            title="Alterar foto"
+          >
+            {currentAvatar ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={currentAvatar}
+                alt={userName}
+                className="h-10 w-10 rounded-full object-cover ring-2 ring-border transition group-hover:ring-primary"
+              />
+            ) : (
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/15 ring-2 ring-border transition group-hover:ring-primary">
+                <span className="text-sm font-semibold text-primary">{initials}</span>
+              </div>
+            )}
+            <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition group-hover:opacity-100">
+              <Camera className="h-4 w-4 text-white" />
+            </div>
+          </button>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-medium text-foreground">{userName}</p>
+            <p className="text-xs text-muted-foreground">
+              {userRole === "ADMIN_MASTER" ? "Administrador" : userRole === "COBRANCA" ? "Cobranca" : "Vendedor"}
+            </p>
+          </div>
         </div>
+
         <Button
           variant="ghost"
           type="button"
@@ -132,6 +247,81 @@ export function AppSidebar({ userName, userRole }: AppSidebarProps) {
           </Button>
         </form>
       </div>
+
+      {/* Avatar upload dialog */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="max-w-xs">
+          <DialogHeader>
+            <DialogTitle>Foto de Perfil</DialogTitle>
+          </DialogHeader>
+
+          <div className="flex flex-col items-center gap-4">
+            {/* Preview */}
+            <div className="relative">
+              {preview ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={preview}
+                  alt="Preview"
+                  className="h-28 w-28 rounded-full object-cover ring-2 ring-border"
+                />
+              ) : currentAvatar ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={currentAvatar}
+                  alt={userName}
+                  className="h-28 w-28 rounded-full object-cover ring-2 ring-border"
+                />
+              ) : (
+                <div className="flex h-28 w-28 items-center justify-center rounded-full bg-primary/15 ring-2 ring-border">
+                  <span className="text-3xl font-semibold text-primary">{initials}</span>
+                </div>
+              )}
+            </div>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Camera className="mr-2 h-4 w-4" />
+              Escolher foto
+            </Button>
+
+            {preview && (
+              <Button
+                type="button"
+                className="w-full"
+                disabled={saving}
+                onClick={handleSave}
+              >
+                {saving ? "Salvando..." : "Salvar foto"}
+              </Button>
+            )}
+
+            {currentAvatar && !preview && (
+              <Button
+                type="button"
+                variant="ghost"
+                className="w-full text-destructive hover:text-destructive"
+                disabled={saving}
+                onClick={handleRemove}
+              >
+                {saving ? "Removendo..." : "Remover foto"}
+              </Button>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </aside>
   );
 }
