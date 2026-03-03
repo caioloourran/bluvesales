@@ -14,6 +14,7 @@ export function KPICards({ kpis, isAdmin }: KPICardsProps) {
   const approvedRoas = kpis.investment > 0 ? kpis.approvedRevenue / kpis.investment : 0;
   const approvedCpa = kpis.approvedCount > 0 ? kpis.investment / kpis.approvedCount : null;
   const leadToPaymentRate = kpis.leads > 0 ? kpis.approvedCount / kpis.leads : 0;
+  const leadsPerSchedule = kpis.salesQty > 0 ? kpis.leads / kpis.salesQty : null;
 
   return (
     <div className="flex flex-col gap-4">
@@ -26,7 +27,7 @@ export function KPICards({ kpis, isAdmin }: KPICardsProps) {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-green-500">
+            <p className="text-2xl font-bold text-red-500">
               {formatBRL(kpis.investment)}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
@@ -78,11 +79,11 @@ export function KPICards({ kpis, isAdmin }: KPICardsProps) {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className={`text-2xl font-bold ${kpis.profit >= 0 ? "text-green-500" : "text-red-500"}`}>
-              {formatBRL(kpis.profit)}
+            <p className={`text-2xl font-bold ${kpis.approvedProfit >= 0 ? "text-green-500" : "text-red-500"}`}>
+              {formatBRL(kpis.approvedProfit)}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Prod. + Frete + Taxas + Comis. + Ads
+              Somente pagamentos aprovados
             </p>
           </CardContent>
         </Card>
@@ -100,7 +101,7 @@ export function KPICards({ kpis, isAdmin }: KPICardsProps) {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
                 <Card className="border-border/50">
                   <CardHeader className="pb-1 pt-3 px-3">
                     <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
@@ -108,7 +109,7 @@ export function KPICards({ kpis, isAdmin }: KPICardsProps) {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="px-3 pb-3">
-                    <p className="text-lg font-bold text-green-500">
+                    <p className="text-lg font-bold text-blue-500">
                       {formatBRL(kpis.grossValue)}
                     </p>
                     <p className="text-[10px] text-muted-foreground">Total agendado</p>
@@ -158,6 +159,36 @@ export function KPICards({ kpis, isAdmin }: KPICardsProps) {
                       {formatNumber(kpis.salesQty)}
                     </p>
                     <p className="text-[10px] text-muted-foreground">no período</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border/50">
+                  <CardHeader className="pb-1 pt-3 px-3">
+                    <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                      Lucro Estimado
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3">
+                    <p className={`text-lg font-bold ${kpis.profit >= 0 ? "text-green-500" : "text-red-500"}`}>
+                      {formatBRL(kpis.profit)}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">Se todos pagarem</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border/50">
+                  <CardHeader className="pb-1 pt-3 px-3">
+                    <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                      Leads p/ Agendamento
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3">
+                    <p className="text-lg font-bold text-orange-500">
+                      {leadsPerSchedule !== null ? formatNumber(leadsPerSchedule, 1) : "—"}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">
+                      {formatNumber(kpis.leads)} leads / {formatNumber(kpis.salesQty)} agend.
+                    </p>
                   </CardContent>
                 </Card>
               </div>

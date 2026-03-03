@@ -32,6 +32,7 @@ export interface KPIData {
   profit: number;
   approvedCount: number;
   approvedRevenue: number;
+  approvedProfit: number;
   daysInPeriod: number;
 }
 
@@ -221,6 +222,16 @@ export async function calculateKPIs(
   const avgTicket = agg.salesQty > 0 ? agg.grossValue / agg.salesQty : 0;
   const approvedRevenue = approvedCount * avgTicket;
 
+  // Approved profit: scale per-sale costs by approved/total ratio, keep full investment costs
+  const approvedRatio = agg.salesQty > 0 ? approvedCount / agg.salesQty : 0;
+  const approvedProfit = approvedRevenue
+    - agg.platformFees * approvedRatio
+    - agg.netCommission * approvedRatio
+    - agg.productCosts * approvedRatio
+    - agg.shippingCosts * approvedRatio
+    - agg.discounts * approvedRatio
+    - investment - investmentTax;
+
   return {
     investment, leads,
     salesQty: agg.salesQty, grossValue: agg.grossValue, netValue: agg.netValue,
@@ -228,7 +239,7 @@ export async function calculateKPIs(
     platformFees: agg.platformFees, investmentTax, productCosts: agg.productCosts,
     shippingCosts: agg.shippingCosts, discounts: agg.discounts,
     cpl, cpa, leadsPerSale, roi, profit,
-    approvedCount, approvedRevenue, daysInPeriod,
+    approvedCount, approvedRevenue, approvedProfit, daysInPeriod,
   };
 }
 
