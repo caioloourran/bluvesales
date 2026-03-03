@@ -18,8 +18,8 @@ export function KPICards({ kpis, isAdmin }: KPICardsProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Top row - 4 main KPIs */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      {/* Top row - 4 main KPIs (admin only) */}
+      {isAdmin && <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
@@ -87,7 +87,7 @@ export function KPICards({ kpis, isAdmin }: KPICardsProps) {
             </p>
           </CardContent>
         </Card>
-      </div>
+      </div>}
 
       {/* Seller view - Agendado summary */}
       {!isAdmin && (
