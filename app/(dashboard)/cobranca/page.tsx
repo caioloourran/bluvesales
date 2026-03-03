@@ -29,11 +29,11 @@ export default async function CobrancaPage({ searchParams }: Props) {
     ORDER BY pr.name, p.name
   `;
 
-  // Get summary of already-saved approved entries for this date (global, no seller filter)
+  // Get summary of already-saved approved entries for this date — filtered by current user
   const todaySummary = await sql`
     SELECT plan_id, payment_method, SUM(quantity)::int as total_qty
     FROM daily_approved_payments
-    WHERE date = ${date}
+    WHERE date = ${date} AND created_by = ${session.id}
     GROUP BY plan_id, payment_method
   `;
 

@@ -31,7 +31,7 @@ export default async function MeuDesempenhoPage({ searchParams }: Props) {
   const dateFrom = params.from || firstOfMonth;
   const dateTo = params.to || today;
 
-  // Breakdown by plan
+  // Breakdown by plan — filtered by the current user's own entries
   const planRows = await sql`
     SELECT
       p.id as plan_id,
@@ -44,6 +44,7 @@ export default async function MeuDesempenhoPage({ searchParams }: Props) {
     JOIN plans p ON p.id = dap.plan_id
     JOIN products pr ON pr.id = p.product_id
     WHERE dap.date >= ${dateFrom} AND dap.date <= ${dateTo}
+      AND dap.created_by = ${session.id}
     GROUP BY p.id, p.name, pr.name, p.sale_price_gross
     ORDER BY total_revenue DESC
   `;
