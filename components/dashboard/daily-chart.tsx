@@ -1,3 +1,111 @@
-{
-  "data": "InVzZSBjbGllbnQiOwoKaW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7CiAgTGluZUNoYXJ0LAogIExpbmUsCiAgWEF4aXMsCiAgWUF4aXMsCiAgQ2FydGVzaWFuR3JpZCwKICBUb29sdGlwLAogIFJlc3BvbnNpdmVDb250YWluZXIsCn0gZnJvbSAicmVjaGFydHMiOwppbXBvcnQgeyBDYXJkLCBDYXJkQ29udGVudCwgQ2FyZEhlYWRlciwgQ2FyZFRpdGxlIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2NhcmQiOwppbXBvcnQgewogIFNlbGVjdCwKICBTZWxlY3RDb250ZW50LAogIFNlbGVjdEl0ZW0sCiAgU2VsZWN0VHJpZ2dlciwKICBTZWxlY3RWYWx1ZSwKfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvc2VsZWN0IjsKaW1wb3J0IHR5cGUgeyBEYWlseU1ldHJpYyB9IGZyb20gIkAvbGliL2twaSI7CgppbnRlcmZhY2UgRGFpbHlDaGFydFByb3BzIHsKICBkYXRhOiBEYWlseU1ldHJpY1tdOwogIGlzQWRtaW46IGJvb2xlYW47Cn0KCmNvbnN0IGFkbWluTWV0cmljcyA9IFsKICB7IGtleTogImludmVzdG1lbnQiLCBsYWJlbDogIkludmVzdGltZW50byIsIGNvbG9yOiAiaHNsKDEyLCA3NiUsIDYxJSkiIH0sCiAgeyBrZXk6ICJsZWFkcyIsIGxhYmVsOiAiTGVhZHMiLCBjb2xvcjogImhzbCgxNzMsIDU4JSwgMzklKSIgfSwKICB7IGtleTogInNhbGVzUXR5IiwgbGFiZWw6ICJWZW5kYXMiLCBjb2xvcjogImhzbCgxOTcsIDM3JSwgMjQlKSIgfSwKICB7IGtleTogInByb2ZpdCIsIGxhYmVsOiAiTHVjcm8iLCBjb2xvcjogImhzbCg0MywgNzQlLCA2NiUpIiB9LAogIHsga2V5OiAiZ3Jvc3NWYWx1ZSIsIGxhYmVsOiAiVmFsb3IgQnJ1dG8iLCBjb2xvcjogImhzbCgyNywgODclLCA2NyUpIiB9LApdOwoKY29uc3Qgc2VsbGVyTWV0cmljcyA9IFsKICB7IGtleTogIm5ldENvbW1pc3Npb24iLCBsYWJlbDogIkNvbWlzc2FvIExpcXVpZGEiLCBjb2xvcjogImhzbCgxNzMsIDU4JSwgMzklKSIgfSwKICB7IGtleTogImdyb3NzVmFsdWUiLCBsYWJlbDogIlZhbG9yIEJydXRvIiwgY29sb3I6ICJoc2woMjcsIDg3JSwgNjclKSIgfSwKXTsKCmV4cG9ydCBmdW5jdGlvbiBEYWlseUNoYXJ0KHsgZGF0YSwgaXNBZG1pbiB9OiBEYWlseUNoYXJ0UHJvcHMpIHsKICBjb25zdCBtZXRyaWNzID0gaXNBZG1pbiA/IGFkbWluTWV0cmljcyA6IHNlbGxlck1ldHJpY3M7CiAgY29uc3QgZGVmYXVsdE1ldHJpYyA9IGlzQWRtaW4gPyAicHJvZml0IiA6ICJuZXRDb21taXNzaW9uIjsKICBjb25zdCBbc2VsZWN0ZWRNZXRyaWMsIHNldFNlbGVjdGVkTWV0cmljXSA9IHVzZVN0YXRlKGRlZmF1bHRNZXRyaWMpOwogIGNvbnN0IG1ldHJpYyA9IG1ldHJpY3MuZmluZCgobSkgPT4gbS5rZXkgPT09IHNlbGVjdGVkTWV0cmljKSB8fCBtZXRyaWNzWzBdOwoKICBjb25zdCBmb3JtYXR0ZWQgPSBkYXRhLm1hcCgoZCkgPT4gKHsKICAgIC4uLmQsCiAgICBsYWJlbDogbmV3IERhdGUoZC5kYXRlICsgIlQxMjowMDowMCIpLnRvTG9jYWxlRGF0ZVN0cmluZygicHQtQlIiLCB7CiAgICAgIGRheTogIjItZGlnaXQiLAogICAgICBtb250aDogIjItZGlnaXQiLAogICAgfSksCiAgfSkpOwoKICByZXR1cm4gKAogICAgPENhcmQ+CiAgICAgIDxDYXJkSGVhZGVyIGNsYXNzTmFtZT0iZmxleCBmbGV4LXJvdyBpdGVtcy1jZW50ZXIganVzdGlmeS1iZXR3ZWVuIj4KICAgICAgICA8Q2FyZFRpdGxlIGNsYXNzTmFtZT0idGV4dC1iYXNlIGZvbnQtc2VtaWJvbGQiPgogICAgICAgICAgTWV0cmljYXMgRGlhcmlhcwogICAgICAgIDwvQ2FyZFRpdGxlPgogICAgICAgIDxTZWxlY3QgdmFsdWU9e3NlbGVjdGVkTWV0cmljfSBvblZhbHVlQ2hhbmdlPXtzZXRTZWxlY3RlZE1ldHJpY30+CiAgICAgICAgICA8U2VsZWN0VHJpZ2dlciBjbGFzc05hbWU9InctNDAiPgogICAgICAgICAgICA8U2VsZWN0VmFsdWUgLz4KICAgICAgICAgIDwvU2VsZWN0VHJpZ2dlcj4KICAgICAgICAgIDxTZWxlY3RDb250ZW50PgogICAgICAgICAgICB7bWV0cmljcy5tYXAoKG0pID0+ICgKICAgICAgICAgICAgICA8U2VsZWN0SXRlbSBrZXk9e20ua2V5fSB2YWx1ZT17bS5rZXl9PgogICAgICAgICAgICAgICAge20ubGFiZWx9CiAgICAgICAgICAgICAgPC9TZWxlY3RJdGVtPgogICAgICAgICAgICApKX0KICAgICAgICAgIDwvU2VsZWN0Q29udGVudD4KICAgICAgICA8L1NlbGVjdD4KICAgICAgPC9DYXJkSGVhZGVyPgogICAgICA8Q2FyZENvbnRlbnQ+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9ImgtNzIiPgogICAgICAgICAgPFJlc3BvbnNpdmVDb250YWluZXIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSI+CiAgICAgICAgICAgIDxMaW5lQ2hhcnQgZGF0YT17Zm9ybWF0dGVkfT4KICAgICAgICAgICAgICA8Q2FydGVzaWFuR3JpZCBzdHJva2VEYXNoYXJyYXk9IjMgMyIgY2xhc3NOYW1lPSJzdHJva2UtYm9yZGVyIiAvPgogICAgICAgICAgICAgIDxYQXhpcwogICAgICAgICAgICAgICAgZGF0YUtleT0ibGFiZWwiCiAgICAgICAgICAgICAgICBjbGFzc05hbWU9InRleHQteHMiCiAgICAgICAgICAgICAgICB0aWNrPXt7IGZpbGw6ICJoc2woMCwgMCUsIDQ1JSkiIH19CiAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICA8WUF4aXMKICAgICAgICAgICAgICAgIGNsYXNzTmFtZT0idGV4dC14cyIKICAgICAgICAgICAgICAgIHRpY2s9e3sgZmlsbDogImhzbCgwLCAwJSwgNDUlKSIgfX0KICAgICAgICAgICAgICAgIHdpZHRoPXs4MH0KICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgIDxUb29sdGlwCiAgICAgICAgICAgICAgICBjb250ZW50U3R5bGU9e3sKICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZENvbG9yOiAiaHNsKDAsIDAlLCAxMDAlKSIsCiAgICAgICAgICAgICAgICAgIGJvcmRlcjogIjFweCBzb2xpZCBoc2woMCwgMCUsIDg5LjglKSIsCiAgICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogIjZweCIsCiAgICAgICAgICAgICAgICB9fQogICAgICAgICAgICAgIC8+CiAgICAgICAgICAgICAgPExpbmUKICAgICAgICAgICAgICAgIHR5cGU9Im1vbm90b25lIgogICAgICAgICAgICAgICAgZGF0YUtleT17c2VsZWN0ZWRNZXRyaWN9CiAgICAgICAgICAgICAgICBuYW1lPXttZXRyaWMubGFiZWx9CiAgICAgICAgICAgICAgICBzdHJva2U9e21ldHJpYy5jb2xvcn0KICAgICAgICAgICAgICAgIHN0cm9rZVdpZHRoPXsyfQogICAgICAgICAgICAgICAgZG90PXt7IHI6IDMgfX0KICAgICAgICAgICAgICAgIGFjdGl2ZURvdD17eyByOiA1IH19CiAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgPC9MaW5lQ2hhcnQ+CiAgICAgICAgICA8L1Jlc3BvbnNpdmVDb250YWluZXI+CiAgICAgICAgPC9kaXY+CiAgICAgIDwvQ2FyZENvbnRlbnQ+CiAgICA8L0NhcmQ+CiAgKTsKfQo="
+"use client";
+
+import { useState } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import type { DailyMetric } from "@/lib/kpi";
+
+interface DailyChartProps {
+  data: DailyMetric[];
+  isAdmin: boolean;
+}
+
+const adminMetrics = [
+  { key: "investment", label: "Investimento", color: "hsl(12, 76%, 61%)" },
+  { key: "leads", label: "Leads", color: "hsl(173, 58%, 39%)" },
+  { key: "salesQty", label: "Vendas", color: "hsl(197, 37%, 24%)" },
+  { key: "profit", label: "Lucro", color: "hsl(43, 74%, 66%)" },
+  { key: "grossValue", label: "Valor Bruto", color: "hsl(27, 87%, 67%)" },
+];
+
+const sellerMetrics = [
+  { key: "netCommission", label: "Comissao Liquida", color: "hsl(173, 58%, 39%)" },
+  { key: "grossValue", label: "Valor Bruto", color: "hsl(27, 87%, 67%)" },
+];
+
+export function DailyChart({ data, isAdmin }: DailyChartProps) {
+  const metrics = isAdmin ? adminMetrics : sellerMetrics;
+  const defaultMetric = isAdmin ? "profit" : "netCommission";
+  const [selectedMetric, setSelectedMetric] = useState(defaultMetric);
+  const metric = metrics.find((m) => m.key === selectedMetric) || metrics[0];
+
+  const formatted = data.map((d) => ({
+    ...d,
+    label: new Date(d.date + "T12:00:00").toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+    }),
+  }));
+
+  return (
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle className="text-base font-semibold">
+          Metricas Diarias
+        </CardTitle>
+        <Select value={selectedMetric} onValueChange={setSelectedMetric}>
+          <SelectTrigger className="w-40">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {metrics.map((m) => (
+              <SelectItem key={m.key} value={m.key}>
+                {m.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </CardHeader>
+      <CardContent>
+        <div className="h-72">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={formatted}>
+              <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+              <XAxis
+                dataKey="label"
+                className="text-xs"
+                tick={{ fill: "hsl(0, 0%, 45%)" }}
+              />
+              <YAxis
+                className="text-xs"
+                tick={{ fill: "hsl(0, 0%, 45%)" }}
+                width={80}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "hsl(0, 0%, 100%)",
+                  border: "1px solid hsl(0, 0%, 89.8%)",
+                  borderRadius: "6px",
+                }}
+              />
+              <Line
+                type="monotone"
+                dataKey={selectedMetric}
+                name={metric.label}
+                stroke={metric.color}
+                strokeWidth={2}
+                dot={{ r: 3 }}
+                activeDot={{ r: 5 }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </CardContent>
+    </Card>
+  );
 }

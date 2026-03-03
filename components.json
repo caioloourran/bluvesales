@@ -1,3 +1,21 @@
 {
-  "data": "ewogICIkc2NoZW1hIjogImh0dHBzOi8vdWkuc2hhZGNuLmNvbS9zY2hlbWEuanNvbiIsCiAgInN0eWxlIjogImRlZmF1bHQiLAogICJyc2MiOiB0cnVlLAogICJ0c3giOiB0cnVlLAogICJ0YWlsd2luZCI6IHsKICAgICJjb25maWciOiAidGFpbHdpbmQuY29uZmlnLnRzIiwKICAgICJjc3MiOiAiYXBwL2dsb2JhbHMuY3NzIiwKICAgICJiYXNlQ29sb3IiOiAibmV1dHJhbCIsCiAgICAiY3NzVmFyaWFibGVzIjogdHJ1ZSwKICAgICJwcmVmaXgiOiAiIgogIH0sCiAgImFsaWFzZXMiOiB7CiAgICAiY29tcG9uZW50cyI6ICJAL2NvbXBvbmVudHMiLAogICAgInV0aWxzIjogIkAvbGliL3V0aWxzIiwKICAgICJ1aSI6ICJAL2NvbXBvbmVudHMvdWkiLAogICAgImxpYiI6ICJAL2xpYiIsCiAgICAiaG9va3MiOiAiQC9ob29rcyIKICB9LAogICJpY29uTGlicmFyeSI6ICJsdWNpZGUiCn0K"
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "default",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "iconLibrary": "lucide"
 }

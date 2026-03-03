@@ -1,3 +1,80 @@
-{
-  "data": "InVzZSBjbGllbnQiOwoKaW1wb3J0IHsgdXNlQWN0aW9uU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IGxvZ2luQWN0aW9uIH0gZnJvbSAiQC9saWIvYWN0aW9ucy9hdXRoLWFjdGlvbnMiOwppbXBvcnQgeyBCdXR0b24gfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvYnV0dG9uIjsKaW1wb3J0IHsgSW5wdXQgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvaW5wdXQiOwppbXBvcnQgeyBMYWJlbCB9IGZyb20gIkAvY29tcG9uZW50cy91aS9sYWJlbCI7CmltcG9ydCB7CiAgQ2FyZCwKICBDYXJkQ29udGVudCwKICBDYXJkRGVzY3JpcHRpb24sCiAgQ2FyZEhlYWRlciwKICBDYXJkVGl0bGUsCn0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2NhcmQiOwppbXBvcnQgeyBMb2FkZXIyIH0gZnJvbSAibHVjaWRlLXJlYWN0IjsKaW1wb3J0IEltYWdlIGZyb20gIm5leHQvaW1hZ2UiOwppbXBvcnQgeyBCYXJDaGFydDMgfSBmcm9tICJsdWNpZGUtcmVhY3QiOyAvLyBEZWNsYXJlZCB0aGUgQmFyQ2hhcnQzIHZhcmlhYmxlCgpleHBvcnQgZnVuY3Rpb24gTG9naW5Gb3JtKCkgewogIGNvbnN0IFtzdGF0ZSwgZm9ybUFjdGlvbiwgaXNQZW5kaW5nXSA9IHVzZUFjdGlvblN0YXRlKGxvZ2luQWN0aW9uLCB1bmRlZmluZWQpOwoKICByZXR1cm4gKAogICAgPENhcmQgY2xhc3NOYW1lPSJ3LWZ1bGwgbWF4LXctc20iPgogICAgICA8Q2FyZEhlYWRlciBjbGFzc05hbWU9InRleHQtY2VudGVyIj4KICAgICAgICA8SW1hZ2UKICAgICAgICAgIHNyYz0iL2xvZ28ucG5nIgogICAgICAgICAgYWx0PSJCbHV2ZSBTYWxlcyIKICAgICAgICAgIHdpZHRoPXs1Nn0KICAgICAgICAgIGhlaWdodD17NTZ9CiAgICAgICAgICBjbGFzc05hbWU9Im14LWF1dG8gbWItMiByb3VuZGVkLWxnIgogICAgICAgIC8+CiAgICAgICAgPENhcmRUaXRsZSBjbGFzc05hbWU9InRleHQtMnhsIj5CbHV2ZSBTYWxlczwvQ2FyZFRpdGxlPgogICAgICAgIDxDYXJkRGVzY3JpcHRpb24+CiAgICAgICAgICBFbnRyZSBjb20gc3VhcyBjcmVkZW5jaWFpcyBwYXJhIGFjZXNzYXIKICAgICAgICA8L0NhcmREZXNjcmlwdGlvbj4KICAgICAgPC9DYXJkSGVhZGVyPgogICAgICA8Q2FyZENvbnRlbnQ+CiAgICAgICAgPGZvcm0gYWN0aW9uPXtmb3JtQWN0aW9ufSBjbGFzc05hbWU9ImZsZXggZmxleC1jb2wgZ2FwLTQiPgogICAgICAgICAge3N0YXRlPy5lcnJvciAmJiAoCiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJyb3VuZGVkLW1kIGJnLWRlc3RydWN0aXZlLzEwIHAtMyB0ZXh0LXNtIHRleHQtZGVzdHJ1Y3RpdmUiPgogICAgICAgICAgICAgIHtzdGF0ZS5lcnJvcn0KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICApfQogICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC1jb2wgZ2FwLTIiPgogICAgICAgICAgICA8TGFiZWwgaHRtbEZvcj0iZW1haWwiPkVtYWlsPC9MYWJlbD4KICAgICAgICAgICAgPElucHV0CiAgICAgICAgICAgICAgaWQ9ImVtYWlsIgogICAgICAgICAgICAgIG5hbWU9ImVtYWlsIgogICAgICAgICAgICAgIHR5cGU9ImVtYWlsIgogICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJhZG1pbkBlbXByZXNhLmNvbSIKICAgICAgICAgICAgICByZXF1aXJlZAogICAgICAgICAgICAgIGF1dG9Db21wbGV0ZT0iZW1haWwiCiAgICAgICAgICAgIC8+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGZsZXgtY29sIGdhcC0yIj4KICAgICAgICAgICAgPExhYmVsIGh0bWxGb3I9InBhc3N3b3JkIj5TZW5oYTwvTGFiZWw+CiAgICAgICAgICAgIDxJbnB1dAogICAgICAgICAgICAgIGlkPSJwYXNzd29yZCIKICAgICAgICAgICAgICBuYW1lPSJwYXNzd29yZCIKICAgICAgICAgICAgICB0eXBlPSJwYXNzd29yZCIKICAgICAgICAgICAgICBwbGFjZWhvbGRlcj0iU3VhIHNlbmhhIgogICAgICAgICAgICAgIHJlcXVpcmVkCiAgICAgICAgICAgICAgYXV0b0NvbXBsZXRlPSJjdXJyZW50LXBhc3N3b3JkIgogICAgICAgICAgICAvPgogICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8QnV0dG9uIHR5cGU9InN1Ym1pdCIgY2xhc3NOYW1lPSJ3LWZ1bGwiIGRpc2FibGVkPXtpc1BlbmRpbmd9PgogICAgICAgICAgICB7aXNQZW5kaW5nID8gKAogICAgICAgICAgICAgIDw+CiAgICAgICAgICAgICAgICA8TG9hZGVyMiBjbGFzc05hbWU9Im1yLTIgaC00IHctNCBhbmltYXRlLXNwaW4iIC8+CiAgICAgICAgICAgICAgICBFbnRyYW5kby4uLgogICAgICAgICAgICAgIDwvPgogICAgICAgICAgICApIDogKAogICAgICAgICAgICAgICJFbnRyYXIiCiAgICAgICAgICAgICl9CiAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICA8L2Zvcm0+CiAgICAgIDwvQ2FyZENvbnRlbnQ+CiAgICA8L0NhcmQ+CiAgKTsKfQo="
+"use client";
+
+import { useActionState } from "react";
+import { loginAction } from "@/lib/actions/auth-actions";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
+import Image from "next/image";
+import { BarChart3 } from "lucide-react"; // Declared the BarChart3 variable
+
+export function LoginForm() {
+  const [state, formAction, isPending] = useActionState(loginAction, undefined);
+
+  return (
+    <Card className="w-full max-w-sm">
+      <CardHeader className="text-center">
+        <Image
+          src="/logo.png"
+          alt="Bluve Sales"
+          width={56}
+          height={56}
+          className="mx-auto mb-2 rounded-lg"
+        />
+        <CardTitle className="text-2xl">Bluve Sales</CardTitle>
+        <CardDescription>
+          Entre com suas credenciais para acessar
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form action={formAction} className="flex flex-col gap-4">
+          {state?.error && (
+            <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+              {state.error}
+            </div>
+          )}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="admin@empresa.com"
+              required
+              autoComplete="email"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="password">Senha</Label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Sua senha"
+              required
+              autoComplete="current-password"
+            />
+          </div>
+          <Button type="submit" className="w-full" disabled={isPending}>
+            {isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Entrando...
+              </>
+            ) : (
+              "Entrar"
+            )}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
+  );
 }

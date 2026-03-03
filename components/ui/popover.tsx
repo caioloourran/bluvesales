@@ -1,3 +1,31 @@
-{
-  "data": "J3VzZSBjbGllbnQnCgppbXBvcnQgKiBhcyBSZWFjdCBmcm9tICdyZWFjdCcKaW1wb3J0ICogYXMgUG9wb3ZlclByaW1pdGl2ZSBmcm9tICdAcmFkaXgtdWkvcmVhY3QtcG9wb3ZlcicKCmltcG9ydCB7IGNuIH0gZnJvbSAnQC9saWIvdXRpbHMnCgpjb25zdCBQb3BvdmVyID0gUG9wb3ZlclByaW1pdGl2ZS5Sb290Cgpjb25zdCBQb3BvdmVyVHJpZ2dlciA9IFBvcG92ZXJQcmltaXRpdmUuVHJpZ2dlcgoKY29uc3QgUG9wb3ZlckNvbnRlbnQgPSBSZWFjdC5mb3J3YXJkUmVmPAogIFJlYWN0LkVsZW1lbnRSZWY8dHlwZW9mIFBvcG92ZXJQcmltaXRpdmUuQ29udGVudD4sCiAgUmVhY3QuQ29tcG9uZW50UHJvcHNXaXRob3V0UmVmPHR5cGVvZiBQb3BvdmVyUHJpbWl0aXZlLkNvbnRlbnQ+Cj4oKHsgY2xhc3NOYW1lLCBhbGlnbiA9ICdjZW50ZXInLCBzaWRlT2Zmc2V0ID0gNCwgLi4ucHJvcHMgfSwgcmVmKSA9PiAoCiAgPFBvcG92ZXJQcmltaXRpdmUuUG9ydGFsPgogICAgPFBvcG92ZXJQcmltaXRpdmUuQ29udGVudAogICAgICByZWY9e3JlZn0KICAgICAgYWxpZ249e2FsaWdufQogICAgICBzaWRlT2Zmc2V0PXtzaWRlT2Zmc2V0fQogICAgICBjbGFzc05hbWU9e2NuKAogICAgICAgICd6LTUwIHctNzIgcm91bmRlZC1tZCBib3JkZXIgYmctcG9wb3ZlciBwLTQgdGV4dC1wb3BvdmVyLWZvcmVncm91bmQgc2hhZG93LW1kIG91dGxpbmUtbm9uZSBkYXRhLVtzdGF0ZT1vcGVuXTphbmltYXRlLWluIGRhdGEtW3N0YXRlPWNsb3NlZF06YW5pbWF0ZS1vdXQgZGF0YS1bc3RhdGU9Y2xvc2VkXTpmYWRlLW91dC0wIGRhdGEtW3N0YXRlPW9wZW5dOmZhZGUtaW4tMCBkYXRhLVtzdGF0ZT1jbG9zZWRdOnpvb20tb3V0LTk1IGRhdGEtW3N0YXRlPW9wZW5dOnpvb20taW4tOTUgZGF0YS1bc2lkZT1ib3R0b21dOnNsaWRlLWluLWZyb20tdG9wLTIgZGF0YS1bc2lkZT1sZWZ0XTpzbGlkZS1pbi1mcm9tLXJpZ2h0LTIgZGF0YS1bc2lkZT1yaWdodF06c2xpZGUtaW4tZnJvbS1sZWZ0LTIgZGF0YS1bc2lkZT10b3BdOnNsaWRlLWluLWZyb20tYm90dG9tLTInLAogICAgICAgIGNsYXNzTmFtZSwKICAgICAgKX0KICAgICAgey4uLnByb3BzfQogICAgLz4KICA8L1BvcG92ZXJQcmltaXRpdmUuUG9ydGFsPgopKQpQb3BvdmVyQ29udGVudC5kaXNwbGF5TmFtZSA9IFBvcG92ZXJQcmltaXRpdmUuQ29udGVudC5kaXNwbGF5TmFtZQoKZXhwb3J0IHsgUG9wb3ZlciwgUG9wb3ZlclRyaWdnZXIsIFBvcG92ZXJDb250ZW50IH0K"
-}
+'use client'
+
+import * as React from 'react'
+import * as PopoverPrimitive from '@radix-ui/react-popover'
+
+import { cn } from '@/lib/utils'
+
+const Popover = PopoverPrimitive.Root
+
+const PopoverTrigger = PopoverPrimitive.Trigger
+
+const PopoverContent = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
+>(({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
+  <PopoverPrimitive.Portal>
+    <PopoverPrimitive.Content
+      ref={ref}
+      align={align}
+      sideOffset={sideOffset}
+      className={cn(
+        'z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        className,
+      )}
+      {...props}
+    />
+  </PopoverPrimitive.Portal>
+))
+PopoverContent.displayName = PopoverPrimitive.Content.displayName
+
+export { Popover, PopoverTrigger, PopoverContent }

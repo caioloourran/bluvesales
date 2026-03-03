@@ -1,3 +1,324 @@
-{
-  "data": "InVzZSBjbGllbnQiOwoKaW1wb3J0IHsgdXNlU3RhdGUsIHVzZVRyYW5zaXRpb24gfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IHVzZVJvdXRlciB9IGZyb20gIm5leHQvbmF2aWdhdGlvbiI7CmltcG9ydCB7IHRvYXN0IH0gZnJvbSAic29ubmVyIjsKaW1wb3J0IHsgc2F2ZVNhbGVzRW50cmllcyB9IGZyb20gIkAvbGliL2FjdGlvbnMvc2FsZXMtYWN0aW9ucyI7CmltcG9ydCB7IENhcmQsIENhcmRDb250ZW50LCBDYXJkSGVhZGVyLCBDYXJkVGl0bGUgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvY2FyZCI7CmltcG9ydCB7IElucHV0IH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2lucHV0IjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7IExhYmVsIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2xhYmVsIjsKaW1wb3J0IHsKICBTZWxlY3QsCiAgU2VsZWN0Q29udGVudCwKICBTZWxlY3RJdGVtLAogIFNlbGVjdFRyaWdnZXIsCiAgU2VsZWN0VmFsdWUsCn0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3NlbGVjdCI7CmltcG9ydCB7CiAgVGFibGUsCiAgVGFibGVCb2R5LAogIFRhYmxlQ2VsbCwKICBUYWJsZUhlYWQsCiAgVGFibGVIZWFkZXIsCiAgVGFibGVSb3csCn0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3RhYmxlIjsKaW1wb3J0IHsgTG9hZGVyMiwgU2F2ZSwgQ2hlY2tDaXJjbGUyIH0gZnJvbSAibHVjaWRlLXJlYWN0IjsKaW1wb3J0IHsgZm9ybWF0QlJMIH0gZnJvbSAiQC9saWIvZm9ybWF0IjsKCmludGVyZmFjZSBQbGFuIHsKICBpZDogbnVtYmVyOwogIHBsYW5fbmFtZTogc3RyaW5nOwogIHByb2R1Y3RfbmFtZTogc3RyaW5nOwogIHNhbGVfcHJpY2VfZ3Jvc3M6IHN0cmluZzsKfQoKaW50ZXJmYWNlIFRvZGF5U3VtbWFyeSB7CiAgcGxhbl9pZDogbnVtYmVyOwogIHRvdGFsX3F0eTogbnVtYmVyOwp9CgppbnRlcmZhY2UgU2FsZXNFbnRyeUZvcm1Qcm9wcyB7CiAgcGxhbnM6IFBsYW5bXTsKICB0b2RheVN1bW1hcnk6IFRvZGF5U3VtbWFyeVtdOwogIHNlbGxlcnM6IHsgaWQ6IG51bWJlcjsgbmFtZTogc3RyaW5nIH1bXTsKICBkYXRlOiBzdHJpbmc7CiAgc2VsbGVySWQ6IG51bWJlcjsKICBpc0FkbWluOiBib29sZWFuOwp9CgpmdW5jdGlvbiBlbXB0eVF1YW50aXRpZXMocGxhbnM6IFBsYW5bXSk6IFJlY29yZDxudW1iZXIsIG51bWJlcj4gewogIGNvbnN0IG06IFJlY29yZDxudW1iZXIsIG51bWJlcj4gPSB7fTsKICBmb3IgKGNvbnN0IHBsYW4gb2YgcGxhbnMpIG1bcGxhbi5pZF0gPSAwOwogIHJldHVybiBtOwp9CgpmdW5jdGlvbiBlbXB0eURpc2NvdW50cyhwbGFuczogUGxhbltdKTogUmVjb3JkPG51bWJlciwgbnVtYmVyPiB7CiAgY29uc3QgbTogUmVjb3JkPG51bWJlciwgbnVtYmVyPiA9IHt9OwogIGZvciAoY29uc3QgcGxhbiBvZiBwbGFucykgbVtwbGFuLmlkXSA9IDA7CiAgcmV0dXJuIG07Cn0KCmZ1bmN0aW9uIGVtcHR5Tm90ZXMocGxhbnM6IFBsYW5bXSk6IFJlY29yZDxudW1iZXIsIHN0cmluZz4gewogIGNvbnN0IG06IFJlY29yZDxudW1iZXIsIHN0cmluZz4gPSB7fTsKICBmb3IgKGNvbnN0IHBsYW4gb2YgcGxhbnMpIG1bcGxhbi5pZF0gPSAiIjsKICByZXR1cm4gbTsKfQoKZXhwb3J0IGZ1bmN0aW9uIFNhbGVzRW50cnlGb3JtKHsKICBwbGFucywKICB0b2RheVN1bW1hcnksCiAgc2VsbGVycywKICBkYXRlLAogIHNlbGxlcklkLAogIGlzQWRtaW4sCn06IFNhbGVzRW50cnlGb3JtUHJvcHMpIHsKICBjb25zdCByb3V0ZXIgPSB1c2VSb3V0ZXIoKTsKICBjb25zdCBbaXNQZW5kaW5nLCBzdGFydFRyYW5zaXRpb25dID0gdXNlVHJhbnNpdGlvbigpOwogIGNvbnN0IFtzZWxlY3RlZERhdGUsIHNldFNlbGVjdGVkRGF0ZV0gPSB1c2VTdGF0ZShkYXRlKTsKICBjb25zdCBbc2VsZWN0ZWRTZWxsZXIsIHNldFNlbGVjdGVkU2VsbGVyXSA9IHVzZVN0YXRlKFN0cmluZyhzZWxsZXJJZCkpOwogIGNvbnN0IFtxdWFudGl0aWVzLCBzZXRRdWFudGl0aWVzXSA9IHVzZVN0YXRlPFJlY29yZDxudW1iZXIsIG51bWJlcj4+KCgpID0+IGVtcHR5UXVhbnRpdGllcyhwbGFucykpOwogIGNvbnN0IFtkaXNjb3VudHMsIHNldERpc2NvdW50c10gPSB1c2VTdGF0ZTxSZWNvcmQ8bnVtYmVyLCBudW1iZXI+PigoKSA9PiBlbXB0eURpc2NvdW50cyhwbGFucykpOwogIGNvbnN0IFtub3Rlcywgc2V0Tm90ZXNdID0gdXNlU3RhdGU8UmVjb3JkPG51bWJlciwgc3RyaW5nPj4oKCkgPT4gZW1wdHlOb3RlcyhwbGFucykpOwogIGNvbnN0IFtqdXN0U2F2ZWQsIHNldEp1c3RTYXZlZF0gPSB1c2VTdGF0ZShmYWxzZSk7CgogIGNvbnN0IHN1bW1hcnlNYXAgPSBuZXcgTWFwKHRvZGF5U3VtbWFyeS5tYXAoKHMpID0+IFtzLnBsYW5faWQsIE51bWJlcihzLnRvdGFsX3F0eSldKSk7CgogIGZ1bmN0aW9uIGhhbmRsZURhdGVDaGFuZ2UobmV3RGF0ZTogc3RyaW5nKSB7CiAgICBzZXRTZWxlY3RlZERhdGUobmV3RGF0ZSk7CiAgICBjb25zdCBwYXJhbXMgPSBuZXcgVVJMU2VhcmNoUGFyYW1zKCk7CiAgICBwYXJhbXMuc2V0KCJkYXRlIiwgbmV3RGF0ZSk7CiAgICBpZiAoaXNBZG1pbikgcGFyYW1zLnNldCgic2VsbGVyIiwgc2VsZWN0ZWRTZWxsZXIpOwogICAgcm91dGVyLnB1c2goYC9zYWxlcz8ke3BhcmFtcy50b1N0cmluZygpfWApOwogIH0KCiAgZnVuY3Rpb24gaGFuZGxlU2VsbGVyQ2hhbmdlKG5ld1NlbGxlcjogc3RyaW5nKSB7CiAgICBzZXRTZWxlY3RlZFNlbGxlcihuZXdTZWxsZXIpOwogICAgY29uc3QgcGFyYW1zID0gbmV3IFVSTFNlYXJjaFBhcmFtcygpOwogICAgcGFyYW1zLnNldCgiZGF0ZSIsIHNlbGVjdGVkRGF0ZSk7CiAgICBwYXJhbXMuc2V0KCJzZWxsZXIiLCBuZXdTZWxsZXIpOwogICAgcm91dGVyLnB1c2goYC9zYWxlcz8ke3BhcmFtcy50b1N0cmluZygpfWApOwogIH0KCiAgZnVuY3Rpb24gcmVzZXRGb3JtKCkgewogICAgc2V0UXVhbnRpdGllcyhlbXB0eVF1YW50aXRpZXMocGxhbnMpKTsKICAgIHNldERpc2NvdW50cyhlbXB0eURpc2NvdW50cyhwbGFucykpOwogICAgc2V0Tm90ZXMoZW1wdHlOb3RlcyhwbGFucykpOwogIH0KCiAgZnVuY3Rpb24gaGFuZGxlU2F2ZSgpIHsKICAgIGNvbnN0IGVudHJpZXMgPSBwbGFucwogICAgICAuZmlsdGVyKChwbGFuKSA9PiAocXVhbnRpdGllc1twbGFuLmlkXSB8fCAwKSA+IDApCiAgICAgIC5tYXAoKHBsYW4pID0+ICh7CiAgICAgICAgcGxhbklkOiBwbGFuLmlkLAogICAgICAgIHF1YW50aXR5OiBxdWFudGl0aWVzW3BsYW4uaWRdIHx8IDAsCiAgICAgICAgZGlzY291bnQ6IGRpc2NvdW50c1twbGFuLmlkXSB8fCAwLAogICAgICAgIG5vdGVzOiBub3Rlc1twbGFuLmlkXSB8fCAiIiwKICAgICAgfSkpOwoKICAgIGlmIChlbnRyaWVzLmxlbmd0aCA9PT0gMCkgewogICAgICB0b2FzdC5lcnJvcigiSW5zaXJhIHBlbG8gbWVub3MgMSB2ZW5kYSBwYXJhIHNhbHZhci4iKTsKICAgICAgcmV0dXJuOwogICAgfQoKICAgIHN0YXJ0VHJhbnNpdGlvbihhc3luYyAoKSA9PiB7CiAgICAgIGNvbnN0IHJlc3VsdCA9IGF3YWl0IHNhdmVTYWxlc0VudHJpZXMoewogICAgICAgIGRhdGU6IHNlbGVjdGVkRGF0ZSwKICAgICAgICBzZWxsZXJJZDogTnVtYmVyKHNlbGVjdGVkU2VsbGVyKSwKICAgICAgICBlbnRyaWVzLAogICAgICB9KTsKICAgICAgaWYgKHJlc3VsdC5lcnJvcikgewogICAgICAgIHRvYXN0LmVycm9yKHJlc3VsdC5lcnJvcik7CiAgICAgIH0gZWxzZSB7CiAgICAgICAgdG9hc3Quc3VjY2VzcygiTGFuY2FtZW50b3Mgc2Fsdm9zIGNvbSBzdWNlc3NvISIpOwogICAgICAgIHJlc2V0Rm9ybSgpOwogICAgICAgIHNldEp1c3RTYXZlZCh0cnVlKTsKICAgICAgICBzZXRUaW1lb3V0KCgpID0+IHNldEp1c3RTYXZlZChmYWxzZSksIDMwMDApOwogICAgICAgIHJvdXRlci5yZWZyZXNoKCk7CiAgICAgIH0KICAgIH0pOwogIH0KCiAgY29uc3QgaGFzRW50cmllcyA9IHBsYW5zLnNvbWUoKHApID0+IChxdWFudGl0aWVzW3AuaWRdIHx8IDApID4gMCk7CgogIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCBnYXAtNiI+CiAgICAgIDxkaXY+CiAgICAgICAgPGgxIGNsYXNzTmFtZT0idGV4dC0yeGwgZm9udC1ib2xkIHRleHQtZm9yZWdyb3VuZCI+TGFuY2FtZW50byBkZSBWZW5kYXM8L2gxPgogICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgUmVnaXN0cmUgbm92YXMgdmVuZGFzIGRpYXJpYXMgcG9yIHBsYW5vLiBMYW5jYW1lbnRvcyBhbnRlcmlvcmVzIHNhbyBwcmVzZXJ2YWRvcy4KICAgICAgICA8L3A+CiAgICAgIDwvZGl2PgoKICAgICAgPENhcmQ+CiAgICAgICAgPENhcmRIZWFkZXI+CiAgICAgICAgICA8Q2FyZFRpdGxlIGNsYXNzTmFtZT0idGV4dC1iYXNlIj5GaWx0cm9zPC9DYXJkVGl0bGU+CiAgICAgICAgPC9DYXJkSGVhZGVyPgogICAgICAgIDxDYXJkQ29udGVudD4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGZsZXgtd3JhcCBpdGVtcy1lbmQgZ2FwLTQiPgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCBnYXAtMS41Ij4KICAgICAgICAgICAgICA8TGFiZWwgY2xhc3NOYW1lPSJ0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+RGF0YTwvTGFiZWw+CiAgICAgICAgICAgICAgPElucHV0CiAgICAgICAgICAgICAgICB0eXBlPSJkYXRlIgogICAgICAgICAgICAgICAgdmFsdWU9e3NlbGVjdGVkRGF0ZX0KICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gaGFuZGxlRGF0ZUNoYW5nZShlLnRhcmdldC52YWx1ZSl9CiAgICAgICAgICAgICAgICBjbGFzc05hbWU9InctNDQiCiAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIHtpc0FkbWluICYmIHNlbGxlcnMubGVuZ3RoID4gMCAmJiAoCiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC1jb2wgZ2FwLTEuNSI+CiAgICAgICAgICAgICAgICA8TGFiZWwgY2xhc3NOYW1lPSJ0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+VmVuZGVkb3I8L0xhYmVsPgogICAgICAgICAgICAgICAgPFNlbGVjdCB2YWx1ZT17c2VsZWN0ZWRTZWxsZXJ9IG9uVmFsdWVDaGFuZ2U9e2hhbmRsZVNlbGxlckNoYW5nZX0+CiAgICAgICAgICAgICAgICAgIDxTZWxlY3RUcmlnZ2VyIGNsYXNzTmFtZT0idy01MiI+CiAgICAgICAgICAgICAgICAgICAgPFNlbGVjdFZhbHVlIHBsYWNlaG9sZGVyPSJTZWxlY2lvbmUiIC8+CiAgICAgICAgICAgICAgICAgIDwvU2VsZWN0VHJpZ2dlcj4KICAgICAgICAgICAgICAgICAgPFNlbGVjdENvbnRlbnQ+CiAgICAgICAgICAgICAgICAgICAge3NlbGxlcnMubWFwKChzKSA9PiAoCiAgICAgICAgICAgICAgICAgICAgICA8U2VsZWN0SXRlbSBrZXk9e3MuaWR9IHZhbHVlPXtTdHJpbmcocy5pZCl9PgogICAgICAgICAgICAgICAgICAgICAgICB7cy5uYW1lfQogICAgICAgICAgICAgICAgICAgICAgPC9TZWxlY3RJdGVtPgogICAgICAgICAgICAgICAgICAgICkpfQogICAgICAgICAgICAgICAgICA8L1NlbGVjdENvbnRlbnQ+CiAgICAgICAgICAgICAgICA8L1NlbGVjdD4KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgKX0KICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvQ2FyZENvbnRlbnQ+CiAgICAgIDwvQ2FyZD4KCiAgICAgIHsvKiBTdW1tYXJ5IG9mIGV4aXN0aW5nIGVudHJpZXMgZm9yIHRoZSBkYXkgKi99CiAgICAgIHt0b2RheVN1bW1hcnkubGVuZ3RoID4gMCAmJiAoCiAgICAgICAgPENhcmQ+CiAgICAgICAgICA8Q2FyZEhlYWRlcj4KICAgICAgICAgICAgPENhcmRUaXRsZSBjbGFzc05hbWU9InRleHQtYmFzZSI+SmEgbGFuY2FkbyBuZXN0ZSBkaWE8L0NhcmRUaXRsZT4KICAgICAgICAgIDwvQ2FyZEhlYWRlcj4KICAgICAgICAgIDxDYXJkQ29udGVudD4KICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC13cmFwIGdhcC0zIj4KICAgICAgICAgICAgICB7dG9kYXlTdW1tYXJ5Lm1hcCgocykgPT4gewogICAgICAgICAgICAgICAgY29uc3QgcGxhbiA9IHBsYW5zLmZpbmQoKHApID0+IHAuaWQgPT09IHMucGxhbl9pZCk7CiAgICAgICAgICAgICAgICByZXR1cm4gKAogICAgICAgICAgICAgICAgICA8ZGl2CiAgICAgICAgICAgICAgICAgICAga2V5PXtzLnBsYW5faWR9CiAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMiByb3VuZGVkLW1kIGJvcmRlciBiZy1tdXRlZC81MCBweC0zIHB5LTEuNSB0ZXh0LXNtIgogICAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgICAgICAge3BsYW4/LnBsYW5fbmFtZSB8fCBgUGxhbm8gIyR7cy5wbGFuX2lkfWB9CiAgICAgICAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0icm91bmRlZC1mdWxsIGJnLXByaW1hcnkvMTAgcHgtMiBweS0wLjUgdGV4dC14cyBmb250LWJvbGQgdGV4dC1wcmltYXJ5Ij4KICAgICAgICAgICAgICAgICAgICAgIHtzLnRvdGFsX3F0eX14CiAgICAgICAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICAgICk7CiAgICAgICAgICAgICAgfSl9CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTIgdGV4dC14cyB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgIFBhcmEgYWx0ZXJhciBsYW5jYW1lbnRvcyBhbnRlcmlvcmVzLCB1c2UgbyBtZW51IEhpc3Rvcmljby4KICAgICAgICAgICAgPC9wPgogICAgICAgICAgPC9DYXJkQ29udGVudD4KICAgICAgICA8L0NhcmQ+CiAgICAgICl9CgogICAgICA8Q2FyZD4KICAgICAgICA8Q2FyZEhlYWRlciBjbGFzc05hbWU9ImZsZXggZmxleC1yb3cgaXRlbXMtY2VudGVyIGp1c3RpZnktYmV0d2VlbiI+CiAgICAgICAgICA8Q2FyZFRpdGxlIGNsYXNzTmFtZT0idGV4dC1iYXNlIj5Ob3ZvIGxhbmNhbWVudG88L0NhcmRUaXRsZT4KICAgICAgICAgIDxCdXR0b24gb25DbGljaz17aGFuZGxlU2F2ZX0gZGlzYWJsZWQ9e2lzUGVuZGluZyB8fCAhaGFzRW50cmllc30gc2l6ZT0ic20iPgogICAgICAgICAgICB7aXNQZW5kaW5nID8gKAogICAgICAgICAgICAgIDxMb2FkZXIyIGNsYXNzTmFtZT0ibXItMiBoLTQgdy00IGFuaW1hdGUtc3BpbiIgLz4KICAgICAgICAgICAgKSA6IGp1c3RTYXZlZCA/ICgKICAgICAgICAgICAgICA8Q2hlY2tDaXJjbGUyIGNsYXNzTmFtZT0ibXItMiBoLTQgdy00IiAvPgogICAgICAgICAgICApIDogKAogICAgICAgICAgICAgIDxTYXZlIGNsYXNzTmFtZT0ibXItMiBoLTQgdy00IiAvPgogICAgICAgICAgICApfQogICAgICAgICAgICB7anVzdFNhdmVkID8gIlNhbHZvISIgOiAiU2FsdmFyIn0KICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgIDwvQ2FyZEhlYWRlcj4KICAgICAgICA8Q2FyZENvbnRlbnQ+CiAgICAgICAgICB7cGxhbnMubGVuZ3RoID09PSAwID8gKAogICAgICAgICAgICA8cCBjbGFzc05hbWU9InB5LTggdGV4dC1jZW50ZXIgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgIE5lbmh1bSBwbGFubyBhdGl2byBjYWRhc3RyYWRvLiBDYWRhc3RyZSBwcm9kdXRvcyBlIHBsYW5vcyBwcmltZWlyby4KICAgICAgICAgICAgPC9wPgogICAgICAgICAgKSA6ICgKICAgICAgICAgICAgPFRhYmxlPgogICAgICAgICAgICAgIDxUYWJsZUhlYWRlcj4KICAgICAgICAgICAgICAgIDxUYWJsZVJvdz4KICAgICAgICAgICAgICAgICAgPFRhYmxlSGVhZD5Qcm9kdXRvPC9UYWJsZUhlYWQ+CiAgICAgICAgICAgICAgICAgIDxUYWJsZUhlYWQ+UGxhbm88L1RhYmxlSGVhZD4KICAgICAgICAgICAgICAgICAgPFRhYmxlSGVhZCBjbGFzc05hbWU9InRleHQtcmlnaHQiPlByZWNvIEJydXRvPC9UYWJsZUhlYWQ+CiAgICAgICAgICAgICAgICAgIDxUYWJsZUhlYWQgY2xhc3NOYW1lPSJ3LTI0Ij5RdGQ8L1RhYmxlSGVhZD4KICAgICAgICAgICAgICAgICAgPFRhYmxlSGVhZCBjbGFzc05hbWU9InctMzIiPkRlc2NvbnRvIChSJCk8L1RhYmxlSGVhZD4KICAgICAgICAgICAgICAgICAgPFRhYmxlSGVhZD5PYnNlcnZhY29lczwvVGFibGVIZWFkPgogICAgICAgICAgICAgICAgPC9UYWJsZVJvdz4KICAgICAgICAgICAgICA8L1RhYmxlSGVhZGVyPgogICAgICAgICAgICAgIDxUYWJsZUJvZHk+CiAgICAgICAgICAgICAgICB7cGxhbnMubWFwKChwbGFuKSA9PiB7CiAgICAgICAgICAgICAgICAgIGNvbnN0IGV4aXN0aW5nID0gc3VtbWFyeU1hcC5nZXQocGxhbi5pZCkgfHwgMDsKICAgICAgICAgICAgICAgICAgcmV0dXJuICgKICAgICAgICAgICAgICAgICAgICA8VGFibGVSb3cga2V5PXtwbGFuLmlkfT4KICAgICAgICAgICAgICAgICAgICAgIDxUYWJsZUNlbGwgY2xhc3NOYW1lPSJmb250LW1lZGl1bSI+e3BsYW4ucHJvZHVjdF9uYW1lfTwvVGFibGVDZWxsPgogICAgICAgICAgICAgICAgICAgICAgPFRhYmxlQ2VsbD4KICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC1jb2wiPgogICAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPntwbGFuLnBsYW5fbmFtZX08L3NwYW4+CiAgICAgICAgICAgICAgICAgICAgICAgICAge2V4aXN0aW5nID4gMCAmJiAoCiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge2V4aXN0aW5nfSBqYSBsYW5jYWRvKHMpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgICAgICAgICAgICAgICAgKX0KICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgICAgICAgICA8L1RhYmxlQ2VsbD4KICAgICAgICAgICAgICAgICAgICAgIDxUYWJsZUNlbGwgY2xhc3NOYW1lPSJ0ZXh0LXJpZ2h0Ij4KICAgICAgICAgICAgICAgICAgICAgICAge2Zvcm1hdEJSTChOdW1iZXIocGxhbi5zYWxlX3ByaWNlX2dyb3NzKSl9CiAgICAgICAgICAgICAgICAgICAgICA8L1RhYmxlQ2VsbD4KICAgICAgICAgICAgICAgICAgICAgIDxUYWJsZUNlbGw+CiAgICAgICAgICAgICAgICAgICAgICAgIDxJbnB1dAogICAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU9Im51bWJlciIKICAgICAgICAgICAgICAgICAgICAgICAgICBtaW49ezB9CiAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU9e3F1YW50aXRpZXNbcGxhbi5pZF0gfHwgMH0KICAgICAgICAgICAgICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXRRdWFudGl0aWVzKChwcmV2KSA9PiAoewogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAuLi5wcmV2LAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBbcGxhbi5pZF06IE51bWJlcihlLnRhcmdldC52YWx1ZSksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9KSkKICAgICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJ3LTIwIgogICAgICAgICAgICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgICAgICAgICAgPC9UYWJsZUNlbGw+CiAgICAgICAgICAgICAgICAgICAgICA8VGFibGVDZWxsPgogICAgICAgICAgICAgICAgICAgICAgICA8SW5wdXQKICAgICAgICAgICAgICAgICAgICAgICAgICB0eXBlPSJudW1iZXIiCiAgICAgICAgICAgICAgICAgICAgICAgICAgbWluPXswfQogICAgICAgICAgICAgICAgICAgICAgICAgIHN0ZXA9IjAuMDEiCiAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU9e2Rpc2NvdW50c1twbGFuLmlkXSB8fCAwfQogICAgICAgICAgICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNldERpc2NvdW50cygocHJldikgPT4gKHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLi4ucHJldiwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgW3BsYW4uaWRdOiBOdW1iZXIoZS50YXJnZXQudmFsdWUpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgfSkpCiAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT0idy0yOCIKICAgICAgICAgICAgICAgICAgICAgICAgICBwbGFjZWhvbGRlcj0iMCwwMCIKICAgICAgICAgICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICAgICAgICAgIDwvVGFibGVDZWxsPgogICAgICAgICAgICAgICAgICAgICAgPFRhYmxlQ2VsbD4KICAgICAgICAgICAgICAgICAgICAgICAgPElucHV0CiAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU9e25vdGVzW3BsYW4uaWRdIHx8ICIifQogICAgICAgICAgICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNldE5vdGVzKChwcmV2KSA9PiAoewogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAuLi5wcmV2LAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBbcGxhbi5pZF06IGUudGFyZ2V0LnZhbHVlLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgfSkpCiAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJPcGNpb25hbCIKICAgICAgICAgICAgICAgICAgICAgICAgICBjbGFzc05hbWU9InctNDAiCiAgICAgICAgICAgICAgICAgICAgICAgIC8+CiAgICAgICAgICAgICAgICAgICAgICA8L1RhYmxlQ2VsbD4KICAgICAgICAgICAgICAgICAgICA8L1RhYmxlUm93PgogICAgICAgICAgICAgICAgICApOwogICAgICAgICAgICAgICAgfSl9CiAgICAgICAgICAgICAgPC9UYWJsZUJvZHk+CiAgICAgICAgICAgIDwvVGFibGU+CiAgICAgICAgICApfQogICAgICAgIDwvQ2FyZENvbnRlbnQ+CiAgICAgIDwvQ2FyZD4KICAgIDwvZGl2PgogICk7Cn0K"
+"use client";
+
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { saveSalesEntries } from "@/lib/actions/sales-actions";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Loader2, Save, CheckCircle2 } from "lucide-react";
+import { formatBRL } from "@/lib/format";
+
+interface Plan {
+  id: number;
+  plan_name: string;
+  product_name: string;
+  sale_price_gross: string;
+}
+
+interface TodaySummary {
+  plan_id: number;
+  total_qty: number;
+}
+
+interface SalesEntryFormProps {
+  plans: Plan[];
+  todaySummary: TodaySummary[];
+  sellers: { id: number; name: string }[];
+  date: string;
+  sellerId: number;
+  isAdmin: boolean;
+}
+
+function emptyQuantities(plans: Plan[]): Record<number, number> {
+  const m: Record<number, number> = {};
+  for (const plan of plans) m[plan.id] = 0;
+  return m;
+}
+
+function emptyDiscounts(plans: Plan[]): Record<number, number> {
+  const m: Record<number, number> = {};
+  for (const plan of plans) m[plan.id] = 0;
+  return m;
+}
+
+function emptyNotes(plans: Plan[]): Record<number, string> {
+  const m: Record<number, string> = {};
+  for (const plan of plans) m[plan.id] = "";
+  return m;
+}
+
+export function SalesEntryForm({
+  plans,
+  todaySummary,
+  sellers,
+  date,
+  sellerId,
+  isAdmin,
+}: SalesEntryFormProps) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [selectedDate, setSelectedDate] = useState(date);
+  const [selectedSeller, setSelectedSeller] = useState(String(sellerId));
+  const [quantities, setQuantities] = useState<Record<number, number>>(() => emptyQuantities(plans));
+  const [discounts, setDiscounts] = useState<Record<number, number>>(() => emptyDiscounts(plans));
+  const [notes, setNotes] = useState<Record<number, string>>(() => emptyNotes(plans));
+  const [justSaved, setJustSaved] = useState(false);
+
+  const summaryMap = new Map(todaySummary.map((s) => [s.plan_id, Number(s.total_qty)]));
+
+  function handleDateChange(newDate: string) {
+    setSelectedDate(newDate);
+    const params = new URLSearchParams();
+    params.set("date", newDate);
+    if (isAdmin) params.set("seller", selectedSeller);
+    router.push(`/sales?${params.toString()}`);
+  }
+
+  function handleSellerChange(newSeller: string) {
+    setSelectedSeller(newSeller);
+    const params = new URLSearchParams();
+    params.set("date", selectedDate);
+    params.set("seller", newSeller);
+    router.push(`/sales?${params.toString()}`);
+  }
+
+  function resetForm() {
+    setQuantities(emptyQuantities(plans));
+    setDiscounts(emptyDiscounts(plans));
+    setNotes(emptyNotes(plans));
+  }
+
+  function handleSave() {
+    const entries = plans
+      .filter((plan) => (quantities[plan.id] || 0) > 0)
+      .map((plan) => ({
+        planId: plan.id,
+        quantity: quantities[plan.id] || 0,
+        discount: discounts[plan.id] || 0,
+        notes: notes[plan.id] || "",
+      }));
+
+    if (entries.length === 0) {
+      toast.error("Insira pelo menos 1 venda para salvar.");
+      return;
+    }
+
+    startTransition(async () => {
+      const result = await saveSalesEntries({
+        date: selectedDate,
+        sellerId: Number(selectedSeller),
+        entries,
+      });
+      if (result.error) {
+        toast.error(result.error);
+      } else {
+        toast.success("Lancamentos salvos com sucesso!");
+        resetForm();
+        setJustSaved(true);
+        setTimeout(() => setJustSaved(false), 3000);
+        router.refresh();
+      }
+    });
+  }
+
+  const hasEntries = plans.some((p) => (quantities[p.id] || 0) > 0);
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div>
+        <h1 className="text-2xl font-bold text-foreground">Lancamento de Vendas</h1>
+        <p className="text-sm text-muted-foreground">
+          Registre novas vendas diarias por plano. Lancamentos anteriores sao preservados.
+        </p>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Filtros</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap items-end gap-4">
+            <div className="flex flex-col gap-1.5">
+              <Label className="text-xs text-muted-foreground">Data</Label>
+              <Input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => handleDateChange(e.target.value)}
+                className="w-44"
+              />
+            </div>
+            {isAdmin && sellers.length > 0 && (
+              <div className="flex flex-col gap-1.5">
+                <Label className="text-xs text-muted-foreground">Vendedor</Label>
+                <Select value={selectedSeller} onValueChange={handleSellerChange}>
+                  <SelectTrigger className="w-52">
+                    <SelectValue placeholder="Selecione" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {sellers.map((s) => (
+                      <SelectItem key={s.id} value={String(s.id)}>
+                        {s.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Summary of existing entries for the day */}
+      {todaySummary.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Ja lancado neste dia</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-3">
+              {todaySummary.map((s) => {
+                const plan = plans.find((p) => p.id === s.plan_id);
+                return (
+                  <div
+                    key={s.plan_id}
+                    className="flex items-center gap-2 rounded-md border bg-muted/50 px-3 py-1.5 text-sm"
+                  >
+                    <span className="font-medium text-foreground">
+                      {plan?.plan_name || `Plano #${s.plan_id}`}
+                    </span>
+                    <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">
+                      {s.total_qty}x
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Para alterar lancamentos anteriores, use o menu Historico.
+            </p>
+          </CardContent>
+        </Card>
+      )}
+
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle className="text-base">Novo lancamento</CardTitle>
+          <Button onClick={handleSave} disabled={isPending || !hasEntries} size="sm">
+            {isPending ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : justSaved ? (
+              <CheckCircle2 className="mr-2 h-4 w-4" />
+            ) : (
+              <Save className="mr-2 h-4 w-4" />
+            )}
+            {justSaved ? "Salvo!" : "Salvar"}
+          </Button>
+        </CardHeader>
+        <CardContent>
+          {plans.length === 0 ? (
+            <p className="py-8 text-center text-sm text-muted-foreground">
+              Nenhum plano ativo cadastrado. Cadastre produtos e planos primeiro.
+            </p>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Produto</TableHead>
+                  <TableHead>Plano</TableHead>
+                  <TableHead className="text-right">Preco Bruto</TableHead>
+                  <TableHead className="w-24">Qtd</TableHead>
+                  <TableHead className="w-32">Desconto (R$)</TableHead>
+                  <TableHead>Observacoes</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {plans.map((plan) => {
+                  const existing = summaryMap.get(plan.id) || 0;
+                  return (
+                    <TableRow key={plan.id}>
+                      <TableCell className="font-medium">{plan.product_name}</TableCell>
+                      <TableCell>
+                        <div className="flex flex-col">
+                          <span>{plan.plan_name}</span>
+                          {existing > 0 && (
+                            <span className="text-xs text-muted-foreground">
+                              {existing} ja lancado(s)
+                            </span>
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {formatBRL(Number(plan.sale_price_gross))}
+                      </TableCell>
+                      <TableCell>
+                        <Input
+                          type="number"
+                          min={0}
+                          value={quantities[plan.id] || 0}
+                          onChange={(e) =>
+                            setQuantities((prev) => ({
+                              ...prev,
+                              [plan.id]: Number(e.target.value),
+                            }))
+                          }
+                          className="w-20"
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Input
+                          type="number"
+                          min={0}
+                          step="0.01"
+                          value={discounts[plan.id] || 0}
+                          onChange={(e) =>
+                            setDiscounts((prev) => ({
+                              ...prev,
+                              [plan.id]: Number(e.target.value),
+                            }))
+                          }
+                          className="w-28"
+                          placeholder="0,00"
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Input
+                          value={notes[plan.id] || ""}
+                          onChange={(e) =>
+                            setNotes((prev) => ({
+                              ...prev,
+                              [plan.id]: e.target.value,
+                            }))
+                          }
+                          placeholder="Opcional"
+                          className="w-40"
+                        />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
 }

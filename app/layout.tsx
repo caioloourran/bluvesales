@@ -1,3 +1,35 @@
-{
-  "data": "aW1wb3J0IFJlYWN0IGZyb20gInJlYWN0IgppbXBvcnQgdHlwZSB7IE1ldGFkYXRhIH0gZnJvbSAibmV4dCI7CmltcG9ydCB7IEdlaXN0IH0gZnJvbSAibmV4dC9mb250L2dvb2dsZSI7CmltcG9ydCB7IFRvYXN0ZXIgfSBmcm9tICJzb25uZXIiOwppbXBvcnQgeyBUaGVtZVByb3ZpZGVyIH0gZnJvbSAiQC9jb21wb25lbnRzL3RoZW1lLXByb3ZpZGVyIjsKaW1wb3J0ICIuL2dsb2JhbHMuY3NzIjsKCmNvbnN0IGdlaXN0ID0gR2Vpc3QoeyBzdWJzZXRzOiBbImxhdGluIl0gfSk7CgpleHBvcnQgY29uc3QgbWV0YWRhdGE6IE1ldGFkYXRhID0gewogIHRpdGxlOiAiQmx1dmUgU2FsZXMiLAogIGRlc2NyaXB0aW9uOiAiQmx1dmUgU2FsZXMgLSBTaXN0ZW1hIGRlIGdlc3RhbyBkZSBwZXJmb3JtYW5jZSBjb21lcmNpYWwgZSBtYXJrZXRpbmciLAp9OwoKZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gUm9vdExheW91dCh7CiAgY2hpbGRyZW4sCn06IFJlYWRvbmx5PHsKICBjaGlsZHJlbjogUmVhY3QuUmVhY3ROb2RlOwp9PikgewogIHJldHVybiAoCiAgICA8aHRtbCBsYW5nPSJwdC1CUiIgc3VwcHJlc3NIeWRyYXRpb25XYXJuaW5nPgogICAgICA8Ym9keSBjbGFzc05hbWU9e2Ake2dlaXN0LmNsYXNzTmFtZX0gYW50aWFsaWFzZWRgfT4KICAgICAgICA8VGhlbWVQcm92aWRlcgogICAgICAgICAgYXR0cmlidXRlPSJjbGFzcyIKICAgICAgICAgIGRlZmF1bHRUaGVtZT0ibGlnaHQiCiAgICAgICAgICBlbmFibGVTeXN0ZW09e2ZhbHNlfQogICAgICAgICAgZGlzYWJsZVRyYW5zaXRpb25PbkNoYW5nZQogICAgICAgID4KICAgICAgICAgIHtjaGlsZHJlbn0KICAgICAgICAgIDxUb2FzdGVyIHJpY2hDb2xvcnMgcG9zaXRpb249InRvcC1yaWdodCIgLz4KICAgICAgICA8L1RoZW1lUHJvdmlkZXI+CiAgICAgIDwvYm9keT4KICAgIDwvaHRtbD4KICApOwp9Cg=="
+import React from "react"
+import type { Metadata } from "next";
+import { Geist } from "next/font/google";
+import { Toaster } from "sonner";
+import { ThemeProvider } from "@/components/theme-provider";
+import "./globals.css";
+
+const geist = Geist({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Bluve Sales",
+  description: "Bluve Sales - Sistema de gestao de performance comercial e marketing",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className={`${geist.className} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster richColors position="top-right" />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }

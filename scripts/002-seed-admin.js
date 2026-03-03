@@ -1,3 +1,44 @@
-{
-  "data": "aW1wb3J0IHsgbmVvbiB9IGZyb20gIkBuZW9uZGF0YWJhc2Uvc2VydmVybGVzcyI7CmltcG9ydCB7IGNyZWF0ZUhhc2ggfSBmcm9tICJjcnlwdG8iOwoKY29uc3Qgc3FsID0gbmVvbihwcm9jZXNzLmVudi5EQVRBQkFTRV9VUkwpOwoKLy8gU2ltcGxlIGhhc2ggZm9yIHNlZWQgLSBpbiBwcm9kdWN0aW9uIHdlIHVzZSBiY3J5cHRqcwpmdW5jdGlvbiBoYXNoUGFzc3dvcmQocGFzc3dvcmQpIHsKICByZXR1cm4gY3JlYXRlSGFzaCgic2hhMjU2IikudXBkYXRlKHBhc3N3b3JkKS5kaWdlc3QoImhleCIpOwp9Cgphc3luYyBmdW5jdGlvbiBzZWVkKCkgewogIGNvbnN0IGhhc2ggPSBoYXNoUGFzc3dvcmQoImFkbWluMTIzIik7CgogIGF3YWl0IHNxbGAKICAgIElOU0VSVCBJTlRPIHVzZXJzIChuYW1lLCBlbWFpbCwgcGFzc3dvcmRfaGFzaCwgcm9sZSkKICAgIFZBTFVFUyAoJ0FkbWluIE1hc3RlcicsICdhZG1pbkBlbXByZXNhLmNvbScsICR7aGFzaH0sICdBRE1JTl9NQVNURVInKQogICAgT04gQ09ORkxJQ1QgKGVtYWlsKSBETyBOT1RISU5HCiAgYDsKCiAgY29uc29sZS5sb2coIkFkbWluIHVzZXIgc2VlZGVkOiBhZG1pbkBlbXByZXNhLmNvbSAvIGFkbWluMTIzIik7CgogIC8vIFNlZWQgYSBzYW1wbGUgcHJvZHVjdCBhbmQgcGxhbnMKICBjb25zdCBwcm9kdWN0ID0gYXdhaXQgc3FsYAogICAgSU5TRVJUIElOVE8gcHJvZHVjdHMgKG5hbWUsIGFjdGl2ZSkKICAgIFZBTFVFUyAoJ1Byb2R1dG8gUHJpbmNpcGFsJywgdHJ1ZSkKICAgIE9OIENPTkZMSUNUIERPIE5PVEhJTkcKICAgIFJFVFVSTklORyBpZAogIGA7CgogIGlmIChwcm9kdWN0Lmxlbmd0aCA+IDApIHsKICAgIGNvbnN0IHByb2R1Y3RJZCA9IHByb2R1Y3RbMF0uaWQ7CiAgICBhd2FpdCBzcWxgCiAgICAgIElOU0VSVCBJTlRPIHBsYW5zIChwcm9kdWN0X2lkLCBuYW1lLCBzYWxlX3ByaWNlX2dyb3NzLCBzYWxlX3ByaWNlX25ldCwgYWN0aXZlKQogICAgICBWQUxVRVMgCiAgICAgICAgKCR7cHJvZHVjdElkfSwgJ1BsYW5vIDEgTWVzJywgMTk3LjAwLCAxNjcuMDAsIHRydWUpLAogICAgICAgICgke3Byb2R1Y3RJZH0sICdQbGFubyAzIE1lc2VzJywgNDk3LjAwLCA0MjAuMDAsIHRydWUpLAogICAgICAgICgke3Byb2R1Y3RJZH0sICdQbGFubyA2IE1lc2VzJywgODk3LjAwLCA3NjAuMDAsIHRydWUpCiAgICAgIE9OIENPTkZMSUNUIERPIE5PVEhJTkcKICAgIGA7CiAgICBjb25zb2xlLmxvZygiU2FtcGxlIHByb2R1Y3QgYW5kIHBsYW5zIHNlZWRlZCIpOwogIH0KfQoKc2VlZCgpLmNhdGNoKGNvbnNvbGUuZXJyb3IpOwo="
+import { neon } from "@neondatabase/serverless";
+import { createHash } from "crypto";
+
+const sql = neon(process.env.DATABASE_URL);
+
+// Simple hash for seed - in production we use bcryptjs
+function hashPassword(password) {
+  return createHash("sha256").update(password).digest("hex");
 }
+
+async function seed() {
+  const hash = hashPassword("admin123");
+
+  await sql`
+    INSERT INTO users (name, email, password_hash, role)
+    VALUES ('Admin Master', 'admin@empresa.com', ${hash}, 'ADMIN_MASTER')
+    ON CONFLICT (email) DO NOTHING
+  `;
+
+  console.log("Admin user seeded: admin@empresa.com / admin123");
+
+  // Seed a sample product and plans
+  const product = await sql`
+    INSERT INTO products (name, active)
+    VALUES ('Produto Principal', true)
+    ON CONFLICT DO NOTHING
+    RETURNING id
+  `;
+
+  if (product.length > 0) {
+    const productId = product[0].id;
+    await sql`
+      INSERT INTO plans (product_id, name, sale_price_gross, sale_price_net, active)
+      VALUES 
+        (${productId}, 'Plano 1 Mes', 197.00, 167.00, true),
+        (${productId}, 'Plano 3 Meses', 497.00, 420.00, true),
+        (${productId}, 'Plano 6 Meses', 897.00, 760.00, true)
+      ON CONFLICT DO NOTHING
+    `;
+    console.log("Sample product and plans seeded");
+  }
+}
+
+seed().catch(console.error);

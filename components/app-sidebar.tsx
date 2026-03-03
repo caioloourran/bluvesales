@@ -1,3 +1,127 @@
-{
-  "data": "InVzZSBjbGllbnQiOwoKaW1wb3J0IEltYWdlIGZyb20gIm5leHQvaW1hZ2UiOwppbXBvcnQgTGluayBmcm9tICJuZXh0L2xpbmsiOwppbXBvcnQgeyB1c2VQYXRobmFtZSB9IGZyb20gIm5leHQvbmF2aWdhdGlvbiI7CmltcG9ydCB7CiAgQmFyQ2hhcnQzLAogIFNob3BwaW5nQ2FydCwKICBNZWdhcGhvbmUsCiAgUGFja2FnZSwKICBMYXllcnMsCiAgUGVyY2VudCwKICBVc2VycywKICBMb2dPdXQsCiAgU3VuLAogIE1vb24sCiAgVHJvcGh5LAogIENsaXBib2FyZExpc3QsCiAgUmVjZWlwdCwKfSBmcm9tICJsdWNpZGUtcmVhY3QiOwppbXBvcnQgeyB1c2VUaGVtZSB9IGZyb20gIm5leHQtdGhlbWVzIjsKaW1wb3J0IHsgY24gfSBmcm9tICJAL2xpYi91dGlscyI7CmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gIkAvY29tcG9uZW50cy91aS9idXR0b24iOwppbXBvcnQgeyBsb2dvdXRBY3Rpb24gfSBmcm9tICJAL2xpYi9hY3Rpb25zL2F1dGgtYWN0aW9ucyI7CgppbnRlcmZhY2UgQXBwU2lkZWJhclByb3BzIHsKICB1c2VyTmFtZTogc3RyaW5nOwogIHVzZXJSb2xlOiBzdHJpbmc7Cn0KCmNvbnN0IGFkbWluTGlua3MgPSBbCiAgeyBocmVmOiAiL2Rhc2hib2FyZCIsIGxhYmVsOiAiRGFzaGJvYXJkIiwgaWNvbjogQmFyQ2hhcnQzIH0sCiAgeyBocmVmOiAiL3JhbmtpbmciLCBsYWJlbDogIlJhbmtpbmciLCBpY29uOiBUcm9waHkgfSwKICB7IGhyZWY6ICIvc2FsZXMiLCBsYWJlbDogIlZlbmRhcyIsIGljb246IFNob3BwaW5nQ2FydCB9LAogIHsgaHJlZjogIi9oaXN0b3J5IiwgbGFiZWw6ICJIaXN0b3JpY28iLCBpY29uOiBDbGlwYm9hcmRMaXN0IH0sCiAgeyBocmVmOiAiL21hcmtldGluZyIsIGxhYmVsOiAiTWFya2V0aW5nIiwgaWNvbjogTWVnYXBob25lIH0sCiAgeyBocmVmOiAiL3Byb2R1Y3RzIiwgbGFiZWw6ICJQcm9kdXRvcyIsIGljb246IFBhY2thZ2UgfSwKICB7IGhyZWY6ICIvcGxhbnMiLCBsYWJlbDogIlBsYW5vcyIsIGljb246IExheWVycyB9LAogIHsgaHJlZjogIi9jb21taXNzaW9ucyIsIGxhYmVsOiAiQ29taXNzb2VzIiwgaWNvbjogUGVyY2VudCB9LAogIHsgaHJlZjogIi9mZWVzIiwgbGFiZWw6ICJUYXhhcyIsIGljb246IFJlY2VpcHQgfSwKICB7IGhyZWY6ICIvdXNlcnMiLCBsYWJlbDogIlVzdWFyaW9zIiwgaWNvbjogVXNlcnMgfSwKXTsKCmNvbnN0IHNlbGxlckxpbmtzID0gWwogIHsgaHJlZjogIi9kYXNoYm9hcmQiLCBsYWJlbDogIkRhc2hib2FyZCIsIGljb246IEJhckNoYXJ0MyB9LAogIHsgaHJlZjogIi9zYWxlcyIsIGxhYmVsOiAiVmVuZGFzIiwgaWNvbjogU2hvcHBpbmdDYXJ0IH0sCiAgeyBocmVmOiAiL2hpc3RvcnkiLCBsYWJlbDogIkhpc3RvcmljbyIsIGljb246IENsaXBib2FyZExpc3QgfSwKXTsKCmV4cG9ydCBmdW5jdGlvbiBBcHBTaWRlYmFyKHsgdXNlck5hbWUsIHVzZXJSb2xlIH06IEFwcFNpZGViYXJQcm9wcykgewogIGNvbnN0IHBhdGhuYW1lID0gdXNlUGF0aG5hbWUoKTsKICBjb25zdCB7IHRoZW1lLCBzZXRUaGVtZSB9ID0gdXNlVGhlbWUoKTsKICBjb25zdCBsaW5rcyA9IHVzZXJSb2xlID09PSAiQURNSU5fTUFTVEVSIiA/IGFkbWluTGlua3MgOiBzZWxsZXJMaW5rczsKCiAgcmV0dXJuICgKICAgIDxhc2lkZSBjbGFzc05hbWU9ImZsZXggaC1mdWxsIHctNjQgc2hyaW5rLTAgZmxleC1jb2wgYm9yZGVyLXIgYmctY2FyZCI+CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMyBib3JkZXItYiBweC02IHB5LTUiPgogICAgICAgIDxJbWFnZQogICAgICAgICAgc3JjPSIvbG9nby5wbmciCiAgICAgICAgICBhbHQ9IkJsdXZlIFNhbGVzIgogICAgICAgICAgd2lkdGg9ezM2fQogICAgICAgICAgaGVpZ2h0PXszNn0KICAgICAgICAgIGNsYXNzTmFtZT0icm91bmRlZC1sZyIKICAgICAgICAvPgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGZsZXgtY29sIj4KICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0idGV4dC1zbSBmb250LXNlbWlib2xkIHRleHQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgIEJsdXZlIFNhbGVzCiAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5QZXJmb3JtYW5jZTwvc3Bhbj4KICAgICAgICA8L2Rpdj4KICAgICAgPC9kaXY+CgogICAgICA8bmF2IGNsYXNzTmFtZT0iZmxleCBmbGV4LTEgZmxleC1jb2wgZ2FwLTEgcHgtMyBweS00Ij4KICAgICAgICB7bGlua3MubWFwKChsaW5rKSA9PiB7CiAgICAgICAgICBjb25zdCBpc0FjdGl2ZSA9IHBhdGhuYW1lID09PSBsaW5rLmhyZWY7CiAgICAgICAgICByZXR1cm4gKAogICAgICAgICAgICA8TGluawogICAgICAgICAgICAgIGtleT17bGluay5ocmVmfQogICAgICAgICAgICAgIGhyZWY9e2xpbmsuaHJlZn0KICAgICAgICAgICAgICBjbGFzc05hbWU9e2NuKAogICAgICAgICAgICAgICAgImZsZXggaXRlbXMtY2VudGVyIGdhcC0zIHJvdW5kZWQtbWQgcHgtMyBweS0yIHRleHQtc20gZm9udC1tZWRpdW0gdHJhbnNpdGlvbi1jb2xvcnMiLAogICAgICAgICAgICAgICAgaXNBY3RpdmUKICAgICAgICAgICAgICAgICAgPyAiYmctcHJpbWFyeSB0ZXh0LXByaW1hcnktZm9yZWdyb3VuZCIKICAgICAgICAgICAgICAgICAgOiAidGV4dC1tdXRlZC1mb3JlZ3JvdW5kIGhvdmVyOmJnLWFjY2VudCBob3Zlcjp0ZXh0LWFjY2VudC1mb3JlZ3JvdW5kIgogICAgICAgICAgICAgICl9CiAgICAgICAgICAgID4KICAgICAgICAgICAgICA8bGluay5pY29uIGNsYXNzTmFtZT0iaC00IHctNCIgLz4KICAgICAgICAgICAgICB7bGluay5sYWJlbH0KICAgICAgICAgICAgPC9MaW5rPgogICAgICAgICAgKTsKICAgICAgICB9KX0KICAgICAgPC9uYXY+CgogICAgICA8ZGl2IGNsYXNzTmFtZT0iYm9yZGVyLXQgcHgtMyBweS00Ij4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibWItMyBweC0zIj4KICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPnt1c2VyTmFtZX08L3A+CiAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAge3VzZXJSb2xlID09PSAiQURNSU5fTUFTVEVSIiA/ICJBZG1pbmlzdHJhZG9yIiA6ICJWZW5kZWRvciJ9CiAgICAgICAgICA8L3A+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPEJ1dHRvbgogICAgICAgICAgdmFyaWFudD0iZ2hvc3QiCiAgICAgICAgICB0eXBlPSJidXR0b24iCiAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBzZXRUaGVtZSh0aGVtZSA9PT0gImRhcmsiID8gImxpZ2h0IiA6ICJkYXJrIil9CiAgICAgICAgICBjbGFzc05hbWU9InctZnVsbCBqdXN0aWZ5LXN0YXJ0IGdhcC0zIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCBob3Zlcjp0ZXh0LWZvcmVncm91bmQiCiAgICAgICAgPgogICAgICAgICAge3RoZW1lID09PSAiZGFyayIgPyAoCiAgICAgICAgICAgIDxTdW4gY2xhc3NOYW1lPSJoLTQgdy00IiAvPgogICAgICAgICAgKSA6ICgKICAgICAgICAgICAgPE1vb24gY2xhc3NOYW1lPSJoLTQgdy00IiAvPgogICAgICAgICAgKX0KICAgICAgICAgIHt0aGVtZSA9PT0gImRhcmsiID8gIk1vZG8gQ2xhcm8iIDogIk1vZG8gRXNjdXJvIn0KICAgICAgICA8L0J1dHRvbj4KICAgICAgICA8Zm9ybSBhY3Rpb249e2xvZ291dEFjdGlvbn0+CiAgICAgICAgICA8QnV0dG9uCiAgICAgICAgICAgIHZhcmlhbnQ9Imdob3N0IgogICAgICAgICAgICB0eXBlPSJzdWJtaXQiCiAgICAgICAgICAgIGNsYXNzTmFtZT0idy1mdWxsIGp1c3RpZnktc3RhcnQgZ2FwLTMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIGhvdmVyOnRleHQtZm9yZWdyb3VuZCIKICAgICAgICAgID4KICAgICAgICAgICAgPExvZ091dCBjbGFzc05hbWU9ImgtNCB3LTQiIC8+CiAgICAgICAgICAgIFNhaXIKICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgIDwvZm9ybT4KICAgICAgPC9kaXY+CiAgICA8L2FzaWRlPgogICk7Cn0K"
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  BarChart3,
+  ShoppingCart,
+  Megaphone,
+  Package,
+  Layers,
+  Percent,
+  Users,
+  LogOut,
+  Sun,
+  Moon,
+  Trophy,
+  ClipboardList,
+  Receipt,
+} from "lucide-react";
+import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { logoutAction } from "@/lib/actions/auth-actions";
+
+interface AppSidebarProps {
+  userName: string;
+  userRole: string;
+}
+
+const adminLinks = [
+  { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
+  { href: "/ranking", label: "Ranking", icon: Trophy },
+  { href: "/sales", label: "Vendas", icon: ShoppingCart },
+  { href: "/history", label: "Historico", icon: ClipboardList },
+  { href: "/marketing", label: "Marketing", icon: Megaphone },
+  { href: "/products", label: "Produtos", icon: Package },
+  { href: "/plans", label: "Planos", icon: Layers },
+  { href: "/commissions", label: "Comissoes", icon: Percent },
+  { href: "/fees", label: "Taxas", icon: Receipt },
+  { href: "/users", label: "Usuarios", icon: Users },
+];
+
+const sellerLinks = [
+  { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
+  { href: "/sales", label: "Vendas", icon: ShoppingCart },
+  { href: "/history", label: "Historico", icon: ClipboardList },
+];
+
+export function AppSidebar({ userName, userRole }: AppSidebarProps) {
+  const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
+  const links = userRole === "ADMIN_MASTER" ? adminLinks : sellerLinks;
+
+  return (
+    <aside className="flex h-full w-64 shrink-0 flex-col border-r bg-card">
+      <div className="flex items-center gap-3 border-b px-6 py-5">
+        <Image
+          src="/logo.png"
+          alt="Bluve Sales"
+          width={36}
+          height={36}
+          className="rounded-lg"
+        />
+        <div className="flex flex-col">
+          <span className="text-sm font-semibold text-foreground">
+            Bluve Sales
+          </span>
+          <span className="text-xs text-muted-foreground">Performance</span>
+        </div>
+      </div>
+
+      <nav className="flex flex-1 flex-col gap-1 px-3 py-4">
+        {links.map((link) => {
+          const isActive = pathname === link.href;
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={cn(
+                "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                isActive
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+              )}
+            >
+              <link.icon className="h-4 w-4" />
+              {link.label}
+            </Link>
+          );
+        })}
+      </nav>
+
+      <div className="border-t px-3 py-4">
+        <div className="mb-3 px-3">
+          <p className="text-sm font-medium text-foreground">{userName}</p>
+          <p className="text-xs text-muted-foreground">
+            {userRole === "ADMIN_MASTER" ? "Administrador" : "Vendedor"}
+          </p>
+        </div>
+        <Button
+          variant="ghost"
+          type="button"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground"
+        >
+          {theme === "dark" ? (
+            <Sun className="h-4 w-4" />
+          ) : (
+            <Moon className="h-4 w-4" />
+          )}
+          {theme === "dark" ? "Modo Claro" : "Modo Escuro"}
+        </Button>
+        <form action={logoutAction}>
+          <Button
+            variant="ghost"
+            type="submit"
+            className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground"
+          >
+            <LogOut className="h-4 w-4" />
+            Sair
+          </Button>
+        </form>
+      </div>
+    </aside>
+  );
 }

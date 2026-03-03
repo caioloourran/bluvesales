@@ -1,3 +1,105 @@
-{
-  "data": "InVzZSBjbGllbnQiOwoKaW1wb3J0IHsgdXNlUm91dGVyLCB1c2VTZWFyY2hQYXJhbXMgfSBmcm9tICJuZXh0L25hdmlnYXRpb24iOwppbXBvcnQgeyB1c2VTdGF0ZSB9IGZyb20gInJlYWN0IjsKaW1wb3J0IHsKICBTZWxlY3QsCiAgU2VsZWN0Q29udGVudCwKICBTZWxlY3RJdGVtLAogIFNlbGVjdFRyaWdnZXIsCiAgU2VsZWN0VmFsdWUsCn0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3NlbGVjdCI7CmltcG9ydCB7IElucHV0IH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2lucHV0IjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7IExhYmVsIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2xhYmVsIjsKCmNvbnN0IHBlcmlvZHMgPSBbCiAgeyB2YWx1ZTogInRvZGF5IiwgbGFiZWw6ICJIb2plIiB9LAogIHsgdmFsdWU6ICJ5ZXN0ZXJkYXkiLCBsYWJlbDogIk9udGVtIiB9LAogIHsgdmFsdWU6ICI3ZCIsIGxhYmVsOiAiVWx0aW1vcyA3IGRpYXMiIH0sCiAgeyB2YWx1ZTogIjMwZCIsIGxhYmVsOiAiVWx0aW1vcyAzMCBkaWFzIiB9LAogIHsgdmFsdWU6ICJtb250aCIsIGxhYmVsOiAiTWVzIGF0dWFsIiB9LAogIHsgdmFsdWU6ICJjdXN0b20iLCBsYWJlbDogIlBlcnNvbmFsaXphZG8iIH0sCl07CgppbnRlcmZhY2UgUGVyaW9kRmlsdGVyUHJvcHMgewogIHBlcmlvZDogc3RyaW5nOwogIGRhdGVGcm9tOiBzdHJpbmc7CiAgZGF0ZVRvOiBzdHJpbmc7Cn0KCmV4cG9ydCBmdW5jdGlvbiBQZXJpb2RGaWx0ZXIoewogIHBlcmlvZCwKICBkYXRlRnJvbSwKICBkYXRlVG8sCn06IFBlcmlvZEZpbHRlclByb3BzKSB7CiAgY29uc3Qgcm91dGVyID0gdXNlUm91dGVyKCk7CiAgY29uc3Qgc2VhcmNoUGFyYW1zID0gdXNlU2VhcmNoUGFyYW1zKCk7CiAgY29uc3QgW2N1c3RvbUZyb20sIHNldEN1c3RvbUZyb21dID0gdXNlU3RhdGUoZGF0ZUZyb20pOwogIGNvbnN0IFtjdXN0b21Ubywgc2V0Q3VzdG9tVG9dID0gdXNlU3RhdGUoZGF0ZVRvKTsKICBjb25zdCBbc2VsZWN0ZWQsIHNldFNlbGVjdGVkXSA9IHVzZVN0YXRlKHBlcmlvZCk7CgogIGZ1bmN0aW9uIGhhbmRsZVBlcmlvZENoYW5nZSh2YWx1ZTogc3RyaW5nKSB7CiAgICBzZXRTZWxlY3RlZCh2YWx1ZSk7CiAgICBpZiAodmFsdWUgIT09ICJjdXN0b20iKSB7CiAgICAgIGNvbnN0IHBhcmFtcyA9IG5ldyBVUkxTZWFyY2hQYXJhbXMoc2VhcmNoUGFyYW1zLnRvU3RyaW5nKCkpOwogICAgICBwYXJhbXMuc2V0KCJwZXJpb2QiLCB2YWx1ZSk7CiAgICAgIHBhcmFtcy5kZWxldGUoImZyb20iKTsKICAgICAgcGFyYW1zLmRlbGV0ZSgidG8iKTsKICAgICAgcm91dGVyLnB1c2goYC9kYXNoYm9hcmQ/JHtwYXJhbXMudG9TdHJpbmcoKX1gKTsKICAgIH0KICB9CgogIGZ1bmN0aW9uIGhhbmRsZUN1c3RvbUFwcGx5KCkgewogICAgY29uc3QgcGFyYW1zID0gbmV3IFVSTFNlYXJjaFBhcmFtcygpOwogICAgcGFyYW1zLnNldCgicGVyaW9kIiwgImN1c3RvbSIpOwogICAgcGFyYW1zLnNldCgiZnJvbSIsIGN1c3RvbUZyb20pOwogICAgcGFyYW1zLnNldCgidG8iLCBjdXN0b21Ubyk7CiAgICByb3V0ZXIucHVzaChgL2Rhc2hib2FyZD8ke3BhcmFtcy50b1N0cmluZygpfWApOwogIH0KCiAgcmV0dXJuICgKICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGZsZXgtd3JhcCBpdGVtcy1lbmQgZ2FwLTMiPgogICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCBnYXAtMS41Ij4KICAgICAgICA8TGFiZWwgY2xhc3NOYW1lPSJ0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+UGVyaW9kbzwvTGFiZWw+CiAgICAgICAgPFNlbGVjdCB2YWx1ZT17c2VsZWN0ZWR9IG9uVmFsdWVDaGFuZ2U9e2hhbmRsZVBlcmlvZENoYW5nZX0+CiAgICAgICAgICA8U2VsZWN0VHJpZ2dlciBjbGFzc05hbWU9InctNDgiPgogICAgICAgICAgICA8U2VsZWN0VmFsdWUgLz4KICAgICAgICAgIDwvU2VsZWN0VHJpZ2dlcj4KICAgICAgICAgIDxTZWxlY3RDb250ZW50PgogICAgICAgICAgICB7cGVyaW9kcy5tYXAoKHApID0+ICgKICAgICAgICAgICAgICA8U2VsZWN0SXRlbSBrZXk9e3AudmFsdWV9IHZhbHVlPXtwLnZhbHVlfT4KICAgICAgICAgICAgICAgIHtwLmxhYmVsfQogICAgICAgICAgICAgIDwvU2VsZWN0SXRlbT4KICAgICAgICAgICAgKSl9CiAgICAgICAgICA8L1NlbGVjdENvbnRlbnQ+CiAgICAgICAgPC9TZWxlY3Q+CiAgICAgIDwvZGl2PgogICAgICB7c2VsZWN0ZWQgPT09ICJjdXN0b20iICYmICgKICAgICAgICA8PgogICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC1jb2wgZ2FwLTEuNSI+CiAgICAgICAgICAgIDxMYWJlbCBjbGFzc05hbWU9InRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5EZTwvTGFiZWw+CiAgICAgICAgICAgIDxJbnB1dAogICAgICAgICAgICAgIHR5cGU9ImRhdGUiCiAgICAgICAgICAgICAgdmFsdWU9e2N1c3RvbUZyb219CiAgICAgICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PiBzZXRDdXN0b21Gcm9tKGUudGFyZ2V0LnZhbHVlKX0KICAgICAgICAgICAgICBjbGFzc05hbWU9InctNDAiCiAgICAgICAgICAgIC8+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGZsZXgtY29sIGdhcC0xLjUiPgogICAgICAgICAgICA8TGFiZWwgY2xhc3NOYW1lPSJ0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+QXRlPC9MYWJlbD4KICAgICAgICAgICAgPElucHV0CiAgICAgICAgICAgICAgdHlwZT0iZGF0ZSIKICAgICAgICAgICAgICB2YWx1ZT17Y3VzdG9tVG99CiAgICAgICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PiBzZXRDdXN0b21UbyhlLnRhcmdldC52YWx1ZSl9CiAgICAgICAgICAgICAgY2xhc3NOYW1lPSJ3LTQwIgogICAgICAgICAgICAvPgogICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8QnV0dG9uIG9uQ2xpY2s9e2hhbmRsZUN1c3RvbUFwcGx5fSBzaXplPSJzbSI+CiAgICAgICAgICAgIEFwbGljYXIKICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgIDwvPgogICAgICApfQogICAgPC9kaXY+CiAgKTsKfQo="
+"use client";
+
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+
+const periods = [
+  { value: "today", label: "Hoje" },
+  { value: "yesterday", label: "Ontem" },
+  { value: "7d", label: "Ultimos 7 dias" },
+  { value: "30d", label: "Ultimos 30 dias" },
+  { value: "month", label: "Mes atual" },
+  { value: "custom", label: "Personalizado" },
+];
+
+interface PeriodFilterProps {
+  period: string;
+  dateFrom: string;
+  dateTo: string;
+}
+
+export function PeriodFilter({
+  period,
+  dateFrom,
+  dateTo,
+}: PeriodFilterProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [customFrom, setCustomFrom] = useState(dateFrom);
+  const [customTo, setCustomTo] = useState(dateTo);
+  const [selected, setSelected] = useState(period);
+
+  function handlePeriodChange(value: string) {
+    setSelected(value);
+    if (value !== "custom") {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("period", value);
+      params.delete("from");
+      params.delete("to");
+      router.push(`/dashboard?${params.toString()}`);
+    }
+  }
+
+  function handleCustomApply() {
+    const params = new URLSearchParams();
+    params.set("period", "custom");
+    params.set("from", customFrom);
+    params.set("to", customTo);
+    router.push(`/dashboard?${params.toString()}`);
+  }
+
+  return (
+    <div className="flex flex-wrap items-end gap-3">
+      <div className="flex flex-col gap-1.5">
+        <Label className="text-xs text-muted-foreground">Periodo</Label>
+        <Select value={selected} onValueChange={handlePeriodChange}>
+          <SelectTrigger className="w-48">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {periods.map((p) => (
+              <SelectItem key={p.value} value={p.value}>
+                {p.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      {selected === "custom" && (
+        <>
+          <div className="flex flex-col gap-1.5">
+            <Label className="text-xs text-muted-foreground">De</Label>
+            <Input
+              type="date"
+              value={customFrom}
+              onChange={(e) => setCustomFrom(e.target.value)}
+              className="w-40"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Label className="text-xs text-muted-foreground">Ate</Label>
+            <Input
+              type="date"
+              value={customTo}
+              onChange={(e) => setCustomTo(e.target.value)}
+              className="w-40"
+            />
+          </div>
+          <Button onClick={handleCustomApply} size="sm">
+            Aplicar
+          </Button>
+        </>
+      )}
+    </div>
+  );
 }

@@ -1,3 +1,52 @@
-{
-  "data": "ZXhwb3J0IGZ1bmN0aW9uIGZvcm1hdEJSTCh2YWx1ZTogbnVtYmVyKTogc3RyaW5nIHsKICByZXR1cm4gbmV3IEludGwuTnVtYmVyRm9ybWF0KCJwdC1CUiIsIHsKICAgIHN0eWxlOiAiY3VycmVuY3kiLAogICAgY3VycmVuY3k6ICJCUkwiLAogIH0pLmZvcm1hdCh2YWx1ZSk7Cn0KCmV4cG9ydCBmdW5jdGlvbiBmb3JtYXROdW1iZXIodmFsdWU6IG51bWJlciwgZGVjaW1hbHMgPSAwKTogc3RyaW5nIHsKICByZXR1cm4gbmV3IEludGwuTnVtYmVyRm9ybWF0KCJwdC1CUiIsIHsKICAgIG1pbmltdW1GcmFjdGlvbkRpZ2l0czogZGVjaW1hbHMsCiAgICBtYXhpbXVtRnJhY3Rpb25EaWdpdHM6IGRlY2ltYWxzLAogIH0pLmZvcm1hdCh2YWx1ZSk7Cn0KCmV4cG9ydCBmdW5jdGlvbiBmb3JtYXRQZXJjZW50KHZhbHVlOiBudW1iZXIpOiBzdHJpbmcgewogIHJldHVybiBuZXcgSW50bC5OdW1iZXJGb3JtYXQoInB0LUJSIiwgewogICAgc3R5bGU6ICJwZXJjZW50IiwKICAgIG1pbmltdW1GcmFjdGlvbkRpZ2l0czogMSwKICAgIG1heGltdW1GcmFjdGlvbkRpZ2l0czogMSwKICB9KS5mb3JtYXQodmFsdWUpOwp9CgpleHBvcnQgZnVuY3Rpb24gZ2V0RGF0ZVJhbmdlKHBlcmlvZDogc3RyaW5nKTogeyBmcm9tOiBzdHJpbmc7IHRvOiBzdHJpbmcgfSB7CiAgY29uc3QgdG9kYXkgPSBuZXcgRGF0ZSgpOwogIGNvbnN0IGZtdCA9IChkOiBEYXRlKSA9PiBkLnRvSVNPU3RyaW5nKCkuc3BsaXQoIlQiKVswXTsKCiAgc3dpdGNoIChwZXJpb2QpIHsKICAgIGNhc2UgInRvZGF5IjoKICAgICAgcmV0dXJuIHsgZnJvbTogZm10KHRvZGF5KSwgdG86IGZtdCh0b2RheSkgfTsKICAgIGNhc2UgInllc3RlcmRheSI6IHsKICAgICAgY29uc3QgeSA9IG5ldyBEYXRlKHRvZGF5KTsKICAgICAgeS5zZXREYXRlKHkuZ2V0RGF0ZSgpIC0gMSk7CiAgICAgIHJldHVybiB7IGZyb206IGZtdCh5KSwgdG86IGZtdCh5KSB9OwogICAgfQogICAgY2FzZSAiN2QiOiB7CiAgICAgIGNvbnN0IGQgPSBuZXcgRGF0ZSh0b2RheSk7CiAgICAgIGQuc2V0RGF0ZShkLmdldERhdGUoKSAtIDYpOwogICAgICByZXR1cm4geyBmcm9tOiBmbXQoZCksIHRvOiBmbXQodG9kYXkpIH07CiAgICB9CiAgICBjYXNlICIzMGQiOiB7CiAgICAgIGNvbnN0IGQgPSBuZXcgRGF0ZSh0b2RheSk7CiAgICAgIGQuc2V0RGF0ZShkLmdldERhdGUoKSAtIDI5KTsKICAgICAgcmV0dXJuIHsgZnJvbTogZm10KGQpLCB0bzogZm10KHRvZGF5KSB9OwogICAgfQogICAgY2FzZSAibW9udGgiOiB7CiAgICAgIGNvbnN0IGZpcnN0ID0gbmV3IERhdGUodG9kYXkuZ2V0RnVsbFllYXIoKSwgdG9kYXkuZ2V0TW9udGgoKSwgMSk7CiAgICAgIHJldHVybiB7IGZyb206IGZtdChmaXJzdCksIHRvOiBmbXQodG9kYXkpIH07CiAgICB9CiAgICBkZWZhdWx0OgogICAgICByZXR1cm4geyBmcm9tOiBmbXQodG9kYXkpLCB0bzogZm10KHRvZGF5KSB9OwogIH0KfQo="
+export function formatBRL(value: number): string {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(value);
+}
+
+export function formatNumber(value: number, decimals = 0): string {
+  return new Intl.NumberFormat("pt-BR", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(value);
+}
+
+export function formatPercent(value: number): string {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "percent",
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  }).format(value);
+}
+
+export function getDateRange(period: string): { from: string; to: string } {
+  const today = new Date();
+  const fmt = (d: Date) => d.toISOString().split("T")[0];
+
+  switch (period) {
+    case "today":
+      return { from: fmt(today), to: fmt(today) };
+    case "yesterday": {
+      const y = new Date(today);
+      y.setDate(y.getDate() - 1);
+      return { from: fmt(y), to: fmt(y) };
+    }
+    case "7d": {
+      const d = new Date(today);
+      d.setDate(d.getDate() - 6);
+      return { from: fmt(d), to: fmt(today) };
+    }
+    case "30d": {
+      const d = new Date(today);
+      d.setDate(d.getDate() - 29);
+      return { from: fmt(d), to: fmt(today) };
+    }
+    case "month": {
+      const first = new Date(today.getFullYear(), today.getMonth(), 1);
+      return { from: fmt(first), to: fmt(today) };
+    }
+    default:
+      return { from: fmt(today), to: fmt(today) };
+  }
 }

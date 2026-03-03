@@ -1,3 +1,395 @@
-{
-  "data": "InVzZSBjbGllbnQiOwoKaW1wb3J0IHsgdXNlU3RhdGUsIHVzZVRyYW5zaXRpb24gfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IHVzZVJvdXRlciB9IGZyb20gIm5leHQvbmF2aWdhdGlvbiI7CmltcG9ydCB7IHRvYXN0IH0gZnJvbSAic29ubmVyIjsKaW1wb3J0IHsgY3JlYXRlRmVlLCB1cGRhdGVGZWUsIGRlbGV0ZUZlZSB9IGZyb20gIkAvbGliL2FjdGlvbnMvYWRtaW4tYWN0aW9ucyI7CmltcG9ydCB7IENhcmQsIENhcmRDb250ZW50LCBDYXJkSGVhZGVyLCBDYXJkVGl0bGUsIENhcmREZXNjcmlwdGlvbiB9IGZyb20gIkAvY29tcG9uZW50cy91aS9jYXJkIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7IElucHV0IH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2lucHV0IjsKaW1wb3J0IHsgTGFiZWwgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvbGFiZWwiOwppbXBvcnQgeyBTd2l0Y2ggfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvc3dpdGNoIjsKaW1wb3J0IHsKICBTZWxlY3QsCiAgU2VsZWN0Q29udGVudCwKICBTZWxlY3RJdGVtLAogIFNlbGVjdFRyaWdnZXIsCiAgU2VsZWN0VmFsdWUsCn0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3NlbGVjdCI7CmltcG9ydCB7CiAgRGlhbG9nLAogIERpYWxvZ0NvbnRlbnQsCiAgRGlhbG9nSGVhZGVyLAogIERpYWxvZ1RpdGxlLAogIERpYWxvZ1RyaWdnZXIsCn0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2RpYWxvZyI7CmltcG9ydCB7CiAgVGFibGUsCiAgVGFibGVCb2R5LAogIFRhYmxlQ2VsbCwKICBUYWJsZUhlYWQsCiAgVGFibGVIZWFkZXIsCiAgVGFibGVSb3csCn0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3RhYmxlIjsKaW1wb3J0IHsgUGx1cywgUGVuY2lsLCBUcmFzaDIsIExvYWRlcjIsIFBlcmNlbnQsIERvbGxhclNpZ24gfSBmcm9tICJsdWNpZGUtcmVhY3QiOwppbXBvcnQgeyBmb3JtYXRCUkwgfSBmcm9tICJAL2xpYi9mb3JtYXQiOwoKaW50ZXJmYWNlIEZlZSB7CiAgaWQ6IG51bWJlcjsKICBuYW1lOiBzdHJpbmc7CiAgc2x1Zzogc3RyaW5nOwogIHR5cGU6IHN0cmluZzsKICB2YWx1ZTogc3RyaW5nOwogIGFwcGxpZXNfdG86IHN0cmluZzsKICBhY3RpdmU6IGJvb2xlYW47Cn0KCmludGVyZmFjZSBQcm9wcyB7CiAgZmVlczogRmVlW107Cn0KCmZ1bmN0aW9uIHNsdWdpZnkodGV4dDogc3RyaW5nKSB7CiAgcmV0dXJuIHRleHQKICAgIC50b0xvd2VyQ2FzZSgpCiAgICAubm9ybWFsaXplKCJORkQiKQogICAgLnJlcGxhY2UoL1tcdTAzMDAtXHUwMzZmXS9nLCAiIikKICAgIC5yZXBsYWNlKC9bXmEtejAtOV0rL2csICJfIikKICAgIC5yZXBsYWNlKC8oXl98XyQpL2csICIiKTsKfQoKZXhwb3J0IGZ1bmN0aW9uIEZlZXNDbGllbnQoeyBmZWVzIH06IFByb3BzKSB7CiAgY29uc3Qgcm91dGVyID0gdXNlUm91dGVyKCk7CiAgY29uc3QgW2lzUGVuZGluZywgc3RhcnRUcmFuc2l0aW9uXSA9IHVzZVRyYW5zaXRpb24oKTsKICBjb25zdCBbZGlhbG9nT3Blbiwgc2V0RGlhbG9nT3Blbl0gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgW2VkaXRpbmcsIHNldEVkaXRpbmddID0gdXNlU3RhdGU8RmVlIHwgbnVsbD4obnVsbCk7CiAgY29uc3QgW25hbWUsIHNldE5hbWVdID0gdXNlU3RhdGUoIiIpOwogIGNvbnN0IFtzbHVnLCBzZXRTbHVnXSA9IHVzZVN0YXRlKCIiKTsKICBjb25zdCBbdHlwZSwgc2V0VHlwZV0gPSB1c2VTdGF0ZTwiUEVSQ0VOVCIgfCAiRklYRUQiPigiUEVSQ0VOVCIpOwogIGNvbnN0IFt2YWx1ZSwgc2V0VmFsdWVdID0gdXNlU3RhdGUoIiIpOwogIGNvbnN0IFthcHBsaWVzVG8sIHNldEFwcGxpZXNUb10gPSB1c2VTdGF0ZTwiU0FMRSIgfCAiSU5WRVNUTUVOVCI+KCJTQUxFIik7CiAgY29uc3QgW2FjdGl2ZSwgc2V0QWN0aXZlXSA9IHVzZVN0YXRlKHRydWUpOwoKICBmdW5jdGlvbiBvcGVuQ3JlYXRlKCkgewogICAgc2V0RWRpdGluZyhudWxsKTsKICAgIHNldE5hbWUoIiIpOwogICAgc2V0U2x1ZygiIik7CiAgICBzZXRUeXBlKCJQRVJDRU5UIik7CiAgICBzZXRWYWx1ZSgiIik7CiAgICBzZXRBcHBsaWVzVG8oIlNBTEUiKTsKICAgIHNldEFjdGl2ZSh0cnVlKTsKICAgIHNldERpYWxvZ09wZW4odHJ1ZSk7CiAgfQoKICBmdW5jdGlvbiBvcGVuRWRpdChmOiBGZWUpIHsKICAgIHNldEVkaXRpbmcoZik7CiAgICBzZXROYW1lKGYubmFtZSk7CiAgICBzZXRTbHVnKGYuc2x1Zyk7CiAgICBzZXRUeXBlKGYudHlwZSBhcyAiUEVSQ0VOVCIgfCAiRklYRUQiKTsKICAgIHNldFZhbHVlKGYudmFsdWUpOwogICAgc2V0QXBwbGllc1RvKGYuYXBwbGllc190byBhcyAiU0FMRSIgfCAiSU5WRVNUTUVOVCIpOwogICAgc2V0QWN0aXZlKGYuYWN0aXZlKTsKICAgIHNldERpYWxvZ09wZW4odHJ1ZSk7CiAgfQoKICBmdW5jdGlvbiBoYW5kbGVOYW1lQ2hhbmdlKHZhbDogc3RyaW5nKSB7CiAgICBzZXROYW1lKHZhbCk7CiAgICBpZiAoIWVkaXRpbmcpIHsKICAgICAgc2V0U2x1ZyhzbHVnaWZ5KHZhbCkpOwogICAgfQogIH0KCiAgZnVuY3Rpb24gaGFuZGxlU2F2ZSgpIHsKICAgIGNvbnN0IGRhdGEgPSB7IG5hbWUsIHNsdWcsIHR5cGUsIHZhbHVlOiBOdW1iZXIodmFsdWUpLCBhcHBsaWVzVG8sIGFjdGl2ZSB9OwogICAgc3RhcnRUcmFuc2l0aW9uKGFzeW5jICgpID0+IHsKICAgICAgY29uc3QgcmVzdWx0ID0gZWRpdGluZwogICAgICAgID8gYXdhaXQgdXBkYXRlRmVlKGVkaXRpbmcuaWQsIGRhdGEpCiAgICAgICAgOiBhd2FpdCBjcmVhdGVGZWUoZGF0YSk7CiAgICAgIGlmIChyZXN1bHQuZXJyb3IpIHRvYXN0LmVycm9yKHJlc3VsdC5lcnJvcik7CiAgICAgIGVsc2UgewogICAgICAgIHRvYXN0LnN1Y2Nlc3MoZWRpdGluZyA/ICJUYXhhIGF0dWFsaXphZGEhIiA6ICJUYXhhIGNyaWFkYSEiKTsKICAgICAgICBzZXREaWFsb2dPcGVuKGZhbHNlKTsKICAgICAgICByb3V0ZXIucmVmcmVzaCgpOwogICAgICB9CiAgICB9KTsKICB9CgogIGZ1bmN0aW9uIGhhbmRsZURlbGV0ZShpZDogbnVtYmVyKSB7CiAgICBpZiAoIWNvbmZpcm0oIkRlc2VqYSByZWFsbWVudGUgZGVsZXRhciBlc3RhIHRheGE/IikpIHJldHVybjsKICAgIHN0YXJ0VHJhbnNpdGlvbihhc3luYyAoKSA9PiB7CiAgICAgIGNvbnN0IHJlc3VsdCA9IGF3YWl0IGRlbGV0ZUZlZShpZCk7CiAgICAgIGlmIChyZXN1bHQuZXJyb3IpIHRvYXN0LmVycm9yKHJlc3VsdC5lcnJvcik7CiAgICAgIGVsc2UgewogICAgICAgIHRvYXN0LnN1Y2Nlc3MoIlRheGEgZGVsZXRhZGEhIik7CiAgICAgICAgcm91dGVyLnJlZnJlc2goKTsKICAgICAgfQogICAgfSk7CiAgfQoKICBjb25zdCBzYWxlRmVlcyA9IGZlZXMuZmlsdGVyKChmKSA9PiBmLmFwcGxpZXNfdG8gPT09ICJTQUxFIik7CiAgY29uc3QgaW52ZXN0bWVudEZlZXMgPSBmZWVzLmZpbHRlcigoZikgPT4gZi5hcHBsaWVzX3RvID09PSAiSU5WRVNUTUVOVCIpOwoKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC1jb2wgZ2FwLTYiPgogICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1jZW50ZXIganVzdGlmeS1iZXR3ZWVuIj4KICAgICAgICA8ZGl2PgogICAgICAgICAgPGgxIGNsYXNzTmFtZT0idGV4dC0yeGwgZm9udC1ib2xkIHRleHQtZm9yZWdyb3VuZCI+VGF4YXM8L2gxPgogICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgIENvbmZpZ3VyZSBhcyB0YXhhcyBhcGxpY2FkYXMgc29icmUgdmVuZGFzIGUgaW52ZXN0aW1lbnRvCiAgICAgICAgICA8L3A+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPERpYWxvZyBvcGVuPXtkaWFsb2dPcGVufSBvbk9wZW5DaGFuZ2U9e3NldERpYWxvZ09wZW59PgogICAgICAgICAgPERpYWxvZ1RyaWdnZXIgYXNDaGlsZD4KICAgICAgICAgICAgPEJ1dHRvbiBvbkNsaWNrPXtvcGVuQ3JlYXRlfSBzaXplPSJzbSI+CiAgICAgICAgICAgICAgPFBsdXMgY2xhc3NOYW1lPSJtci0yIGgtNCB3LTQiIC8+IE5vdmEgVGF4YQogICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgIDwvRGlhbG9nVHJpZ2dlcj4KICAgICAgICAgIDxEaWFsb2dDb250ZW50PgogICAgICAgICAgICA8RGlhbG9nSGVhZGVyPgogICAgICAgICAgICAgIDxEaWFsb2dUaXRsZT4KICAgICAgICAgICAgICAgIHtlZGl0aW5nID8gIkVkaXRhciBUYXhhIiA6ICJOb3ZhIFRheGEifQogICAgICAgICAgICAgIDwvRGlhbG9nVGl0bGU+CiAgICAgICAgICAgIDwvRGlhbG9nSGVhZGVyPgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCBnYXAtNCBweS00Ij4KICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCBnYXAtMS41Ij4KICAgICAgICAgICAgICAgIDxMYWJlbD5Ob21lIGRhIFRheGE8L0xhYmVsPgogICAgICAgICAgICAgICAgPElucHV0CiAgICAgICAgICAgICAgICAgIHZhbHVlPXtuYW1lfQogICAgICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IGhhbmRsZU5hbWVDaGFuZ2UoZS50YXJnZXQudmFsdWUpfQogICAgICAgICAgICAgICAgICBwbGFjZWhvbGRlcj0iRXg6IFRheGEgUGxhdGFmb3JtYSBIb3RtYXJ0IgogICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCBnYXAtMS41Ij4KICAgICAgICAgICAgICAgIDxMYWJlbD5JZGVudGlmaWNhZG9yIChzbHVnKTwvTGFiZWw+CiAgICAgICAgICAgICAgICA8SW5wdXQKICAgICAgICAgICAgICAgICAgdmFsdWU9e3NsdWd9CiAgICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gc2V0U2x1ZyhlLnRhcmdldC52YWx1ZSl9CiAgICAgICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJ0YXhhX3BsYXRhZm9ybWEiCiAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT0iZm9udC1tb25vIHRleHQtc20iCiAgICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGZsZXgtY29sIGdhcC0xLjUiPgogICAgICAgICAgICAgICAgPExhYmVsPkFwbGljYS1zZSBhPC9MYWJlbD4KICAgICAgICAgICAgICAgIDxTZWxlY3QKICAgICAgICAgICAgICAgICAgdmFsdWU9e2FwcGxpZXNUb30KICAgICAgICAgICAgICAgICAgb25WYWx1ZUNoYW5nZT17KHYpID0+CiAgICAgICAgICAgICAgICAgICAgc2V0QXBwbGllc1RvKHYgYXMgIlNBTEUiIHwgIklOVkVTVE1FTlQiKQogICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgIDxTZWxlY3RUcmlnZ2VyPgogICAgICAgICAgICAgICAgICAgIDxTZWxlY3RWYWx1ZSAvPgogICAgICAgICAgICAgICAgICA8L1NlbGVjdFRyaWdnZXI+CiAgICAgICAgICAgICAgICAgIDxTZWxlY3RDb250ZW50PgogICAgICAgICAgICAgICAgICAgIDxTZWxlY3RJdGVtIHZhbHVlPSJTQUxFIj5Tb2JyZSBhIFZlbmRhPC9TZWxlY3RJdGVtPgogICAgICAgICAgICAgICAgICAgIDxTZWxlY3RJdGVtIHZhbHVlPSJJTlZFU1RNRU5UIj4KICAgICAgICAgICAgICAgICAgICAgIFNvYnJlIG8gSW52ZXN0aW1lbnRvCiAgICAgICAgICAgICAgICAgICAgPC9TZWxlY3RJdGVtPgogICAgICAgICAgICAgICAgICA8L1NlbGVjdENvbnRlbnQ+CiAgICAgICAgICAgICAgICA8L1NlbGVjdD4KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCBnYXAtMS41Ij4KICAgICAgICAgICAgICAgIDxMYWJlbD5UaXBvPC9MYWJlbD4KICAgICAgICAgICAgICAgIDxTZWxlY3QKICAgICAgICAgICAgICAgICAgdmFsdWU9e3R5cGV9CiAgICAgICAgICAgICAgICAgIG9uVmFsdWVDaGFuZ2U9eyh2KSA9PiBzZXRUeXBlKHYgYXMgIlBFUkNFTlQiIHwgIkZJWEVEIil9CiAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgIDxTZWxlY3RUcmlnZ2VyPgogICAgICAgICAgICAgICAgICAgIDxTZWxlY3RWYWx1ZSAvPgogICAgICAgICAgICAgICAgICA8L1NlbGVjdFRyaWdnZXI+CiAgICAgICAgICAgICAgICAgIDxTZWxlY3RDb250ZW50PgogICAgICAgICAgICAgICAgICAgIDxTZWxlY3RJdGVtIHZhbHVlPSJQRVJDRU5UIj5QZXJjZW50dWFsICglKTwvU2VsZWN0SXRlbT4KICAgICAgICAgICAgICAgICAgICA8U2VsZWN0SXRlbSB2YWx1ZT0iRklYRUQiPlZhbG9yIEZpeG8gKFIkKTwvU2VsZWN0SXRlbT4KICAgICAgICAgICAgICAgICAgPC9TZWxlY3RDb250ZW50PgogICAgICAgICAgICAgICAgPC9TZWxlY3Q+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC1jb2wgZ2FwLTEuNSI+CiAgICAgICAgICAgICAgICA8TGFiZWw+CiAgICAgICAgICAgICAgICAgIHt0eXBlID09PSAiUEVSQ0VOVCIgPyAiVmFsb3IgKCUpIiA6ICJWYWxvciAoUiQpIn0KICAgICAgICAgICAgICAgIDwvTGFiZWw+CiAgICAgICAgICAgICAgICA8SW5wdXQKICAgICAgICAgICAgICAgICAgdHlwZT0ibnVtYmVyIgogICAgICAgICAgICAgICAgICBzdGVwPSIwLjAxIgogICAgICAgICAgICAgICAgICB2YWx1ZT17dmFsdWV9CiAgICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gc2V0VmFsdWUoZS50YXJnZXQudmFsdWUpfQogICAgICAgICAgICAgICAgICBwbGFjZWhvbGRlcj17dHlwZSA9PT0gIlBFUkNFTlQiID8gIkV4OiA5LjkiIDogIkV4OiA1LjAwIn0KICAgICAgICAgICAgICAgIC8+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGdhcC0yIj4KICAgICAgICAgICAgICAgIDxTd2l0Y2ggY2hlY2tlZD17YWN0aXZlfSBvbkNoZWNrZWRDaGFuZ2U9e3NldEFjdGl2ZX0gLz4KICAgICAgICAgICAgICAgIDxMYWJlbD5BdGl2YTwvTGFiZWw+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPEJ1dHRvbiBvbkNsaWNrPXtoYW5kbGVTYXZlfSBkaXNhYmxlZD17aXNQZW5kaW5nfT4KICAgICAgICAgICAgICAgIHtpc1BlbmRpbmcgJiYgKAogICAgICAgICAgICAgICAgICA8TG9hZGVyMiBjbGFzc05hbWU9Im1yLTIgaC00IHctNCBhbmltYXRlLXNwaW4iIC8+CiAgICAgICAgICAgICAgICApfQogICAgICAgICAgICAgICAgU2FsdmFyCiAgICAgICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgPC9EaWFsb2dDb250ZW50PgogICAgICAgIDwvRGlhbG9nPgogICAgICA8L2Rpdj4KCiAgICAgIDxkaXYgY2xhc3NOYW1lPSJyb3VuZGVkLWxnIGJvcmRlciBiZy1jYXJkIHAtNCI+CiAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCBsZWFkaW5nLXJlbGF4ZWQiPgogICAgICAgICAgPHN0cm9uZyBjbGFzc05hbWU9InRleHQtZm9yZWdyb3VuZCI+Q29tbyBmdW5jaW9uYTo8L3N0cm9uZz4gQXMgdGF4YXMgc29icmUgYSB2ZW5kYQogICAgICAgICAgc2FvIGRlYml0YWRhcyBkbyB2YWxvciBicnV0byBhbnRlcyBkZSBjYWxjdWxhciBhIGNvbWlzc2FvIGRvIHZlbmRlZG9yLgogICAgICAgICAgQSBjb21pc3NhbyBlIGNhbGN1bGFkYSBzb2JyZSBvIHZhbG9yIHF1ZSBzb2JyYSBhcG9zIGFzIHRheGFzIGRhIHBsYXRhZm9ybWEuCiAgICAgICAgICBPIGx1Y3JvIGRhIGVtcHJlc2EgZTogVmFsb3IgQnJ1dG8gLSBUYXhhcyBQbGF0YWZvcm1hIC0gQ29taXNzYW8gVmVuZGVkb3IKICAgICAgICAgIC0gQ3VzdG8gZG8gUHJvZHV0byAtIEZyZXRlIC0gSW52ZXN0aW1lbnRvIGVtIEFudW5jaW8gLSBJbXBvc3RvcyBzb2JyZSBJbnZlc3RpbWVudG8uCiAgICAgICAgPC9wPgogICAgICA8L2Rpdj4KCiAgICAgIDxDYXJkPgogICAgICAgIDxDYXJkSGVhZGVyPgogICAgICAgICAgPENhcmRUaXRsZSBjbGFzc05hbWU9InRleHQtYmFzZSI+VGF4YXMgc29icmUgVmVuZGFzPC9DYXJkVGl0bGU+CiAgICAgICAgICA8Q2FyZERlc2NyaXB0aW9uPgogICAgICAgICAgICBEZWJpdGFkYXMgZG8gdmFsb3IgZGUgY2FkYSB2ZW5kYSAoZXg6IHRheGEgSG90bWFydCwgaW1wb3N0byBORikKICAgICAgICAgIDwvQ2FyZERlc2NyaXB0aW9uPgogICAgICAgIDwvQ2FyZEhlYWRlcj4KICAgICAgICA8Q2FyZENvbnRlbnQ+CiAgICAgICAgICB7c2FsZUZlZXMubGVuZ3RoID09PSAwID8gKAogICAgICAgICAgICA8cCBjbGFzc05hbWU9InB5LTYgdGV4dC1jZW50ZXIgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgIE5lbmh1bWEgdGF4YSBzb2JyZSB2ZW5kYXMgY2FkYXN0cmFkYS4KICAgICAgICAgICAgPC9wPgogICAgICAgICAgKSA6ICgKICAgICAgICAgICAgPFRhYmxlPgogICAgICAgICAgICAgIDxUYWJsZUhlYWRlcj4KICAgICAgICAgICAgICAgIDxUYWJsZVJvdz4KICAgICAgICAgICAgICAgICAgPFRhYmxlSGVhZD5Ob21lPC9UYWJsZUhlYWQ+CiAgICAgICAgICAgICAgICAgIDxUYWJsZUhlYWQ+VGlwbzwvVGFibGVIZWFkPgogICAgICAgICAgICAgICAgICA8VGFibGVIZWFkIGNsYXNzTmFtZT0idGV4dC1yaWdodCI+VmFsb3I8L1RhYmxlSGVhZD4KICAgICAgICAgICAgICAgICAgPFRhYmxlSGVhZD5TdGF0dXM8L1RhYmxlSGVhZD4KICAgICAgICAgICAgICAgICAgPFRhYmxlSGVhZCBjbGFzc05hbWU9InctMjQiPkFjb2VzPC9UYWJsZUhlYWQ+CiAgICAgICAgICAgICAgICA8L1RhYmxlUm93PgogICAgICAgICAgICAgIDwvVGFibGVIZWFkZXI+CiAgICAgICAgICAgICAgPFRhYmxlQm9keT4KICAgICAgICAgICAgICAgIHtzYWxlRmVlcy5tYXAoKGYpID0+ICgKICAgICAgICAgICAgICAgICAgPFRhYmxlUm93IGtleT17Zi5pZH0+CiAgICAgICAgICAgICAgICAgICAgPFRhYmxlQ2VsbCBjbGFzc05hbWU9ImZvbnQtbWVkaXVtIj57Zi5uYW1lfTwvVGFibGVDZWxsPgogICAgICAgICAgICAgICAgICAgIDxUYWJsZUNlbGw+CiAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImlubGluZS1mbGV4IGl0ZW1zLWNlbnRlciBnYXAtMSB0ZXh0LXNtIj4KICAgICAgICAgICAgICAgICAgICAgICAge2YudHlwZSA9PT0gIlBFUkNFTlQiID8gKAogICAgICAgICAgICAgICAgICAgICAgICAgIDxQZXJjZW50IGNsYXNzTmFtZT0iaC0zLjUgdy0zLjUiIC8+CiAgICAgICAgICAgICAgICAgICAgICAgICkgOiAoCiAgICAgICAgICAgICAgICAgICAgICAgICAgPERvbGxhclNpZ24gY2xhc3NOYW1lPSJoLTMuNSB3LTMuNSIgLz4KICAgICAgICAgICAgICAgICAgICAgICAgKX0KICAgICAgICAgICAgICAgICAgICAgICAge2YudHlwZSA9PT0gIlBFUkNFTlQiID8gIlBlcmNlbnR1YWwiIDogIkZpeG8ifQogICAgICAgICAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICAgICAgICAgIDwvVGFibGVDZWxsPgogICAgICAgICAgICAgICAgICAgIDxUYWJsZUNlbGwgY2xhc3NOYW1lPSJ0ZXh0LXJpZ2h0IGZvbnQtbW9ubyI+CiAgICAgICAgICAgICAgICAgICAgICB7Zi50eXBlID09PSAiUEVSQ0VOVCIKICAgICAgICAgICAgICAgICAgICAgICAgPyBgJHtOdW1iZXIoZi52YWx1ZSl9JWAKICAgICAgICAgICAgICAgICAgICAgICAgOiBmb3JtYXRCUkwoTnVtYmVyKGYudmFsdWUpKX0KICAgICAgICAgICAgICAgICAgICA8L1RhYmxlQ2VsbD4KICAgICAgICAgICAgICAgICAgICA8VGFibGVDZWxsPgogICAgICAgICAgICAgICAgICAgICAgPHNwYW4KICAgICAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPXtgaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIHJvdW5kZWQtZnVsbCBweC0yIHB5LTEgdGV4dC14cyBmb250LW1lZGl1bSAke2YuYWN0aXZlID8gImJnLWNoYXJ0LTIvMTAgdGV4dC1jaGFydC0yIiA6ICJiZy1tdXRlZCB0ZXh0LW11dGVkLWZvcmVncm91bmQifWB9CiAgICAgICAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgICAgICAgIHtmLmFjdGl2ZSA/ICJBdGl2YSIgOiAiSW5hdGl2YSJ9CiAgICAgICAgICAgICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgICAgICAgICAgPC9UYWJsZUNlbGw+CiAgICAgICAgICAgICAgICAgICAgPFRhYmxlQ2VsbD4KICAgICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMSI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxCdXR0b24KICAgICAgICAgICAgICAgICAgICAgICAgICB2YXJpYW50PSJnaG9zdCIKICAgICAgICAgICAgICAgICAgICAgICAgICBzaXplPSJpY29uIgogICAgICAgICAgICAgICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IG9wZW5FZGl0KGYpfQogICAgICAgICAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgICAgICAgICAgPFBlbmNpbCBjbGFzc05hbWU9ImgtNCB3LTQiIC8+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgICAgICAgICAgICAgICAgICA8QnV0dG9uCiAgICAgICAgICAgICAgICAgICAgICAgICAgdmFyaWFudD0iZ2hvc3QiCiAgICAgICAgICAgICAgICAgICAgICAgICAgc2l6ZT0iaWNvbiIKICAgICAgICAgICAgICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBoYW5kbGVEZWxldGUoZi5pZCl9CiAgICAgICAgICAgICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgICAgICAgICAgICA8VHJhc2gyIGNsYXNzTmFtZT0iaC00IHctNCB0ZXh0LWRlc3RydWN0aXZlIiAvPgogICAgICAgICAgICAgICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICAgICAgIDwvVGFibGVDZWxsPgogICAgICAgICAgICAgICAgICA8L1RhYmxlUm93PgogICAgICAgICAgICAgICAgKSl9CiAgICAgICAgICAgICAgPC9UYWJsZUJvZHk+CiAgICAgICAgICAgIDwvVGFibGU+CiAgICAgICAgICApfQogICAgICAgIDwvQ2FyZENvbnRlbnQ+CiAgICAgIDwvQ2FyZD4KCiAgICAgIDxDYXJkPgogICAgICAgIDxDYXJkSGVhZGVyPgogICAgICAgICAgPENhcmRUaXRsZSBjbGFzc05hbWU9InRleHQtYmFzZSI+CiAgICAgICAgICAgIFRheGFzIHNvYnJlIEludmVzdGltZW50bwogICAgICAgICAgPC9DYXJkVGl0bGU+CiAgICAgICAgICA8Q2FyZERlc2NyaXB0aW9uPgogICAgICAgICAgICBBcGxpY2FkYXMgc29icmUgbyB2YWxvciBpbnZlc3RpZG8gZW0gYW51bmNpb3MgKGV4OiBpbXBvc3RvIHNvYnJlCiAgICAgICAgICAgIE1ldGEgQWRzKQogICAgICAgICAgPC9DYXJkRGVzY3JpcHRpb24+CiAgICAgICAgPC9DYXJkSGVhZGVyPgogICAgICAgIDxDYXJkQ29udGVudD4KICAgICAgICAgIHtpbnZlc3RtZW50RmVlcy5sZW5ndGggPT09IDAgPyAoCiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0icHktNiB0ZXh0LWNlbnRlciB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgICAgTmVuaHVtYSB0YXhhIHNvYnJlIGludmVzdGltZW50byBjYWRhc3RyYWRhLgogICAgICAgICAgICA8L3A+CiAgICAgICAgICApIDogKAogICAgICAgICAgICA8VGFibGU+CiAgICAgICAgICAgICAgPFRhYmxlSGVhZGVyPgogICAgICAgICAgICAgICAgPFRhYmxlUm93PgogICAgICAgICAgICAgICAgICA8VGFibGVIZWFkPk5vbWU8L1RhYmxlSGVhZD4KICAgICAgICAgICAgICAgICAgPFRhYmxlSGVhZD5UaXBvPC9UYWJsZUhlYWQ+CiAgICAgICAgICAgICAgICAgIDxUYWJsZUhlYWQgY2xhc3NOYW1lPSJ0ZXh0LXJpZ2h0Ij5WYWxvcjwvVGFibGVIZWFkPgogICAgICAgICAgICAgICAgICA8VGFibGVIZWFkPlN0YXR1czwvVGFibGVIZWFkPgogICAgICAgICAgICAgICAgICA8VGFibGVIZWFkIGNsYXNzTmFtZT0idy0yNCI+QWNvZXM8L1RhYmxlSGVhZD4KICAgICAgICAgICAgICAgIDwvVGFibGVSb3c+CiAgICAgICAgICAgICAgPC9UYWJsZUhlYWRlcj4KICAgICAgICAgICAgICA8VGFibGVCb2R5PgogICAgICAgICAgICAgICAge2ludmVzdG1lbnRGZWVzLm1hcCgoZikgPT4gKAogICAgICAgICAgICAgICAgICA8VGFibGVSb3cga2V5PXtmLmlkfT4KICAgICAgICAgICAgICAgICAgICA8VGFibGVDZWxsIGNsYXNzTmFtZT0iZm9udC1tZWRpdW0iPntmLm5hbWV9PC9UYWJsZUNlbGw+CiAgICAgICAgICAgICAgICAgICAgPFRhYmxlQ2VsbD4KICAgICAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0xIHRleHQtc20iPgogICAgICAgICAgICAgICAgICAgICAgICB7Zi50eXBlID09PSAiUEVSQ0VOVCIgPyAoCiAgICAgICAgICAgICAgICAgICAgICAgICAgPFBlcmNlbnQgY2xhc3NOYW1lPSJoLTMuNSB3LTMuNSIgLz4KICAgICAgICAgICAgICAgICAgICAgICAgKSA6ICgKICAgICAgICAgICAgICAgICAgICAgICAgICA8RG9sbGFyU2lnbiBjbGFzc05hbWU9ImgtMy41IHctMy41IiAvPgogICAgICAgICAgICAgICAgICAgICAgICApfQogICAgICAgICAgICAgICAgICAgICAgICB7Zi50eXBlID09PSAiUEVSQ0VOVCIgPyAiUGVyY2VudHVhbCIgOiAiRml4byJ9CiAgICAgICAgICAgICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgICAgICAgICAgPC9UYWJsZUNlbGw+CiAgICAgICAgICAgICAgICAgICAgPFRhYmxlQ2VsbCBjbGFzc05hbWU9InRleHQtcmlnaHQgZm9udC1tb25vIj4KICAgICAgICAgICAgICAgICAgICAgIHtmLnR5cGUgPT09ICJQRVJDRU5UIgogICAgICAgICAgICAgICAgICAgICAgICA/IGAke051bWJlcihmLnZhbHVlKX0lYAogICAgICAgICAgICAgICAgICAgICAgICA6IGZvcm1hdEJSTChOdW1iZXIoZi52YWx1ZSkpfQogICAgICAgICAgICAgICAgICAgIDwvVGFibGVDZWxsPgogICAgICAgICAgICAgICAgICAgIDxUYWJsZUNlbGw+CiAgICAgICAgICAgICAgICAgICAgICA8c3BhbgogICAgICAgICAgICAgICAgICAgICAgICBjbGFzc05hbWU9e2BpbmxpbmUtZmxleCBpdGVtcy1jZW50ZXIgcm91bmRlZC1mdWxsIHB4LTIgcHktMSB0ZXh0LXhzIGZvbnQtbWVkaXVtICR7Zi5hY3RpdmUgPyAiYmctY2hhcnQtMi8xMCB0ZXh0LWNoYXJ0LTIiIDogImJnLW11dGVkIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCJ9YH0KICAgICAgICAgICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgICAgICAgICAge2YuYWN0aXZlID8gIkF0aXZhIiA6ICJJbmF0aXZhIn0KICAgICAgICAgICAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgICAgICAgICAgICA8L1RhYmxlQ2VsbD4KICAgICAgICAgICAgICAgICAgICA8VGFibGVDZWxsPgogICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGdhcC0xIj4KICAgICAgICAgICAgICAgICAgICAgICAgPEJ1dHRvbgogICAgICAgICAgICAgICAgICAgICAgICAgIHZhcmlhbnQ9Imdob3N0IgogICAgICAgICAgICAgICAgICAgICAgICAgIHNpemU9Imljb24iCiAgICAgICAgICAgICAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4gb3BlbkVkaXQoZil9CiAgICAgICAgICAgICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgICAgICAgICAgICA8UGVuY2lsIGNsYXNzTmFtZT0iaC00IHctNCIgLz4KICAgICAgICAgICAgICAgICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgICAgICAgICAgICAgICAgIDxCdXR0b24KICAgICAgICAgICAgICAgICAgICAgICAgICB2YXJpYW50PSJnaG9zdCIKICAgICAgICAgICAgICAgICAgICAgICAgICBzaXplPSJpY29uIgogICAgICAgICAgICAgICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IGhhbmRsZURlbGV0ZShmLmlkKX0KICAgICAgICAgICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICAgICAgICAgIDxUcmFzaDIgY2xhc3NOYW1lPSJoLTQgdy00IHRleHQtZGVzdHJ1Y3RpdmUiIC8+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgICAgICAgPC9UYWJsZUNlbGw+CiAgICAgICAgICAgICAgICAgIDwvVGFibGVSb3c+CiAgICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgICA8L1RhYmxlQm9keT4KICAgICAgICAgICAgPC9UYWJsZT4KICAgICAgICAgICl9CiAgICAgICAgPC9DYXJkQ29udGVudD4KICAgICAgPC9DYXJkPgogICAgPC9kaXY+CiAgKTsKfQo="
+"use client";
+
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { createFee, updateFee, deleteFee } from "@/lib/actions/admin-actions";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Plus, Pencil, Trash2, Loader2, Percent, DollarSign } from "lucide-react";
+import { formatBRL } from "@/lib/format";
+
+interface Fee {
+  id: number;
+  name: string;
+  slug: string;
+  type: string;
+  value: string;
+  applies_to: string;
+  active: boolean;
+}
+
+interface Props {
+  fees: Fee[];
+}
+
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/(^_|_$)/g, "");
+}
+
+export function FeesClient({ fees }: Props) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editing, setEditing] = useState<Fee | null>(null);
+  const [name, setName] = useState("");
+  const [slug, setSlug] = useState("");
+  const [type, setType] = useState<"PERCENT" | "FIXED">("PERCENT");
+  const [value, setValue] = useState("");
+  const [appliesTo, setAppliesTo] = useState<"SALE" | "INVESTMENT">("SALE");
+  const [active, setActive] = useState(true);
+
+  function openCreate() {
+    setEditing(null);
+    setName("");
+    setSlug("");
+    setType("PERCENT");
+    setValue("");
+    setAppliesTo("SALE");
+    setActive(true);
+    setDialogOpen(true);
+  }
+
+  function openEdit(f: Fee) {
+    setEditing(f);
+    setName(f.name);
+    setSlug(f.slug);
+    setType(f.type as "PERCENT" | "FIXED");
+    setValue(f.value);
+    setAppliesTo(f.applies_to as "SALE" | "INVESTMENT");
+    setActive(f.active);
+    setDialogOpen(true);
+  }
+
+  function handleNameChange(val: string) {
+    setName(val);
+    if (!editing) {
+      setSlug(slugify(val));
+    }
+  }
+
+  function handleSave() {
+    const data = { name, slug, type, value: Number(value), appliesTo, active };
+    startTransition(async () => {
+      const result = editing
+        ? await updateFee(editing.id, data)
+        : await createFee(data);
+      if (result.error) toast.error(result.error);
+      else {
+        toast.success(editing ? "Taxa atualizada!" : "Taxa criada!");
+        setDialogOpen(false);
+        router.refresh();
+      }
+    });
+  }
+
+  function handleDelete(id: number) {
+    if (!confirm("Deseja realmente deletar esta taxa?")) return;
+    startTransition(async () => {
+      const result = await deleteFee(id);
+      if (result.error) toast.error(result.error);
+      else {
+        toast.success("Taxa deletada!");
+        router.refresh();
+      }
+    });
+  }
+
+  const saleFees = fees.filter((f) => f.applies_to === "SALE");
+  const investmentFees = fees.filter((f) => f.applies_to === "INVESTMENT");
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Taxas</h1>
+          <p className="text-sm text-muted-foreground">
+            Configure as taxas aplicadas sobre vendas e investimento
+          </p>
+        </div>
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <DialogTrigger asChild>
+            <Button onClick={openCreate} size="sm">
+              <Plus className="mr-2 h-4 w-4" /> Nova Taxa
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>
+                {editing ? "Editar Taxa" : "Nova Taxa"}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="flex flex-col gap-4 py-4">
+              <div className="flex flex-col gap-1.5">
+                <Label>Nome da Taxa</Label>
+                <Input
+                  value={name}
+                  onChange={(e) => handleNameChange(e.target.value)}
+                  placeholder="Ex: Taxa Plataforma Hotmart"
+                />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>Identificador (slug)</Label>
+                <Input
+                  value={slug}
+                  onChange={(e) => setSlug(e.target.value)}
+                  placeholder="taxa_plataforma"
+                  className="font-mono text-sm"
+                />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>Aplica-se a</Label>
+                <Select
+                  value={appliesTo}
+                  onValueChange={(v) =>
+                    setAppliesTo(v as "SALE" | "INVESTMENT")
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="SALE">Sobre a Venda</SelectItem>
+                    <SelectItem value="INVESTMENT">
+                      Sobre o Investimento
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>Tipo</Label>
+                <Select
+                  value={type}
+                  onValueChange={(v) => setType(v as "PERCENT" | "FIXED")}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="PERCENT">Percentual (%)</SelectItem>
+                    <SelectItem value="FIXED">Valor Fixo (R$)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>
+                  {type === "PERCENT" ? "Valor (%)" : "Valor (R$)"}
+                </Label>
+                <Input
+                  type="number"
+                  step="0.01"
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  placeholder={type === "PERCENT" ? "Ex: 9.9" : "Ex: 5.00"}
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <Switch checked={active} onCheckedChange={setActive} />
+                <Label>Ativa</Label>
+              </div>
+              <Button onClick={handleSave} disabled={isPending}>
+                {isPending && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Salvar
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      <div className="rounded-lg border bg-card p-4">
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          <strong className="text-foreground">Como funciona:</strong> As taxas sobre a venda
+          sao debitadas do valor bruto antes de calcular a comissao do vendedor.
+          A comissao e calculada sobre o valor que sobra apos as taxas da plataforma.
+          O lucro da empresa e: Valor Bruto - Taxas Plataforma - Comissao Vendedor
+          - Custo do Produto - Frete - Investimento em Anuncio - Impostos sobre Investimento.
+        </p>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Taxas sobre Vendas</CardTitle>
+          <CardDescription>
+            Debitadas do valor de cada venda (ex: taxa Hotmart, imposto NF)
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {saleFees.length === 0 ? (
+            <p className="py-6 text-center text-sm text-muted-foreground">
+              Nenhuma taxa sobre vendas cadastrada.
+            </p>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Nome</TableHead>
+                  <TableHead>Tipo</TableHead>
+                  <TableHead className="text-right">Valor</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="w-24">Acoes</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {saleFees.map((f) => (
+                  <TableRow key={f.id}>
+                    <TableCell className="font-medium">{f.name}</TableCell>
+                    <TableCell>
+                      <span className="inline-flex items-center gap-1 text-sm">
+                        {f.type === "PERCENT" ? (
+                          <Percent className="h-3.5 w-3.5" />
+                        ) : (
+                          <DollarSign className="h-3.5 w-3.5" />
+                        )}
+                        {f.type === "PERCENT" ? "Percentual" : "Fixo"}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-right font-mono">
+                      {f.type === "PERCENT"
+                        ? `${Number(f.value)}%`
+                        : formatBRL(Number(f.value))}
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${f.active ? "bg-chart-2/10 text-chart-2" : "bg-muted text-muted-foreground"}`}
+                      >
+                        {f.active ? "Ativa" : "Inativa"}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-1">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => openEdit(f)}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDelete(f.id)}
+                        >
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">
+            Taxas sobre Investimento
+          </CardTitle>
+          <CardDescription>
+            Aplicadas sobre o valor investido em anuncios (ex: imposto sobre
+            Meta Ads)
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {investmentFees.length === 0 ? (
+            <p className="py-6 text-center text-sm text-muted-foreground">
+              Nenhuma taxa sobre investimento cadastrada.
+            </p>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Nome</TableHead>
+                  <TableHead>Tipo</TableHead>
+                  <TableHead className="text-right">Valor</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="w-24">Acoes</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {investmentFees.map((f) => (
+                  <TableRow key={f.id}>
+                    <TableCell className="font-medium">{f.name}</TableCell>
+                    <TableCell>
+                      <span className="inline-flex items-center gap-1 text-sm">
+                        {f.type === "PERCENT" ? (
+                          <Percent className="h-3.5 w-3.5" />
+                        ) : (
+                          <DollarSign className="h-3.5 w-3.5" />
+                        )}
+                        {f.type === "PERCENT" ? "Percentual" : "Fixo"}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-right font-mono">
+                      {f.type === "PERCENT"
+                        ? `${Number(f.value)}%`
+                        : formatBRL(Number(f.value))}
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${f.active ? "bg-chart-2/10 text-chart-2" : "bg-muted text-muted-foreground"}`}
+                      >
+                        {f.active ? "Ativa" : "Inativa"}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-1">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => openEdit(f)}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDelete(f.id)}
+                        >
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
 }

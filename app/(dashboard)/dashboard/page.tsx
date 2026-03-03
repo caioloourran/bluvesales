@@ -1,3 +1,46 @@
-{
-  "data": "aW1wb3J0IHsgZ2V0U2Vzc2lvbiB9IGZyb20gIkAvbGliL2F1dGgiOwppbXBvcnQgeyByZWRpcmVjdCB9IGZyb20gIm5leHQvbmF2aWdhdGlvbiI7CmltcG9ydCB7IGNhbGN1bGF0ZUtQSXMsIGdldERhaWx5TWV0cmljcywgZ2V0U2VsbGVyUmFua2luZ3MgfSBmcm9tICJAL2xpYi9rcGkiOwppbXBvcnQgeyBnZXREYXRlUmFuZ2UgfSBmcm9tICJAL2xpYi9mb3JtYXQiOwppbXBvcnQgeyBEYXNoYm9hcmRDbGllbnQgfSBmcm9tICJAL2NvbXBvbmVudHMvZGFzaGJvYXJkL2Rhc2hib2FyZC1jbGllbnQiOwoKZXhwb3J0IGNvbnN0IG1ldGFkYXRhID0gewogIHRpdGxlOiAiRGFzaGJvYXJkIC0gUGFpbmVsIENvbWVyY2lhbCIsCn07CgppbnRlcmZhY2UgUHJvcHMgewogIHNlYXJjaFBhcmFtczogUHJvbWlzZTx7IHBlcmlvZD86IHN0cmluZzsgZnJvbT86IHN0cmluZzsgdG8/OiBzdHJpbmcgfT47Cn0KCmV4cG9ydCBkZWZhdWx0IGFzeW5jIGZ1bmN0aW9uIERhc2hib2FyZFBhZ2UoeyBzZWFyY2hQYXJhbXMgfTogUHJvcHMpIHsKICBjb25zdCBzZXNzaW9uID0gYXdhaXQgZ2V0U2Vzc2lvbigpOwogIGlmICghc2Vzc2lvbikgcmVkaXJlY3QoIi9sb2dpbiIpOwoKICBjb25zdCBwYXJhbXMgPSBhd2FpdCBzZWFyY2hQYXJhbXM7CiAgY29uc3QgcGVyaW9kID0gcGFyYW1zLnBlcmlvZCB8fCAiMzBkIjsKICBsZXQgZGF0ZUZyb206IHN0cmluZzsKICBsZXQgZGF0ZVRvOiBzdHJpbmc7CgogIGlmIChwZXJpb2QgPT09ICJjdXN0b20iICYmIHBhcmFtcy5mcm9tICYmIHBhcmFtcy50bykgewogICAgZGF0ZUZyb20gPSBwYXJhbXMuZnJvbTsKICAgIGRhdGVUbyA9IHBhcmFtcy50bzsKICB9IGVsc2UgewogICAgY29uc3QgcmFuZ2UgPSBnZXREYXRlUmFuZ2UocGVyaW9kKTsKICAgIGRhdGVGcm9tID0gcmFuZ2UuZnJvbTsKICAgIGRhdGVUbyA9IHJhbmdlLnRvOwogIH0KCiAgY29uc3QgaXNTZWxsZXIgPSBzZXNzaW9uLnJvbGUgPT09ICJTRUxMRVIiOwogIGNvbnN0IHNlbGxlcklkID0gaXNTZWxsZXIgPyBzZXNzaW9uLmlkIDogdW5kZWZpbmVkOwogIGNvbnN0IGtwaXMgPSBhd2FpdCBjYWxjdWxhdGVLUElzKGRhdGVGcm9tLCBkYXRlVG8sIHNlbGxlcklkKTsKICBjb25zdCBkYWlseU1ldHJpY3MgPSBhd2FpdCBnZXREYWlseU1ldHJpY3MoZGF0ZUZyb20sIGRhdGVUbywgc2VsbGVySWQpOwogIGNvbnN0IHJhbmtpbmdzID0gaXNTZWxsZXIgPyBbXSA6IGF3YWl0IGdldFNlbGxlclJhbmtpbmdzKGRhdGVGcm9tLCBkYXRlVG8pOwoKICByZXR1cm4gKAogICAgPERhc2hib2FyZENsaWVudAogICAgICBrcGlzPXtrcGlzfQogICAgICBkYWlseU1ldHJpY3M9e2RhaWx5TWV0cmljc30KICAgICAgcmFua2luZ3M9e3JhbmtpbmdzfQogICAgICBwZXJpb2Q9e3BlcmlvZH0KICAgICAgZGF0ZUZyb209e2RhdGVGcm9tfQogICAgICBkYXRlVG89e2RhdGVUb30KICAgICAgaXNBZG1pbj17IWlzU2VsbGVyfQogICAgLz4KICApOwp9Cg=="
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { calculateKPIs } from "@/lib/kpi";
+import { getDateRange } from "@/lib/format";
+import { DashboardClient } from "@/components/dashboard/dashboard-client";
+
+export const metadata = {
+  title: "Dashboard - Painel Comercial",
+};
+
+interface Props {
+  searchParams: Promise<{ period?: string; from?: string; to?: string }>;
+}
+
+export default async function DashboardPage({ searchParams }: Props) {
+  const session = await getSession();
+  if (!session) redirect("/login");
+
+  const params = await searchParams;
+  const period = params.period || "30d";
+  let dateFrom: string;
+  let dateTo: string;
+
+  if (period === "custom" && params.from && params.to) {
+    dateFrom = params.from;
+    dateTo = params.to;
+  } else {
+    const range = getDateRange(period);
+    dateFrom = range.from;
+    dateTo = range.to;
+  }
+
+  const isSeller = session.role === "SELLER";
+  const sellerId = isSeller ? session.id : undefined;
+  const kpis = await calculateKPIs(dateFrom, dateTo, sellerId);
+
+  return (
+    <DashboardClient
+      kpis={kpis}
+      period={period}
+      dateFrom={dateFrom}
+      dateTo={dateTo}
+      isAdmin={!isSeller}
+    />
+  );
 }

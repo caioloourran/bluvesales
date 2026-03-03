@@ -1,3 +1,44 @@
-{
-  "data": "InVzZSBjbGllbnQiOwoKaW1wb3J0IHsgU3VzcGVuc2UgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB0eXBlIHsgS1BJRGF0YSwgRGFpbHlNZXRyaWMsIFNlbGxlclJhbmtpbmcgfSBmcm9tICJAL2xpYi9rcGkiOwppbXBvcnQgeyBLUElDYXJkcyB9IGZyb20gIi4va3BpLWNhcmRzIjsKaW1wb3J0IHsgRGFpbHlDaGFydCB9IGZyb20gIi4vZGFpbHktY2hhcnQiOwppbXBvcnQgeyBTZWxsZXJSYW5raW5nVGFibGUgfSBmcm9tICIuL3NlbGxlci1yYW5raW5nIjsKaW1wb3J0IHsgUGVyaW9kRmlsdGVyIH0gZnJvbSAiLi9wZXJpb2QtZmlsdGVyIjsKCmludGVyZmFjZSBEYXNoYm9hcmRDbGllbnRQcm9wcyB7CiAga3BpczogS1BJRGF0YTsKICBkYWlseU1ldHJpY3M6IERhaWx5TWV0cmljW107CiAgcmFua2luZ3M6IFNlbGxlclJhbmtpbmdbXTsKICBwZXJpb2Q6IHN0cmluZzsKICBkYXRlRnJvbTogc3RyaW5nOwogIGRhdGVUbzogc3RyaW5nOwogIGlzQWRtaW46IGJvb2xlYW47Cn0KCmV4cG9ydCBmdW5jdGlvbiBEYXNoYm9hcmRDbGllbnQoewogIGtwaXMsCiAgZGFpbHlNZXRyaWNzLAogIHJhbmtpbmdzLAogIHBlcmlvZCwKICBkYXRlRnJvbSwKICBkYXRlVG8sCiAgaXNBZG1pbiwKfTogRGFzaGJvYXJkQ2xpZW50UHJvcHMpIHsKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC1jb2wgZ2FwLTYiPgogICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCBnYXAtNCBzbTpmbGV4LXJvdyBzbTppdGVtcy1lbmQgc206anVzdGlmeS1iZXR3ZWVuIj4KICAgICAgICA8ZGl2PgogICAgICAgICAgPGgxIGNsYXNzTmFtZT0idGV4dC0yeGwgZm9udC1ib2xkIHRleHQtZm9yZWdyb3VuZCI+RGFzaGJvYXJkPC9oMT4KICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICBWaXNhbyBnZXJhbCBkYSBwZXJmb3JtYW5jZSBjb21lcmNpYWwKICAgICAgICAgIDwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA8U3VzcGVuc2U+CiAgICAgICAgICA8UGVyaW9kRmlsdGVyCiAgICAgICAgICAgIHBlcmlvZD17cGVyaW9kfQogICAgICAgICAgICBkYXRlRnJvbT17ZGF0ZUZyb219CiAgICAgICAgICAgIGRhdGVUbz17ZGF0ZVRvfQogICAgICAgICAgLz4KICAgICAgICA8L1N1c3BlbnNlPgogICAgICA8L2Rpdj4KCiAgICAgIDxLUElDYXJkcyBrcGlzPXtrcGlzfSBpc0FkbWluPXtpc0FkbWlufSAvPgogICAgICA8RGFpbHlDaGFydCBkYXRhPXtkYWlseU1ldHJpY3N9IGlzQWRtaW49e2lzQWRtaW59IC8+CiAgICAgIHtpc0FkbWluICYmIDxTZWxsZXJSYW5raW5nVGFibGUgcmFua2luZ3M9e3JhbmtpbmdzfSAvPn0KICAgIDwvZGl2PgogICk7Cn0K"
+"use client";
+
+import { Suspense } from "react";
+import type { KPIData } from "@/lib/kpi";
+import { KPICards } from "./kpi-cards";
+import { PeriodFilter } from "./period-filter";
+
+interface DashboardClientProps {
+  kpis: KPIData;
+  period: string;
+  dateFrom: string;
+  dateTo: string;
+  isAdmin: boolean;
+}
+
+export function DashboardClient({
+  kpis,
+  period,
+  dateFrom,
+  dateTo,
+  isAdmin,
+}: DashboardClientProps) {
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
+          <p className="text-sm text-muted-foreground">
+            Visão geral da performance comercial
+          </p>
+        </div>
+        <Suspense>
+          <PeriodFilter
+            period={period}
+            dateFrom={dateFrom}
+            dateTo={dateTo}
+          />
+        </Suspense>
+      </div>
+
+      <KPICards kpis={kpis} isAdmin={isAdmin} />
+    </div>
+  );
 }

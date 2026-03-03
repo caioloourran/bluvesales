@@ -1,3 +1,15 @@
-{
-  "data": "aW1wb3J0IHsgY24gfSBmcm9tICdAL2xpYi91dGlscycKCmZ1bmN0aW9uIFNrZWxldG9uKHsKICBjbGFzc05hbWUsCiAgLi4ucHJvcHMKfTogUmVhY3QuSFRNTEF0dHJpYnV0ZXM8SFRNTERpdkVsZW1lbnQ+KSB7CiAgcmV0dXJuICgKICAgIDxkaXYKICAgICAgY2xhc3NOYW1lPXtjbignYW5pbWF0ZS1wdWxzZSByb3VuZGVkLW1kIGJnLW11dGVkJywgY2xhc3NOYW1lKX0KICAgICAgey4uLnByb3BzfQogICAgLz4KICApCn0KCmV4cG9ydCB7IFNrZWxldG9uIH0K"
+import { cn } from '@/lib/utils'
+
+function Skeleton({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn('animate-pulse rounded-md bg-muted', className)}
+      {...props}
+    />
+  )
 }
+
+export { Skeleton }

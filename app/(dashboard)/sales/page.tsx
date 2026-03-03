@@ -1,3 +1,60 @@
-{
-  "data": "aW1wb3J0IHsgZ2V0U2Vzc2lvbiB9IGZyb20gIkAvbGliL2F1dGgiOwppbXBvcnQgeyByZWRpcmVjdCB9IGZyb20gIm5leHQvbmF2aWdhdGlvbiI7CmltcG9ydCB7IHNxbCB9IGZyb20gIkAvbGliL2RiIjsKaW1wb3J0IHsgU2FsZXNFbnRyeUZvcm0gfSBmcm9tICJAL2NvbXBvbmVudHMvc2FsZXMvc2FsZXMtZW50cnktZm9ybSI7CgpleHBvcnQgY29uc3QgbWV0YWRhdGEgPSB7CiAgdGl0bGU6ICJWZW5kYXMgLSBMYW5jYW1lbnRvIERpYXJpbyIsCn07CgppbnRlcmZhY2UgUHJvcHMgewogIHNlYXJjaFBhcmFtczogUHJvbWlzZTx7IGRhdGU/OiBzdHJpbmc7IHNlbGxlcj86IHN0cmluZyB9PjsKfQoKZXhwb3J0IGRlZmF1bHQgYXN5bmMgZnVuY3Rpb24gU2FsZXNQYWdlKHsgc2VhcmNoUGFyYW1zIH06IFByb3BzKSB7CiAgY29uc3Qgc2Vzc2lvbiA9IGF3YWl0IGdldFNlc3Npb24oKTsKICBpZiAoIXNlc3Npb24pIHJlZGlyZWN0KCIvbG9naW4iKTsKCiAgY29uc3QgcGFyYW1zID0gYXdhaXQgc2VhcmNoUGFyYW1zOwogIGNvbnN0IHRvZGF5ID0gbmV3IERhdGUoKS50b0lTT1N0cmluZygpLnNwbGl0KCJUIilbMF07CiAgY29uc3QgZGF0ZSA9IHBhcmFtcy5kYXRlIHx8IHRvZGF5OwogIGNvbnN0IGlzQWRtaW4gPSBzZXNzaW9uLnJvbGUgPT09ICJBRE1JTl9NQVNURVIiOwogIGNvbnN0IHNlbGxlcklkID0gaXNBZG1pbiAmJiBwYXJhbXMuc2VsbGVyID8gTnVtYmVyKHBhcmFtcy5zZWxsZXIpIDogc2Vzc2lvbi5pZDsKCiAgLy8gR2V0IGFsbCBhY3RpdmUgcGxhbnMgd2l0aCBwcm9kdWN0IG5hbWUKICBjb25zdCBwbGFucyA9IGF3YWl0IHNxbGAKICAgIFNFTEVDVCBwLmlkLCBwLm5hbWUgYXMgcGxhbl9uYW1lLCBwci5uYW1lIGFzIHByb2R1Y3RfbmFtZSwgcC5zYWxlX3ByaWNlX2dyb3NzCiAgICBGUk9NIHBsYW5zIHAKICAgIEpPSU4gcHJvZHVjdHMgcHIgT04gcHIuaWQgPSBwLnByb2R1Y3RfaWQKICAgIFdIRVJFIHAuYWN0aXZlID0gdHJ1ZQogICAgT1JERVIgQlkgcHIubmFtZSwgcC5uYW1lCiAgYDsKCiAgLy8gR2V0IHN1bW1hcnkgb2YgYWxyZWFkeS1zYXZlZCBlbnRyaWVzIGZvciB0aGlzIHNlbGxlciBhbmQgZGF0ZSAoYWdncmVnYXRlZCkKICBjb25zdCB0b2RheVN1bW1hcnkgPSBhd2FpdCBzcWxgCiAgICBTRUxFQ1QgcGxhbl9pZCwgU1VNKHF1YW50aXR5KTo6aW50IGFzIHRvdGFsX3F0eQogICAgRlJPTSBkYWlseV9zYWxlc19lbnRyaWVzCiAgICBXSEVSRSBkYXRlID0gJHtkYXRlfSBBTkQgc2VsbGVyX2lkID0gJHtzZWxsZXJJZH0KICAgIEdST1VQIEJZIHBsYW5faWQKICBgOwoKICAvLyBHZXQgc2VsbGVycyBsaXN0IGZvciBhZG1pbgogIGxldCBzZWxsZXJzOiB7IGlkOiBudW1iZXI7IG5hbWU6IHN0cmluZyB9W10gPSBbXTsKICBpZiAoaXNBZG1pbikgewogICAgY29uc3Qgc2VsbGVyUm93cyA9IGF3YWl0IHNxbGAKICAgICAgU0VMRUNUIGlkLCBuYW1lIEZST00gdXNlcnMgV0hFUkUgcm9sZSA9ICdTRUxMRVInIE9SREVSIEJZIG5hbWUKICAgIGA7CiAgICBzZWxsZXJzID0gc2VsbGVyUm93cy5tYXAoKHIpID0+ICh7IGlkOiByLmlkLCBuYW1lOiByLm5hbWUgfSkpOwogIH0KCiAgcmV0dXJuICgKICAgIDxTYWxlc0VudHJ5Rm9ybQogICAgICBwbGFucz17cGxhbnN9CiAgICAgIHRvZGF5U3VtbWFyeT17dG9kYXlTdW1tYXJ5fQogICAgICBzZWxsZXJzPXtzZWxsZXJzfQogICAgICBkYXRlPXtkYXRlfQogICAgICBzZWxsZXJJZD17c2VsbGVySWR9CiAgICAgIGlzQWRtaW49e2lzQWRtaW59CiAgICAvPgogICk7Cn0K"
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { sql } from "@/lib/db";
+import { SalesEntryForm } from "@/components/sales/sales-entry-form";
+
+export const metadata = {
+  title: "Vendas - Lancamento Diario",
+};
+
+interface Props {
+  searchParams: Promise<{ date?: string; seller?: string }>;
+}
+
+export default async function SalesPage({ searchParams }: Props) {
+  const session = await getSession();
+  if (!session) redirect("/login");
+
+  const params = await searchParams;
+  const today = new Date().toISOString().split("T")[0];
+  const date = params.date || today;
+  const isAdmin = session.role === "ADMIN_MASTER";
+  const sellerId = isAdmin && params.seller ? Number(params.seller) : session.id;
+
+  // Get all active plans with product name
+  const plans = await sql`
+    SELECT p.id, p.name as plan_name, pr.name as product_name, p.sale_price_gross
+    FROM plans p
+    JOIN products pr ON pr.id = p.product_id
+    WHERE p.active = true
+    ORDER BY pr.name, p.name
+  `;
+
+  // Get summary of already-saved entries for this seller and date (aggregated)
+  const todaySummary = await sql`
+    SELECT plan_id, SUM(quantity)::int as total_qty
+    FROM daily_sales_entries
+    WHERE date = ${date} AND seller_id = ${sellerId}
+    GROUP BY plan_id
+  `;
+
+  // Get sellers list for admin
+  let sellers: { id: number; name: string }[] = [];
+  if (isAdmin) {
+    const sellerRows = await sql`
+      SELECT id, name FROM users WHERE role = 'SELLER' ORDER BY name
+    `;
+    sellers = sellerRows.map((r) => ({ id: r.id, name: r.name }));
+  }
+
+  return (
+    <SalesEntryForm
+      plans={plans}
+      todaySummary={todaySummary}
+      sellers={sellers}
+      date={date}
+      sellerId={sellerId}
+      isAdmin={isAdmin}
+    />
+  );
 }

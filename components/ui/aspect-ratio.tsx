@@ -1,3 +1,7 @@
-{
-  "data": "J3VzZSBjbGllbnQnCgppbXBvcnQgKiBhcyBBc3BlY3RSYXRpb1ByaW1pdGl2ZSBmcm9tICdAcmFkaXgtdWkvcmVhY3QtYXNwZWN0LXJhdGlvJwoKY29uc3QgQXNwZWN0UmF0aW8gPSBBc3BlY3RSYXRpb1ByaW1pdGl2ZS5Sb290CgpleHBvcnQgeyBBc3BlY3RSYXRpbyB9Cg=="
-}
+'use client'
+
+import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio'
+
+const AspectRatio = AspectRatioPrimitive.Root
+
+export { AspectRatio }

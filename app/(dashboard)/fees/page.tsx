@@ -1,3 +1,13 @@
-{
-  "data": "aW1wb3J0IHsgcmVxdWlyZUFkbWluIH0gZnJvbSAiQC9saWIvYXV0aCI7CmltcG9ydCB7IHNxbCB9IGZyb20gIkAvbGliL2RiIjsKaW1wb3J0IHsgRmVlc0NsaWVudCB9IGZyb20gIkAvY29tcG9uZW50cy9hZG1pbi9mZWVzLWNsaWVudCI7CgpleHBvcnQgY29uc3QgbWV0YWRhdGEgPSB7CiAgdGl0bGU6ICJUYXhhcyAtIEFkbWluIiwKfTsKCmV4cG9ydCBkZWZhdWx0IGFzeW5jIGZ1bmN0aW9uIEZlZXNQYWdlKCkgewogIGF3YWl0IHJlcXVpcmVBZG1pbigpOwogIGNvbnN0IGZlZXMgPSBhd2FpdCBzcWxgU0VMRUNUICogRlJPTSBmZWVzIE9SREVSIEJZIGFwcGxpZXNfdG8sIG5hbWVgOwogIHJldHVybiA8RmVlc0NsaWVudCBmZWVzPXtmZWVzfSAvPjsKfQo="
+import { requireAdmin } from "@/lib/auth";
+import { sql } from "@/lib/db";
+import { FeesClient } from "@/components/admin/fees-client";
+
+export const metadata = {
+  title: "Taxas - Admin",
+};
+
+export default async function FeesPage() {
+  await requireAdmin();
+  const fees = await sql`SELECT * FROM fees ORDER BY applies_to, name`;
+  return <FeesClient fees={fees} />;
 }

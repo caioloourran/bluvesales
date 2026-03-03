@@ -1,3 +1,3 @@
-{
-  "data": "aW1wb3J0IHsgbmVvbiB9IGZyb20gIkBuZW9uZGF0YWJhc2Uvc2VydmVybGVzcyI7CgpleHBvcnQgY29uc3Qgc3FsID0gbmVvbihwcm9jZXNzLmVudi5EQVRBQkFTRV9VUkwhKTsK"
-}
+import { neon } from "@neondatabase/serverless";
+
+export const sql = neon(process.env.DATABASE_URL!);

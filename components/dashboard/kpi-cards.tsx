@@ -1,3 +1,243 @@
-{
-  "data": "aW1wb3J0IHsgQ2FyZCwgQ2FyZENvbnRlbnQsIENhcmRIZWFkZXIsIENhcmRUaXRsZSB9IGZyb20gIkAvY29tcG9uZW50cy91aS9jYXJkIjsKaW1wb3J0IHsgZm9ybWF0QlJMLCBmb3JtYXROdW1iZXIsIGZvcm1hdFBlcmNlbnQgfSBmcm9tICJAL2xpYi9mb3JtYXQiOwppbXBvcnQgdHlwZSB7IEtQSURhdGEgfSBmcm9tICJAL2xpYi9rcGkiOwppbXBvcnQgewogIERvbGxhclNpZ24sCiAgVXNlcnMsCiAgU2hvcHBpbmdDYXJ0LAogIFRyZW5kaW5nVXAsCiAgVGFyZ2V0LAogIE1vdXNlUG9pbnRlckNsaWNrLAogIFBlcmNlbnQsCiAgQmFyQ2hhcnQzLAogIFJlY2VpcHQsCiAgUGFja2FnZSwKICBUcnVjaywKfSBmcm9tICJsdWNpZGUtcmVhY3QiOwoKaW50ZXJmYWNlIEtQSUNhcmRzUHJvcHMgewogIGtwaXM6IEtQSURhdGE7CiAgaXNBZG1pbjogYm9vbGVhbjsKfQoKZXhwb3J0IGZ1bmN0aW9uIEtQSUNhcmRzKHsga3BpcywgaXNBZG1pbiB9OiBLUElDYXJkc1Byb3BzKSB7CiAgY29uc3QgYWRtaW5DYXJkcyA9IFsKICAgIHsKICAgICAgdGl0bGU6ICJJbnZlc3RpbWVudG8iLAogICAgICB2YWx1ZTogZm9ybWF0QlJMKGtwaXMuaW52ZXN0bWVudCksCiAgICAgIGljb246IERvbGxhclNpZ24sCiAgICAgIGNvbG9yOiAidGV4dC1jaGFydC0xIiwKICAgIH0sCiAgICB7CiAgICAgIHRpdGxlOiAiTGVhZHMiLAogICAgICB2YWx1ZTogZm9ybWF0TnVtYmVyKGtwaXMubGVhZHMpLAogICAgICBpY29uOiBVc2VycywKICAgICAgY29sb3I6ICJ0ZXh0LWNoYXJ0LTIiLAogICAgfSwKICAgIHsKICAgICAgdGl0bGU6ICJWZW5kYXMiLAogICAgICB2YWx1ZTogZm9ybWF0TnVtYmVyKGtwaXMuc2FsZXNRdHkpLAogICAgICBpY29uOiBTaG9wcGluZ0NhcnQsCiAgICAgIGNvbG9yOiAidGV4dC1jaGFydC0zIiwKICAgIH0sCiAgICB7CiAgICAgIHRpdGxlOiAiVmFsb3IgQnJ1dG8iLAogICAgICB2YWx1ZTogZm9ybWF0QlJMKGtwaXMuZ3Jvc3NWYWx1ZSksCiAgICAgIGljb246IFRyZW5kaW5nVXAsCiAgICAgIGNvbG9yOiAidGV4dC1jaGFydC00IiwKICAgIH0sCiAgICB7CiAgICAgIHRpdGxlOiAiVmFsb3IgTGlxdWlkbyIsCiAgICAgIHZhbHVlOiBmb3JtYXRCUkwoa3Bpcy5uZXRWYWx1ZSksCiAgICAgIGljb246IFRyZW5kaW5nVXAsCiAgICAgIGNvbG9yOiAidGV4dC1jaGFydC01IiwKICAgIH0sCiAgICB7CiAgICAgIHRpdGxlOiAiQ29taXNzYW8gQnJ1dGEiLAogICAgICB2YWx1ZTogZm9ybWF0QlJMKGtwaXMuZ3Jvc3NDb21taXNzaW9uKSwKICAgICAgaWNvbjogUGVyY2VudCwKICAgICAgY29sb3I6ICJ0ZXh0LWNoYXJ0LTEiLAogICAgfSwKICAgIHsKICAgICAgdGl0bGU6ICJDb21pc3NhbyBMaXF1aWRhIiwKICAgICAgdmFsdWU6IGZvcm1hdEJSTChrcGlzLm5ldENvbW1pc3Npb24pLAogICAgICBpY29uOiBQZXJjZW50LAogICAgICBjb2xvcjogInRleHQtY2hhcnQtMiIsCiAgICB9LAogICAgewogICAgICB0aXRsZTogIlRheGFzIFBsYXRhZm9ybWEiLAogICAgICB2YWx1ZTogZm9ybWF0QlJMKGtwaXMucGxhdGZvcm1GZWVzKSwKICAgICAgaWNvbjogUmVjZWlwdCwKICAgICAgY29sb3I6ICJ0ZXh0LWNoYXJ0LTEiLAogICAgfSwKICAgIHsKICAgICAgdGl0bGU6ICJJbXBvc3RvIEludmVzdGltZW50byIsCiAgICAgIHZhbHVlOiBmb3JtYXRCUkwoa3Bpcy5pbnZlc3RtZW50VGF4KSwKICAgICAgaWNvbjogUmVjZWlwdCwKICAgICAgY29sb3I6ICJ0ZXh0LWNoYXJ0LTMiLAogICAgfSwKICAgIHsKICAgICAgdGl0bGU6ICJDdXN0byBQcm9kdXRvcyIsCiAgICAgIHZhbHVlOiBmb3JtYXRCUkwoa3Bpcy5wcm9kdWN0Q29zdHMpLAogICAgICBpY29uOiBQYWNrYWdlLAogICAgICBjb2xvcjogInRleHQtY2hhcnQtNCIsCiAgICB9LAogICAgewogICAgICB0aXRsZTogIkZyZXRlIiwKICAgICAgdmFsdWU6IGZvcm1hdEJSTChrcGlzLnNoaXBwaW5nQ29zdHMpLAogICAgICBpY29uOiBUcnVjaywKICAgICAgY29sb3I6ICJ0ZXh0LWNoYXJ0LTUiLAogICAgfSwKICAgIHsKICAgICAgdGl0bGU6ICJEZXNjb250b3MiLAogICAgICB2YWx1ZTogZm9ybWF0QlJMKGtwaXMuZGlzY291bnRzKSwKICAgICAgaWNvbjogUGVyY2VudCwKICAgICAgY29sb3I6ICJ0ZXh0LWNoYXJ0LTEiLAogICAgfSwKICAgIHsKICAgICAgdGl0bGU6ICJDUEwiLAogICAgICB2YWx1ZToga3Bpcy5jcGwgIT09IG51bGwgPyBmb3JtYXRCUkwoa3Bpcy5jcGwpIDogIk4vQSIsCiAgICAgIGljb246IE1vdXNlUG9pbnRlckNsaWNrLAogICAgICBjb2xvcjogInRleHQtY2hhcnQtMyIsCiAgICB9LAogICAgewogICAgICB0aXRsZTogIkNQQSIsCiAgICAgIHZhbHVlOiBrcGlzLmNwYSAhPT0gbnVsbCA/IGZvcm1hdEJSTChrcGlzLmNwYSkgOiAiTi9BIiwKICAgICAgaWNvbjogVGFyZ2V0LAogICAgICBjb2xvcjogInRleHQtY2hhcnQtNCIsCiAgICB9LAogICAgewogICAgICB0aXRsZTogIkxlYWRzL1ZlbmRhIiwKICAgICAgdmFsdWU6IGtwaXMubGVhZHNQZXJTYWxlICE9PSBudWxsID8gZm9ybWF0TnVtYmVyKGtwaXMubGVhZHNQZXJTYWxlLCAxKSA6ICJOL0EiLAogICAgICBpY29uOiBCYXJDaGFydDMsCiAgICAgIGNvbG9yOiAidGV4dC1jaGFydC01IiwKICAgIH0sCiAgICB7CiAgICAgIHRpdGxlOiAiUk9JIiwKICAgICAgdmFsdWU6IGtwaXMucm9pICE9PSBudWxsID8gZm9ybWF0UGVyY2VudChrcGlzLnJvaSkgOiAiTi9BIiwKICAgICAgaWNvbjogVHJlbmRpbmdVcCwKICAgICAgY29sb3I6IGtwaXMucm9pICE9PSBudWxsICYmIGtwaXMucm9pID4gMCA/ICJ0ZXh0LWNoYXJ0LTIiIDogInRleHQtY2hhcnQtMSIsCiAgICB9LAogICAgewogICAgICB0aXRsZTogIkx1Y3JvIiwKICAgICAgdmFsdWU6IGZvcm1hdEJSTChrcGlzLnByb2ZpdCksCiAgICAgIGljb246IERvbGxhclNpZ24sCiAgICAgIGNvbG9yOiBrcGlzLnByb2ZpdCA+PSAwID8gInRleHQtY2hhcnQtMiIgOiAidGV4dC1jaGFydC0xIiwKICAgIH0sCiAgXTsKCiAgY29uc3Qgc2VsbGVyQ2FyZHMgPSBbCiAgICB7CiAgICAgIHRpdGxlOiAiVmVuZGFzIiwKICAgICAgdmFsdWU6IGZvcm1hdE51bWJlcihrcGlzLnNhbGVzUXR5KSwKICAgICAgaWNvbjogU2hvcHBpbmdDYXJ0LAogICAgICBjb2xvcjogInRleHQtY2hhcnQtMyIsCiAgICB9LAogICAgewogICAgICB0aXRsZTogIlZhbG9yIEJydXRvIiwKICAgICAgdmFsdWU6IGZvcm1hdEJSTChrcGlzLmdyb3NzVmFsdWUpLAogICAgICBpY29uOiBUcmVuZGluZ1VwLAogICAgICBjb2xvcjogInRleHQtY2hhcnQtNCIsCiAgICB9LAogICAgewogICAgICB0aXRsZTogIkNvbWlzc2FvIExpcXVpZGEiLAogICAgICB2YWx1ZTogZm9ybWF0QlJMKGtwaXMubmV0Q29tbWlzc2lvbiksCiAgICAgIGljb246IFBlcmNlbnQsCiAgICAgIGNvbG9yOiAidGV4dC1jaGFydC0yIiwKICAgIH0sCiAgXTsKCiAgY29uc3QgY2FyZHMgPSBpc0FkbWluID8gYWRtaW5DYXJkcyA6IHNlbGxlckNhcmRzOwoKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9ImdyaWQgZ3JpZC1jb2xzLTIgZ2FwLTQgbWQ6Z3JpZC1jb2xzLTMgbGc6Z3JpZC1jb2xzLTQgeGw6Z3JpZC1jb2xzLTYiPgogICAgICB7Y2FyZHMubWFwKChjYXJkKSA9PiAoCiAgICAgICAgPENhcmQga2V5PXtjYXJkLnRpdGxlfT4KICAgICAgICAgIDxDYXJkSGVhZGVyIGNsYXNzTmFtZT0iZmxleCBmbGV4LXJvdyBpdGVtcy1jZW50ZXIganVzdGlmeS1iZXR3ZWVuIHBiLTIiPgogICAgICAgICAgICA8Q2FyZFRpdGxlIGNsYXNzTmFtZT0idGV4dC14cyBmb250LW1lZGl1bSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgIHtjYXJkLnRpdGxlfQogICAgICAgICAgICA8L0NhcmRUaXRsZT4KICAgICAgICAgICAgPGNhcmQuaWNvbiBjbGFzc05hbWU9e2BoLTQgdy00ICR7Y2FyZC5jb2xvcn1gfSAvPgogICAgICAgICAgPC9DYXJkSGVhZGVyPgogICAgICAgICAgPENhcmRDb250ZW50PgogICAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQtbGcgZm9udC1ib2xkIHRleHQtZm9yZWdyb3VuZCI+e2NhcmQudmFsdWV9PC9wPgogICAgICAgICAgPC9DYXJkQ29udGVudD4KICAgICAgICA8L0NhcmQ+CiAgICAgICkpfQogICAgPC9kaXY+CiAgKTsKfQo="
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatBRL, formatNumber, formatPercent } from "@/lib/format";
+import type { KPIData } from "@/lib/kpi";
+import { Calendar, CheckSquare } from "lucide-react";
+
+interface KPICardsProps {
+  kpis: KPIData;
+  isAdmin: boolean;
+}
+
+export function KPICards({ kpis, isAdmin }: KPICardsProps) {
+  const scheduledRoas = kpis.investment > 0 ? kpis.grossValue / kpis.investment : 0;
+  const scheduledCpa = kpis.salesQty > 0 ? kpis.investment / kpis.salesQty : null;
+  const approvedRoas = kpis.investment > 0 ? kpis.approvedRevenue / kpis.investment : 0;
+  const approvedCpa = kpis.approvedCount > 0 ? kpis.investment / kpis.approvedCount : null;
+  const leadToPaymentRate = kpis.leads > 0 ? kpis.approvedCount / kpis.leads : 0;
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Top row - 4 main KPIs */}
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              Gastos em Anúncios
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold text-green-500">
+              {formatBRL(kpis.investment)}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {kpis.daysInPeriod > 0
+                ? `${kpis.daysInPeriod} dia${kpis.daysInPeriod > 1 ? "s" : ""} registrado${kpis.daysInPeriod > 1 ? "s" : ""}`
+                : "Nenhum registro"}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              Total de Leads
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold text-foreground">
+              {formatNumber(kpis.leads)}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              CPL médio: {kpis.cpl !== null ? formatBRL(kpis.cpl) : "N/A"}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              Taxa Lead → Pagamento
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold text-foreground">
+              {formatPercent(leadToPaymentRate)}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {kpis.daysInPeriod > 0
+                ? `${kpis.daysInPeriod} dia${kpis.daysInPeriod > 1 ? "s" : ""} registrado${kpis.daysInPeriod > 1 ? "s" : ""}`
+                : "Nenhum registro"}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              Lucro Total (Período)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className={`text-2xl font-bold ${kpis.profit >= 0 ? "text-green-500" : "text-red-500"}`}>
+              {formatBRL(kpis.profit)}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Prod. + Frete + Taxas + Comis. + Ads
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Bottom row - Agendado & Aprovado sections */}
+      {isAdmin && (
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {/* AGENDADO */}
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                <Calendar className="h-4 w-4 text-blue-500" />
+                Agendado
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-3">
+                <Card className="border-border/50">
+                  <CardHeader className="pb-1 pt-3 px-3">
+                    <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                      Faturamento Agendado
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3">
+                    <p className="text-lg font-bold text-green-500">
+                      {formatBRL(kpis.grossValue)}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">Total agendado</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border/50">
+                  <CardHeader className="pb-1 pt-3 px-3">
+                    <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                      ROAS Agendado
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3">
+                    <p className="text-lg font-bold text-yellow-500">
+                      {formatNumber(scheduledRoas, 2)}x
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">
+                      Fat. agendado: {formatBRL(kpis.grossValue)}
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border/50">
+                  <CardHeader className="pb-1 pt-3 px-3">
+                    <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                      CPA de Agendamento
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3">
+                    <p className="text-lg font-bold text-blue-500">
+                      {scheduledCpa !== null ? formatBRL(scheduledCpa) : "—"}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">
+                      {formatNumber(kpis.salesQty)} agendamentos
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border/50">
+                  <CardHeader className="pb-1 pt-3 px-3">
+                    <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                      Agendamentos
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3">
+                    <p className="text-lg font-bold text-foreground">
+                      {formatNumber(kpis.salesQty)}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">no período</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* APROVADO */}
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                <CheckSquare className="h-4 w-4 text-green-500" />
+                Aprovado
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-3">
+                <Card className="border-border/50">
+                  <CardHeader className="pb-1 pt-3 px-3">
+                    <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                      Faturamento Aprovado
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3">
+                    <p className="text-lg font-bold text-green-500">
+                      {formatBRL(kpis.approvedRevenue)}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">Pag. aprovados (R$)</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border/50">
+                  <CardHeader className="pb-1 pt-3 px-3">
+                    <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                      ROAS Aprovado
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3">
+                    <p className="text-lg font-bold text-yellow-500">
+                      {formatNumber(approvedRoas, 2)}x
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">
+                      Pag. aprovados: {formatBRL(kpis.approvedRevenue)}
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border/50">
+                  <CardHeader className="pb-1 pt-3 px-3">
+                    <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                      CPA de Aprovados
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3">
+                    <p className="text-lg font-bold text-orange-500">
+                      {approvedCpa !== null ? formatBRL(approvedCpa) : "—"}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">
+                      {formatNumber(kpis.approvedCount)} aprovados
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border/50">
+                  <CardHeader className="pb-1 pt-3 px-3">
+                    <CardTitle className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                      Pag. Aprovados
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3">
+                    <p className="text-lg font-bold text-foreground">
+                      {formatNumber(kpis.approvedCount)}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">no período</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+    </div>
+  );
 }

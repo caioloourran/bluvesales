@@ -1,3 +1,32 @@
-{
-  "data": "aW1wb3J0IHsgcmVxdWlyZUFkbWluIH0gZnJvbSAiQC9saWIvYXV0aCI7CmltcG9ydCB7IHNxbCB9IGZyb20gIkAvbGliL2RiIjsKaW1wb3J0IHsgQ29tbWlzc2lvbnNDbGllbnQgfSBmcm9tICJAL2NvbXBvbmVudHMvYWRtaW4vY29tbWlzc2lvbnMtY2xpZW50IjsKCmV4cG9ydCBjb25zdCBtZXRhZGF0YSA9IHsKICB0aXRsZTogIkNvbWlzc29lcyAtIEFkbWluIiwKfTsKCmV4cG9ydCBkZWZhdWx0IGFzeW5jIGZ1bmN0aW9uIENvbW1pc3Npb25zUGFnZSgpIHsKICBhd2FpdCByZXF1aXJlQWRtaW4oKTsKICBjb25zdCBzZWxsZXJzID0gYXdhaXQgc3FsYFNFTEVDVCBpZCwgbmFtZSBGUk9NIHVzZXJzIFdIRVJFIHJvbGUgPSAnU0VMTEVSJyBPUkRFUiBCWSBuYW1lYDsKICBjb25zdCBwbGFucyA9IGF3YWl0IHNxbGAKICAgIFNFTEVDVCBwLmlkLCBwLm5hbWUgYXMgcGxhbl9uYW1lLCBwci5uYW1lIGFzIHByb2R1Y3RfbmFtZQogICAgRlJPTSBwbGFucyBwIEpPSU4gcHJvZHVjdHMgcHIgT04gcHIuaWQgPSBwLnByb2R1Y3RfaWQKICAgIFdIRVJFIHAuYWN0aXZlID0gdHJ1ZSBPUkRFUiBCWSBwci5uYW1lLCBwLm5hbWUKICBgOwogIGNvbnN0IGNvbW1pc3Npb25zID0gYXdhaXQgc3FsYAogICAgU0VMRUNUIHNjLiosIHUubmFtZSBhcyBzZWxsZXJfbmFtZSwgcC5uYW1lIGFzIHBsYW5fbmFtZSwgcHIubmFtZSBhcyBwcm9kdWN0X25hbWUKICAgIEZST00gc2VsbGVyX2NvbW1pc3Npb25zIHNjCiAgICBKT0lOIHVzZXJzIHUgT04gdS5pZCA9IHNjLnNlbGxlcl9pZAogICAgSk9JTiBwbGFucyBwIE9OIHAuaWQgPSBzYy5wbGFuX2lkCiAgICBKT0lOIHByb2R1Y3RzIHByIE9OIHByLmlkID0gcC5wcm9kdWN0X2lkCiAgICBPUkRFUiBCWSB1Lm5hbWUsIHByLm5hbWUsIHAubmFtZQogIGA7CiAgcmV0dXJuICgKICAgIDxDb21taXNzaW9uc0NsaWVudAogICAgICBzZWxsZXJzPXtzZWxsZXJzfQogICAgICBwbGFucz17cGxhbnN9CiAgICAgIGNvbW1pc3Npb25zPXtjb21taXNzaW9uc30KICAgIC8+CiAgKTsKfQo="
+import { requireAdmin } from "@/lib/auth";
+import { sql } from "@/lib/db";
+import { CommissionsClient } from "@/components/admin/commissions-client";
+
+export const metadata = {
+  title: "Comissoes - Admin",
+};
+
+export default async function CommissionsPage() {
+  await requireAdmin();
+  const sellers = await sql`SELECT id, name FROM users WHERE role = 'SELLER' ORDER BY name`;
+  const plans = await sql`
+    SELECT p.id, p.name as plan_name, pr.name as product_name
+    FROM plans p JOIN products pr ON pr.id = p.product_id
+    WHERE p.active = true ORDER BY pr.name, p.name
+  `;
+  const commissions = await sql`
+    SELECT sc.*, u.name as seller_name, p.name as plan_name, pr.name as product_name
+    FROM seller_commissions sc
+    JOIN users u ON u.id = sc.seller_id
+    JOIN plans p ON p.id = sc.plan_id
+    JOIN products pr ON pr.id = p.product_id
+    ORDER BY u.name, pr.name, p.name
+  `;
+  return (
+    <CommissionsClient
+      sellers={sellers}
+      plans={plans}
+      commissions={commissions}
+    />
+  );
 }

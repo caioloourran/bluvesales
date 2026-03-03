@@ -1,3 +1,117 @@
-{
-  "data": "aW1wb3J0ICogYXMgUmVhY3QgZnJvbSAncmVhY3QnCgppbXBvcnQgeyBjbiB9IGZyb20gJ0AvbGliL3V0aWxzJwoKY29uc3QgVGFibGUgPSBSZWFjdC5mb3J3YXJkUmVmPAogIEhUTUxUYWJsZUVsZW1lbnQsCiAgUmVhY3QuSFRNTEF0dHJpYnV0ZXM8SFRNTFRhYmxlRWxlbWVudD4KPigoeyBjbGFzc05hbWUsIC4uLnByb3BzIH0sIHJlZikgPT4gKAogIDxkaXYgY2xhc3NOYW1lPSJyZWxhdGl2ZSB3LWZ1bGwgb3ZlcmZsb3ctYXV0byI+CiAgICA8dGFibGUKICAgICAgcmVmPXtyZWZ9CiAgICAgIGNsYXNzTmFtZT17Y24oJ3ctZnVsbCBjYXB0aW9uLWJvdHRvbSB0ZXh0LXNtJywgY2xhc3NOYW1lKX0KICAgICAgey4uLnByb3BzfQogICAgLz4KICA8L2Rpdj4KKSkKVGFibGUuZGlzcGxheU5hbWUgPSAnVGFibGUnCgpjb25zdCBUYWJsZUhlYWRlciA9IFJlYWN0LmZvcndhcmRSZWY8CiAgSFRNTFRhYmxlU2VjdGlvbkVsZW1lbnQsCiAgUmVhY3QuSFRNTEF0dHJpYnV0ZXM8SFRNTFRhYmxlU2VjdGlvbkVsZW1lbnQ+Cj4oKHsgY2xhc3NOYW1lLCAuLi5wcm9wcyB9LCByZWYpID0+ICgKICA8dGhlYWQgcmVmPXtyZWZ9IGNsYXNzTmFtZT17Y24oJ1smX3RyXTpib3JkZXItYicsIGNsYXNzTmFtZSl9IHsuLi5wcm9wc30gLz4KKSkKVGFibGVIZWFkZXIuZGlzcGxheU5hbWUgPSAnVGFibGVIZWFkZXInCgpjb25zdCBUYWJsZUJvZHkgPSBSZWFjdC5mb3J3YXJkUmVmPAogIEhUTUxUYWJsZVNlY3Rpb25FbGVtZW50LAogIFJlYWN0LkhUTUxBdHRyaWJ1dGVzPEhUTUxUYWJsZVNlY3Rpb25FbGVtZW50Pgo+KCh7IGNsYXNzTmFtZSwgLi4ucHJvcHMgfSwgcmVmKSA9PiAoCiAgPHRib2R5CiAgICByZWY9e3JlZn0KICAgIGNsYXNzTmFtZT17Y24oJ1smX3RyOmxhc3QtY2hpbGRdOmJvcmRlci0wJywgY2xhc3NOYW1lKX0KICAgIHsuLi5wcm9wc30KICAvPgopKQpUYWJsZUJvZHkuZGlzcGxheU5hbWUgPSAnVGFibGVCb2R5JwoKY29uc3QgVGFibGVGb290ZXIgPSBSZWFjdC5mb3J3YXJkUmVmPAogIEhUTUxUYWJsZVNlY3Rpb25FbGVtZW50LAogIFJlYWN0LkhUTUxBdHRyaWJ1dGVzPEhUTUxUYWJsZVNlY3Rpb25FbGVtZW50Pgo+KCh7IGNsYXNzTmFtZSwgLi4ucHJvcHMgfSwgcmVmKSA9PiAoCiAgPHRmb290CiAgICByZWY9e3JlZn0KICAgIGNsYXNzTmFtZT17Y24oCiAgICAgICdib3JkZXItdCBiZy1tdXRlZC81MCBmb250LW1lZGl1bSBbJj50cl06bGFzdDpib3JkZXItYi0wJywKICAgICAgY2xhc3NOYW1lLAogICAgKX0KICAgIHsuLi5wcm9wc30KICAvPgopKQpUYWJsZUZvb3Rlci5kaXNwbGF5TmFtZSA9ICdUYWJsZUZvb3RlcicKCmNvbnN0IFRhYmxlUm93ID0gUmVhY3QuZm9yd2FyZFJlZjwKICBIVE1MVGFibGVSb3dFbGVtZW50LAogIFJlYWN0LkhUTUxBdHRyaWJ1dGVzPEhUTUxUYWJsZVJvd0VsZW1lbnQ+Cj4oKHsgY2xhc3NOYW1lLCAuLi5wcm9wcyB9LCByZWYpID0+ICgKICA8dHIKICAgIHJlZj17cmVmfQogICAgY2xhc3NOYW1lPXtjbigKICAgICAgJ2JvcmRlci1iIHRyYW5zaXRpb24tY29sb3JzIGhvdmVyOmJnLW11dGVkLzUwIGRhdGEtW3N0YXRlPXNlbGVjdGVkXTpiZy1tdXRlZCcsCiAgICAgIGNsYXNzTmFtZSwKICAgICl9CiAgICB7Li4ucHJvcHN9CiAgLz4KKSkKVGFibGVSb3cuZGlzcGxheU5hbWUgPSAnVGFibGVSb3cnCgpjb25zdCBUYWJsZUhlYWQgPSBSZWFjdC5mb3J3YXJkUmVmPAogIEhUTUxUYWJsZUNlbGxFbGVtZW50LAogIFJlYWN0LlRoSFRNTEF0dHJpYnV0ZXM8SFRNTFRhYmxlQ2VsbEVsZW1lbnQ+Cj4oKHsgY2xhc3NOYW1lLCAuLi5wcm9wcyB9LCByZWYpID0+ICgKICA8dGgKICAgIHJlZj17cmVmfQogICAgY2xhc3NOYW1lPXtjbigKICAgICAgJ2gtMTIgcHgtNCB0ZXh0LWxlZnQgYWxpZ24tbWlkZGxlIGZvbnQtbWVkaXVtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCBbJjpoYXMoW3JvbGU9Y2hlY2tib3hdKV06cHItMCcsCiAgICAgIGNsYXNzTmFtZSwKICAgICl9CiAgICB7Li4ucHJvcHN9CiAgLz4KKSkKVGFibGVIZWFkLmRpc3BsYXlOYW1lID0gJ1RhYmxlSGVhZCcKCmNvbnN0IFRhYmxlQ2VsbCA9IFJlYWN0LmZvcndhcmRSZWY8CiAgSFRNTFRhYmxlQ2VsbEVsZW1lbnQsCiAgUmVhY3QuVGRIVE1MQXR0cmlidXRlczxIVE1MVGFibGVDZWxsRWxlbWVudD4KPigoeyBjbGFzc05hbWUsIC4uLnByb3BzIH0sIHJlZikgPT4gKAogIDx0ZAogICAgcmVmPXtyZWZ9CiAgICBjbGFzc05hbWU9e2NuKCdwLTQgYWxpZ24tbWlkZGxlIFsmOmhhcyhbcm9sZT1jaGVja2JveF0pXTpwci0wJywgY2xhc3NOYW1lKX0KICAgIHsuLi5wcm9wc30KICAvPgopKQpUYWJsZUNlbGwuZGlzcGxheU5hbWUgPSAnVGFibGVDZWxsJwoKY29uc3QgVGFibGVDYXB0aW9uID0gUmVhY3QuZm9yd2FyZFJlZjwKICBIVE1MVGFibGVDYXB0aW9uRWxlbWVudCwKICBSZWFjdC5IVE1MQXR0cmlidXRlczxIVE1MVGFibGVDYXB0aW9uRWxlbWVudD4KPigoeyBjbGFzc05hbWUsIC4uLnByb3BzIH0sIHJlZikgPT4gKAogIDxjYXB0aW9uCiAgICByZWY9e3JlZn0KICAgIGNsYXNzTmFtZT17Y24oJ210LTQgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQnLCBjbGFzc05hbWUpfQogICAgey4uLnByb3BzfQogIC8+CikpClRhYmxlQ2FwdGlvbi5kaXNwbGF5TmFtZSA9ICdUYWJsZUNhcHRpb24nCgpleHBvcnQgewogIFRhYmxlLAogIFRhYmxlSGVhZGVyLAogIFRhYmxlQm9keSwKICBUYWJsZUZvb3RlciwKICBUYWJsZUhlYWQsCiAgVGFibGVSb3csCiAgVGFibGVDZWxsLAogIFRhYmxlQ2FwdGlvbiwKfQo="
+import * as React from 'react'
+
+import { cn } from '@/lib/utils'
+
+const Table = React.forwardRef<
+  HTMLTableElement,
+  React.HTMLAttributes<HTMLTableElement>
+>(({ className, ...props }, ref) => (
+  <div className="relative w-full overflow-auto">
+    <table
+      ref={ref}
+      className={cn('w-full caption-bottom text-sm', className)}
+      {...props}
+    />
+  </div>
+))
+Table.displayName = 'Table'
+
+const TableHeader = React.forwardRef<
+  HTMLTableSectionElement,
+  React.HTMLAttributes<HTMLTableSectionElement>
+>(({ className, ...props }, ref) => (
+  <thead ref={ref} className={cn('[&_tr]:border-b', className)} {...props} />
+))
+TableHeader.displayName = 'TableHeader'
+
+const TableBody = React.forwardRef<
+  HTMLTableSectionElement,
+  React.HTMLAttributes<HTMLTableSectionElement>
+>(({ className, ...props }, ref) => (
+  <tbody
+    ref={ref}
+    className={cn('[&_tr:last-child]:border-0', className)}
+    {...props}
+  />
+))
+TableBody.displayName = 'TableBody'
+
+const TableFooter = React.forwardRef<
+  HTMLTableSectionElement,
+  React.HTMLAttributes<HTMLTableSectionElement>
+>(({ className, ...props }, ref) => (
+  <tfoot
+    ref={ref}
+    className={cn(
+      'border-t bg-muted/50 font-medium [&>tr]:last:border-b-0',
+      className,
+    )}
+    {...props}
+  />
+))
+TableFooter.displayName = 'TableFooter'
+
+const TableRow = React.forwardRef<
+  HTMLTableRowElement,
+  React.HTMLAttributes<HTMLTableRowElement>
+>(({ className, ...props }, ref) => (
+  <tr
+    ref={ref}
+    className={cn(
+      'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',
+      className,
+    )}
+    {...props}
+  />
+))
+TableRow.displayName = 'TableRow'
+
+const TableHead = React.forwardRef<
+  HTMLTableCellElement,
+  React.ThHTMLAttributes<HTMLTableCellElement>
+>(({ className, ...props }, ref) => (
+  <th
+    ref={ref}
+    className={cn(
+      'h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0',
+      className,
+    )}
+    {...props}
+  />
+))
+TableHead.displayName = 'TableHead'
+
+const TableCell = React.forwardRef<
+  HTMLTableCellElement,
+  React.TdHTMLAttributes<HTMLTableCellElement>
+>(({ className, ...props }, ref) => (
+  <td
+    ref={ref}
+    className={cn('p-4 align-middle [&:has([role=checkbox])]:pr-0', className)}
+    {...props}
+  />
+))
+TableCell.displayName = 'TableCell'
+
+const TableCaption = React.forwardRef<
+  HTMLTableCaptionElement,
+  React.HTMLAttributes<HTMLTableCaptionElement>
+>(({ className, ...props }, ref) => (
+  <caption
+    ref={ref}
+    className={cn('mt-4 text-sm text-muted-foreground', className)}
+    {...props}
+  />
+))
+TableCaption.displayName = 'TableCaption'
+
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
 }

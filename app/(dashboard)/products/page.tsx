@@ -1,3 +1,13 @@
-{
-  "data": "aW1wb3J0IHsgcmVxdWlyZUFkbWluIH0gZnJvbSAiQC9saWIvYXV0aCI7CmltcG9ydCB7IHNxbCB9IGZyb20gIkAvbGliL2RiIjsKaW1wb3J0IHsgUHJvZHVjdHNDbGllbnQgfSBmcm9tICJAL2NvbXBvbmVudHMvYWRtaW4vcHJvZHVjdHMtY2xpZW50IjsKCmV4cG9ydCBjb25zdCBtZXRhZGF0YSA9IHsKICB0aXRsZTogIlByb2R1dG9zIC0gQWRtaW4iLAp9OwoKZXhwb3J0IGRlZmF1bHQgYXN5bmMgZnVuY3Rpb24gUHJvZHVjdHNQYWdlKCkgewogIGF3YWl0IHJlcXVpcmVBZG1pbigpOwogIGNvbnN0IHByb2R1Y3RzID0gYXdhaXQgc3FsYFNFTEVDVCAqIEZST00gcHJvZHVjdHMgT1JERVIgQlkgY3JlYXRlZF9hdCBERVNDYDsKICByZXR1cm4gPFByb2R1Y3RzQ2xpZW50IHByb2R1Y3RzPXtwcm9kdWN0c30gLz47Cn0K"
+import { requireAdmin } from "@/lib/auth";
+import { sql } from "@/lib/db";
+import { ProductsClient } from "@/components/admin/products-client";
+
+export const metadata = {
+  title: "Produtos - Admin",
+};
+
+export default async function ProductsPage() {
+  await requireAdmin();
+  const products = await sql`SELECT * FROM products ORDER BY created_at DESC`;
+  return <ProductsClient products={products} />;
 }

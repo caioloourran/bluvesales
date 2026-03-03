@@ -1,3 +1,355 @@
-{
-  "data": "InVzZSBzZXJ2ZXIiOwoKaW1wb3J0IHsgcmV2YWxpZGF0ZVBhdGggfSBmcm9tICJuZXh0L2NhY2hlIjsKaW1wb3J0IHsgeiB9IGZyb20gInpvZCI7CmltcG9ydCB7IGNyZWF0ZUhhc2ggfSBmcm9tICJjcnlwdG8iOwppbXBvcnQgeyBzcWwgfSBmcm9tICJAL2xpYi9kYiI7CmltcG9ydCB7IHJlcXVpcmVBZG1pbiB9IGZyb20gIkAvbGliL2F1dGgiOwoKLy8gLS0tLSBQUk9EVUNUUyAtLS0tCmNvbnN0IHByb2R1Y3RTY2hlbWEgPSB6Lm9iamVjdCh7CiAgbmFtZTogei5zdHJpbmcoKS5taW4oMSwgIk5vbWUgb2JyaWdhdG9yaW8iKSwKICBhY3RpdmU6IHouYm9vbGVhbigpLmRlZmF1bHQodHJ1ZSksCn0pOwoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGNyZWF0ZVByb2R1Y3QoZGF0YTogeyBuYW1lOiBzdHJpbmc7IGFjdGl2ZTogYm9vbGVhbiB9KSB7CiAgYXdhaXQgcmVxdWlyZUFkbWluKCk7CiAgY29uc3QgcGFyc2VkID0gcHJvZHVjdFNjaGVtYS5zYWZlUGFyc2UoZGF0YSk7CiAgaWYgKCFwYXJzZWQuc3VjY2VzcykgcmV0dXJuIHsgZXJyb3I6IHBhcnNlZC5lcnJvci5lcnJvcnNbMF0ubWVzc2FnZSB9OwoKICB0cnkgewogICAgYXdhaXQgc3FsYElOU0VSVCBJTlRPIHByb2R1Y3RzIChuYW1lLCBhY3RpdmUpIFZBTFVFUyAoJHtwYXJzZWQuZGF0YS5uYW1lfSwgJHtwYXJzZWQuZGF0YS5hY3RpdmV9KWA7CiAgICByZXZhbGlkYXRlUGF0aCgiL3Byb2R1Y3RzIik7CiAgICByZXR1cm4geyBzdWNjZXNzOiB0cnVlIH07CiAgfSBjYXRjaCB7CiAgICByZXR1cm4geyBlcnJvcjogIkVycm8gYW8gY3JpYXIgcHJvZHV0byIgfTsKICB9Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiB1cGRhdGVQcm9kdWN0KGlkOiBudW1iZXIsIGRhdGE6IHsgbmFtZTogc3RyaW5nOyBhY3RpdmU6IGJvb2xlYW4gfSkgewogIGF3YWl0IHJlcXVpcmVBZG1pbigpOwogIGNvbnN0IHBhcnNlZCA9IHByb2R1Y3RTY2hlbWEuc2FmZVBhcnNlKGRhdGEpOwogIGlmICghcGFyc2VkLnN1Y2Nlc3MpIHJldHVybiB7IGVycm9yOiBwYXJzZWQuZXJyb3IuZXJyb3JzWzBdLm1lc3NhZ2UgfTsKCiAgdHJ5IHsKICAgIGF3YWl0IHNxbGBVUERBVEUgcHJvZHVjdHMgU0VUIG5hbWUgPSAke3BhcnNlZC5kYXRhLm5hbWV9LCBhY3RpdmUgPSAke3BhcnNlZC5kYXRhLmFjdGl2ZX0sIHVwZGF0ZWRfYXQgPSBOT1coKSBXSEVSRSBpZCA9ICR7aWR9YDsKICAgIHJldmFsaWRhdGVQYXRoKCIvcHJvZHVjdHMiKTsKICAgIHJldHVybiB7IHN1Y2Nlc3M6IHRydWUgfTsKICB9IGNhdGNoIHsKICAgIHJldHVybiB7IGVycm9yOiAiRXJybyBhbyBhdHVhbGl6YXIgcHJvZHV0byIgfTsKICB9Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBkZWxldGVQcm9kdWN0KGlkOiBudW1iZXIpIHsKICBhd2FpdCByZXF1aXJlQWRtaW4oKTsKICB0cnkgewogICAgYXdhaXQgc3FsYERFTEVURSBGUk9NIHByb2R1Y3RzIFdIRVJFIGlkID0gJHtpZH1gOwogICAgcmV2YWxpZGF0ZVBhdGgoIi9wcm9kdWN0cyIpOwogICAgcmV0dXJuIHsgc3VjY2VzczogdHJ1ZSB9OwogIH0gY2F0Y2ggewogICAgcmV0dXJuIHsgZXJyb3I6ICJFcnJvIGFvIGRlbGV0YXIgcHJvZHV0byIgfTsKICB9Cn0KCi8vIC0tLS0gUExBTlMgLS0tLQpjb25zdCBwbGFuU2NoZW1hID0gei5vYmplY3QoewogIHByb2R1Y3RJZDogei5jb2VyY2UubnVtYmVyKCkuaW50KCkucG9zaXRpdmUoKSwKICBuYW1lOiB6LnN0cmluZygpLm1pbigxLCAiTm9tZSBvYnJpZ2F0b3JpbyIpLAogIHNhbGVQcmljZUdyb3NzOiB6LmNvZXJjZS5udW1iZXIoKS5taW4oMCksCiAgc2FsZVByaWNlTmV0OiB6LmNvZXJjZS5udW1iZXIoKS5taW4oMCkubnVsbGFibGUoKS5vcHRpb25hbCgpLAogIHByb2R1Y3RDb3N0OiB6LmNvZXJjZS5udW1iZXIoKS5taW4oMCkuZGVmYXVsdCgwKSwKICBzaGlwcGluZ0Nvc3Q6IHouY29lcmNlLm51bWJlcigpLm1pbigwKS5kZWZhdWx0KDApLAogIGFjdGl2ZTogei5ib29sZWFuKCkuZGVmYXVsdCh0cnVlKSwKfSk7CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gY3JlYXRlUGxhbihkYXRhOiB7CiAgcHJvZHVjdElkOiBudW1iZXI7CiAgbmFtZTogc3RyaW5nOwogIHNhbGVQcmljZUdyb3NzOiBudW1iZXI7CiAgc2FsZVByaWNlTmV0PzogbnVtYmVyIHwgbnVsbDsKICBwcm9kdWN0Q29zdD86IG51bWJlcjsKICBzaGlwcGluZ0Nvc3Q/OiBudW1iZXI7CiAgYWN0aXZlOiBib29sZWFuOwp9KSB7CiAgYXdhaXQgcmVxdWlyZUFkbWluKCk7CiAgY29uc3QgcGFyc2VkID0gcGxhblNjaGVtYS5zYWZlUGFyc2UoZGF0YSk7CiAgaWYgKCFwYXJzZWQuc3VjY2VzcykgcmV0dXJuIHsgZXJyb3I6IHBhcnNlZC5lcnJvci5lcnJvcnNbMF0ubWVzc2FnZSB9OwoKICB0cnkgewogICAgYXdhaXQgc3FsYAogICAgICBJTlNFUlQgSU5UTyBwbGFucyAocHJvZHVjdF9pZCwgbmFtZSwgc2FsZV9wcmljZV9ncm9zcywgc2FsZV9wcmljZV9uZXQsIHByb2R1Y3RfY29zdCwgc2hpcHBpbmdfY29zdCwgYWN0aXZlKQogICAgICBWQUxVRVMgKCR7cGFyc2VkLmRhdGEucHJvZHVjdElkfSwgJHtwYXJzZWQuZGF0YS5uYW1lfSwgJHtwYXJzZWQuZGF0YS5zYWxlUHJpY2VHcm9zc30sICR7cGFyc2VkLmRhdGEuc2FsZVByaWNlTmV0IHx8IG51bGx9LCAke3BhcnNlZC5kYXRhLnByb2R1Y3RDb3N0fSwgJHtwYXJzZWQuZGF0YS5zaGlwcGluZ0Nvc3R9LCAke3BhcnNlZC5kYXRhLmFjdGl2ZX0pCiAgICBgOwogICAgcmV2YWxpZGF0ZVBhdGgoIi9wbGFucyIpOwogICAgcmV0dXJuIHsgc3VjY2VzczogdHJ1ZSB9OwogIH0gY2F0Y2ggewogICAgcmV0dXJuIHsgZXJyb3I6ICJFcnJvIGFvIGNyaWFyIHBsYW5vIiB9OwogIH0KfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHVwZGF0ZVBsYW4oCiAgaWQ6IG51bWJlciwKICBkYXRhOiB7CiAgICBwcm9kdWN0SWQ6IG51bWJlcjsKICAgIG5hbWU6IHN0cmluZzsKICAgIHNhbGVQcmljZUdyb3NzOiBudW1iZXI7CiAgICBzYWxlUHJpY2VOZXQ/OiBudW1iZXIgfCBudWxsOwogICAgcHJvZHVjdENvc3Q/OiBudW1iZXI7CiAgICBzaGlwcGluZ0Nvc3Q/OiBudW1iZXI7CiAgICBhY3RpdmU6IGJvb2xlYW47CiAgfQopIHsKICBhd2FpdCByZXF1aXJlQWRtaW4oKTsKICBjb25zdCBwYXJzZWQgPSBwbGFuU2NoZW1hLnNhZmVQYXJzZShkYXRhKTsKICBpZiAoIXBhcnNlZC5zdWNjZXNzKSByZXR1cm4geyBlcnJvcjogcGFyc2VkLmVycm9yLmVycm9yc1swXS5tZXNzYWdlIH07CgogIHRyeSB7CiAgICBhd2FpdCBzcWxgCiAgICAgIFVQREFURSBwbGFucyBTRVQgcHJvZHVjdF9pZCA9ICR7cGFyc2VkLmRhdGEucHJvZHVjdElkfSwgbmFtZSA9ICR7cGFyc2VkLmRhdGEubmFtZX0sCiAgICAgIHNhbGVfcHJpY2VfZ3Jvc3MgPSAke3BhcnNlZC5kYXRhLnNhbGVQcmljZUdyb3NzfSwgc2FsZV9wcmljZV9uZXQgPSAke3BhcnNlZC5kYXRhLnNhbGVQcmljZU5ldCB8fCBudWxsfSwKICAgICAgcHJvZHVjdF9jb3N0ID0gJHtwYXJzZWQuZGF0YS5wcm9kdWN0Q29zdH0sIHNoaXBwaW5nX2Nvc3QgPSAke3BhcnNlZC5kYXRhLnNoaXBwaW5nQ29zdH0sCiAgICAgIGFjdGl2ZSA9ICR7cGFyc2VkLmRhdGEuYWN0aXZlfSwgdXBkYXRlZF9hdCA9IE5PVygpIFdIRVJFIGlkID0gJHtpZH0KICAgIGA7CiAgICByZXZhbGlkYXRlUGF0aCgiL3BsYW5zIik7CiAgICByZXR1cm4geyBzdWNjZXNzOiB0cnVlIH07CiAgfSBjYXRjaCB7CiAgICByZXR1cm4geyBlcnJvcjogIkVycm8gYW8gYXR1YWxpemFyIHBsYW5vIiB9OwogIH0KfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGRlbGV0ZVBsYW4oaWQ6IG51bWJlcikgewogIGF3YWl0IHJlcXVpcmVBZG1pbigpOwogIHRyeSB7CiAgICBhd2FpdCBzcWxgREVMRVRFIEZST00gcGxhbnMgV0hFUkUgaWQgPSAke2lkfWA7CiAgICByZXZhbGlkYXRlUGF0aCgiL3BsYW5zIik7CiAgICByZXR1cm4geyBzdWNjZXNzOiB0cnVlIH07CiAgfSBjYXRjaCB7CiAgICByZXR1cm4geyBlcnJvcjogIkVycm8gYW8gZGVsZXRhciBwbGFubyIgfTsKICB9Cn0KCi8vIC0tLS0gQ09NTUlTU0lPTlMgLS0tLQpjb25zdCBjb21taXNzaW9uU2NoZW1hID0gei5vYmplY3QoewogIHNlbGxlcklkOiB6LmNvZXJjZS5udW1iZXIoKS5pbnQoKS5wb3NpdGl2ZSgpLAogIHBsYW5JZDogei5jb2VyY2UubnVtYmVyKCkuaW50KCkucG9zaXRpdmUoKSwKICBwZXJjZW50OiB6LmNvZXJjZS5udW1iZXIoKS5taW4oMCkubWF4KDEwMCksCn0pOwoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHVwc2VydENvbW1pc3Npb24oZGF0YTogewogIHNlbGxlcklkOiBudW1iZXI7CiAgcGxhbklkOiBudW1iZXI7CiAgcGVyY2VudDogbnVtYmVyOwp9KSB7CiAgYXdhaXQgcmVxdWlyZUFkbWluKCk7CiAgY29uc3QgcGFyc2VkID0gY29tbWlzc2lvblNjaGVtYS5zYWZlUGFyc2UoZGF0YSk7CiAgaWYgKCFwYXJzZWQuc3VjY2VzcykgcmV0dXJuIHsgZXJyb3I6IHBhcnNlZC5lcnJvci5lcnJvcnNbMF0ubWVzc2FnZSB9OwoKICB0cnkgewogICAgYXdhaXQgc3FsYAogICAgICBJTlNFUlQgSU5UTyBzZWxsZXJfY29tbWlzc2lvbnMgKHNlbGxlcl9pZCwgcGxhbl9pZCwgcGVyY2VudCkKICAgICAgVkFMVUVTICgke3BhcnNlZC5kYXRhLnNlbGxlcklkfSwgJHtwYXJzZWQuZGF0YS5wbGFuSWR9LCAke3BhcnNlZC5kYXRhLnBlcmNlbnR9KQogICAgICBPTiBDT05GTElDVCAoc2VsbGVyX2lkLCBwbGFuX2lkKSBETyBVUERBVEUgU0VUIHBlcmNlbnQgPSAke3BhcnNlZC5kYXRhLnBlcmNlbnR9LCB1cGRhdGVkX2F0ID0gTk9XKCkKICAgIGA7CiAgICByZXZhbGlkYXRlUGF0aCgiL2NvbW1pc3Npb25zIik7CiAgICByZXR1cm4geyBzdWNjZXNzOiB0cnVlIH07CiAgfSBjYXRjaCB7CiAgICByZXR1cm4geyBlcnJvcjogIkVycm8gYW8gc2FsdmFyIGNvbWlzc2FvIiB9OwogIH0KfQoKLy8gLS0tLSBVU0VSUyAtLS0tCmNvbnN0IHVzZXJTY2hlbWEgPSB6Lm9iamVjdCh7CiAgbmFtZTogei5zdHJpbmcoKS5taW4oMSwgIk5vbWUgb2JyaWdhdG9yaW8iKSwKICBlbWFpbDogei5zdHJpbmcoKS5lbWFpbCgiRW1haWwgaW52YWxpZG8iKSwKICBwYXNzd29yZDogei5zdHJpbmcoKS5taW4oNCwgIlNlbmhhIGRldmUgdGVyIGFvIG1lbm9zIDQgY2FyYWN0ZXJlcyIpLm9wdGlvbmFsKCksCiAgcm9sZTogei5lbnVtKFsiQURNSU5fTUFTVEVSIiwgIlNFTExFUiJdKSwKfSk7CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gY3JlYXRlVXNlcihkYXRhOiB7CiAgbmFtZTogc3RyaW5nOwogIGVtYWlsOiBzdHJpbmc7CiAgcGFzc3dvcmQ6IHN0cmluZzsKICByb2xlOiBzdHJpbmc7Cn0pIHsKICBhd2FpdCByZXF1aXJlQWRtaW4oKTsKICBjb25zdCBwYXJzZWQgPSB1c2VyU2NoZW1hLnNhZmVQYXJzZShkYXRhKTsKICBpZiAoIXBhcnNlZC5zdWNjZXNzKSByZXR1cm4geyBlcnJvcjogcGFyc2VkLmVycm9yLmVycm9yc1swXS5tZXNzYWdlIH07CiAgaWYgKCFwYXJzZWQuZGF0YS5wYXNzd29yZCkgcmV0dXJuIHsgZXJyb3I6ICJTZW5oYSBvYnJpZ2F0b3JpYSIgfTsKCiAgY29uc3QgaGFzaCA9IGNyZWF0ZUhhc2goInNoYTI1NiIpLnVwZGF0ZShwYXJzZWQuZGF0YS5wYXNzd29yZCkuZGlnZXN0KCJoZXgiKTsKCiAgdHJ5IHsKICAgIGF3YWl0IHNxbGAKICAgICAgSU5TRVJUIElOVE8gdXNlcnMgKG5hbWUsIGVtYWlsLCBwYXNzd29yZF9oYXNoLCByb2xlKQogICAgICBWQUxVRVMgKCR7cGFyc2VkLmRhdGEubmFtZX0sICR7cGFyc2VkLmRhdGEuZW1haWx9LCAke2hhc2h9LCAke3BhcnNlZC5kYXRhLnJvbGV9KQogICAgYDsKICAgIHJldmFsaWRhdGVQYXRoKCIvdXNlcnMiKTsKICAgIHJldHVybiB7IHN1Y2Nlc3M6IHRydWUgfTsKICB9IGNhdGNoIHsKICAgIHJldHVybiB7IGVycm9yOiAiRXJybyBhbyBjcmlhciB1c3VhcmlvLiBFbWFpbCBwb2RlIGphIGV4aXN0aXIuIiB9OwogIH0KfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHVwZGF0ZVVzZXIoCiAgaWQ6IG51bWJlciwKICBkYXRhOiB7IG5hbWU6IHN0cmluZzsgZW1haWw6IHN0cmluZzsgcGFzc3dvcmQ/OiBzdHJpbmc7IHJvbGU6IHN0cmluZyB9CikgewogIGF3YWl0IHJlcXVpcmVBZG1pbigpOwogIGNvbnN0IHBhcnNlZCA9IHVzZXJTY2hlbWEuc2FmZVBhcnNlKGRhdGEpOwogIGlmICghcGFyc2VkLnN1Y2Nlc3MpIHJldHVybiB7IGVycm9yOiBwYXJzZWQuZXJyb3IuZXJyb3JzWzBdLm1lc3NhZ2UgfTsKCiAgdHJ5IHsKICAgIGlmIChwYXJzZWQuZGF0YS5wYXNzd29yZCkgewogICAgICBjb25zdCBoYXNoID0gY3JlYXRlSGFzaCgic2hhMjU2IikudXBkYXRlKHBhcnNlZC5kYXRhLnBhc3N3b3JkKS5kaWdlc3QoImhleCIpOwogICAgICBhd2FpdCBzcWxgCiAgICAgICAgVVBEQVRFIHVzZXJzIFNFVCBuYW1lID0gJHtwYXJzZWQuZGF0YS5uYW1lfSwgZW1haWwgPSAke3BhcnNlZC5kYXRhLmVtYWlsfSwKICAgICAgICBwYXNzd29yZF9oYXNoID0gJHtoYXNofSwgcm9sZSA9ICR7cGFyc2VkLmRhdGEucm9sZX0sIHVwZGF0ZWRfYXQgPSBOT1coKSBXSEVSRSBpZCA9ICR7aWR9CiAgICAgIGA7CiAgICB9IGVsc2UgewogICAgICBhd2FpdCBzcWxgCiAgICAgICAgVVBEQVRFIHVzZXJzIFNFVCBuYW1lID0gJHtwYXJzZWQuZGF0YS5uYW1lfSwgZW1haWwgPSAke3BhcnNlZC5kYXRhLmVtYWlsfSwKICAgICAgICByb2xlID0gJHtwYXJzZWQuZGF0YS5yb2xlfSwgdXBkYXRlZF9hdCA9IE5PVygpIFdIRVJFIGlkID0gJHtpZH0KICAgICAgYDsKICAgIH0KICAgIHJldmFsaWRhdGVQYXRoKCIvdXNlcnMiKTsKICAgIHJldHVybiB7IHN1Y2Nlc3M6IHRydWUgfTsKICB9IGNhdGNoIHsKICAgIHJldHVybiB7IGVycm9yOiAiRXJybyBhbyBhdHVhbGl6YXIgdXN1YXJpbyIgfTsKICB9Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBkZWxldGVVc2VyKGlkOiBudW1iZXIpIHsKICBhd2FpdCByZXF1aXJlQWRtaW4oKTsKICB0cnkgewogICAgYXdhaXQgc3FsYERFTEVURSBGUk9NIHVzZXJzIFdIRVJFIGlkID0gJHtpZH1gOwogICAgcmV2YWxpZGF0ZVBhdGgoIi91c2VycyIpOwogICAgcmV0dXJuIHsgc3VjY2VzczogdHJ1ZSB9OwogIH0gY2F0Y2ggewogICAgcmV0dXJuIHsgZXJyb3I6ICJFcnJvIGFvIGRlbGV0YXIgdXN1YXJpbyIgfTsKICB9Cn0KCi8vIC0tLS0gTUFSS0VUSU5HIChEYWlseSBBZCBNZXRyaWNzKSAtLS0tCmNvbnN0IGFkTWV0cmljU2NoZW1hID0gei5vYmplY3QoewogIGRhdGU6IHouc3RyaW5nKCkubWluKDEpLAogIHNlbGxlcklkOiB6LmNvZXJjZS5udW1iZXIoKS5pbnQoKS5wb3NpdGl2ZSgpLAogIGludmVzdG1lbnQ6IHouY29lcmNlLm51bWJlcigpLm1pbigwKSwKICBsZWFkczogei5jb2VyY2UubnVtYmVyKCkuaW50KCkubWluKDApLAogIHB1cmNoYXNlc0NvdW50OiB6LmNvZXJjZS5udW1iZXIoKS5pbnQoKS5taW4oMCkub3B0aW9uYWwoKSwKfSk7CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gdXBzZXJ0QWRNZXRyaWMoZGF0YTogewogIGRhdGU6IHN0cmluZzsKICBzZWxsZXJJZDogbnVtYmVyOwogIGludmVzdG1lbnQ6IG51bWJlcjsKICBsZWFkczogbnVtYmVyOwogIHB1cmNoYXNlc0NvdW50PzogbnVtYmVyOwp9KSB7CiAgYXdhaXQgcmVxdWlyZUFkbWluKCk7CiAgY29uc3QgcGFyc2VkID0gYWRNZXRyaWNTY2hlbWEuc2FmZVBhcnNlKGRhdGEpOwogIGlmICghcGFyc2VkLnN1Y2Nlc3MpIHJldHVybiB7IGVycm9yOiBwYXJzZWQuZXJyb3IuZXJyb3JzWzBdLm1lc3NhZ2UgfTsKCiAgdHJ5IHsKICAgIGF3YWl0IHNxbGAKICAgICAgSU5TRVJUIElOVE8gZGFpbHlfYWRfbWV0cmljcyAoZGF0ZSwgc2VsbGVyX2lkLCBpbnZlc3RtZW50LCBsZWFkcywgcHVyY2hhc2VzX2NvdW50KQogICAgICBWQUxVRVMgKCR7cGFyc2VkLmRhdGEuZGF0ZX0sICR7cGFyc2VkLmRhdGEuc2VsbGVySWR9LCAke3BhcnNlZC5kYXRhLmludmVzdG1lbnR9LCAke3BhcnNlZC5kYXRhLmxlYWRzfSwgJHtwYXJzZWQuZGF0YS5wdXJjaGFzZXNDb3VudCB8fCAwfSkKICAgICAgT04gQ09ORkxJQ1QgKGRhdGUsIHNlbGxlcl9pZCkgRE8gVVBEQVRFIFNFVAogICAgICAgIGludmVzdG1lbnQgPSAke3BhcnNlZC5kYXRhLmludmVzdG1lbnR9LAogICAgICAgIGxlYWRzID0gJHtwYXJzZWQuZGF0YS5sZWFkc30sCiAgICAgICAgcHVyY2hhc2VzX2NvdW50ID0gJHtwYXJzZWQuZGF0YS5wdXJjaGFzZXNDb3VudCB8fCAwfSwKICAgICAgICB1cGRhdGVkX2F0ID0gTk9XKCkKICAgIGA7CiAgICByZXZhbGlkYXRlUGF0aCgiL21hcmtldGluZyIpOwogICAgcmV2YWxpZGF0ZVBhdGgoIi9kYXNoYm9hcmQiKTsKICAgIHJldHVybiB7IHN1Y2Nlc3M6IHRydWUgfTsKICB9IGNhdGNoIHsKICAgIHJldHVybiB7IGVycm9yOiAiRXJybyBhbyBzYWx2YXIgbWV0cmljYSIgfTsKICB9Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBkZWxldGVBZE1ldHJpYyhpZDogbnVtYmVyKSB7CiAgYXdhaXQgcmVxdWlyZUFkbWluKCk7CiAgdHJ5IHsKICAgIGF3YWl0IHNxbGBERUxFVEUgRlJPTSBkYWlseV9hZF9tZXRyaWNzIFdIRVJFIGlkID0gJHtpZH1gOwogICAgcmV2YWxpZGF0ZVBhdGgoIi9tYXJrZXRpbmciKTsKICAgIHJldHVybiB7IHN1Y2Nlc3M6IHRydWUgfTsKICB9IGNhdGNoIHsKICAgIHJldHVybiB7IGVycm9yOiAiRXJybyBhbyBkZWxldGFyIG1ldHJpY2EiIH07CiAgfQp9CgovLyAtLS0tIEZFRVMgLS0tLQpjb25zdCBmZWVTY2hlbWEgPSB6Lm9iamVjdCh7CiAgbmFtZTogei5zdHJpbmcoKS5taW4oMSwgIk5vbWUgb2JyaWdhdG9yaW8iKSwKICBzbHVnOiB6LnN0cmluZygpLm1pbigxLCAiU2x1ZyBvYnJpZ2F0b3JpbyIpLAogIHR5cGU6IHouZW51bShbIlBFUkNFTlQiLCAiRklYRUQiXSksCiAgdmFsdWU6IHouY29lcmNlLm51bWJlcigpLm1pbigwKSwKICBhcHBsaWVzVG86IHouZW51bShbIlNBTEUiLCAiSU5WRVNUTUVOVCJdKSwKICBhY3RpdmU6IHouYm9vbGVhbigpLmRlZmF1bHQodHJ1ZSksCn0pOwoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGNyZWF0ZUZlZShkYXRhOiB7CiAgbmFtZTogc3RyaW5nOwogIHNsdWc6IHN0cmluZzsKICB0eXBlOiBzdHJpbmc7CiAgdmFsdWU6IG51bWJlcjsKICBhcHBsaWVzVG86IHN0cmluZzsKICBhY3RpdmU6IGJvb2xlYW47Cn0pIHsKICBhd2FpdCByZXF1aXJlQWRtaW4oKTsKICBjb25zdCBwYXJzZWQgPSBmZWVTY2hlbWEuc2FmZVBhcnNlKGRhdGEpOwogIGlmICghcGFyc2VkLnN1Y2Nlc3MpIHJldHVybiB7IGVycm9yOiBwYXJzZWQuZXJyb3IuZXJyb3JzWzBdLm1lc3NhZ2UgfTsKCiAgdHJ5IHsKICAgIGF3YWl0IHNxbGAKICAgICAgSU5TRVJUIElOVE8gZmVlcyAobmFtZSwgc2x1ZywgdHlwZSwgdmFsdWUsIGFwcGxpZXNfdG8sIGFjdGl2ZSkKICAgICAgVkFMVUVTICgke3BhcnNlZC5kYXRhLm5hbWV9LCAke3BhcnNlZC5kYXRhLnNsdWd9LCAke3BhcnNlZC5kYXRhLnR5cGV9LCAke3BhcnNlZC5kYXRhLnZhbHVlfSwgJHtwYXJzZWQuZGF0YS5hcHBsaWVzVG99LCAke3BhcnNlZC5kYXRhLmFjdGl2ZX0pCiAgICBgOwogICAgcmV2YWxpZGF0ZVBhdGgoIi9mZWVzIik7CiAgICByZXZhbGlkYXRlUGF0aCgiL2Rhc2hib2FyZCIpOwogICAgcmV0dXJuIHsgc3VjY2VzczogdHJ1ZSB9OwogIH0gY2F0Y2ggewogICAgcmV0dXJuIHsgZXJyb3I6ICJFcnJvIGFvIGNyaWFyIHRheGEuIFNsdWcgcG9kZSBqYSBleGlzdGlyLiIgfTsKICB9Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiB1cGRhdGVGZWUoCiAgaWQ6IG51bWJlciwKICBkYXRhOiB7CiAgICBuYW1lOiBzdHJpbmc7CiAgICBzbHVnOiBzdHJpbmc7CiAgICB0eXBlOiBzdHJpbmc7CiAgICB2YWx1ZTogbnVtYmVyOwogICAgYXBwbGllc1RvOiBzdHJpbmc7CiAgICBhY3RpdmU6IGJvb2xlYW47CiAgfQopIHsKICBhd2FpdCByZXF1aXJlQWRtaW4oKTsKICBjb25zdCBwYXJzZWQgPSBmZWVTY2hlbWEuc2FmZVBhcnNlKGRhdGEpOwogIGlmICghcGFyc2VkLnN1Y2Nlc3MpIHJldHVybiB7IGVycm9yOiBwYXJzZWQuZXJyb3IuZXJyb3JzWzBdLm1lc3NhZ2UgfTsKCiAgdHJ5IHsKICAgIGF3YWl0IHNxbGAKICAgICAgVVBEQVRFIGZlZXMgU0VUIG5hbWUgPSAke3BhcnNlZC5kYXRhLm5hbWV9LCBzbHVnID0gJHtwYXJzZWQuZGF0YS5zbHVnfSwgdHlwZSA9ICR7cGFyc2VkLmRhdGEudHlwZX0sCiAgICAgIHZhbHVlID0gJHtwYXJzZWQuZGF0YS52YWx1ZX0sIGFwcGxpZXNfdG8gPSAke3BhcnNlZC5kYXRhLmFwcGxpZXNUb30sIGFjdGl2ZSA9ICR7cGFyc2VkLmRhdGEuYWN0aXZlfSwgdXBkYXRlZF9hdCA9IE5PVygpCiAgICAgIFdIRVJFIGlkID0gJHtpZH0KICAgIGA7CiAgICByZXZhbGlkYXRlUGF0aCgiL2ZlZXMiKTsKICAgIHJldmFsaWRhdGVQYXRoKCIvZGFzaGJvYXJkIik7CiAgICByZXR1cm4geyBzdWNjZXNzOiB0cnVlIH07CiAgfSBjYXRjaCB7CiAgICByZXR1cm4geyBlcnJvcjogIkVycm8gYW8gYXR1YWxpemFyIHRheGEiIH07CiAgfQp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gZGVsZXRlRmVlKGlkOiBudW1iZXIpIHsKICBhd2FpdCByZXF1aXJlQWRtaW4oKTsKICB0cnkgewogICAgYXdhaXQgc3FsYERFTEVURSBGUk9NIGZlZXMgV0hFUkUgaWQgPSAke2lkfWA7CiAgICByZXZhbGlkYXRlUGF0aCgiL2ZlZXMiKTsKICAgIHJldmFsaWRhdGVQYXRoKCIvZGFzaGJvYXJkIik7CiAgICByZXR1cm4geyBzdWNjZXNzOiB0cnVlIH07CiAgfSBjYXRjaCB7CiAgICByZXR1cm4geyBlcnJvcjogIkVycm8gYW8gZGVsZXRhciB0YXhhIiB9OwogIH0KfQo="
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
+import { createHash } from "crypto";
+import { sql } from "@/lib/db";
+import { requireAdmin } from "@/lib/auth";
+
+// ---- PRODUCTS ----
+const productSchema = z.object({
+  name: z.string().min(1, "Nome obrigatorio"),
+  active: z.boolean().default(true),
+});
+
+export async function createProduct(data: { name: string; active: boolean }) {
+  await requireAdmin();
+  const parsed = productSchema.safeParse(data);
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  try {
+    await sql`INSERT INTO products (name, active) VALUES (${parsed.data.name}, ${parsed.data.active})`;
+    revalidatePath("/products");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao criar produto" };
+  }
+}
+
+export async function updateProduct(id: number, data: { name: string; active: boolean }) {
+  await requireAdmin();
+  const parsed = productSchema.safeParse(data);
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  try {
+    await sql`UPDATE products SET name = ${parsed.data.name}, active = ${parsed.data.active}, updated_at = NOW() WHERE id = ${id}`;
+    revalidatePath("/products");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao atualizar produto" };
+  }
+}
+
+export async function deleteProduct(id: number) {
+  await requireAdmin();
+  try {
+    await sql`DELETE FROM products WHERE id = ${id}`;
+    revalidatePath("/products");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao deletar produto" };
+  }
+}
+
+// ---- PLANS ----
+const planSchema = z.object({
+  productId: z.coerce.number().int().positive(),
+  name: z.string().min(1, "Nome obrigatorio"),
+  salePriceGross: z.coerce.number().min(0),
+  salePriceNet: z.coerce.number().min(0).nullable().optional(),
+  productCost: z.coerce.number().min(0).default(0),
+  shippingCost: z.coerce.number().min(0).default(0),
+  active: z.boolean().default(true),
+});
+
+export async function createPlan(data: {
+  productId: number;
+  name: string;
+  salePriceGross: number;
+  salePriceNet?: number | null;
+  productCost?: number;
+  shippingCost?: number;
+  active: boolean;
+}) {
+  await requireAdmin();
+  const parsed = planSchema.safeParse(data);
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  try {
+    await sql`
+      INSERT INTO plans (product_id, name, sale_price_gross, sale_price_net, product_cost, shipping_cost, active)
+      VALUES (${parsed.data.productId}, ${parsed.data.name}, ${parsed.data.salePriceGross}, ${parsed.data.salePriceNet || null}, ${parsed.data.productCost}, ${parsed.data.shippingCost}, ${parsed.data.active})
+    `;
+    revalidatePath("/plans");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao criar plano" };
+  }
+}
+
+export async function updatePlan(
+  id: number,
+  data: {
+    productId: number;
+    name: string;
+    salePriceGross: number;
+    salePriceNet?: number | null;
+    productCost?: number;
+    shippingCost?: number;
+    active: boolean;
+  }
+) {
+  await requireAdmin();
+  const parsed = planSchema.safeParse(data);
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  try {
+    await sql`
+      UPDATE plans SET product_id = ${parsed.data.productId}, name = ${parsed.data.name},
+      sale_price_gross = ${parsed.data.salePriceGross}, sale_price_net = ${parsed.data.salePriceNet || null},
+      product_cost = ${parsed.data.productCost}, shipping_cost = ${parsed.data.shippingCost},
+      active = ${parsed.data.active}, updated_at = NOW() WHERE id = ${id}
+    `;
+    revalidatePath("/plans");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao atualizar plano" };
+  }
+}
+
+export async function deletePlan(id: number) {
+  await requireAdmin();
+  try {
+    await sql`DELETE FROM plans WHERE id = ${id}`;
+    revalidatePath("/plans");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao deletar plano" };
+  }
+}
+
+// ---- COMMISSIONS ----
+const commissionSchema = z.object({
+  sellerId: z.coerce.number().int().positive(),
+  planId: z.coerce.number().int().positive(),
+  percent: z.coerce.number().min(0).max(100),
+});
+
+export async function upsertCommission(data: {
+  sellerId: number;
+  planId: number;
+  percent: number;
+}) {
+  await requireAdmin();
+  const parsed = commissionSchema.safeParse(data);
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  try {
+    await sql`
+      INSERT INTO seller_commissions (seller_id, plan_id, percent)
+      VALUES (${parsed.data.sellerId}, ${parsed.data.planId}, ${parsed.data.percent})
+      ON CONFLICT (seller_id, plan_id) DO UPDATE SET percent = ${parsed.data.percent}, updated_at = NOW()
+    `;
+    revalidatePath("/commissions");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao salvar comissao" };
+  }
+}
+
+// ---- USERS ----
+const userSchema = z.object({
+  name: z.string().min(1, "Nome obrigatorio"),
+  email: z.string().email("Email invalido"),
+  password: z.string().min(4, "Senha deve ter ao menos 4 caracteres").optional(),
+  role: z.enum(["ADMIN_MASTER", "SELLER"]),
+});
+
+export async function createUser(data: {
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+}) {
+  await requireAdmin();
+  const parsed = userSchema.safeParse(data);
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+  if (!parsed.data.password) return { error: "Senha obrigatoria" };
+
+  const hash = createHash("sha256").update(parsed.data.password).digest("hex");
+
+  try {
+    await sql`
+      INSERT INTO users (name, email, password_hash, role)
+      VALUES (${parsed.data.name}, ${parsed.data.email}, ${hash}, ${parsed.data.role})
+    `;
+    revalidatePath("/users");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao criar usuario. Email pode ja existir." };
+  }
+}
+
+export async function updateUser(
+  id: number,
+  data: { name: string; email: string; password?: string; role: string }
+) {
+  await requireAdmin();
+  const parsed = userSchema.safeParse(data);
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  try {
+    if (parsed.data.password) {
+      const hash = createHash("sha256").update(parsed.data.password).digest("hex");
+      await sql`
+        UPDATE users SET name = ${parsed.data.name}, email = ${parsed.data.email},
+        password_hash = ${hash}, role = ${parsed.data.role}, updated_at = NOW() WHERE id = ${id}
+      `;
+    } else {
+      await sql`
+        UPDATE users SET name = ${parsed.data.name}, email = ${parsed.data.email},
+        role = ${parsed.data.role}, updated_at = NOW() WHERE id = ${id}
+      `;
+    }
+    revalidatePath("/users");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao atualizar usuario" };
+  }
+}
+
+export async function deleteUser(id: number) {
+  await requireAdmin();
+  try {
+    await sql`DELETE FROM users WHERE id = ${id}`;
+    revalidatePath("/users");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao deletar usuario" };
+  }
+}
+
+// ---- MARKETING (Daily Ad Metrics) ----
+const adMetricSchema = z.object({
+  date: z.string().min(1),
+  sellerId: z.coerce.number().int().positive(),
+  investment: z.coerce.number().min(0),
+  leads: z.coerce.number().int().min(0),
+  purchasesCount: z.coerce.number().int().min(0).optional(),
+});
+
+export async function upsertAdMetric(data: {
+  date: string;
+  sellerId: number;
+  investment: number;
+  leads: number;
+  purchasesCount?: number;
+}) {
+  await requireAdmin();
+  const parsed = adMetricSchema.safeParse(data);
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  try {
+    await sql`
+      INSERT INTO daily_ad_metrics (date, seller_id, investment, leads, purchases_count)
+      VALUES (${parsed.data.date}, ${parsed.data.sellerId}, ${parsed.data.investment}, ${parsed.data.leads}, ${parsed.data.purchasesCount || 0})
+      ON CONFLICT (date, seller_id) DO UPDATE SET
+        investment = ${parsed.data.investment},
+        leads = ${parsed.data.leads},
+        purchases_count = ${parsed.data.purchasesCount || 0},
+        updated_at = NOW()
+    `;
+    revalidatePath("/marketing");
+    revalidatePath("/dashboard");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao salvar metrica" };
+  }
+}
+
+export async function deleteAdMetric(id: number) {
+  await requireAdmin();
+  try {
+    await sql`DELETE FROM daily_ad_metrics WHERE id = ${id}`;
+    revalidatePath("/marketing");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao deletar metrica" };
+  }
+}
+
+// ---- FEES ----
+const feeSchema = z.object({
+  name: z.string().min(1, "Nome obrigatorio"),
+  slug: z.string().min(1, "Slug obrigatorio"),
+  type: z.enum(["PERCENT", "FIXED"]),
+  value: z.coerce.number().min(0),
+  appliesTo: z.enum(["SALE", "INVESTMENT"]),
+  active: z.boolean().default(true),
+});
+
+export async function createFee(data: {
+  name: string;
+  slug: string;
+  type: string;
+  value: number;
+  appliesTo: string;
+  active: boolean;
+}) {
+  await requireAdmin();
+  const parsed = feeSchema.safeParse(data);
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  try {
+    await sql`
+      INSERT INTO fees (name, slug, type, value, applies_to, active)
+      VALUES (${parsed.data.name}, ${parsed.data.slug}, ${parsed.data.type}, ${parsed.data.value}, ${parsed.data.appliesTo}, ${parsed.data.active})
+    `;
+    revalidatePath("/fees");
+    revalidatePath("/dashboard");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao criar taxa. Slug pode ja existir." };
+  }
+}
+
+export async function updateFee(
+  id: number,
+  data: {
+    name: string;
+    slug: string;
+    type: string;
+    value: number;
+    appliesTo: string;
+    active: boolean;
+  }
+) {
+  await requireAdmin();
+  const parsed = feeSchema.safeParse(data);
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  try {
+    await sql`
+      UPDATE fees SET name = ${parsed.data.name}, slug = ${parsed.data.slug}, type = ${parsed.data.type},
+      value = ${parsed.data.value}, applies_to = ${parsed.data.appliesTo}, active = ${parsed.data.active}, updated_at = NOW()
+      WHERE id = ${id}
+    `;
+    revalidatePath("/fees");
+    revalidatePath("/dashboard");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao atualizar taxa" };
+  }
+}
+
+export async function deleteFee(id: number) {
+  await requireAdmin();
+  try {
+    await sql`DELETE FROM fees WHERE id = ${id}`;
+    revalidatePath("/fees");
+    revalidatePath("/dashboard");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao deletar taxa" };
+  }
 }

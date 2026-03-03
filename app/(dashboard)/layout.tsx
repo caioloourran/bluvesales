@@ -1,3 +1,22 @@
-{
-  "data": "aW1wb3J0IFJlYWN0IGZyb20gInJlYWN0IgppbXBvcnQgeyBnZXRTZXNzaW9uIH0gZnJvbSAiQC9saWIvYXV0aCI7CmltcG9ydCB7IHJlZGlyZWN0IH0gZnJvbSAibmV4dC9uYXZpZ2F0aW9uIjsKaW1wb3J0IHsgQXBwU2lkZWJhciB9IGZyb20gIkAvY29tcG9uZW50cy9hcHAtc2lkZWJhciI7CgpleHBvcnQgZGVmYXVsdCBhc3luYyBmdW5jdGlvbiBEYXNoYm9hcmRMYXlvdXQoewogIGNoaWxkcmVuLAp9OiB7CiAgY2hpbGRyZW46IFJlYWN0LlJlYWN0Tm9kZTsKfSkgewogIGNvbnN0IHNlc3Npb24gPSBhd2FpdCBnZXRTZXNzaW9uKCk7CiAgaWYgKCFzZXNzaW9uKSByZWRpcmVjdCgiL2xvZ2luIik7CgogIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBoLXNjcmVlbiBvdmVyZmxvdy1oaWRkZW4iPgogICAgICA8QXBwU2lkZWJhciB1c2VyTmFtZT17c2Vzc2lvbi5uYW1lfSB1c2VyUm9sZT17c2Vzc2lvbi5yb2xlfSAvPgogICAgICA8bWFpbiBjbGFzc05hbWU9ImZsZXgtMSBvdmVyZmxvdy15LWF1dG8gYmctbXV0ZWQvMzAgcC02Ij4KICAgICAgICB7Y2hpbGRyZW59CiAgICAgIDwvbWFpbj4KICAgIDwvZGl2PgogICk7Cn0K"
+import React from "react"
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { AppSidebar } from "@/components/app-sidebar";
+
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await getSession();
+  if (!session) redirect("/login");
+
+  return (
+    <div className="flex h-screen overflow-hidden">
+      <AppSidebar userName={session.name} userRole={session.role} />
+      <main className="flex-1 overflow-y-auto bg-muted/30 p-6">
+        {children}
+      </main>
+    </div>
+  );
 }

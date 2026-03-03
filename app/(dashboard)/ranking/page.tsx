@@ -1,3 +1,41 @@
-{
-  "data": "aW1wb3J0IHsgcmVxdWlyZUFkbWluIH0gZnJvbSAiQC9saWIvYXV0aCI7CmltcG9ydCB7IGdldFNlbGxlclJhbmtpbmdzIH0gZnJvbSAiQC9saWIva3BpIjsKaW1wb3J0IHsgZ2V0RGF0ZVJhbmdlIH0gZnJvbSAiQC9saWIvZm9ybWF0IjsKaW1wb3J0IHsgUmFua2luZ0NsaWVudCB9IGZyb20gIkAvY29tcG9uZW50cy9yYW5raW5nL3JhbmtpbmctY2xpZW50IjsKCmV4cG9ydCBjb25zdCBtZXRhZGF0YSA9IHsKICB0aXRsZTogIlJhbmtpbmcgZGUgVmVuZGVkb3JlcyIsCn07CgppbnRlcmZhY2UgUHJvcHMgewogIHNlYXJjaFBhcmFtczogUHJvbWlzZTx7IHBlcmlvZD86IHN0cmluZzsgZnJvbT86IHN0cmluZzsgdG8/OiBzdHJpbmcgfT47Cn0KCmV4cG9ydCBkZWZhdWx0IGFzeW5jIGZ1bmN0aW9uIFJhbmtpbmdQYWdlKHsgc2VhcmNoUGFyYW1zIH06IFByb3BzKSB7CiAgYXdhaXQgcmVxdWlyZUFkbWluKCk7CgogIGNvbnN0IHBhcmFtcyA9IGF3YWl0IHNlYXJjaFBhcmFtczsKICBjb25zdCBwZXJpb2QgPSBwYXJhbXMucGVyaW9kIHx8ICIzMGQiOwogIGxldCBkYXRlRnJvbTogc3RyaW5nOwogIGxldCBkYXRlVG86IHN0cmluZzsKCiAgaWYgKHBlcmlvZCA9PT0gImN1c3RvbSIgJiYgcGFyYW1zLmZyb20gJiYgcGFyYW1zLnRvKSB7CiAgICBkYXRlRnJvbSA9IHBhcmFtcy5mcm9tOwogICAgZGF0ZVRvID0gcGFyYW1zLnRvOwogIH0gZWxzZSB7CiAgICBjb25zdCByYW5nZSA9IGdldERhdGVSYW5nZShwZXJpb2QpOwogICAgZGF0ZUZyb20gPSByYW5nZS5mcm9tOwogICAgZGF0ZVRvID0gcmFuZ2UudG87CiAgfQoKICBjb25zdCByYW5raW5ncyA9IGF3YWl0IGdldFNlbGxlclJhbmtpbmdzKGRhdGVGcm9tLCBkYXRlVG8pOwoKICByZXR1cm4gKAogICAgPFJhbmtpbmdDbGllbnQKICAgICAgcmFua2luZ3M9e3JhbmtpbmdzfQogICAgICBwZXJpb2Q9e3BlcmlvZH0KICAgICAgZGF0ZUZyb209e2RhdGVGcm9tfQogICAgICBkYXRlVG89e2RhdGVUb30KICAgIC8+CiAgKTsKfQo="
+import { requireAdmin } from "@/lib/auth";
+import { getSellerRankings } from "@/lib/kpi";
+import { getDateRange } from "@/lib/format";
+import { RankingClient } from "@/components/ranking/ranking-client";
+
+export const metadata = {
+  title: "Ranking de Vendedores",
+};
+
+interface Props {
+  searchParams: Promise<{ period?: string; from?: string; to?: string }>;
+}
+
+export default async function RankingPage({ searchParams }: Props) {
+  await requireAdmin();
+
+  const params = await searchParams;
+  const period = params.period || "30d";
+  let dateFrom: string;
+  let dateTo: string;
+
+  if (period === "custom" && params.from && params.to) {
+    dateFrom = params.from;
+    dateTo = params.to;
+  } else {
+    const range = getDateRange(period);
+    dateFrom = range.from;
+    dateTo = range.to;
+  }
+
+  const rankings = await getSellerRankings(dateFrom, dateTo);
+
+  return (
+    <RankingClient
+      rankings={rankings}
+      period={period}
+      dateFrom={dateFrom}
+      dateTo={dateTo}
+    />
+  );
 }

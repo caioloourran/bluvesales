@@ -1,3 +1,71 @@
-{
-  "data": "aW1wb3J0IHsgQ2FyZCwgQ2FyZENvbnRlbnQsIENhcmRIZWFkZXIsIENhcmRUaXRsZSB9IGZyb20gIkAvY29tcG9uZW50cy91aS9jYXJkIjsKaW1wb3J0IHsKICBUYWJsZSwKICBUYWJsZUJvZHksCiAgVGFibGVDZWxsLAogIFRhYmxlSGVhZCwKICBUYWJsZUhlYWRlciwKICBUYWJsZVJvdywKfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvdGFibGUiOwppbXBvcnQgeyBmb3JtYXRCUkwsIGZvcm1hdE51bWJlciB9IGZyb20gIkAvbGliL2Zvcm1hdCI7CmltcG9ydCB0eXBlIHsgU2VsbGVyUmFua2luZyB9IGZyb20gIkAvbGliL2twaSI7CgppbnRlcmZhY2UgU2VsbGVyUmFua2luZ1RhYmxlUHJvcHMgewogIHJhbmtpbmdzOiBTZWxsZXJSYW5raW5nW107Cn0KCmV4cG9ydCBmdW5jdGlvbiBTZWxsZXJSYW5raW5nVGFibGUoeyByYW5raW5ncyB9OiBTZWxsZXJSYW5raW5nVGFibGVQcm9wcykgewogIGlmIChyYW5raW5ncy5sZW5ndGggPT09IDApIHsKICAgIHJldHVybiBudWxsOwogIH0KCiAgcmV0dXJuICgKICAgIDxDYXJkPgogICAgICA8Q2FyZEhlYWRlcj4KICAgICAgICA8Q2FyZFRpdGxlIGNsYXNzTmFtZT0idGV4dC1iYXNlIGZvbnQtc2VtaWJvbGQiPgogICAgICAgICAgUmFua2luZyBWZW5kZWRvcmVzCiAgICAgICAgPC9DYXJkVGl0bGU+CiAgICAgIDwvQ2FyZEhlYWRlcj4KICAgICAgPENhcmRDb250ZW50PgogICAgICAgIDxUYWJsZT4KICAgICAgICAgIDxUYWJsZUhlYWRlcj4KICAgICAgICAgICAgPFRhYmxlUm93PgogICAgICAgICAgICAgIDxUYWJsZUhlYWQ+VmVuZGVkb3I8L1RhYmxlSGVhZD4KICAgICAgICAgICAgICA8VGFibGVIZWFkIGNsYXNzTmFtZT0idGV4dC1yaWdodCI+VmVuZGFzPC9UYWJsZUhlYWQ+CiAgICAgICAgICAgICAgPFRhYmxlSGVhZCBjbGFzc05hbWU9InRleHQtcmlnaHQiPlZhbG9yIEJydXRvPC9UYWJsZUhlYWQ+CiAgICAgICAgICAgICAgPFRhYmxlSGVhZCBjbGFzc05hbWU9InRleHQtcmlnaHQiPlZhbG9yIExpcXVpZG88L1RhYmxlSGVhZD4KICAgICAgICAgICAgICA8VGFibGVIZWFkIGNsYXNzTmFtZT0idGV4dC1yaWdodCI+Q29taXNzYW8gQnJ1dGE8L1RhYmxlSGVhZD4KICAgICAgICAgICAgICA8VGFibGVIZWFkIGNsYXNzTmFtZT0idGV4dC1yaWdodCI+Q29taXNzYW8gTGlxdWlkYTwvVGFibGVIZWFkPgogICAgICAgICAgICAgIDxUYWJsZUhlYWQgY2xhc3NOYW1lPSJ0ZXh0LXJpZ2h0Ij5MdWNybzwvVGFibGVIZWFkPgogICAgICAgICAgICA8L1RhYmxlUm93PgogICAgICAgICAgPC9UYWJsZUhlYWRlcj4KICAgICAgICAgIDxUYWJsZUJvZHk+CiAgICAgICAgICAgIHtyYW5raW5ncy5tYXAoKHIpID0+ICgKICAgICAgICAgICAgICA8VGFibGVSb3cga2V5PXtyLnNlbGxlcklkfT4KICAgICAgICAgICAgICAgIDxUYWJsZUNlbGwgY2xhc3NOYW1lPSJmb250LW1lZGl1bSI+e3Iuc2VsbGVyTmFtZX08L1RhYmxlQ2VsbD4KICAgICAgICAgICAgICAgIDxUYWJsZUNlbGwgY2xhc3NOYW1lPSJ0ZXh0LXJpZ2h0Ij4KICAgICAgICAgICAgICAgICAge2Zvcm1hdE51bWJlcihyLnNhbGVzUXR5KX0KICAgICAgICAgICAgICAgIDwvVGFibGVDZWxsPgogICAgICAgICAgICAgICAgPFRhYmxlQ2VsbCBjbGFzc05hbWU9InRleHQtcmlnaHQiPgogICAgICAgICAgICAgICAgICB7Zm9ybWF0QlJMKHIuZ3Jvc3NWYWx1ZSl9CiAgICAgICAgICAgICAgICA8L1RhYmxlQ2VsbD4KICAgICAgICAgICAgICAgIDxUYWJsZUNlbGwgY2xhc3NOYW1lPSJ0ZXh0LXJpZ2h0Ij4KICAgICAgICAgICAgICAgICAge2Zvcm1hdEJSTChyLm5ldFZhbHVlKX0KICAgICAgICAgICAgICAgIDwvVGFibGVDZWxsPgogICAgICAgICAgICAgICAgPFRhYmxlQ2VsbCBjbGFzc05hbWU9InRleHQtcmlnaHQiPgogICAgICAgICAgICAgICAgICB7Zm9ybWF0QlJMKHIuZ3Jvc3NDb21taXNzaW9uKX0KICAgICAgICAgICAgICAgIDwvVGFibGVDZWxsPgogICAgICAgICAgICAgICAgPFRhYmxlQ2VsbCBjbGFzc05hbWU9InRleHQtcmlnaHQiPgogICAgICAgICAgICAgICAgICB7Zm9ybWF0QlJMKHIubmV0Q29tbWlzc2lvbil9CiAgICAgICAgICAgICAgICA8L1RhYmxlQ2VsbD4KICAgICAgICAgICAgICAgIDxUYWJsZUNlbGwgY2xhc3NOYW1lPXtgdGV4dC1yaWdodCBmb250LXNlbWlib2xkICR7ci5wcm9maXQgPj0gMCA/ICJ0ZXh0LWVtZXJhbGQtNjAwIGRhcms6dGV4dC1lbWVyYWxkLTQwMCIgOiAidGV4dC1yZWQtNjAwIGRhcms6dGV4dC1yZWQtNDAwIn1gfT4KICAgICAgICAgICAgICAgICAge2Zvcm1hdEJSTChyLnByb2ZpdCl9CiAgICAgICAgICAgICAgICA8L1RhYmxlQ2VsbD4KICAgICAgICAgICAgICA8L1RhYmxlUm93PgogICAgICAgICAgICApKX0KICAgICAgICAgIDwvVGFibGVCb2R5PgogICAgICAgIDwvVGFibGU+CiAgICAgIDwvQ2FyZENvbnRlbnQ+CiAgICA8L0NhcmQ+CiAgKTsKfQo="
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { formatBRL, formatNumber } from "@/lib/format";
+import type { SellerRanking } from "@/lib/kpi";
+
+interface SellerRankingTableProps {
+  rankings: SellerRanking[];
+}
+
+export function SellerRankingTable({ rankings }: SellerRankingTableProps) {
+  if (rankings.length === 0) {
+    return null;
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base font-semibold">
+          Ranking Vendedores
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Vendedor</TableHead>
+              <TableHead className="text-right">Vendas</TableHead>
+              <TableHead className="text-right">Valor Bruto</TableHead>
+              <TableHead className="text-right">Valor Liquido</TableHead>
+              <TableHead className="text-right">Comissao Bruta</TableHead>
+              <TableHead className="text-right">Comissao Liquida</TableHead>
+              <TableHead className="text-right">Lucro</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rankings.map((r) => (
+              <TableRow key={r.sellerId}>
+                <TableCell className="font-medium">{r.sellerName}</TableCell>
+                <TableCell className="text-right">
+                  {formatNumber(r.salesQty)}
+                </TableCell>
+                <TableCell className="text-right">
+                  {formatBRL(r.grossValue)}
+                </TableCell>
+                <TableCell className="text-right">
+                  {formatBRL(r.netValue)}
+                </TableCell>
+                <TableCell className="text-right">
+                  {formatBRL(r.grossCommission)}
+                </TableCell>
+                <TableCell className="text-right">
+                  {formatBRL(r.netCommission)}
+                </TableCell>
+                <TableCell className={`text-right font-semibold ${r.profit >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
+                  {formatBRL(r.profit)}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+  );
 }

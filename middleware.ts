@@ -1,3 +1,27 @@
-{
-  "data": "aW1wb3J0IHsgTmV4dFJlc3BvbnNlIH0gZnJvbSAibmV4dC9zZXJ2ZXIiOwppbXBvcnQgdHlwZSB7IE5leHRSZXF1ZXN0IH0gZnJvbSAibmV4dC9zZXJ2ZXIiOwoKY29uc3QgcHVibGljUGF0aHMgPSBbIi9sb2dpbiJdOwoKZXhwb3J0IGZ1bmN0aW9uIG1pZGRsZXdhcmUocmVxdWVzdDogTmV4dFJlcXVlc3QpIHsKICBjb25zdCB7IHBhdGhuYW1lIH0gPSByZXF1ZXN0Lm5leHRVcmw7CgogIC8vIEFsbG93IHB1YmxpYyBwYXRocwogIGlmIChwdWJsaWNQYXRocy5zb21lKChwKSA9PiBwYXRobmFtZS5zdGFydHNXaXRoKHApKSkgewogICAgcmV0dXJuIE5leHRSZXNwb25zZS5uZXh0KCk7CiAgfQoKICAvLyBDaGVjayBmb3Igc2Vzc2lvbiBjb29raWUKICBjb25zdCBzZXNzaW9uVG9rZW4gPSByZXF1ZXN0LmNvb2tpZXMuZ2V0KCJzZXNzaW9uX3Rva2VuIik/LnZhbHVlOwogIGlmICghc2Vzc2lvblRva2VuICYmIHBhdGhuYW1lICE9PSAiL2xvZ2luIikgewogICAgcmV0dXJuIE5leHRSZXNwb25zZS5yZWRpcmVjdChuZXcgVVJMKCIvbG9naW4iLCByZXF1ZXN0LnVybCkpOwogIH0KCiAgcmV0dXJuIE5leHRSZXNwb25zZS5uZXh0KCk7Cn0KCmV4cG9ydCBjb25zdCBjb25maWcgPSB7CiAgbWF0Y2hlcjogWwogICAgIi8oKD8hYXBpfF9uZXh0L3N0YXRpY3xfbmV4dC9pbWFnZXxmYXZpY29uLmljb3wuKlxcLig/OnN2Z3xwbmd8anBnfGpwZWd8Z2lmfHdlYnApJCkuKikiLAogIF0sCn07Cg=="
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+const publicPaths = ["/login"];
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Allow public paths
+  if (publicPaths.some((p) => pathname.startsWith(p))) {
+    return NextResponse.next();
+  }
+
+  // Check for session cookie
+  const sessionToken = request.cookies.get("session_token")?.value;
+  if (!sessionToken && pathname !== "/login") {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  return NextResponse.next();
 }
+
+export const config = {
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
+};

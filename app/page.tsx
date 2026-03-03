@@ -1,3 +1,5 @@
-{
-  "data": "aW1wb3J0IHsgcmVkaXJlY3QgfSBmcm9tICJuZXh0L25hdmlnYXRpb24iOwoKZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gSG9tZVBhZ2UoKSB7CiAgcmVkaXJlY3QoIi9kYXNoYm9hcmQiKTsKfQo="
+import { redirect } from "next/navigation";
+
+export default function HomePage() {
+  redirect("/dashboard");
 }

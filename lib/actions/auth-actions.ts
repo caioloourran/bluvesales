@@ -1,3 +1,36 @@
-{
-  "data": "InVzZSBzZXJ2ZXIiOwoKaW1wb3J0IHsgcmVkaXJlY3QgfSBmcm9tICJuZXh0L25hdmlnYXRpb24iOwppbXBvcnQgeyB6IH0gZnJvbSAiem9kIjsKaW1wb3J0IHsgbG9naW4sIGxvZ291dCB9IGZyb20gIkAvbGliL2F1dGgiOwoKY29uc3QgbG9naW5TY2hlbWEgPSB6Lm9iamVjdCh7CiAgZW1haWw6IHouc3RyaW5nKCkuZW1haWwoIkVtYWlsIGludmFsaWRvIiksCiAgcGFzc3dvcmQ6IHouc3RyaW5nKCkubWluKDEsICJTZW5oYSBvYnJpZ2F0b3JpYSIpLAp9KTsKCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBsb2dpbkFjdGlvbigKICBfcHJldlN0YXRlOiB7IGVycm9yPzogc3RyaW5nIH0gfCB1bmRlZmluZWQsCiAgZm9ybURhdGE6IEZvcm1EYXRhCikgewogIGNvbnN0IHBhcnNlZCA9IGxvZ2luU2NoZW1hLnNhZmVQYXJzZSh7CiAgICBlbWFpbDogZm9ybURhdGEuZ2V0KCJlbWFpbCIpLAogICAgcGFzc3dvcmQ6IGZvcm1EYXRhLmdldCgicGFzc3dvcmQiKSwKICB9KTsKCiAgaWYgKCFwYXJzZWQuc3VjY2VzcykgewogICAgcmV0dXJuIHsgZXJyb3I6IHBhcnNlZC5lcnJvci5lcnJvcnNbMF0ubWVzc2FnZSB9OwogIH0KCiAgY29uc3QgdXNlciA9IGF3YWl0IGxvZ2luKHBhcnNlZC5kYXRhLmVtYWlsLCBwYXJzZWQuZGF0YS5wYXNzd29yZCk7CiAgaWYgKCF1c2VyKSB7CiAgICByZXR1cm4geyBlcnJvcjogIkVtYWlsIG91IHNlbmhhIGluY29ycmV0b3MiIH07CiAgfQoKICByZWRpcmVjdCgiL2Rhc2hib2FyZCIpOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gbG9nb3V0QWN0aW9uKCkgewogIGF3YWl0IGxvZ291dCgpOwogIHJlZGlyZWN0KCIvbG9naW4iKTsKfQo="
+"use server";
+
+import { redirect } from "next/navigation";
+import { z } from "zod";
+import { login, logout } from "@/lib/auth";
+
+const loginSchema = z.object({
+  email: z.string().email("Email invalido"),
+  password: z.string().min(1, "Senha obrigatoria"),
+});
+
+export async function loginAction(
+  _prevState: { error?: string } | undefined,
+  formData: FormData
+) {
+  const parsed = loginSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+
+  if (!parsed.success) {
+    return { error: parsed.error.errors[0].message };
+  }
+
+  const user = await login(parsed.data.email, parsed.data.password);
+  if (!user) {
+    return { error: "Email ou senha incorretos" };
+  }
+
+  redirect("/dashboard");
+}
+
+export async function logoutAction() {
+  await logout();
+  redirect("/login");
 }

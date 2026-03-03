@@ -1,3 +1,19 @@
-{
-  "data": "aW1wb3J0IHsgcmVxdWlyZUFkbWluIH0gZnJvbSAiQC9saWIvYXV0aCI7CmltcG9ydCB7IHNxbCB9IGZyb20gIkAvbGliL2RiIjsKaW1wb3J0IHsgTWFya2V0aW5nQ2xpZW50IH0gZnJvbSAiQC9jb21wb25lbnRzL2FkbWluL21hcmtldGluZy1jbGllbnQiOwoKZXhwb3J0IGNvbnN0IG1ldGFkYXRhID0gewogIHRpdGxlOiAiTWFya2V0aW5nIC0gQWRtaW4iLAp9OwoKZXhwb3J0IGRlZmF1bHQgYXN5bmMgZnVuY3Rpb24gTWFya2V0aW5nUGFnZSgpIHsKICBhd2FpdCByZXF1aXJlQWRtaW4oKTsKICBjb25zdCBtZXRyaWNzID0gYXdhaXQgc3FsYAogICAgU0VMRUNUIGRhbS4qLCB1Lm5hbWUgYXMgc2VsbGVyX25hbWUgCiAgICBGUk9NIGRhaWx5X2FkX21ldHJpY3MgZGFtIAogICAgTEVGVCBKT0lOIHVzZXJzIHUgT04gdS5pZCA9IGRhbS5zZWxsZXJfaWQKICAgIE9SREVSIEJZIGRhbS5kYXRlIERFU0MgTElNSVQgOTAKICBgOwogIGNvbnN0IHNlbGxlcnMgPSBhd2FpdCBzcWxgU0VMRUNUIGlkLCBuYW1lIEZST00gdXNlcnMgV0hFUkUgcm9sZSA9ICdTRUxMRVInIE9SREVSIEJZIG5hbWVgOwogIHJldHVybiA8TWFya2V0aW5nQ2xpZW50IG1ldHJpY3M9e21ldHJpY3N9IHNlbGxlcnM9e3NlbGxlcnN9IC8+Owp9Cg=="
+import { requireAdmin } from "@/lib/auth";
+import { sql } from "@/lib/db";
+import { MarketingClient } from "@/components/admin/marketing-client";
+
+export const metadata = {
+  title: "Marketing - Admin",
+};
+
+export default async function MarketingPage() {
+  await requireAdmin();
+  const metrics = await sql`
+    SELECT dam.*, u.name as seller_name 
+    FROM daily_ad_metrics dam 
+    LEFT JOIN users u ON u.id = dam.seller_id
+    ORDER BY dam.date DESC LIMIT 90
+  `;
+  const sellers = await sql`SELECT id, name FROM users WHERE role = 'SELLER' ORDER BY name`;
+  return <MarketingClient metrics={metrics} sellers={sellers} />;
 }

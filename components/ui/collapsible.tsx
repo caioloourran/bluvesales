@@ -1,3 +1,11 @@
-{
-  "data": "J3VzZSBjbGllbnQnCgppbXBvcnQgKiBhcyBDb2xsYXBzaWJsZVByaW1pdGl2ZSBmcm9tICdAcmFkaXgtdWkvcmVhY3QtY29sbGFwc2libGUnCgpjb25zdCBDb2xsYXBzaWJsZSA9IENvbGxhcHNpYmxlUHJpbWl0aXZlLlJvb3QKCmNvbnN0IENvbGxhcHNpYmxlVHJpZ2dlciA9IENvbGxhcHNpYmxlUHJpbWl0aXZlLkNvbGxhcHNpYmxlVHJpZ2dlcgoKY29uc3QgQ29sbGFwc2libGVDb250ZW50ID0gQ29sbGFwc2libGVQcmltaXRpdmUuQ29sbGFwc2libGVDb250ZW50CgpleHBvcnQgeyBDb2xsYXBzaWJsZSwgQ29sbGFwc2libGVUcmlnZ2VyLCBDb2xsYXBzaWJsZUNvbnRlbnQgfQo="
-}
+'use client'
+
+import * as CollapsiblePrimitive from '@radix-ui/react-collapsible'
+
+const Collapsible = CollapsiblePrimitive.Root
+
+const CollapsibleTrigger = CollapsiblePrimitive.CollapsibleTrigger
+
+const CollapsibleContent = CollapsiblePrimitive.CollapsibleContent
+
+export { Collapsible, CollapsibleTrigger, CollapsibleContent }

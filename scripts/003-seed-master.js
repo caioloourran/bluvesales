@@ -1,3 +1,26 @@
-{
-  "data": "aW1wb3J0IHsgbmVvbiB9IGZyb20gIkBuZW9uZGF0YWJhc2Uvc2VydmVybGVzcyI7CmltcG9ydCB7IGNyZWF0ZUhhc2ggfSBmcm9tICJjcnlwdG8iOwoKY29uc3Qgc3FsID0gbmVvbihwcm9jZXNzLmVudi5EQVRBQkFTRV9VUkwpOwoKZnVuY3Rpb24gaGFzaFBhc3N3b3JkKHBhc3N3b3JkKSB7CiAgcmV0dXJuIGNyZWF0ZUhhc2goInNoYTI1NiIpLnVwZGF0ZShwYXNzd29yZCkuZGlnZXN0KCJoZXgiKTsKfQoKYXN5bmMgZnVuY3Rpb24gc2VlZCgpIHsKICBjb25zdCBoYXNoID0gaGFzaFBhc3N3b3JkKCJAQmx1dmUxMjNAQCIpOwoKICAvLyBVcHNlcnQ6IHVwZGF0ZSBpZiBlbWFpbCBleGlzdHMsIG90aGVyd2lzZSBpbnNlcnQKICBhd2FpdCBzcWxgCiAgICBJTlNFUlQgSU5UTyB1c2VycyAobmFtZSwgZW1haWwsIHBhc3N3b3JkX2hhc2gsIHJvbGUpCiAgICBWQUxVRVMgKCdCbHV2ZSBBZG1pbicsICdjb250YXRvQGJsdXZlY29tcGFueS5jb20uYnInLCAke2hhc2h9LCAnQURNSU5fTUFTVEVSJykKICAgIE9OIENPTkZMSUNUIChlbWFpbCkgRE8gVVBEQVRFIFNFVAogICAgICBwYXNzd29yZF9oYXNoID0gJHtoYXNofSwKICAgICAgcm9sZSA9ICdBRE1JTl9NQVNURVInLAogICAgICB1cGRhdGVkX2F0ID0gTk9XKCkKICBgOwoKICBjb25zb2xlLmxvZygiTWFzdGVyIGFkbWluIHNlZWRlZDogY29udGF0b0BibHV2ZWNvbXBhbnkuY29tLmJyIik7Cn0KCnNlZWQoKS5jYXRjaChjb25zb2xlLmVycm9yKTsK"
+import { neon } from "@neondatabase/serverless";
+import { createHash } from "crypto";
+
+const sql = neon(process.env.DATABASE_URL);
+
+function hashPassword(password) {
+  return createHash("sha256").update(password).digest("hex");
 }
+
+async function seed() {
+  const hash = hashPassword("@Bluve123@@");
+
+  // Upsert: update if email exists, otherwise insert
+  await sql`
+    INSERT INTO users (name, email, password_hash, role)
+    VALUES ('Bluve Admin', 'contato@bluvecompany.com.br', ${hash}, 'ADMIN_MASTER')
+    ON CONFLICT (email) DO UPDATE SET
+      password_hash = ${hash},
+      role = 'ADMIN_MASTER',
+      updated_at = NOW()
+  `;
+
+  console.log("Master admin seeded: contato@bluvecompany.com.br");
+}
+
+seed().catch(console.error);

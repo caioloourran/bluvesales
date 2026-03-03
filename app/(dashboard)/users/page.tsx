@@ -1,3 +1,13 @@
-{
-  "data": "aW1wb3J0IHsgcmVxdWlyZUFkbWluIH0gZnJvbSAiQC9saWIvYXV0aCI7CmltcG9ydCB7IHNxbCB9IGZyb20gIkAvbGliL2RiIjsKaW1wb3J0IHsgVXNlcnNDbGllbnQgfSBmcm9tICJAL2NvbXBvbmVudHMvYWRtaW4vdXNlcnMtY2xpZW50IjsKCmV4cG9ydCBjb25zdCBtZXRhZGF0YSA9IHsKICB0aXRsZTogIlVzdWFyaW9zIC0gQWRtaW4iLAp9OwoKZXhwb3J0IGRlZmF1bHQgYXN5bmMgZnVuY3Rpb24gVXNlcnNQYWdlKCkgewogIGF3YWl0IHJlcXVpcmVBZG1pbigpOwogIGNvbnN0IHVzZXJzID0gYXdhaXQgc3FsYFNFTEVDVCBpZCwgbmFtZSwgZW1haWwsIHJvbGUsIGNyZWF0ZWRfYXQgRlJPTSB1c2VycyBPUkRFUiBCWSBjcmVhdGVkX2F0IERFU0NgOwogIHJldHVybiA8VXNlcnNDbGllbnQgdXNlcnM9e3VzZXJzfSAvPjsKfQo="
+import { requireAdmin } from "@/lib/auth";
+import { sql } from "@/lib/db";
+import { UsersClient } from "@/components/admin/users-client";
+
+export const metadata = {
+  title: "Usuarios - Admin",
+};
+
+export default async function UsersPage() {
+  await requireAdmin();
+  const users = await sql`SELECT id, name, email, role, created_at FROM users ORDER BY created_at DESC`;
+  return <UsersClient users={users} />;
 }

@@ -1,3 +1,18 @@
-{
-  "data": "aW1wb3J0IHsgZ2V0U2Vzc2lvbiB9IGZyb20gIkAvbGliL2F1dGgiOwppbXBvcnQgeyByZWRpcmVjdCB9IGZyb20gIm5leHQvbmF2aWdhdGlvbiI7CmltcG9ydCB7IExvZ2luRm9ybSB9IGZyb20gIkAvY29tcG9uZW50cy9sb2dpbi1mb3JtIjsKCmV4cG9ydCBjb25zdCBtZXRhZGF0YSA9IHsKICB0aXRsZTogIkxvZ2luIC0gRGFzaGJvYXJkIENvbWVyY2lhbCIsCn07CgpleHBvcnQgZGVmYXVsdCBhc3luYyBmdW5jdGlvbiBMb2dpblBhZ2UoKSB7CiAgY29uc3Qgc2Vzc2lvbiA9IGF3YWl0IGdldFNlc3Npb24oKTsKICBpZiAoc2Vzc2lvbikgcmVkaXJlY3QoIi9kYXNoYm9hcmQiKTsKCiAgcmV0dXJuICgKICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IG1pbi1oLXNjcmVlbiBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgYmctbXV0ZWQvNDAgcHgtNCI+CiAgICAgIDxMb2dpbkZvcm0gLz4KICAgIDwvZGl2PgogICk7Cn0K"
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { LoginForm } from "@/components/login-form";
+
+export const metadata = {
+  title: "Login - Dashboard Comercial",
+};
+
+export default async function LoginPage() {
+  const session = await getSession();
+  if (session) redirect("/dashboard");
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-muted/40 px-4">
+      <LoginForm />
+    </div>
+  );
 }

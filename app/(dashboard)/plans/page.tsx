@@ -1,3 +1,19 @@
-{
-  "data": "aW1wb3J0IHsgcmVxdWlyZUFkbWluIH0gZnJvbSAiQC9saWIvYXV0aCI7CmltcG9ydCB7IHNxbCB9IGZyb20gIkAvbGliL2RiIjsKaW1wb3J0IHsgUGxhbnNDbGllbnQgfSBmcm9tICJAL2NvbXBvbmVudHMvYWRtaW4vcGxhbnMtY2xpZW50IjsKCmV4cG9ydCBjb25zdCBtZXRhZGF0YSA9IHsKICB0aXRsZTogIlBsYW5vcyAtIEFkbWluIiwKfTsKCmV4cG9ydCBkZWZhdWx0IGFzeW5jIGZ1bmN0aW9uIFBsYW5zUGFnZSgpIHsKICBhd2FpdCByZXF1aXJlQWRtaW4oKTsKICBjb25zdCBwbGFucyA9IGF3YWl0IHNxbGAKICAgIFNFTEVDVCBwLiosIHByLm5hbWUgYXMgcHJvZHVjdF9uYW1lCiAgICBGUk9NIHBsYW5zIHAKICAgIEpPSU4gcHJvZHVjdHMgcHIgT04gcHIuaWQgPSBwLnByb2R1Y3RfaWQKICAgIE9SREVSIEJZIHByLm5hbWUsIHAubmFtZQogIGA7CiAgY29uc3QgcHJvZHVjdHMgPSBhd2FpdCBzcWxgU0VMRUNUIGlkLCBuYW1lIEZST00gcHJvZHVjdHMgV0hFUkUgYWN0aXZlID0gdHJ1ZSBPUkRFUiBCWSBuYW1lYDsKICByZXR1cm4gPFBsYW5zQ2xpZW50IHBsYW5zPXtwbGFuc30gcHJvZHVjdHM9e3Byb2R1Y3RzfSAvPjsKfQo="
+import { requireAdmin } from "@/lib/auth";
+import { sql } from "@/lib/db";
+import { PlansClient } from "@/components/admin/plans-client";
+
+export const metadata = {
+  title: "Planos - Admin",
+};
+
+export default async function PlansPage() {
+  await requireAdmin();
+  const plans = await sql`
+    SELECT p.*, pr.name as product_name
+    FROM plans p
+    JOIN products pr ON pr.id = p.product_id
+    ORDER BY pr.name, p.name
+  `;
+  const products = await sql`SELECT id, name FROM products WHERE active = true ORDER BY name`;
+  return <PlansClient plans={plans} products={products} />;
 }

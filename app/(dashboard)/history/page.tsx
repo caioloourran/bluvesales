@@ -1,3 +1,99 @@
-{
-  "data": "aW1wb3J0IHsgZ2V0U2Vzc2lvbiB9IGZyb20gIkAvbGliL2F1dGgiOwppbXBvcnQgeyByZWRpcmVjdCB9IGZyb20gIm5leHQvbmF2aWdhdGlvbiI7CmltcG9ydCB7IHNxbCB9IGZyb20gIkAvbGliL2RiIjsKaW1wb3J0IHsgSGlzdG9yeUNsaWVudCB9IGZyb20gIkAvY29tcG9uZW50cy9zYWxlcy9oaXN0b3J5LWNsaWVudCI7CgpleHBvcnQgY29uc3QgbWV0YWRhdGEgPSB7CiAgdGl0bGU6ICJIaXN0b3JpY28gZGUgTGFuY2FtZW50b3MiLAp9OwoKaW50ZXJmYWNlIFByb3BzIHsKICBzZWFyY2hQYXJhbXM6IFByb21pc2U8ewogICAgZnJvbT86IHN0cmluZzsKICAgIHRvPzogc3RyaW5nOwogICAgc2VsbGVyPzogc3RyaW5nOwogIH0+Owp9CgpleHBvcnQgZGVmYXVsdCBhc3luYyBmdW5jdGlvbiBIaXN0b3J5UGFnZSh7IHNlYXJjaFBhcmFtcyB9OiBQcm9wcykgewogIGNvbnN0IHNlc3Npb24gPSBhd2FpdCBnZXRTZXNzaW9uKCk7CiAgaWYgKCFzZXNzaW9uKSByZWRpcmVjdCgiL2xvZ2luIik7CgogIGNvbnN0IHBhcmFtcyA9IGF3YWl0IHNlYXJjaFBhcmFtczsKICBjb25zdCBpc0FkbWluID0gc2Vzc2lvbi5yb2xlID09PSAiQURNSU5fTUFTVEVSIjsKICBjb25zdCB0b2RheSA9IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKS5zcGxpdCgiVCIpWzBdOwogIGNvbnN0IGZpcnN0T2ZNb250aCA9IG5ldyBEYXRlKAogICAgbmV3IERhdGUoKS5nZXRGdWxsWWVhcigpLAogICAgbmV3IERhdGUoKS5nZXRNb250aCgpLAogICAgMQogICkKICAgIC50b0lTT1N0cmluZygpCiAgICAuc3BsaXQoIlQiKVswXTsKICBjb25zdCBkYXRlRnJvbSA9IHBhcmFtcy5mcm9tIHx8IGZpcnN0T2ZNb250aDsKICBjb25zdCBkYXRlVG8gPSBwYXJhbXMudG8gfHwgdG9kYXk7CiAgY29uc3QgZmlsdGVyU2VsbGVyID0gaXNBZG1pbiAmJiBwYXJhbXMuc2VsbGVyID8gTnVtYmVyKHBhcmFtcy5zZWxsZXIpIDogbnVsbDsKCiAgbGV0IGVudHJpZXM7CiAgaWYgKGlzQWRtaW4pIHsKICAgIGlmIChmaWx0ZXJTZWxsZXIpIHsKICAgICAgZW50cmllcyA9IGF3YWl0IHNxbGAKICAgICAgICBTRUxFQ1QgCiAgICAgICAgICBkc2UuaWQsIGRzZS5kYXRlLCBkc2UucXVhbnRpdHksIGRzZS5kaXNjb3VudCwgZHNlLm5vdGVzLCBkc2UuY3JlYXRlZF9hdCwKICAgICAgICAgIHAubmFtZSBhcyBwbGFuX25hbWUsIHByLm5hbWUgYXMgcHJvZHVjdF9uYW1lLAogICAgICAgICAgcC5zYWxlX3ByaWNlX2dyb3NzLAogICAgICAgICAgdS5uYW1lIGFzIHNlbGxlcl9uYW1lLCB1LmlkIGFzIHNlbGxlcl9pZAogICAgICAgIEZST00gZGFpbHlfc2FsZXNfZW50cmllcyBkc2UKICAgICAgICBKT0lOIHBsYW5zIHAgT04gcC5pZCA9IGRzZS5wbGFuX2lkCiAgICAgICAgSk9JTiBwcm9kdWN0cyBwciBPTiBwci5pZCA9IHAucHJvZHVjdF9pZAogICAgICAgIEpPSU4gdXNlcnMgdSBPTiB1LmlkID0gZHNlLnNlbGxlcl9pZAogICAgICAgIFdIRVJFIGRzZS5kYXRlID49ICR7ZGF0ZUZyb219IEFORCBkc2UuZGF0ZSA8PSAke2RhdGVUb30gQU5EIGRzZS5zZWxsZXJfaWQgPSAke2ZpbHRlclNlbGxlcn0KICAgICAgICBPUkRFUiBCWSBkc2UuZGF0ZSBERVNDLCB1Lm5hbWUsIHByLm5hbWUsIHAubmFtZQogICAgICBgOwogICAgfSBlbHNlIHsKICAgICAgZW50cmllcyA9IGF3YWl0IHNxbGAKICAgICAgICBTRUxFQ1QgCiAgICAgICAgICBkc2UuaWQsIGRzZS5kYXRlLCBkc2UucXVhbnRpdHksIGRzZS5kaXNjb3VudCwgZHNlLm5vdGVzLCBkc2UuY3JlYXRlZF9hdCwKICAgICAgICAgIHAubmFtZSBhcyBwbGFuX25hbWUsIHByLm5hbWUgYXMgcHJvZHVjdF9uYW1lLAogICAgICAgICAgcC5zYWxlX3ByaWNlX2dyb3NzLAogICAgICAgICAgdS5uYW1lIGFzIHNlbGxlcl9uYW1lLCB1LmlkIGFzIHNlbGxlcl9pZAogICAgICAgIEZST00gZGFpbHlfc2FsZXNfZW50cmllcyBkc2UKICAgICAgICBKT0lOIHBsYW5zIHAgT04gcC5pZCA9IGRzZS5wbGFuX2lkCiAgICAgICAgSk9JTiBwcm9kdWN0cyBwciBPTiBwci5pZCA9IHAucHJvZHVjdF9pZAogICAgICAgIEpPSU4gdXNlcnMgdSBPTiB1LmlkID0gZHNlLnNlbGxlcl9pZAogICAgICAgIFdIRVJFIGRzZS5kYXRlID49ICR7ZGF0ZUZyb219IEFORCBkc2UuZGF0ZSA8PSAke2RhdGVUb30KICAgICAgICBPUkRFUiBCWSBkc2UuZGF0ZSBERVNDLCB1Lm5hbWUsIHByLm5hbWUsIHAubmFtZQogICAgICBgOwogICAgfQogIH0gZWxzZSB7CiAgICBlbnRyaWVzID0gYXdhaXQgc3FsYAogICAgICBTRUxFQ1QgCiAgICAgICAgZHNlLmlkLCBkc2UuZGF0ZSwgZHNlLnF1YW50aXR5LCBkc2UuZGlzY291bnQsIGRzZS5ub3RlcywgZHNlLmNyZWF0ZWRfYXQsCiAgICAgICAgcC5uYW1lIGFzIHBsYW5fbmFtZSwgcHIubmFtZSBhcyBwcm9kdWN0X25hbWUsCiAgICAgICAgcC5zYWxlX3ByaWNlX2dyb3NzLAogICAgICAgIHUubmFtZSBhcyBzZWxsZXJfbmFtZSwgdS5pZCBhcyBzZWxsZXJfaWQKICAgICAgRlJPTSBkYWlseV9zYWxlc19lbnRyaWVzIGRzZQogICAgICBKT0lOIHBsYW5zIHAgT04gcC5pZCA9IGRzZS5wbGFuX2lkCiAgICAgIEpPSU4gcHJvZHVjdHMgcHIgT04gcHIuaWQgPSBwLnByb2R1Y3RfaWQKICAgICAgSk9JTiB1c2VycyB1IE9OIHUuaWQgPSBkc2Uuc2VsbGVyX2lkCiAgICAgIFdIRVJFIGRzZS5kYXRlID49ICR7ZGF0ZUZyb219IEFORCBkc2UuZGF0ZSA8PSAke2RhdGVUb30gQU5EIGRzZS5zZWxsZXJfaWQgPSAke3Nlc3Npb24uaWR9CiAgICAgIE9SREVSIEJZIGRzZS5kYXRlIERFU0MsIHByLm5hbWUsIHAubmFtZQogICAgYDsKICB9CgogIGxldCBzZWxsZXJzOiB7IGlkOiBudW1iZXI7IG5hbWU6IHN0cmluZyB9W10gPSBbXTsKICBpZiAoaXNBZG1pbikgewogICAgY29uc3Qgc2VsbGVyUm93cyA9IGF3YWl0IHNxbGBTRUxFQ1QgaWQsIG5hbWUgRlJPTSB1c2VycyBXSEVSRSByb2xlID0gJ1NFTExFUicgT1JERVIgQlkgbmFtZWA7CiAgICBzZWxsZXJzID0gc2VsbGVyUm93cy5tYXAoKHIpID0+ICh7IGlkOiByLmlkLCBuYW1lOiByLm5hbWUgfSkpOwogIH0KCiAgcmV0dXJuICgKICAgIDxIaXN0b3J5Q2xpZW50CiAgICAgIGVudHJpZXM9e2VudHJpZXN9CiAgICAgIHNlbGxlcnM9e3NlbGxlcnN9CiAgICAgIGlzQWRtaW49e2lzQWRtaW59CiAgICAgIGRhdGVGcm9tPXtkYXRlRnJvbX0KICAgICAgZGF0ZVRvPXtkYXRlVG99CiAgICAgIGZpbHRlclNlbGxlcj17ZmlsdGVyU2VsbGVyfQogICAgLz4KICApOwp9Cg=="
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { sql } from "@/lib/db";
+import { HistoryClient } from "@/components/sales/history-client";
+
+export const metadata = {
+  title: "Historico de Lancamentos",
+};
+
+interface Props {
+  searchParams: Promise<{
+    from?: string;
+    to?: string;
+    seller?: string;
+  }>;
+}
+
+export default async function HistoryPage({ searchParams }: Props) {
+  const session = await getSession();
+  if (!session) redirect("/login");
+
+  const params = await searchParams;
+  const isAdmin = session.role === "ADMIN_MASTER";
+  const today = new Date().toISOString().split("T")[0];
+  const firstOfMonth = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+  )
+    .toISOString()
+    .split("T")[0];
+  const dateFrom = params.from || firstOfMonth;
+  const dateTo = params.to || today;
+  const filterSeller = isAdmin && params.seller ? Number(params.seller) : null;
+
+  let entries;
+  if (isAdmin) {
+    if (filterSeller) {
+      entries = await sql`
+        SELECT 
+          dse.id, dse.date, dse.quantity, dse.discount, dse.notes, dse.created_at,
+          p.name as plan_name, pr.name as product_name,
+          p.sale_price_gross,
+          u.name as seller_name, u.id as seller_id
+        FROM daily_sales_entries dse
+        JOIN plans p ON p.id = dse.plan_id
+        JOIN products pr ON pr.id = p.product_id
+        JOIN users u ON u.id = dse.seller_id
+        WHERE dse.date >= ${dateFrom} AND dse.date <= ${dateTo} AND dse.seller_id = ${filterSeller}
+        ORDER BY dse.date DESC, u.name, pr.name, p.name
+      `;
+    } else {
+      entries = await sql`
+        SELECT 
+          dse.id, dse.date, dse.quantity, dse.discount, dse.notes, dse.created_at,
+          p.name as plan_name, pr.name as product_name,
+          p.sale_price_gross,
+          u.name as seller_name, u.id as seller_id
+        FROM daily_sales_entries dse
+        JOIN plans p ON p.id = dse.plan_id
+        JOIN products pr ON pr.id = p.product_id
+        JOIN users u ON u.id = dse.seller_id
+        WHERE dse.date >= ${dateFrom} AND dse.date <= ${dateTo}
+        ORDER BY dse.date DESC, u.name, pr.name, p.name
+      `;
+    }
+  } else {
+    entries = await sql`
+      SELECT 
+        dse.id, dse.date, dse.quantity, dse.discount, dse.notes, dse.created_at,
+        p.name as plan_name, pr.name as product_name,
+        p.sale_price_gross,
+        u.name as seller_name, u.id as seller_id
+      FROM daily_sales_entries dse
+      JOIN plans p ON p.id = dse.plan_id
+      JOIN products pr ON pr.id = p.product_id
+      JOIN users u ON u.id = dse.seller_id
+      WHERE dse.date >= ${dateFrom} AND dse.date <= ${dateTo} AND dse.seller_id = ${session.id}
+      ORDER BY dse.date DESC, pr.name, p.name
+    `;
+  }
+
+  let sellers: { id: number; name: string }[] = [];
+  if (isAdmin) {
+    const sellerRows = await sql`SELECT id, name FROM users WHERE role = 'SELLER' ORDER BY name`;
+    sellers = sellerRows.map((r) => ({ id: r.id, name: r.name }));
+  }
+
+  return (
+    <HistoryClient
+      entries={entries}
+      sellers={sellers}
+      isAdmin={isAdmin}
+      dateFrom={dateFrom}
+      dateTo={dateTo}
+      filterSeller={filterSeller}
+    />
+  );
 }

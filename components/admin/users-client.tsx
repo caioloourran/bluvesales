@@ -1,3 +1,203 @@
-{
-  "data": "InVzZSBjbGllbnQiOwoKaW1wb3J0IHsgdXNlU3RhdGUsIHVzZVRyYW5zaXRpb24gfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IHVzZVJvdXRlciB9IGZyb20gIm5leHQvbmF2aWdhdGlvbiI7CmltcG9ydCB7IHRvYXN0IH0gZnJvbSAic29ubmVyIjsKaW1wb3J0IHsgY3JlYXRlVXNlciwgdXBkYXRlVXNlciwgZGVsZXRlVXNlciB9IGZyb20gIkAvbGliL2FjdGlvbnMvYWRtaW4tYWN0aW9ucyI7CmltcG9ydCB7IENhcmQsIENhcmRDb250ZW50LCBDYXJkSGVhZGVyLCBDYXJkVGl0bGUgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvY2FyZCI7CmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gIkAvY29tcG9uZW50cy91aS9idXR0b24iOwppbXBvcnQgeyBJbnB1dCB9IGZyb20gIkAvY29tcG9uZW50cy91aS9pbnB1dCI7CmltcG9ydCB7IExhYmVsIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2xhYmVsIjsKaW1wb3J0IHsKICBTZWxlY3QsCiAgU2VsZWN0Q29udGVudCwKICBTZWxlY3RJdGVtLAogIFNlbGVjdFRyaWdnZXIsCiAgU2VsZWN0VmFsdWUsCn0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3NlbGVjdCI7CmltcG9ydCB7CiAgRGlhbG9nLAogIERpYWxvZ0NvbnRlbnQsCiAgRGlhbG9nSGVhZGVyLAogIERpYWxvZ1RpdGxlLAogIERpYWxvZ1RyaWdnZXIsCn0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2RpYWxvZyI7CmltcG9ydCB7CiAgVGFibGUsCiAgVGFibGVCb2R5LAogIFRhYmxlQ2VsbCwKICBUYWJsZUhlYWQsCiAgVGFibGVIZWFkZXIsCiAgVGFibGVSb3csCn0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3RhYmxlIjsKaW1wb3J0IHsgUGx1cywgUGVuY2lsLCBUcmFzaDIsIExvYWRlcjIgfSBmcm9tICJsdWNpZGUtcmVhY3QiOwoKaW50ZXJmYWNlIFVzZXIgewogIGlkOiBudW1iZXI7CiAgbmFtZTogc3RyaW5nOwogIGVtYWlsOiBzdHJpbmc7CiAgcm9sZTogc3RyaW5nOwogIGNyZWF0ZWRfYXQ6IHN0cmluZzsKfQoKaW50ZXJmYWNlIFByb3BzIHsKICB1c2VyczogVXNlcltdOwp9CgpleHBvcnQgZnVuY3Rpb24gVXNlcnNDbGllbnQoeyB1c2VycyB9OiBQcm9wcykgewogIGNvbnN0IHJvdXRlciA9IHVzZVJvdXRlcigpOwogIGNvbnN0IFtpc1BlbmRpbmcsIHN0YXJ0VHJhbnNpdGlvbl0gPSB1c2VUcmFuc2l0aW9uKCk7CiAgY29uc3QgW2RpYWxvZ09wZW4sIHNldERpYWxvZ09wZW5dID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IFtlZGl0aW5nLCBzZXRFZGl0aW5nXSA9IHVzZVN0YXRlPFVzZXIgfCBudWxsPihudWxsKTsKICBjb25zdCBbbmFtZSwgc2V0TmFtZV0gPSB1c2VTdGF0ZSgiIik7CiAgY29uc3QgW2VtYWlsLCBzZXRFbWFpbF0gPSB1c2VTdGF0ZSgiIik7CiAgY29uc3QgW3Bhc3N3b3JkLCBzZXRQYXNzd29yZF0gPSB1c2VTdGF0ZSgiIik7CiAgY29uc3QgW3JvbGUsIHNldFJvbGVdID0gdXNlU3RhdGUoIlNFTExFUiIpOwoKICBmdW5jdGlvbiBvcGVuQ3JlYXRlKCkgewogICAgc2V0RWRpdGluZyhudWxsKTsKICAgIHNldE5hbWUoIiIpOwogICAgc2V0RW1haWwoIiIpOwogICAgc2V0UGFzc3dvcmQoIiIpOwogICAgc2V0Um9sZSgiU0VMTEVSIik7CiAgICBzZXREaWFsb2dPcGVuKHRydWUpOwogIH0KCiAgZnVuY3Rpb24gb3BlbkVkaXQodTogVXNlcikgewogICAgc2V0RWRpdGluZyh1KTsKICAgIHNldE5hbWUodS5uYW1lKTsKICAgIHNldEVtYWlsKHUuZW1haWwpOwogICAgc2V0UGFzc3dvcmQoIiIpOwogICAgc2V0Um9sZSh1LnJvbGUpOwogICAgc2V0RGlhbG9nT3Blbih0cnVlKTsKICB9CgogIGZ1bmN0aW9uIGhhbmRsZVNhdmUoKSB7CiAgICBzdGFydFRyYW5zaXRpb24oYXN5bmMgKCkgPT4gewogICAgICBjb25zdCByZXN1bHQgPSBlZGl0aW5nCiAgICAgICAgPyBhd2FpdCB1cGRhdGVVc2VyKGVkaXRpbmcuaWQsIHsKICAgICAgICAgICAgbmFtZSwKICAgICAgICAgICAgZW1haWwsCiAgICAgICAgICAgIHBhc3N3b3JkOiBwYXNzd29yZCB8fCB1bmRlZmluZWQsCiAgICAgICAgICAgIHJvbGUsCiAgICAgICAgICB9KQogICAgICAgIDogYXdhaXQgY3JlYXRlVXNlcih7IG5hbWUsIGVtYWlsLCBwYXNzd29yZCwgcm9sZSB9KTsKICAgICAgaWYgKHJlc3VsdC5lcnJvcikgdG9hc3QuZXJyb3IocmVzdWx0LmVycm9yKTsKICAgICAgZWxzZSB7CiAgICAgICAgdG9hc3Quc3VjY2VzcyhlZGl0aW5nID8gIlVzdWFyaW8gYXR1YWxpemFkbyEiIDogIlVzdWFyaW8gY3JpYWRvISIpOwogICAgICAgIHNldERpYWxvZ09wZW4oZmFsc2UpOwogICAgICAgIHJvdXRlci5yZWZyZXNoKCk7CiAgICAgIH0KICAgIH0pOwogIH0KCiAgZnVuY3Rpb24gaGFuZGxlRGVsZXRlKGlkOiBudW1iZXIpIHsKICAgIGlmICghY29uZmlybSgiRGVzZWphIHJlYWxtZW50ZSBkZWxldGFyIGVzdGUgdXN1YXJpbz8iKSkgcmV0dXJuOwogICAgc3RhcnRUcmFuc2l0aW9uKGFzeW5jICgpID0+IHsKICAgICAgY29uc3QgcmVzdWx0ID0gYXdhaXQgZGVsZXRlVXNlcihpZCk7CiAgICAgIGlmIChyZXN1bHQuZXJyb3IpIHRvYXN0LmVycm9yKHJlc3VsdC5lcnJvcik7CiAgICAgIGVsc2UgewogICAgICAgIHRvYXN0LnN1Y2Nlc3MoIlVzdWFyaW8gZGVsZXRhZG8hIik7CiAgICAgICAgcm91dGVyLnJlZnJlc2goKTsKICAgICAgfQogICAgfSk7CiAgfQoKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC1jb2wgZ2FwLTYiPgogICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1jZW50ZXIganVzdGlmeS1iZXR3ZWVuIj4KICAgICAgICA8ZGl2PgogICAgICAgICAgPGgxIGNsYXNzTmFtZT0idGV4dC0yeGwgZm9udC1ib2xkIHRleHQtZm9yZWdyb3VuZCI+VXN1YXJpb3M8L2gxPgogICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+R2VyZW5jaWUgdmVuZGVkb3JlcyBlIGFkbWluaXN0cmFkb3JlczwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA8RGlhbG9nIG9wZW49e2RpYWxvZ09wZW59IG9uT3BlbkNoYW5nZT17c2V0RGlhbG9nT3Blbn0+CiAgICAgICAgICA8RGlhbG9nVHJpZ2dlciBhc0NoaWxkPgogICAgICAgICAgICA8QnV0dG9uIG9uQ2xpY2s9e29wZW5DcmVhdGV9IHNpemU9InNtIj4KICAgICAgICAgICAgICA8UGx1cyBjbGFzc05hbWU9Im1yLTIgaC00IHctNCIgLz4gTm92byBVc3VhcmlvCiAgICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgICAgPC9EaWFsb2dUcmlnZ2VyPgogICAgICAgICAgPERpYWxvZ0NvbnRlbnQ+CiAgICAgICAgICAgIDxEaWFsb2dIZWFkZXI+CiAgICAgICAgICAgICAgPERpYWxvZ1RpdGxlPntlZGl0aW5nID8gIkVkaXRhciBVc3VhcmlvIiA6ICJOb3ZvIFVzdWFyaW8ifTwvRGlhbG9nVGl0bGU+CiAgICAgICAgICAgIDwvRGlhbG9nSGVhZGVyPgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCBnYXAtNCBweS00Ij4KICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCBnYXAtMS41Ij4KICAgICAgICAgICAgICAgIDxMYWJlbD5Ob21lPC9MYWJlbD4KICAgICAgICAgICAgICAgIDxJbnB1dCB2YWx1ZT17bmFtZX0gb25DaGFuZ2U9eyhlKSA9PiBzZXROYW1lKGUudGFyZ2V0LnZhbHVlKX0gcGxhY2Vob2xkZXI9Ik5vbWUgY29tcGxldG8iIC8+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC1jb2wgZ2FwLTEuNSI+CiAgICAgICAgICAgICAgICA8TGFiZWw+RW1haWw8L0xhYmVsPgogICAgICAgICAgICAgICAgPElucHV0IHR5cGU9ImVtYWlsIiB2YWx1ZT17ZW1haWx9IG9uQ2hhbmdlPXsoZSkgPT4gc2V0RW1haWwoZS50YXJnZXQudmFsdWUpfSBwbGFjZWhvbGRlcj0iZW1haWxAZW1wcmVzYS5jb20iIC8+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC1jb2wgZ2FwLTEuNSI+CiAgICAgICAgICAgICAgICA8TGFiZWw+e2VkaXRpbmcgPyAiTm92YSBTZW5oYSAoZGVpeGUgdmF6aW8gcGFyYSBtYW50ZXIpIiA6ICJTZW5oYSJ9PC9MYWJlbD4KICAgICAgICAgICAgICAgIDxJbnB1dCB0eXBlPSJwYXNzd29yZCIgdmFsdWU9e3Bhc3N3b3JkfSBvbkNoYW5nZT17KGUpID0+IHNldFBhc3N3b3JkKGUudGFyZ2V0LnZhbHVlKX0gcGxhY2Vob2xkZXI9e2VkaXRpbmcgPyAiTm92YSBzZW5oYSIgOiAiU2VuaGEifSAvPgogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGZsZXgtY29sIGdhcC0xLjUiPgogICAgICAgICAgICAgICAgPExhYmVsPlBlcmZpbDwvTGFiZWw+CiAgICAgICAgICAgICAgICA8U2VsZWN0IHZhbHVlPXtyb2xlfSBvblZhbHVlQ2hhbmdlPXtzZXRSb2xlfT4KICAgICAgICAgICAgICAgICAgPFNlbGVjdFRyaWdnZXI+CiAgICAgICAgICAgICAgICAgICAgPFNlbGVjdFZhbHVlIC8+CiAgICAgICAgICAgICAgICAgIDwvU2VsZWN0VHJpZ2dlcj4KICAgICAgICAgICAgICAgICAgPFNlbGVjdENvbnRlbnQ+CiAgICAgICAgICAgICAgICAgICAgPFNlbGVjdEl0ZW0gdmFsdWU9IlNFTExFUiI+VmVuZGVkb3I8L1NlbGVjdEl0ZW0+CiAgICAgICAgICAgICAgICAgICAgPFNlbGVjdEl0ZW0gdmFsdWU9IkFETUlOX01BU1RFUiI+QWRtaW5pc3RyYWRvcjwvU2VsZWN0SXRlbT4KICAgICAgICAgICAgICAgICAgPC9TZWxlY3RDb250ZW50PgogICAgICAgICAgICAgICAgPC9TZWxlY3Q+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPEJ1dHRvbiBvbkNsaWNrPXtoYW5kbGVTYXZlfSBkaXNhYmxlZD17aXNQZW5kaW5nfT4KICAgICAgICAgICAgICAgIHtpc1BlbmRpbmcgJiYgPExvYWRlcjIgY2xhc3NOYW1lPSJtci0yIGgtNCB3LTQgYW5pbWF0ZS1zcGluIiAvPn0KICAgICAgICAgICAgICAgIFNhbHZhcgogICAgICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDwvRGlhbG9nQ29udGVudD4KICAgICAgICA8L0RpYWxvZz4KICAgICAgPC9kaXY+CgogICAgICA8Q2FyZD4KICAgICAgICA8Q2FyZEhlYWRlcj4KICAgICAgICAgIDxDYXJkVGl0bGUgY2xhc3NOYW1lPSJ0ZXh0LWJhc2UiPkxpc3RhIGRlIFVzdWFyaW9zPC9DYXJkVGl0bGU+CiAgICAgICAgPC9DYXJkSGVhZGVyPgogICAgICAgIDxDYXJkQ29udGVudD4KICAgICAgICAgIHt1c2Vycy5sZW5ndGggPT09IDAgPyAoCiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0icHktOCB0ZXh0LWNlbnRlciB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+TmVuaHVtIHVzdWFyaW8gY2FkYXN0cmFkby48L3A+CiAgICAgICAgICApIDogKAogICAgICAgICAgICA8VGFibGU+CiAgICAgICAgICAgICAgPFRhYmxlSGVhZGVyPgogICAgICAgICAgICAgICAgPFRhYmxlUm93PgogICAgICAgICAgICAgICAgICA8VGFibGVIZWFkPk5vbWU8L1RhYmxlSGVhZD4KICAgICAgICAgICAgICAgICAgPFRhYmxlSGVhZD5FbWFpbDwvVGFibGVIZWFkPgogICAgICAgICAgICAgICAgICA8VGFibGVIZWFkPlBlcmZpbDwvVGFibGVIZWFkPgogICAgICAgICAgICAgICAgICA8VGFibGVIZWFkIGNsYXNzTmFtZT0idy0yNCI+QWNvZXM8L1RhYmxlSGVhZD4KICAgICAgICAgICAgICAgIDwvVGFibGVSb3c+CiAgICAgICAgICAgICAgPC9UYWJsZUhlYWRlcj4KICAgICAgICAgICAgICA8VGFibGVCb2R5PgogICAgICAgICAgICAgICAge3VzZXJzLm1hcCgodSkgPT4gKAogICAgICAgICAgICAgICAgICA8VGFibGVSb3cga2V5PXt1LmlkfT4KICAgICAgICAgICAgICAgICAgICA8VGFibGVDZWxsIGNsYXNzTmFtZT0iZm9udC1tZWRpdW0iPnt1Lm5hbWV9PC9UYWJsZUNlbGw+CiAgICAgICAgICAgICAgICAgICAgPFRhYmxlQ2VsbD57dS5lbWFpbH08L1RhYmxlQ2VsbD4KICAgICAgICAgICAgICAgICAgICA8VGFibGVDZWxsPgogICAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPXtgaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIHJvdW5kZWQtZnVsbCBweC0yIHB5LTEgdGV4dC14cyBmb250LW1lZGl1bSAke3Uucm9sZSA9PT0gIkFETUlOX01BU1RFUiIgPyAiYmctY2hhcnQtMS8xMCB0ZXh0LWNoYXJ0LTEiIDogImJnLWNoYXJ0LTIvMTAgdGV4dC1jaGFydC0yIn1gfT4KICAgICAgICAgICAgICAgICAgICAgICAge3Uucm9sZSA9PT0gIkFETUlOX01BU1RFUiIgPyAiQWRtaW4iIDogIlZlbmRlZG9yIn0KICAgICAgICAgICAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgICAgICAgICAgICA8L1RhYmxlQ2VsbD4KICAgICAgICAgICAgICAgICAgICA8VGFibGVDZWxsPgogICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGdhcC0xIj4KICAgICAgICAgICAgICAgICAgICAgICAgPEJ1dHRvbiB2YXJpYW50PSJnaG9zdCIgc2l6ZT0iaWNvbiIgb25DbGljaz17KCkgPT4gb3BlbkVkaXQodSl9PgogICAgICAgICAgICAgICAgICAgICAgICAgIDxQZW5jaWwgY2xhc3NOYW1lPSJoLTQgdy00IiAvPgogICAgICAgICAgICAgICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgICAgICAgICAgICAgICAgPEJ1dHRvbiB2YXJpYW50PSJnaG9zdCIgc2l6ZT0iaWNvbiIgb25DbGljaz17KCkgPT4gaGFuZGxlRGVsZXRlKHUuaWQpfT4KICAgICAgICAgICAgICAgICAgICAgICAgICA8VHJhc2gyIGNsYXNzTmFtZT0iaC00IHctNCB0ZXh0LWRlc3RydWN0aXZlIiAvPgogICAgICAgICAgICAgICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICAgICAgIDwvVGFibGVDZWxsPgogICAgICAgICAgICAgICAgICA8L1RhYmxlUm93PgogICAgICAgICAgICAgICAgKSl9CiAgICAgICAgICAgICAgPC9UYWJsZUJvZHk+CiAgICAgICAgICAgIDwvVGFibGU+CiAgICAgICAgICApfQogICAgICAgIDwvQ2FyZENvbnRlbnQ+CiAgICAgIDwvQ2FyZD4KICAgIDwvZGl2PgogICk7Cn0K"
+"use client";
+
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { createUser, updateUser, deleteUser } from "@/lib/actions/admin-actions";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  created_at: string;
+}
+
+interface Props {
+  users: User[];
+}
+
+export function UsersClient({ users }: Props) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editing, setEditing] = useState<User | null>(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("SELLER");
+
+  function openCreate() {
+    setEditing(null);
+    setName("");
+    setEmail("");
+    setPassword("");
+    setRole("SELLER");
+    setDialogOpen(true);
+  }
+
+  function openEdit(u: User) {
+    setEditing(u);
+    setName(u.name);
+    setEmail(u.email);
+    setPassword("");
+    setRole(u.role);
+    setDialogOpen(true);
+  }
+
+  function handleSave() {
+    startTransition(async () => {
+      const result = editing
+        ? await updateUser(editing.id, {
+            name,
+            email,
+            password: password || undefined,
+            role,
+          })
+        : await createUser({ name, email, password, role });
+      if (result.error) toast.error(result.error);
+      else {
+        toast.success(editing ? "Usuario atualizado!" : "Usuario criado!");
+        setDialogOpen(false);
+        router.refresh();
+      }
+    });
+  }
+
+  function handleDelete(id: number) {
+    if (!confirm("Deseja realmente deletar este usuario?")) return;
+    startTransition(async () => {
+      const result = await deleteUser(id);
+      if (result.error) toast.error(result.error);
+      else {
+        toast.success("Usuario deletado!");
+        router.refresh();
+      }
+    });
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Usuarios</h1>
+          <p className="text-sm text-muted-foreground">Gerencie vendedores e administradores</p>
+        </div>
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <DialogTrigger asChild>
+            <Button onClick={openCreate} size="sm">
+              <Plus className="mr-2 h-4 w-4" /> Novo Usuario
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{editing ? "Editar Usuario" : "Novo Usuario"}</DialogTitle>
+            </DialogHeader>
+            <div className="flex flex-col gap-4 py-4">
+              <div className="flex flex-col gap-1.5">
+                <Label>Nome</Label>
+                <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome completo" />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>Email</Label>
+                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email@empresa.com" />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>{editing ? "Nova Senha (deixe vazio para manter)" : "Senha"}</Label>
+                <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={editing ? "Nova senha" : "Senha"} />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>Perfil</Label>
+                <Select value={role} onValueChange={setRole}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="SELLER">Vendedor</SelectItem>
+                    <SelectItem value="ADMIN_MASTER">Administrador</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <Button onClick={handleSave} disabled={isPending}>
+                {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Salvar
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Lista de Usuarios</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {users.length === 0 ? (
+            <p className="py-8 text-center text-sm text-muted-foreground">Nenhum usuario cadastrado.</p>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Nome</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Perfil</TableHead>
+                  <TableHead className="w-24">Acoes</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {users.map((u) => (
+                  <TableRow key={u.id}>
+                    <TableCell className="font-medium">{u.name}</TableCell>
+                    <TableCell>{u.email}</TableCell>
+                    <TableCell>
+                      <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${u.role === "ADMIN_MASTER" ? "bg-chart-1/10 text-chart-1" : "bg-chart-2/10 text-chart-2"}`}>
+                        {u.role === "ADMIN_MASTER" ? "Admin" : "Vendedor"}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-1">
+                        <Button variant="ghost" size="icon" onClick={() => openEdit(u)}>
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => handleDelete(u.id)}>
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
