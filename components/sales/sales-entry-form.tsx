@@ -184,14 +184,14 @@ export function SalesEntryForm({
                 type="date"
                 value={selectedDate}
                 onChange={(e) => handleDateChange(e.target.value)}
-                className="w-44"
+                className="w-full sm:w-44"
               />
             </div>
             {isAdmin && sellers.length > 0 && (
               <div className="flex flex-col gap-1.5">
                 <Label className="text-xs text-muted-foreground">Vendedor</Label>
                 <Select value={selectedSeller} onValueChange={handleSellerChange}>
-                  <SelectTrigger className="w-52">
+                  <SelectTrigger className="w-full sm:w-52">
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>

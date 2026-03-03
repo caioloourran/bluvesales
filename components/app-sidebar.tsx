@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BarChart3,
   ShoppingCart,
@@ -22,6 +22,7 @@ import {
   CalendarDays,
   LayoutDashboard,
   Camera,
+  Menu,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
@@ -32,7 +33,14 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from "@/components/ui/dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { logoutAction } from "@/lib/actions/auth-actions";
 import { updateAvatarAction } from "@/lib/actions/profile-actions";
 
@@ -99,10 +107,16 @@ export function AppSidebar({ userName, userRole, userAvatar }: AppSidebarProps) 
   const { theme, setTheme } = useTheme();
   const links = userRole === "ADMIN_MASTER" ? adminLinks : userRole === "COBRANCA" ? cobrancaLinks : sellerLinks;
 
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Close mobile drawer on navigation
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -150,26 +164,22 @@ export function AppSidebar({ userName, userRole, userAvatar }: AppSidebarProps) 
 
   const initials = getInitials(userName);
   const currentAvatar = userAvatar || null;
+  const roleLabel = userRole === "ADMIN_MASTER" ? "Administrador" : userRole === "COBRANCA" ? "Cobranca" : "Vendedor";
 
-  return (
-    <aside className="flex h-full w-64 shrink-0 flex-col border-r bg-card">
+  // Shared sidebar content (used in both desktop aside and mobile Sheet)
+  const sidebarContent = (
+    <div className="flex h-full flex-col">
+      {/* Logo header */}
       <div className="flex items-center gap-3 border-b px-6 py-5">
-        <Image
-          src="/logo.png"
-          alt="Bluve Sales"
-          width={36}
-          height={36}
-          className="rounded-lg"
-        />
+        <Image src="/logo.png" alt="Bluve Sales" width={36} height={36} className="rounded-lg" />
         <div className="flex flex-col">
-          <span className="text-sm font-semibold text-foreground">
-            Bluve Sales
-          </span>
+          <span className="text-sm font-semibold text-foreground">Bluve Sales</span>
           <span className="text-xs text-muted-foreground">Performance</span>
         </div>
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1 px-3 py-4">
+      {/* Nav links */}
+      <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-3 py-4">
         {links.map((link) => {
           const isActive = pathname === link.href;
           return (
@@ -183,15 +193,15 @@ export function AppSidebar({ userName, userRole, userAvatar }: AppSidebarProps) 
                   : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
               )}
             >
-              <link.icon className="h-4 w-4" />
+              <link.icon className="h-4 w-4 shrink-0" />
               {link.label}
             </Link>
           );
         })}
       </nav>
 
+      {/* User section */}
       <div className="border-t px-3 py-4">
-        {/* User info with avatar */}
         <div className="mb-3 flex items-center gap-3 px-3">
           <button
             type="button"
@@ -200,7 +210,7 @@ export function AppSidebar({ userName, userRole, userAvatar }: AppSidebarProps) 
             title="Alterar foto"
           >
             {currentAvatar ? (
-              /* eslint-disable-next-line @next/next/no-img-element */
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={currentAvatar}
                 alt={userName}
@@ -217,23 +227,16 @@ export function AppSidebar({ userName, userRole, userAvatar }: AppSidebarProps) 
           </button>
           <div className="min-w-0">
             <p className="truncate text-sm font-medium text-foreground">{userName}</p>
-            <p className="text-xs text-muted-foreground">
-              {userRole === "ADMIN_MASTER" ? "Administrador" : userRole === "COBRANCA" ? "Cobranca" : "Vendedor"}
-            </p>
+            <p className="text-xs text-muted-foreground">{roleLabel}</p>
           </div>
         </div>
-
         <Button
           variant="ghost"
           type="button"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground"
         >
-          {theme === "dark" ? (
-            <Sun className="h-4 w-4" />
-          ) : (
-            <Moon className="h-4 w-4" />
-          )}
+          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           {theme === "dark" ? "Modo Claro" : "Modo Escuro"}
         </Button>
         <form action={logoutAction}>
@@ -247,6 +250,34 @@ export function AppSidebar({ userName, userRole, userAvatar }: AppSidebarProps) 
           </Button>
         </form>
       </div>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Mobile top header */}
+      <header className="flex h-14 shrink-0 items-center gap-3 border-b bg-card px-4 lg:hidden">
+        <Button variant="ghost" size="icon" onClick={() => setMobileOpen(true)} className="-ml-1">
+          <Menu className="h-5 w-5" />
+        </Button>
+        <Image src="/logo.png" alt="Bluve Sales" width={28} height={28} className="rounded-md" />
+        <span className="text-sm font-semibold text-foreground">Bluve Sales</span>
+      </header>
+
+      {/* Mobile Sheet drawer */}
+      <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+        <SheetContent side="left" className="w-64 p-0">
+          <SheetHeader className="sr-only">
+            <SheetTitle>Menu de navegacao</SheetTitle>
+          </SheetHeader>
+          {sidebarContent}
+        </SheetContent>
+      </Sheet>
+
+      {/* Desktop sidebar */}
+      <aside className="hidden h-full w-64 shrink-0 flex-col border-r bg-card lg:flex">
+        {sidebarContent}
+      </aside>
 
       {/* Avatar upload dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -254,74 +285,39 @@ export function AppSidebar({ userName, userRole, userAvatar }: AppSidebarProps) 
           <DialogHeader>
             <DialogTitle>Foto de Perfil</DialogTitle>
           </DialogHeader>
-
           <div className="flex flex-col items-center gap-4">
-            {/* Preview */}
             <div className="relative">
               {preview ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src={preview}
-                  alt="Preview"
-                  className="h-28 w-28 rounded-full object-cover ring-2 ring-border"
-                />
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={preview} alt="Preview" className="h-28 w-28 rounded-full object-cover ring-2 ring-border" />
               ) : currentAvatar ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src={currentAvatar}
-                  alt={userName}
-                  className="h-28 w-28 rounded-full object-cover ring-2 ring-border"
-                />
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={currentAvatar} alt={userName} className="h-28 w-28 rounded-full object-cover ring-2 ring-border" />
               ) : (
                 <div className="flex h-28 w-28 items-center justify-center rounded-full bg-primary/15 ring-2 ring-border">
                   <span className="text-3xl font-semibold text-primary">{initials}</span>
                 </div>
               )}
             </div>
-
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full"
-              onClick={() => fileInputRef.current?.click()}
-            >
+            <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
+            <Button type="button" variant="outline" className="w-full" onClick={() => fileInputRef.current?.click()}>
               <Camera className="mr-2 h-4 w-4" />
               Escolher foto
             </Button>
-
             {preview && (
-              <Button
-                type="button"
-                className="w-full"
-                disabled={saving}
-                onClick={handleSave}
-              >
+              <Button type="button" className="w-full" disabled={saving} onClick={handleSave}>
                 {saving ? "Salvando..." : "Salvar foto"}
               </Button>
             )}
-
             {currentAvatar && !preview && (
-              <Button
-                type="button"
-                variant="ghost"
-                className="w-full text-destructive hover:text-destructive"
-                disabled={saving}
-                onClick={handleRemove}
-              >
+              <Button type="button" variant="ghost" className="w-full text-destructive hover:text-destructive" disabled={saving} onClick={handleRemove}>
                 {saving ? "Removendo..." : "Remover foto"}
               </Button>
             )}
           </div>
+          <DialogFooter />
         </DialogContent>
       </Dialog>
-    </aside>
+    </>
   );
 }

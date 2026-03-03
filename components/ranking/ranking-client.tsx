@@ -97,7 +97,7 @@ function RankingFilters({
       <div className="flex flex-col gap-1.5">
         <Label className="text-xs text-muted-foreground">Periodo</Label>
         <Select value={selected} onValueChange={handlePeriodChange}>
-          <SelectTrigger className="w-48">
+          <SelectTrigger className="w-full sm:w-48">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -266,7 +266,7 @@ export function RankingClient({
                 placeholder="Nome do vendedor..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-64 pl-9"
+                className="w-full pl-9 sm:w-64"
               />
             </div>
           </div>
@@ -276,7 +276,7 @@ export function RankingClient({
               Ordenar por
             </Label>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-48">
+              <SelectTrigger className="w-full sm:w-48">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

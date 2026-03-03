@@ -196,7 +196,7 @@ export function HistoryClient({
                 type="date"
                 value={from}
                 onChange={(e) => setFrom(e.target.value)}
-                className="w-40"
+                className="w-full sm:w-40"
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -205,7 +205,7 @@ export function HistoryClient({
                 type="date"
                 value={to}
                 onChange={(e) => setTo(e.target.value)}
-                className="w-40"
+                className="w-full sm:w-40"
               />
             </div>
             {isAdmin && sellers.length > 0 && (
@@ -214,7 +214,7 @@ export function HistoryClient({
                   Vendedor
                 </Label>
                 <Select value={sellerFilter} onValueChange={setSellerFilter}>
-                  <SelectTrigger className="w-52">
+                  <SelectTrigger className="w-full sm:w-52">
                     <SelectValue placeholder="Todos" />
                   </SelectTrigger>
                   <SelectContent>
@@ -303,17 +303,15 @@ export function HistoryClient({
           );
           return (
             <Card key={date}>
-              <CardHeader className="flex flex-row items-center justify-between pb-3">
-                <div className="flex items-center gap-3">
-                  <CardTitle className="text-base">
-                    {new Date(date + "T12:00:00").toLocaleDateString("pt-BR", {
-                      weekday: "long",
-                      day: "2-digit",
-                      month: "long",
-                      year: "numeric",
-                    })}
-                  </CardTitle>
-                </div>
+              <CardHeader className="flex flex-col gap-1 pb-3 sm:flex-row sm:items-center sm:justify-between">
+                <CardTitle className="text-base">
+                  {new Date(date + "T12:00:00").toLocaleDateString("pt-BR", {
+                    weekday: "long",
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </CardTitle>
                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
                   <span>
                     {dayTotal} venda{dayTotal !== 1 && "s"}
@@ -323,7 +321,8 @@ export function HistoryClient({
                   </span>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -411,6 +410,7 @@ export function HistoryClient({
                     ))}
                   </TableBody>
                 </Table>
+                </div>
               </CardContent>
             </Card>
           );

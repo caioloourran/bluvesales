@@ -66,7 +66,7 @@ export function DailyResultsTable({ rows, dateFrom, dateTo }: Props) {
   const totalRoasAp = totals.investment > 0 ? totals.approvedRevenue / totals.investment : null;
 
   return (
-    <div className="flex flex-col gap-6 p-6">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center gap-3">
         <CalendarDays className="h-6 w-6 text-primary" />
         <h1 className="text-2xl font-bold">Resultado Diario</h1>
@@ -83,7 +83,7 @@ export function DailyResultsTable({ rows, dateFrom, dateTo }: Props) {
                 type="date"
                 value={from}
                 onChange={(e) => setFrom(e.target.value)}
-                className="w-40"
+                className="w-full sm:w-40"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -93,7 +93,7 @@ export function DailyResultsTable({ rows, dateFrom, dateTo }: Props) {
                 type="date"
                 value={to}
                 onChange={(e) => setTo(e.target.value)}
-                className="w-40"
+                className="w-full sm:w-40"
               />
             </div>
             <Button type="submit">Filtrar</Button>

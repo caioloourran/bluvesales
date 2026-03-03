@@ -54,12 +54,12 @@ export function DailyChart({ data, isAdmin }: DailyChartProps) {
 
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <CardTitle className="text-base font-semibold">
           Metricas Diarias
         </CardTitle>
         <Select value={selectedMetric} onValueChange={setSelectedMetric}>
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="w-full sm:w-40">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>

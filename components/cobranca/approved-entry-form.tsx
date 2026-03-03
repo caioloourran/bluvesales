@@ -231,7 +231,7 @@ export function ApprovedEntryForm({
                 type="date"
                 value={selectedDate}
                 onChange={(e) => handleDateChange(e.target.value)}
-                className="w-44"
+                className="w-full sm:w-44"
               />
             </div>
           </div>
