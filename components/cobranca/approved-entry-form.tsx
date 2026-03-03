@@ -9,13 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   Table,
   TableBody,
   TableCell,
@@ -42,9 +35,7 @@ interface TodaySummary {
 interface ApprovedEntryFormProps {
   plans: Plan[];
   todaySummary: TodaySummary[];
-  sellers: { id: number; name: string }[];
   date: string;
-  sellerId: number;
 }
 
 type PaymentQty = { pix: number; boleto: number; cartao: number };
@@ -70,14 +61,11 @@ function emptyNotes(plans: Plan[]): Record<number, string> {
 export function ApprovedEntryForm({
   plans,
   todaySummary,
-  sellers,
   date,
-  sellerId,
 }: ApprovedEntryFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [selectedDate, setSelectedDate] = useState(date);
-  const [selectedSeller, setSelectedSeller] = useState(String(sellerId));
   const [quantities, setQuantities] = useState<Record<number, PaymentQty>>(() => emptyQuantities(plans));
   const [discounts, setDiscounts] = useState<Record<number, number>>(() => emptyDiscounts(plans));
   const [notes, setNotes] = useState<Record<number, string>>(() => emptyNotes(plans));
@@ -97,18 +85,7 @@ export function ApprovedEntryForm({
 
   function handleDateChange(newDate: string) {
     setSelectedDate(newDate);
-    const params = new URLSearchParams();
-    params.set("date", newDate);
-    params.set("seller", selectedSeller);
-    router.push(`/cobranca?${params.toString()}`);
-  }
-
-  function handleSellerChange(newSeller: string) {
-    setSelectedSeller(newSeller);
-    const params = new URLSearchParams();
-    params.set("date", selectedDate);
-    params.set("seller", newSeller);
-    router.push(`/cobranca?${params.toString()}`);
+    router.push(`/cobranca?date=${newDate}`);
   }
 
   function resetForm() {
@@ -141,7 +118,6 @@ export function ApprovedEntryForm({
     startTransition(async () => {
       const result = await saveApprovedEntries({
         date: selectedDate,
-        sellerId: Number(selectedSeller),
         entries,
       });
       if (result.error) {
@@ -185,23 +161,6 @@ export function ApprovedEntryForm({
                 className="w-44"
               />
             </div>
-            {sellers.length > 0 && (
-              <div className="flex flex-col gap-1.5">
-                <Label className="text-xs text-muted-foreground">Vendedor</Label>
-                <Select value={selectedSeller} onValueChange={handleSellerChange}>
-                  <SelectTrigger className="w-52">
-                    <SelectValue placeholder="Selecione" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {sellers.map((s) => (
-                      <SelectItem key={s.id} value={String(s.id)}>
-                        {s.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
           </div>
         </CardContent>
       </Card>

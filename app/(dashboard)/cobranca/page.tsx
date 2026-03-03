@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 interface Props {
-  searchParams: Promise<{ date?: string; seller?: string }>;
+  searchParams: Promise<{ date?: string }>;
 }
 
 export default async function CobrancaPage({ searchParams }: Props) {
@@ -20,14 +20,6 @@ export default async function CobrancaPage({ searchParams }: Props) {
   const today = new Date().toISOString().split("T")[0];
   const date = params.date || today;
 
-  // Get sellers list
-  const sellerRows = await sql`
-    SELECT id, name FROM users WHERE role = 'SELLER' ORDER BY name
-  `;
-  const sellers = sellerRows.map((r) => ({ id: r.id, name: r.name }));
-
-  const sellerId = params.seller ? Number(params.seller) : (sellers.length > 0 ? sellers[0].id : session.id);
-
   // Get all active plans with product name
   const plans = await sql`
     SELECT p.id, p.name as plan_name, pr.name as product_name, p.sale_price_gross
@@ -37,11 +29,11 @@ export default async function CobrancaPage({ searchParams }: Props) {
     ORDER BY pr.name, p.name
   `;
 
-  // Get summary of already-saved approved entries for this seller and date
+  // Get summary of already-saved approved entries for this date (global, no seller filter)
   const todaySummary = await sql`
     SELECT plan_id, payment_method, SUM(quantity)::int as total_qty
     FROM daily_approved_payments
-    WHERE date = ${date} AND seller_id = ${sellerId}
+    WHERE date = ${date}
     GROUP BY plan_id, payment_method
   `;
 
@@ -49,9 +41,7 @@ export default async function CobrancaPage({ searchParams }: Props) {
     <ApprovedEntryForm
       plans={plans}
       todaySummary={todaySummary}
-      sellers={sellers}
       date={date}
-      sellerId={sellerId}
     />
   );
 }

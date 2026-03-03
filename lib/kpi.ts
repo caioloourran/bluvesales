@@ -218,24 +218,14 @@ export async function calculateKPIs(
   const profit = agg.grossValue - agg.platformFees - agg.netCommission - agg.productCosts - agg.shippingCosts - agg.discounts - investment - investmentTax;
   const roi = investment > 0 ? profit / investment : null;
 
-  // Approved payments from daily_approved_payments table (real data)
-  const approvedRows = sellerId
-    ? await sql`
-        SELECT dap.quantity, dap.discount, dap.payment_method, p.sale_price_gross, p.sale_price_net,
-          COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
-          COALESCE(sc.percent, 0) as commission_pct
-        FROM daily_approved_payments dap
-        JOIN plans p ON p.id = dap.plan_id
-        LEFT JOIN seller_commissions sc ON sc.seller_id = dap.seller_id AND sc.plan_id = dap.plan_id
-        WHERE dap.date >= ${dateFrom} AND dap.date <= ${dateTo} AND dap.seller_id = ${sellerId}`
-    : await sql`
-        SELECT dap.quantity, dap.discount, dap.payment_method, p.sale_price_gross, p.sale_price_net,
-          COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
-          COALESCE(sc.percent, 0) as commission_pct
-        FROM daily_approved_payments dap
-        JOIN plans p ON p.id = dap.plan_id
-        LEFT JOIN seller_commissions sc ON sc.seller_id = dap.seller_id AND sc.plan_id = dap.plan_id
-        WHERE dap.date >= ${dateFrom} AND dap.date <= ${dateTo}`;
+  // Approved payments from daily_approved_payments table (real data, global — no seller filter)
+  const approvedRows = await sql`
+    SELECT dap.quantity, dap.discount, dap.payment_method, p.sale_price_gross, p.sale_price_net,
+      COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
+      0 as commission_pct
+    FROM daily_approved_payments dap
+    JOIN plans p ON p.id = dap.plan_id
+    WHERE dap.date >= ${dateFrom} AND dap.date <= ${dateTo}`;
 
   const approvedAgg = processSalesRows(approvedRows, saleFees);
   const approvedCount = approvedAgg.salesQty;

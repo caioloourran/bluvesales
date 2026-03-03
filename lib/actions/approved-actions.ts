@@ -7,7 +7,6 @@ import { getSession } from "@/lib/auth";
 
 const approvedEntrySchema = z.object({
   date: z.string().min(1),
-  sellerId: z.coerce.number().int().positive(),
   entries: z.array(
     z.object({
       planId: z.coerce.number().int().positive(),
@@ -21,7 +20,6 @@ const approvedEntrySchema = z.object({
 
 export async function saveApprovedEntries(formData: {
   date: string;
-  sellerId: number;
   entries: { planId: number; quantity: number; discount?: number; notes?: string; paymentMethod?: string }[];
 }) {
   const session = await getSession();
@@ -32,14 +30,14 @@ export async function saveApprovedEntries(formData: {
     return { error: parsed.error.errors[0].message };
   }
 
-  const { date, sellerId, entries } = parsed.data;
+  const { date, entries } = parsed.data;
 
   try {
     for (const entry of entries) {
       if (entry.quantity > 0) {
         await sql`
-          INSERT INTO daily_approved_payments (date, seller_id, plan_id, quantity, discount, notes, payment_method)
-          VALUES (${date}, ${sellerId}, ${entry.planId}, ${entry.quantity}, ${entry.discount || 0}, ${entry.notes || null}, ${entry.paymentMethod})
+          INSERT INTO daily_approved_payments (date, plan_id, quantity, discount, notes, payment_method)
+          VALUES (${date}, ${entry.planId}, ${entry.quantity}, ${entry.discount || 0}, ${entry.notes || null}, ${entry.paymentMethod})
         `;
       }
     }
@@ -53,12 +51,12 @@ export async function saveApprovedEntries(formData: {
   }
 }
 
-export async function getApprovedEntriesForDay(date: string, sellerId: number) {
+export async function getApprovedEntriesForDay(date: string) {
   const rows = await sql`
     SELECT dap.*, p.name as plan_name
     FROM daily_approved_payments dap
     JOIN plans p ON p.id = dap.plan_id
-    WHERE dap.date = ${date} AND dap.seller_id = ${sellerId}
+    WHERE dap.date = ${date}
   `;
   return rows;
 }
