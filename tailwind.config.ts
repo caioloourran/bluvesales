@@ -84,10 +84,16 @@ const config: Config = {
             height: '0',
           },
         },
+        'bounce-once': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '30%': { transform: 'translateY(-16px)' },
+          '60%': { transform: 'translateY(-8px)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'bounce-once': 'bounce-once 0.6s ease-out 1',
       },
     },
   },

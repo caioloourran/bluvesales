@@ -23,6 +23,7 @@ import {
   LayoutDashboard,
   Camera,
   Menu,
+  Gift,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
@@ -48,6 +49,7 @@ interface AppSidebarProps {
   userName: string;
   userRole: string;
   userAvatar?: string | null;
+  roletaEnabled?: boolean;
 }
 
 const adminLinks = [
@@ -63,6 +65,7 @@ const adminLinks = [
   { href: "/commissions", label: "Comissoes", icon: Percent },
   { href: "/fees", label: "Taxas", icon: Receipt },
   { href: "/users", label: "Usuarios", icon: Users },
+  { href: "/roleta", label: "Roleta", icon: Gift },
 ];
 
 const cobrancaLinks = [
@@ -102,10 +105,13 @@ function resizeToBase64(file: File): Promise<string> {
   });
 }
 
-export function AppSidebar({ userName, userRole, userAvatar }: AppSidebarProps) {
+export function AppSidebar({ userName, userRole, userAvatar, roletaEnabled }: AppSidebarProps) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  const links = userRole === "ADMIN_MASTER" ? adminLinks : userRole === "COBRANCA" ? cobrancaLinks : sellerLinks;
+  const baseLinks = userRole === "ADMIN_MASTER" ? adminLinks : userRole === "COBRANCA" ? cobrancaLinks : sellerLinks;
+  const links = userRole === "SELLER" && roletaEnabled
+    ? [...baseLinks, { href: "/roleta-vendedor", label: "Roleta", icon: Gift }]
+    : baseLinks;
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
