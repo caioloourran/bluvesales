@@ -20,33 +20,40 @@ export function formatPercent(value: number): string {
   }).format(value);
 }
 
+/** Returns today's date in Brazil timezone (America/Sao_Paulo) as YYYY-MM-DD */
+export function todayBrazil(): string {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(new Date());
+}
+
+/** Returns the first day of the current month in Brazil timezone as YYYY-MM-DD */
+export function firstOfMonthBrazil(): string {
+  const [year, month] = todayBrazil().split("-");
+  return `${year}-${month}-01`;
+}
+
 export function getDateRange(period: string): { from: string; to: string } {
-  const today = new Date();
-  const fmt = (d: Date) => d.toISOString().split("T")[0];
+  const todayStr = todayBrazil();
+
+  function subtractDays(dateStr: string, days: number): string {
+    const d = new Date(dateStr + "T12:00:00");
+    d.setDate(d.getDate() - days);
+    return d.toISOString().split("T")[0];
+  }
 
   switch (period) {
     case "today":
-      return { from: fmt(today), to: fmt(today) };
+      return { from: todayStr, to: todayStr };
     case "yesterday": {
-      const y = new Date(today);
-      y.setDate(y.getDate() - 1);
-      return { from: fmt(y), to: fmt(y) };
+      const y = subtractDays(todayStr, 1);
+      return { from: y, to: y };
     }
-    case "7d": {
-      const d = new Date(today);
-      d.setDate(d.getDate() - 6);
-      return { from: fmt(d), to: fmt(today) };
-    }
-    case "30d": {
-      const d = new Date(today);
-      d.setDate(d.getDate() - 29);
-      return { from: fmt(d), to: fmt(today) };
-    }
-    case "month": {
-      const first = new Date(today.getFullYear(), today.getMonth(), 1);
-      return { from: fmt(first), to: fmt(today) };
-    }
+    case "7d":
+      return { from: subtractDays(todayStr, 6), to: todayStr };
+    case "30d":
+      return { from: subtractDays(todayStr, 29), to: todayStr };
+    case "month":
+      return { from: firstOfMonthBrazil(), to: todayStr };
     default:
-      return { from: fmt(today), to: fmt(today) };
+      return { from: todayStr, to: todayStr };
   }
 }

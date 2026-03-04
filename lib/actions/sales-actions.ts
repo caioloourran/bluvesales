@@ -40,12 +40,16 @@ export async function saveSalesEntries(formData: {
   const { date, sellerId, entries } = parsed.data;
 
   try {
-    // Only INSERT new entries (additive) — never delete existing ones
+    // INSERT new entries; if same (date, seller, plan, method) already exists, accumulate quantity/discount
     for (const entry of entries) {
       if (entry.quantity > 0) {
         await sql`
           INSERT INTO daily_sales_entries (date, seller_id, plan_id, quantity, discount, notes, payment_method)
           VALUES (${date}, ${sellerId}, ${entry.planId}, ${entry.quantity}, ${entry.discount || 0}, ${entry.notes || null}, ${entry.paymentMethod})
+          ON CONFLICT (date, seller_id, plan_id, payment_method) DO UPDATE
+            SET quantity = daily_sales_entries.quantity + EXCLUDED.quantity,
+                discount = daily_sales_entries.discount + EXCLUDED.discount,
+                updated_at = NOW()
         `;
       }
     }

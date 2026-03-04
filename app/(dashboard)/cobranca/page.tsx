@@ -2,6 +2,7 @@ import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { sql } from "@/lib/db";
 import { ApprovedEntryForm } from "@/components/cobranca/approved-entry-form";
+import { todayBrazil } from "@/lib/format";
 
 export const metadata = {
   title: "Cobranca - Pagamentos Aprovados",
@@ -17,8 +18,7 @@ export default async function CobrancaPage({ searchParams }: Props) {
   if (session.role !== "ADMIN_MASTER" && session.role !== "COBRANCA") redirect("/dashboard");
 
   const params = await searchParams;
-  const today = new Date().toISOString().split("T")[0];
-  const date = params.date || today;
+  const date = params.date || todayBrazil();
 
   // Get all active plans with product name
   const plans = await sql`

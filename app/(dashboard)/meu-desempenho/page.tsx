@@ -2,6 +2,7 @@ import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { sql } from "@/lib/db";
 import { DesempenhoClient } from "@/components/cobranca/desempenho-client";
+import { todayBrazil, firstOfMonthBrazil } from "@/lib/format";
 
 export const metadata = {
   title: "Meu Desempenho - Cobranca",
@@ -19,17 +20,8 @@ export default async function MeuDesempenhoPage({ searchParams }: Props) {
   if (session.role !== "ADMIN_MASTER" && session.role !== "COBRANCA") redirect("/dashboard");
 
   const params = await searchParams;
-  const today = new Date().toISOString().split("T")[0];
-  const firstOfMonth = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    1
-  )
-    .toISOString()
-    .split("T")[0];
-
-  const dateFrom = params.from || firstOfMonth;
-  const dateTo = params.to || today;
+  const dateFrom = params.from || firstOfMonthBrazil();
+  const dateTo = params.to || todayBrazil();
 
   // Breakdown by plan — filtered by the current user's own entries
   const planRows = await sql`

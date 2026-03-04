@@ -2,6 +2,7 @@ import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { sql } from "@/lib/db";
 import { HistoryClient } from "@/components/sales/history-client";
+import { todayBrazil, firstOfMonthBrazil } from "@/lib/format";
 
 export const metadata = {
   title: "Historico de Lancamentos",
@@ -21,16 +22,8 @@ export default async function HistoryPage({ searchParams }: Props) {
 
   const params = await searchParams;
   const isAdmin = session.role === "ADMIN_MASTER";
-  const today = new Date().toISOString().split("T")[0];
-  const firstOfMonth = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    1
-  )
-    .toISOString()
-    .split("T")[0];
-  const dateFrom = params.from || firstOfMonth;
-  const dateTo = params.to || today;
+  const dateFrom = params.from || firstOfMonthBrazil();
+  const dateTo = params.to || todayBrazil();
   const filterSeller = isAdmin && params.seller ? Number(params.seller) : null;
 
   let entries;

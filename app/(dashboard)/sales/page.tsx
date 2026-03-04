@@ -2,6 +2,7 @@ import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { sql } from "@/lib/db";
 import { SalesEntryForm } from "@/components/sales/sales-entry-form";
+import { todayBrazil } from "@/lib/format";
 
 export const metadata = {
   title: "Vendas - Lancamento Diario",
@@ -16,8 +17,7 @@ export default async function SalesPage({ searchParams }: Props) {
   if (!session) redirect("/login");
 
   const params = await searchParams;
-  const today = new Date().toISOString().split("T")[0];
-  const date = params.date || today;
+  const date = params.date || todayBrazil();
   const isAdmin = session.role === "ADMIN_MASTER";
   const sellerId = isAdmin && params.seller ? Number(params.seller) : session.id;
 
