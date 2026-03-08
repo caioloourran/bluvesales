@@ -53,8 +53,9 @@ export async function saveApprovedEntries(formData: {
     revalidatePath("/dashboard");
     return { success: true };
   } catch (e) {
-    console.error(e);
-    return { error: "Erro ao salvar lancamentos de cobranca" };
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error("[saveApprovedEntries]", msg);
+    return { error: `Erro ao salvar: ${msg}` };
   }
 }
 
