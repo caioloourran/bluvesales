@@ -174,18 +174,20 @@ export function AppSidebar({ userName, userRole, userAvatar, roletaEnabled }: Ap
 
   // Shared sidebar content (used in both desktop aside and mobile Sheet)
   const sidebarContent = (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
       {/* Logo header */}
-      <div className="flex items-center gap-3 border-b px-6 py-5">
-        <Image src="/logo.png" alt="Bluve Sales" width={36} height={36} className="rounded-lg" />
+      <div className="flex items-center gap-3 border-b border-sidebar-border px-6 py-5">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-sidebar-primary/20 ring-1 ring-sidebar-primary/30">
+          <Image src="/logo.png" alt="Bluve Sales" width={28} height={28} className="rounded-md" />
+        </div>
         <div className="flex flex-col">
-          <span className="text-sm font-semibold text-foreground">Bluve Sales</span>
-          <span className="text-xs text-muted-foreground">Performance</span>
+          <span className="text-sm font-semibold text-sidebar-foreground">Bluve Sales</span>
+          <span className="text-xs text-sidebar-foreground/50">Performance</span>
         </div>
       </div>
 
       {/* Nav links */}
-      <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-3 py-4">
+      <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-3 py-4">
         {links.map((link) => {
           const isActive = pathname === link.href;
           return (
@@ -193,13 +195,18 @@ export function AppSidebar({ userName, userRole, userAvatar, roletaEnabled }: Ap
               key={link.href}
               href={link.href}
               className={cn(
-                "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150 border-l-2 pl-[10px]",
                 isActive
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                  ? "bg-sidebar-primary/15 text-white border-sidebar-primary"
+                  : "text-sidebar-foreground/65 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground border-transparent"
               )}
             >
-              <link.icon className="h-4 w-4 shrink-0" />
+              <link.icon
+                className={cn(
+                  "h-4 w-4 shrink-0",
+                  isActive ? "text-sidebar-primary" : "text-sidebar-foreground/50"
+                )}
+              />
               {link.label}
             </Link>
           );
@@ -207,7 +214,7 @@ export function AppSidebar({ userName, userRole, userAvatar, roletaEnabled }: Ap
       </nav>
 
       {/* User section */}
-      <div className="border-t px-3 py-4">
+      <div className="border-t border-sidebar-border px-3 py-4">
         <div className="mb-3 flex items-center gap-3 px-3">
           <button
             type="button"
@@ -220,11 +227,11 @@ export function AppSidebar({ userName, userRole, userAvatar, roletaEnabled }: Ap
               <img
                 src={currentAvatar}
                 alt={userName}
-                className="h-10 w-10 rounded-full object-cover ring-2 ring-border transition group-hover:ring-primary"
+                className="h-10 w-10 rounded-full object-cover ring-2 ring-sidebar-border transition group-hover:ring-sidebar-primary"
               />
             ) : (
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/15 ring-2 ring-border transition group-hover:ring-primary">
-                <span className="text-sm font-semibold text-primary">{initials}</span>
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-sidebar-primary/20 ring-2 ring-sidebar-border transition group-hover:ring-sidebar-primary">
+                <span className="text-sm font-semibold text-sidebar-primary">{initials}</span>
               </div>
             )}
             <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition group-hover:opacity-100">
@@ -232,28 +239,26 @@ export function AppSidebar({ userName, userRole, userAvatar, roletaEnabled }: Ap
             </div>
           </button>
           <div className="min-w-0">
-            <p className="truncate text-sm font-medium text-foreground">{userName}</p>
-            <p className="text-xs text-muted-foreground">{roleLabel}</p>
+            <p className="truncate text-sm font-medium text-sidebar-foreground">{userName}</p>
+            <p className="text-xs text-sidebar-foreground/50">{roleLabel}</p>
           </div>
         </div>
-        <Button
-          variant="ghost"
+        <button
           type="button"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground/60 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
         >
           {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           {theme === "dark" ? "Modo Claro" : "Modo Escuro"}
-        </Button>
+        </button>
         <form action={logoutAction}>
-          <Button
-            variant="ghost"
+          <button
             type="submit"
-            className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground"
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground/60 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
           >
             <LogOut className="h-4 w-4" />
             Sair
-          </Button>
+          </button>
         </form>
       </div>
     </div>
@@ -272,7 +277,7 @@ export function AppSidebar({ userName, userRole, userAvatar, roletaEnabled }: Ap
 
       {/* Mobile Sheet drawer */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetContent side="left" className="w-64 p-0">
+        <SheetContent side="left" className="w-64 p-0 bg-sidebar border-sidebar-border">
           <SheetHeader className="sr-only">
             <SheetTitle>Menu de navegacao</SheetTitle>
           </SheetHeader>
@@ -281,7 +286,7 @@ export function AppSidebar({ userName, userRole, userAvatar, roletaEnabled }: Ap
       </Sheet>
 
       {/* Desktop sidebar */}
-      <aside className="hidden h-full w-64 shrink-0 flex-col border-r bg-card lg:flex">
+      <aside className="hidden h-full w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar lg:flex">
         {sidebarContent}
       </aside>
 
