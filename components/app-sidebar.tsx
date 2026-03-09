@@ -77,6 +77,7 @@ const sellerLinks = [
   { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
   { href: "/sales", label: "Vendas", icon: ShoppingCart },
   { href: "/history", label: "Historico", icon: ClipboardList },
+  { href: "/ranking", label: "Ranking", icon: Trophy },
 ];
 
 function getInitials(name: string): string {
