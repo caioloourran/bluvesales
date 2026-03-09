@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { createUser, updateUser, deleteUser } from "@/lib/actions/admin-actions";
+import { createUser, updateUser, deleteUser, updateUserGoal, updateTeamGoal } from "@/lib/actions/admin-actions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,13 +38,16 @@ interface User {
   email: string;
   role: string;
   created_at: string;
+  avatar: string | null;
+  monthly_goal: number;
 }
 
 interface Props {
   users: User[];
+  teamGoal: number;
 }
 
-export function UsersClient({ users }: Props) {
+export function UsersClient({ users, teamGoal }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -53,6 +56,8 @@ export function UsersClient({ users }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("SELLER");
+  const [teamGoalInput, setTeamGoalInput] = useState(teamGoal);
+  const [monthlyGoal, setMonthlyGoal] = useState(0);
 
   function openCreate() {
     setEditing(null);
@@ -60,6 +65,7 @@ export function UsersClient({ users }: Props) {
     setEmail("");
     setPassword("");
     setRole("SELLER");
+    setMonthlyGoal(0);
     setDialogOpen(true);
   }
 
@@ -69,6 +75,7 @@ export function UsersClient({ users }: Props) {
     setEmail(u.email);
     setPassword("");
     setRole(u.role);
+    setMonthlyGoal(u.monthly_goal ?? 0);
     setDialogOpen(true);
   }
 
@@ -84,6 +91,7 @@ export function UsersClient({ users }: Props) {
         : await createUser({ name, email, password, role });
       if (result.error) toast.error(result.error);
       else {
+        if (editing) await updateUserGoal(editing.id, monthlyGoal);
         toast.success(editing ? "Usuario atualizado!" : "Usuario criado!");
         setDialogOpen(false);
         router.refresh();
@@ -100,6 +108,14 @@ export function UsersClient({ users }: Props) {
         toast.success("Usuario deletado!");
         router.refresh();
       }
+    });
+  }
+
+  function handleSaveTeamGoal() {
+    startTransition(async () => {
+      const result = await updateTeamGoal(teamGoalInput);
+      if (result.error) toast.error(result.error);
+      else toast.success("Meta da equipe atualizada!");
     });
   }
 
@@ -146,6 +162,16 @@ export function UsersClient({ users }: Props) {
                   </SelectContent>
                 </Select>
               </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>Meta Mensal (agendamentos)</Label>
+                <Input
+                  type="number"
+                  min={0}
+                  value={monthlyGoal}
+                  onChange={(e) => setMonthlyGoal(Number(e.target.value))}
+                  placeholder="0"
+                />
+              </div>
               <Button onClick={handleSave} disabled={isPending}>
                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Salvar
@@ -154,6 +180,30 @@ export function UsersClient({ users }: Props) {
           </DialogContent>
         </Dialog>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Meta da Equipe</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-3">
+            <div className="flex flex-col gap-1">
+              <Label>Agendamentos por mês (equipe)</Label>
+              <Input
+                type="number"
+                min={0}
+                value={teamGoalInput}
+                onChange={(e) => setTeamGoalInput(Number(e.target.value))}
+                className="w-40"
+              />
+            </div>
+            <Button onClick={handleSaveTeamGoal} disabled={isPending} className="mt-5" size="sm">
+              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Salvar
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>
