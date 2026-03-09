@@ -1,15 +1,9 @@
 "use client";
 
-import { useState, useMemo, Suspense } from "react";
 import { useRouter } from "next/navigation";
-import {
-  Trophy,
-  ArrowUpDown,
-  Search,
-  TrendingUp,
-  TrendingDown,
-} from "lucide-react";
+import { Trophy, Target, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -18,61 +12,72 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { formatBRL, formatNumber } from "@/lib/format";
 import type { SellerRanking } from "@/lib/kpi";
-
-const sortOptions = [
-  { value: "profit", label: "Lucro" },
-  { value: "salesQty", label: "Qtd Vendas" },
-  { value: "grossValue", label: "Valor Bruto" },
-  { value: "netValue", label: "Valor Liquido" },
-  { value: "netCommission", label: "Comissao Liquida" },
-  { value: "investment", label: "Investimento" },
-  { value: "leads", label: "Leads" },
-];
 
 interface RankingClientProps {
   rankings: SellerRanking[];
-  tab: string;
+  tab: "today" | "month";
   isAdmin: boolean;
   currentUserId: number;
   teamGoal: number;
 }
 
-function TabSwitcher({ tab }: { tab: string }) {
-  const router = useRouter();
+function initials(name: string) {
+  return name
+    .split(" ")
+    .slice(0, 2)
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase();
+}
 
-  function handleTab(value: string) {
-    router.push(`/ranking?tab=${value}`);
+function SellerAvatar({
+  seller,
+  size = "md",
+}: {
+  seller: SellerRanking;
+  size?: "sm" | "md" | "lg";
+}) {
+  const sizeClasses = {
+    sm: "h-8 w-8 text-xs",
+    md: "h-12 w-12 text-sm",
+    lg: "h-16 w-16 text-base",
+  };
+  if (seller.sellerAvatar) {
+    return (
+      <img
+        src={seller.sellerAvatar}
+        alt={seller.sellerName}
+        className={`${sizeClasses[size]} rounded-full object-cover`}
+      />
+    );
   }
-
   return (
-    <div className="flex gap-2">
-      <Button
-        size="sm"
-        variant={tab === "today" ? "default" : "outline"}
-        onClick={() => handleTab("today")}
-      >
-        Hoje
-      </Button>
-      <Button
-        size="sm"
-        variant={tab === "month" ? "default" : "outline"}
-        onClick={() => handleTab("month")}
-      >
-        Mes atual
-      </Button>
+    <div
+      className={`${sizeClasses[size]} rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-semibold flex items-center justify-center`}
+    >
+      {initials(seller.sellerName)}
+    </div>
+  );
+}
+
+function GoalBar({
+  value,
+  total,
+  colorClass = "bg-indigo-500",
+}: {
+  value: number;
+  total: number;
+  colorClass?: string;
+}) {
+  if (total === 0) return null;
+  const pct = Math.min(100, Math.round((value / total) * 100));
+  return (
+    <div className="w-full h-1.5 bg-muted rounded-full overflow-hidden">
+      <div
+        className={`h-full ${colorClass} rounded-full`}
+        style={{ width: `${pct}%` }}
+      />
     </div>
   );
 }
@@ -84,239 +89,290 @@ export function RankingClient({
   currentUserId,
   teamGoal,
 }: RankingClientProps) {
-  const [sortBy, setSortBy] = useState<string>("profit");
-  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
 
-  const filtered = useMemo(() => {
-    let result = [...rankings];
+  function switchTab(t: string) {
+    router.push(`/ranking?tab=${t}`);
+  }
 
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      result = result.filter((r) => r.sellerName.toLowerCase().includes(q));
-    }
+  const top3 = rankings.slice(0, 3);
+  const currentUserRank = rankings.findIndex((r) => r.sellerId === currentUserId);
+  const currentUserInTop3 = currentUserRank >= 0 && currentUserRank < 3;
+  const currentUserEntry = rankings[currentUserRank];
 
-    result.sort((a, b) => {
-      const key = sortBy as keyof SellerRanking;
-      const aVal = Number(a[key]) || 0;
-      const bVal = Number(b[key]) || 0;
-      return bVal - aVal;
-    });
+  const teamTotal = rankings.reduce((s, r) => s + r.salesQty, 0);
 
-    return result;
-  }, [rankings, sortBy, searchQuery]);
+  // Podium order: 2nd on left, 1st in center, 3rd on right
+  const podiumSlots = [top3[1], top3[0], top3[2]];
+  const podiumRanks = [2, 1, 3];
+  const podiumTrophies = ["🥈", "🥇", "🥉"];
+  const podiumHeights = ["h-20", "h-28", "h-16"];
+  const podiumRingColors = [
+    "ring-2 ring-slate-300 dark:ring-slate-500",
+    "ring-2 ring-yellow-400 dark:ring-yellow-500",
+    "ring-2 ring-amber-600 dark:ring-amber-700",
+  ];
 
-  const totals = useMemo(() => {
-    return filtered.reduce(
-      (acc, r) => ({
-        salesQty: acc.salesQty + r.salesQty,
-        grossValue: acc.grossValue + r.grossValue,
-        netValue: acc.netValue + r.netValue,
-        netCommission: acc.netCommission + r.netCommission,
-        investment: acc.investment + r.investment,
-        leads: acc.leads + r.leads,
-        profit: acc.profit + r.profit,
-      }),
-      {
-        salesQty: 0,
-        grossValue: 0,
-        netValue: 0,
-        netCommission: 0,
-        investment: 0,
-        leads: 0,
-        profit: 0,
-      }
-    );
-  }, [filtered]);
+  const formatCurrency = (v: number) =>
+    new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v);
+
+  const goalPct = (qty: number, goal: number) =>
+    goal > 0 ? Math.min(100, Math.round((qty / goal) * 100)) : null;
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/40">
-            <Trophy className="h-5 w-5 text-amber-600 dark:text-amber-400" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">
-              Ranking de Vendedores
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Performance individual de cada vendedor
-            </p>
-          </div>
+      {/* Header + tabs */}
+      <div className="flex flex-col gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Ranking de Vendedores</h1>
+          <p className="text-sm text-muted-foreground">
+            Desempenho da equipe em agendamentos
+          </p>
         </div>
-        <Suspense>
-          <TabSwitcher tab={tab} />
-        </Suspense>
+        <div className="flex gap-2">
+          <Button
+            variant={tab === "month" ? "default" : "outline"}
+            size="sm"
+            onClick={() => switchTab("month")}
+          >
+            Ranking do Mês
+          </Button>
+          <Button
+            variant={tab === "today" ? "default" : "outline"}
+            size="sm"
+            onClick={() => switchTab("today")}
+          >
+            Ranking do Dia
+          </Button>
+        </div>
       </div>
 
-      {/* Summary cards */}
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      {/* Podium — Top 3 */}
+      {rankings.length > 0 && (
         <Card>
-          <CardContent className="flex flex-col gap-1 p-4">
-            <span className="text-xs text-muted-foreground">
-              Total Vendedores
-            </span>
-            <span className="text-2xl font-bold text-foreground">
-              {filtered.length}
-            </span>
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2">
+              <Trophy className="h-4 w-4 text-yellow-500" />
+              Top 3
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-end justify-center gap-6 pt-4 pb-2">
+              {podiumSlots.map((seller, i) => {
+                const rank = podiumRanks[i];
+                const trophy = podiumTrophies[i];
+                const height = podiumHeights[i];
+                const ring = podiumRingColors[i];
+                return (
+                  <div key={rank} className="flex flex-col items-center gap-2">
+                    <span className="text-2xl">{trophy}</span>
+                    {seller ? (
+                      <>
+                        <div className={`rounded-full ${ring}`}>
+                          <SellerAvatar seller={seller} size="lg" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-sm font-semibold text-foreground leading-tight max-w-[80px] truncate">
+                            {seller.sellerName}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {seller.salesQty} agend.
+                          </p>
+                          {seller.monthlyGoal > 0 && (
+                            <div className="mt-1 w-20">
+                              <GoalBar
+                                value={seller.salesQty}
+                                total={seller.monthlyGoal}
+                              />
+                              <p className="text-[10px] text-muted-foreground text-center mt-0.5">
+                                {goalPct(seller.salesQty, seller.monthlyGoal)}%
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center text-muted-foreground text-xs">
+                        —
+                      </div>
+                    )}
+                    {/* Podium pillar */}
+                    <div
+                      className={`${height} w-20 rounded-t-lg flex items-center justify-center text-lg font-bold ${
+                        rank === 1
+                          ? "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400"
+                          : rank === 2
+                          ? "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                          : "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-500"
+                      }`}
+                    >
+                      #{rank}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="flex flex-col gap-1 p-4">
-            <span className="text-xs text-muted-foreground">Total Vendas</span>
-            <span className="text-2xl font-bold text-foreground">
-              {formatNumber(totals.salesQty)}
-            </span>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="flex flex-col gap-1 p-4">
-            <span className="text-xs text-muted-foreground">
-              Valor Bruto Total
-            </span>
-            <span className="text-2xl font-bold text-foreground">
-              {formatBRL(totals.grossValue)}
-            </span>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="flex flex-col gap-1 p-4">
-            <span className="text-xs text-muted-foreground">Lucro Total</span>
-            <span
-              className={`text-2xl font-bold ${totals.profit >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}
-            >
-              {formatBRL(totals.profit)}
-            </span>
-          </CardContent>
-        </Card>
-      </div>
+      )}
 
-      {/* Filters row */}
-      <Card>
-        <CardContent className="flex flex-wrap items-end gap-4 p-4">
-          <div className="flex flex-col gap-1.5">
-            <Label className="text-xs text-muted-foreground">Buscar</Label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                placeholder="Nome do vendedor..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 sm:w-64"
+      {/* Team goal bar */}
+      {teamGoal > 0 && (
+        <Card>
+          <CardContent className="pt-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <Target className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium">Meta da Equipe</span>
+              </div>
+              <span className="text-sm font-semibold text-foreground">
+                {teamTotal} / {teamGoal} agendamentos —{" "}
+                {Math.min(100, Math.round((teamTotal / teamGoal) * 100))}%
+              </span>
+            </div>
+            <div className="w-full h-3 bg-muted rounded-full overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all ${
+                  teamTotal >= teamGoal ? "bg-emerald-500" : "bg-indigo-500"
+                }`}
+                style={{
+                  width: `${Math.min(100, Math.round((teamTotal / teamGoal) * 100))}%`,
+                }}
               />
             </div>
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <Label className="text-xs text-muted-foreground">
-              <ArrowUpDown className="mr-1 inline h-3 w-3" />
-              Ordenar por
-            </Label>
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-full sm:w-48">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {sortOptions.map((o) => (
-                  <SelectItem key={o.value} value={o.value}>
-                    {o.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
 
-      {/* Full ranking table */}
+      {/* "Sua Posição" card — sellers only, hidden if in top 3 */}
+      {!isAdmin && !currentUserInTop3 && currentUserEntry && (
+        <Card className="border-indigo-500/40 border-l-4 border-l-indigo-500">
+          <CardContent className="pt-4">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center h-8 w-8 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-sm font-bold">
+                #{currentUserRank + 1}
+              </div>
+              <SellerAvatar seller={currentUserEntry} size="sm" />
+              <div className="flex-1">
+                <p className="text-sm font-semibold">
+                  Você — {currentUserEntry.salesQty} agendamentos
+                </p>
+                {currentUserEntry.monthlyGoal > 0 && (
+                  <p className="text-xs text-muted-foreground">
+                    Meta: {currentUserEntry.monthlyGoal} (
+                    {goalPct(currentUserEntry.salesQty, currentUserEntry.monthlyGoal)}%)
+                  </p>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Full list */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base font-semibold">
-            Detalhamento por Vendedor
+          <CardTitle className="text-base flex items-center gap-2">
+            <TrendingUp className="h-4 w-4" />
+            Classificação Completa
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {filtered.length === 0 ? (
+          {rankings.length === 0 ? (
             <p className="py-8 text-center text-sm text-muted-foreground">
-              Nenhum vendedor encontrado.
+              Nenhum dado encontrado para este período.
             </p>
           ) : (
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-10 text-center">#</TableHead>
-                    <TableHead>Vendedor</TableHead>
-                    <TableHead className="text-right">Vendas</TableHead>
-                    <TableHead className="text-right">Leads</TableHead>
-                    <TableHead className="text-right">Investimento</TableHead>
-                    <TableHead className="text-right">Valor Bruto</TableHead>
-                    <TableHead className="text-right">Valor Liquido</TableHead>
-                    <TableHead className="text-right">
-                      Comissao Liquida
-                    </TableHead>
-                    <TableHead className="text-right">Lucro</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filtered.map((r, idx) => (
-                    <TableRow key={r.sellerId}>
-                      <TableCell className="text-center">
-                        {idx === 0 ? (
-                          <Badge className="bg-amber-100 text-amber-700 hover:bg-amber-100 dark:bg-amber-900/40 dark:text-amber-400">
-                            1
-                          </Badge>
-                        ) : idx === 1 ? (
-                          <Badge className="bg-slate-100 text-slate-600 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-300">
-                            2
-                          </Badge>
-                        ) : idx === 2 ? (
-                          <Badge className="bg-orange-100 text-orange-700 hover:bg-orange-100 dark:bg-orange-900/40 dark:text-orange-400">
-                            3
-                          </Badge>
-                        ) : (
-                          <span className="text-sm text-muted-foreground">
-                            {idx + 1}
-                          </span>
-                        )}
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-10">#</TableHead>
+                  <TableHead className="w-10"></TableHead>
+                  <TableHead>Nome</TableHead>
+                  <TableHead>Agendamentos</TableHead>
+                  <TableHead>Meta %</TableHead>
+                  {isAdmin && (
+                    <>
+                      <TableHead>Valor Bruto</TableHead>
+                      <TableHead>Lucro</TableHead>
+                    </>
+                  )}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {rankings.map((r, idx) => {
+                  const isMe = r.sellerId === currentUserId;
+                  const pct = goalPct(r.salesQty, r.monthlyGoal);
+                  const rankBorder =
+                    idx === 0
+                      ? "border-l-2 border-l-yellow-400"
+                      : idx === 1
+                      ? "border-l-2 border-l-slate-400"
+                      : idx === 2
+                      ? "border-l-2 border-l-amber-600"
+                      : "";
+                  return (
+                    <TableRow
+                      key={r.sellerId}
+                      className={`${
+                        isMe
+                          ? "bg-indigo-500/10 border-l-2 border-l-indigo-500"
+                          : rankBorder
+                      }`}
+                    >
+                      <TableCell className="font-bold text-muted-foreground">
+                        #{idx + 1}
+                      </TableCell>
+                      <TableCell>
+                        <SellerAvatar seller={r} size="sm" />
                       </TableCell>
                       <TableCell className="font-medium">
                         {r.sellerName}
+                        {isMe && (
+                          <span className="ml-2 text-xs text-indigo-600 dark:text-indigo-400 font-semibold">
+                            você
+                          </span>
+                        )}
                       </TableCell>
-                      <TableCell className="text-right">
-                        {formatNumber(r.salesQty)}
+                      <TableCell>{r.salesQty}</TableCell>
+                      <TableCell>
+                        {pct !== null ? (
+                          <div className="flex items-center gap-2">
+                            <div className="w-16 h-1.5 bg-muted rounded-full overflow-hidden">
+                              <div
+                                className={`h-full rounded-full ${
+                                  pct >= 100 ? "bg-emerald-500" : "bg-indigo-500"
+                                }`}
+                                style={{ width: `${pct}%` }}
+                              />
+                            </div>
+                            <span className="text-xs text-muted-foreground">
+                              {pct}%
+                            </span>
+                          </div>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        )}
                       </TableCell>
-                      <TableCell className="text-right">
-                        {formatNumber(r.leads)}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {formatBRL(r.investment)}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {formatBRL(r.grossValue)}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {formatBRL(r.netValue)}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {formatBRL(r.netCommission)}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <span
-                          className={`inline-flex items-center gap-1 font-semibold ${r.profit >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}
-                        >
-                          {r.profit >= 0 ? (
-                            <TrendingUp className="h-3.5 w-3.5" />
-                          ) : (
-                            <TrendingDown className="h-3.5 w-3.5" />
-                          )}
-                          {formatBRL(r.profit)}
-                        </span>
-                      </TableCell>
+                      {isAdmin && (
+                        <>
+                          <TableCell>{formatCurrency(r.grossValue)}</TableCell>
+                          <TableCell
+                            className={
+                              r.profit >= 0
+                                ? "text-emerald-600 dark:text-emerald-400"
+                                : "text-rose-500"
+                            }
+                          >
+                            {formatCurrency(r.profit)}
+                          </TableCell>
+                        </>
+                      )}
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+                  );
+                })}
+              </TableBody>
+            </Table>
           )}
         </CardContent>
       </Card>
