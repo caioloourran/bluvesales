@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Trophy,
   ArrowUpDown,
@@ -32,15 +32,6 @@ import { Badge } from "@/components/ui/badge";
 import { formatBRL, formatNumber } from "@/lib/format";
 import type { SellerRanking } from "@/lib/kpi";
 
-const periods = [
-  { value: "today", label: "Hoje" },
-  { value: "yesterday", label: "Ontem" },
-  { value: "7d", label: "Ultimos 7 dias" },
-  { value: "30d", label: "Ultimos 30 dias" },
-  { value: "month", label: "Mes atual" },
-  { value: "custom", label: "Personalizado" },
-];
-
 const sortOptions = [
   { value: "profit", label: "Lucro" },
   { value: "salesQty", label: "Qtd Vendas" },
@@ -53,96 +44,45 @@ const sortOptions = [
 
 interface RankingClientProps {
   rankings: SellerRanking[];
-  period: string;
-  dateFrom: string;
-  dateTo: string;
+  tab: string;
+  isAdmin: boolean;
+  currentUserId: number;
+  teamGoal: number;
 }
 
-function RankingFilters({
-  period,
-  dateFrom,
-  dateTo,
-}: {
-  period: string;
-  dateFrom: string;
-  dateTo: string;
-}) {
+function TabSwitcher({ tab }: { tab: string }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [customFrom, setCustomFrom] = useState(dateFrom);
-  const [customTo, setCustomTo] = useState(dateTo);
-  const [selected, setSelected] = useState(period);
 
-  function handlePeriodChange(value: string) {
-    setSelected(value);
-    if (value !== "custom") {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("period", value);
-      params.delete("from");
-      params.delete("to");
-      router.push(`/ranking?${params.toString()}`);
-    }
-  }
-
-  function handleCustomApply() {
-    const params = new URLSearchParams();
-    params.set("period", "custom");
-    params.set("from", customFrom);
-    params.set("to", customTo);
-    router.push(`/ranking?${params.toString()}`);
+  function handleTab(value: string) {
+    router.push(`/ranking?tab=${value}`);
   }
 
   return (
-    <div className="flex flex-wrap items-end gap-3">
-      <div className="flex flex-col gap-1.5">
-        <Label className="text-xs text-muted-foreground">Periodo</Label>
-        <Select value={selected} onValueChange={handlePeriodChange}>
-          <SelectTrigger className="w-full sm:w-48">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {periods.map((p) => (
-              <SelectItem key={p.value} value={p.value}>
-                {p.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      {selected === "custom" && (
-        <>
-          <div className="flex flex-col gap-1.5">
-            <Label className="text-xs text-muted-foreground">De</Label>
-            <Input
-              type="date"
-              value={customFrom}
-              onChange={(e) => setCustomFrom(e.target.value)}
-              className="w-40"
-            />
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <Label className="text-xs text-muted-foreground">Ate</Label>
-            <Input
-              type="date"
-              value={customTo}
-              onChange={(e) => setCustomTo(e.target.value)}
-              className="w-40"
-            />
-          </div>
-          <Button onClick={handleCustomApply} size="sm">
-            Aplicar
-          </Button>
-        </>
-      )}
+    <div className="flex gap-2">
+      <Button
+        size="sm"
+        variant={tab === "today" ? "default" : "outline"}
+        onClick={() => handleTab("today")}
+      >
+        Hoje
+      </Button>
+      <Button
+        size="sm"
+        variant={tab === "month" ? "default" : "outline"}
+        onClick={() => handleTab("month")}
+      >
+        Mes atual
+      </Button>
     </div>
   );
 }
 
 export function RankingClient({
   rankings,
-  period,
-  dateFrom,
-  dateTo,
+  tab,
+  isAdmin,
+  currentUserId,
+  teamGoal,
 }: RankingClientProps) {
   const [sortBy, setSortBy] = useState<string>("profit");
   const [searchQuery, setSearchQuery] = useState("");
@@ -205,11 +145,7 @@ export function RankingClient({
           </div>
         </div>
         <Suspense>
-          <RankingFilters
-            period={period}
-            dateFrom={dateFrom}
-            dateTo={dateTo}
-          />
+          <TabSwitcher tab={tab} />
         </Suspense>
       </div>
 

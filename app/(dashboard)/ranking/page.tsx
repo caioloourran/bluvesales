@@ -1,6 +1,7 @@
-import { requireAdmin } from "@/lib/auth";
+import { requireAuth } from "@/lib/auth";
 import { getSellerRankings } from "@/lib/kpi";
-import { getDateRange } from "@/lib/format";
+import { sql } from "@/lib/db";
+import { todayBrazil, firstOfMonthBrazil } from "@/lib/format";
 import { RankingClient } from "@/components/ranking/ranking-client";
 
 export const metadata = {
@@ -8,34 +9,33 @@ export const metadata = {
 };
 
 interface Props {
-  searchParams: Promise<{ period?: string; from?: string; to?: string }>;
+  searchParams: Promise<{ tab?: string }>;
 }
 
 export default async function RankingPage({ searchParams }: Props) {
-  await requireAdmin();
+  const session = await requireAuth();
 
   const params = await searchParams;
-  const period = params.period || "30d";
-  let dateFrom: string;
-  let dateTo: string;
+  const tab = params.tab === "today" ? "today" : "month";
 
-  if (period === "custom" && params.from && params.to) {
-    dateFrom = params.from;
-    dateTo = params.to;
-  } else {
-    const range = getDateRange(period);
-    dateFrom = range.from;
-    dateTo = range.to;
-  }
+  const today = todayBrazil();
+  const dateFrom = tab === "today" ? today : firstOfMonthBrazil();
+  const dateTo = today;
 
   const rankings = await getSellerRankings(dateFrom, dateTo);
+
+  const settingsRows = await sql`SELECT team_goal FROM ranking_settings WHERE id = 1`;
+  const teamGoal = Number(settingsRows[0]?.team_goal ?? 0);
+
+  const isAdmin = session.role === "ADMIN_MASTER";
 
   return (
     <RankingClient
       rankings={rankings}
-      period={period}
-      dateFrom={dateFrom}
-      dateTo={dateTo}
+      tab={tab}
+      isAdmin={isAdmin}
+      currentUserId={session.id}
+      teamGoal={teamGoal}
     />
   );
 }
