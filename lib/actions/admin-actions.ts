@@ -357,3 +357,24 @@ export async function deleteFee(id: number) {
     return { error: "Erro ao deletar taxa" };
   }
 }
+
+// ---- GOALS ----
+export async function updateUserGoal(userId: number, goal: number) {
+  await requireAdmin();
+  try {
+    await sql`UPDATE users SET monthly_goal = ${goal} WHERE id = ${userId}`;
+    return { success: true };
+  } catch {
+    return { error: "Erro ao atualizar meta do usuario" };
+  }
+}
+
+export async function updateTeamGoal(goal: number) {
+  await requireAdmin();
+  try {
+    await sql`UPDATE ranking_settings SET team_goal = ${goal} WHERE id = 1`;
+    return { success: true };
+  } catch {
+    return { error: "Erro ao atualizar meta do time" };
+  }
+}
