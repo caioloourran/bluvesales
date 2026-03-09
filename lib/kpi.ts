@@ -64,6 +64,8 @@ export interface DailyResult {
 export interface SellerRanking {
   sellerId: number;
   sellerName: string;
+  sellerAvatar: string | null;
+  monthlyGoal: number;
   salesQty: number;
   grossValue: number;
   netValue: number;
@@ -442,7 +444,7 @@ export async function getSellerRankings(
   const investmentFees = fees.filter((f) => f.applies_to === "INVESTMENT");
 
   // 1. All sellers
-  const sellers = await sql`SELECT id, name FROM users WHERE role = 'SELLER' ORDER BY name`;
+  const sellers = await sql`SELECT id, name, avatar, monthly_goal FROM users WHERE role = 'SELLER' ORDER BY name`;
 
   // 2. Ad data grouped by seller - single query
   const adData = await sql`
@@ -487,6 +489,8 @@ export async function getSellerRankings(
     rankings.push({
       sellerId: sid,
       sellerName: seller.name,
+      sellerAvatar: seller.avatar ?? null,
+      monthlyGoal: Number(seller.monthly_goal ?? 0),
       salesQty: agg.salesQty,
       grossValue: agg.grossValue,
       netValue: agg.netValue,
