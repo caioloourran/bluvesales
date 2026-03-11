@@ -1,7 +1,7 @@
 // app/(dashboard)/pedidos/page.tsx
 import { requireAuth } from "@/lib/auth";
 import { sql } from "@/lib/db";
-import { KanbanBoard } from "@/components/pedidos/kanban-board";
+import { PedidosDashboard } from "@/components/pedidos/pedidos-dashboard";
 
 export const metadata = {
   title: "Pedidos - AfterPay",
@@ -48,7 +48,7 @@ export default async function PedidosPage() {
   `;
 
   return (
-    <KanbanBoard
+    <PedidosDashboard
       initialOrders={orders as any}
       products={products as any}
       plans={plans as any}
