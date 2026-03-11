@@ -25,39 +25,62 @@ export interface OrderFormData {
 export async function createOrderAction(data: OrderFormData) {
   const session = await requireAuth();
 
-  await sql`
-    INSERT INTO orders (
-      cpf, nome, email, whatsapp,
-      cep, rua, numero, bairro, cidade, estado, complemento,
-      product_id, plan_id, comprovante, seller_id
-    ) VALUES (
-      ${data.cpf}, ${data.nome}, ${data.email || null}, ${data.whatsapp},
-      ${data.cep}, ${data.rua}, ${data.numero}, ${data.bairro},
-      ${data.cidade}, ${data.estado}, ${data.complemento || null},
-      ${data.product_id || null}, ${data.plan_id || null},
-      ${data.comprovante || null}, ${session.id}
-    )
-  `;
+  try {
+    await sql`
+      INSERT INTO orders (
+        cpf, nome, email, whatsapp,
+        cep, rua, numero, bairro, cidade, estado, complemento,
+        product_id, plan_id, comprovante, seller_id
+      ) VALUES (
+        ${data.cpf}, ${data.nome}, ${data.email || null}, ${data.whatsapp},
+        ${data.cep}, ${data.rua}, ${data.numero}, ${data.bairro},
+        ${data.cidade}, ${data.estado}, ${data.complemento || null},
+        ${data.product_id ?? null}, ${data.plan_id ?? null},
+        ${data.comprovante || null}, ${session.id}
+      )
+    `;
+  } catch {
+    return { error: "Erro ao processar pedido" };
+  }
 
   revalidatePath("/pedidos");
   return { success: true };
 }
 
+const VALID_STATUSES = [
+  "reportados",
+  "enviados",
+  "saiu_para_entrega",
+  "retirar_nos_correios",
+  "requer_atencao",
+  "entregues",
+  "inadimplencias",
+  "frustados",
+  "pagos",
+] as const;
+
 export async function updateOrderStatusAction(id: number, status: string) {
   const session = await requireAuth();
 
-  if (session.role === "SELLER") {
-    await sql`
-      UPDATE orders
-      SET status = ${status}, updated_at = NOW()
-      WHERE id = ${id} AND seller_id = ${session.id}
-    `;
-  } else {
-    await sql`
-      UPDATE orders
-      SET status = ${status}, updated_at = NOW()
-      WHERE id = ${id}
-    `;
+  if (!VALID_STATUSES.includes(status as any)) return { error: "Status inválido" };
+
+  try {
+    if (session.role === "SELLER") {
+      const result = await sql`
+        UPDATE orders
+        SET status = ${status}, updated_at = NOW()
+        WHERE id = ${id} AND seller_id = ${session.id}
+      `;
+      if (result.count === 0) return { error: "Pedido não encontrado" };
+    } else {
+      await sql`
+        UPDATE orders
+        SET status = ${status}, updated_at = NOW()
+        WHERE id = ${id}
+      `;
+    }
+  } catch {
+    return { error: "Erro ao processar pedido" };
   }
 
   revalidatePath("/pedidos");
@@ -67,28 +90,33 @@ export async function updateOrderStatusAction(id: number, status: string) {
 export async function updateOrderAction(id: number, data: OrderFormData) {
   const session = await requireAuth();
 
-  if (session.role === "SELLER") {
-    await sql`
-      UPDATE orders
-      SET cpf = ${data.cpf}, nome = ${data.nome}, email = ${data.email || null},
-          whatsapp = ${data.whatsapp}, cep = ${data.cep}, rua = ${data.rua},
-          numero = ${data.numero}, bairro = ${data.bairro}, cidade = ${data.cidade},
-          estado = ${data.estado}, complemento = ${data.complemento || null},
-          product_id = ${data.product_id || null}, plan_id = ${data.plan_id || null},
-          comprovante = ${data.comprovante || null}, updated_at = NOW()
-      WHERE id = ${id} AND seller_id = ${session.id}
-    `;
-  } else {
-    await sql`
-      UPDATE orders
-      SET cpf = ${data.cpf}, nome = ${data.nome}, email = ${data.email || null},
-          whatsapp = ${data.whatsapp}, cep = ${data.cep}, rua = ${data.rua},
-          numero = ${data.numero}, bairro = ${data.bairro}, cidade = ${data.cidade},
-          estado = ${data.estado}, complemento = ${data.complemento || null},
-          product_id = ${data.product_id || null}, plan_id = ${data.plan_id || null},
-          comprovante = ${data.comprovante || null}, updated_at = NOW()
-      WHERE id = ${id}
-    `;
+  try {
+    if (session.role === "SELLER") {
+      const result = await sql`
+        UPDATE orders
+        SET cpf = ${data.cpf}, nome = ${data.nome}, email = ${data.email || null},
+            whatsapp = ${data.whatsapp}, cep = ${data.cep}, rua = ${data.rua},
+            numero = ${data.numero}, bairro = ${data.bairro}, cidade = ${data.cidade},
+            estado = ${data.estado}, complemento = ${data.complemento || null},
+            product_id = ${data.product_id ?? null}, plan_id = ${data.plan_id ?? null},
+            comprovante = ${data.comprovante || null}, updated_at = NOW()
+        WHERE id = ${id} AND seller_id = ${session.id}
+      `;
+      if (result.count === 0) return { error: "Pedido não encontrado" };
+    } else {
+      await sql`
+        UPDATE orders
+        SET cpf = ${data.cpf}, nome = ${data.nome}, email = ${data.email || null},
+            whatsapp = ${data.whatsapp}, cep = ${data.cep}, rua = ${data.rua},
+            numero = ${data.numero}, bairro = ${data.bairro}, cidade = ${data.cidade},
+            estado = ${data.estado}, complemento = ${data.complemento || null},
+            product_id = ${data.product_id ?? null}, plan_id = ${data.plan_id ?? null},
+            comprovante = ${data.comprovante || null}, updated_at = NOW()
+        WHERE id = ${id}
+      `;
+    }
+  } catch {
+    return { error: "Erro ao processar pedido" };
   }
 
   revalidatePath("/pedidos");
@@ -98,10 +126,15 @@ export async function updateOrderAction(id: number, data: OrderFormData) {
 export async function deleteOrderAction(id: number) {
   const session = await requireAuth();
 
-  if (session.role === "SELLER") {
-    await sql`DELETE FROM orders WHERE id = ${id} AND seller_id = ${session.id}`;
-  } else {
-    await sql`DELETE FROM orders WHERE id = ${id}`;
+  try {
+    if (session.role === "SELLER") {
+      const result = await sql`DELETE FROM orders WHERE id = ${id} AND seller_id = ${session.id}`;
+      if (result.count === 0) return { error: "Pedido não encontrado" };
+    } else {
+      await sql`DELETE FROM orders WHERE id = ${id}`;
+    }
+  } catch {
+    return { error: "Erro ao processar pedido" };
   }
 
   revalidatePath("/pedidos");
