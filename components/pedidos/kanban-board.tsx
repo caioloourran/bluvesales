@@ -1,7 +1,8 @@
 // components/pedidos/kanban-board.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors, closestCenter } from "@dnd-kit/core";
 import { toast } from "sonner";
 import { Plus } from "lucide-react";
@@ -99,17 +100,21 @@ interface Props {
   plans: Plan[];
 }
 
+const VALID_COLUMN_IDS = new Set(KANBAN_COLUMNS.map((c) => c.id));
+
 export function KanbanBoard({ initialOrders, products, plans }: Props) {
+  const router = useRouter();
   const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [activeOrder, setActiveOrder] = useState<Order | null>(null);
   const [newOrderOpen, setNewOrderOpen] = useState(false);
+  const isMoving = useRef(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
   );
 
   function handleDragStart(event: DragStartEvent) {
-    const order = orders.find((o) => o.id === event.active.id);
+    const order = orders.find((o) => o.id === Number(event.active.id));
     setActiveOrder(order ?? null);
   }
 
@@ -117,13 +122,18 @@ export function KanbanBoard({ initialOrders, products, plans }: Props) {
     const { active, over } = event;
     setActiveOrder(null);
 
-    if (!over) return;
+    if (!over || isMoving.current) return;
 
-    const orderId = active.id as number;
-    const newStatus = over.id as string;
+    const orderId = Number(active.id);
+    const newStatus = String(over.id);
+
+    // Guard: only accept valid column ids as drop targets
+    if (!VALID_COLUMN_IDS.has(newStatus as typeof KANBAN_COLUMNS[number]["id"])) return;
+
     const order = orders.find((o) => o.id === orderId);
-
     if (!order || order.status === newStatus) return;
+
+    isMoving.current = true;
 
     // Optimistic update
     setOrders((prev) =>
@@ -131,13 +141,20 @@ export function KanbanBoard({ initialOrders, products, plans }: Props) {
     );
 
     const result = await updateOrderStatusAction(orderId, newStatus);
+    isMoving.current = false;
+
     if ("error" in result) {
       // Revert on error
       setOrders((prev) =>
         prev.map((o) => (o.id === orderId ? { ...o, status: order.status } : o))
       );
-      toast.error(result.error as string);
+      toast.error(result.error ?? "Erro ao atualizar pedido");
     }
+  }
+
+  function handleNewOrderSuccess() {
+    setNewOrderOpen(false);
+    router.refresh();
   }
 
   return (
@@ -188,6 +205,7 @@ export function KanbanBoard({ initialOrders, products, plans }: Props) {
         onOpenChange={setNewOrderOpen}
         products={products}
         plans={plans}
+        onSuccess={handleNewOrderSuccess}
       />
     </div>
   );

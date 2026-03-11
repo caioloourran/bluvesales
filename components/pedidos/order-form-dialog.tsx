@@ -59,6 +59,7 @@ interface Props {
   products: Product[];
   plans: Plan[];
   order?: Order | null;
+  onSuccess?: () => void;
 }
 
 function maskCpf(value: string) {
@@ -82,7 +83,7 @@ function maskCep(value: string) {
   return value.replace(/\D/g, "").slice(0, 8).replace(/(\d{5})(\d)/, "$1-$2");
 }
 
-export function OrderFormDialog({ open, onOpenChange, products, plans, order }: Props) {
+export function OrderFormDialog({ open, onOpenChange, products, plans, order, onSuccess }: Props) {
   const isEdit = !!order;
 
   const [cpf, setCpf] = useState(order?.cpf ?? "");
@@ -178,6 +179,7 @@ export function OrderFormDialog({ open, onOpenChange, products, plans, order }: 
     } else {
       toast.success(isEdit ? "Pedido atualizado!" : "Pedido criado!");
       onOpenChange(false);
+      onSuccess?.();
     }
   }
 
