@@ -55,6 +55,7 @@ interface AppSidebarProps {
 
 const adminLinks = [
   { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
+  { href: "/pedidos", label: "Pedidos", icon: Package2 },
   { href: "/resultado-diario", label: "Resultado Diario", icon: CalendarDays },
   { href: "/ranking", label: "Ranking", icon: Trophy },
   { href: "/sales", label: "Vendas", icon: ShoppingCart },
@@ -66,22 +67,21 @@ const adminLinks = [
   { href: "/commissions", label: "Comissoes", icon: Percent },
   { href: "/fees", label: "Taxas", icon: Receipt },
   { href: "/users", label: "Usuarios", icon: Users },
-  { href: "/pedidos", label: "Pedidos", icon: Package2 },
   { href: "/roleta", label: "Roleta", icon: Gift },
 ];
 
 const cobrancaLinks = [
   { href: "/meu-desempenho", label: "Meu Desempenho", icon: LayoutDashboard },
-  { href: "/cobranca", label: "Cobranca", icon: Banknote },
   { href: "/pedidos", label: "Pedidos", icon: Package2 },
+  { href: "/cobranca", label: "Cobranca", icon: Banknote },
 ];
 
 const sellerLinks = [
   { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
+  { href: "/pedidos", label: "Pedidos", icon: Package2 },
   { href: "/sales", label: "Vendas", icon: ShoppingCart },
   { href: "/history", label: "Historico", icon: ClipboardList },
   { href: "/ranking", label: "Ranking", icon: Trophy },
-  { href: "/pedidos", label: "Pedidos", icon: Package2 },
 ];
 
 function getInitials(name: string): string {
