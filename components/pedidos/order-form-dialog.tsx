@@ -146,6 +146,10 @@ export function OrderFormDialog({ open, onOpenChange, products, plans, order, on
       toast.error("Apenas JPG e PNG são aceitos");
       return;
     }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Arquivo muito grande. Máximo 5 MB");
+      return;
+    }
     const reader = new FileReader();
     reader.onload = () => setComprovante(reader.result as string);
     reader.readAsDataURL(file);
@@ -171,6 +175,8 @@ export function OrderFormDialog({ open, onOpenChange, products, plans, order, on
       result = isEdit
         ? await updateOrderAction(order!.id, data)
         : await createOrderAction(data);
+    } catch {
+      result = { error: "Erro ao processar pedido" };
     } finally {
       setSaving(false);
     }

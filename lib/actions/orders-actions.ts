@@ -55,7 +55,7 @@ const VALID_STATUSES = [
   "requer_atencao",
   "entregues",
   "inadimplencias",
-  "frustados",
+  "frustrados",
   "pagos",
 ] as const;
 

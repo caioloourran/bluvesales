@@ -81,7 +81,7 @@ const KANBAN_COLUMNS = [
     bodyClass: "bg-rose-800/5",
   },
   {
-    id: "frustados",
+    id: "frustrados",
     label: "Frustados",
     headerClass: "bg-gray-500/20 text-gray-600 dark:text-gray-300",
     bodyClass: "bg-gray-500/5",
