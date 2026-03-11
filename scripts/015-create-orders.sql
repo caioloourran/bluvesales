@@ -20,7 +20,12 @@ CREATE TABLE IF NOT EXISTS orders (
   -- Order
   product_id   INTEGER REFERENCES products(id) ON DELETE SET NULL,
   plan_id      INTEGER REFERENCES plans(id)    ON DELETE SET NULL,
-  status       VARCHAR(30)  NOT NULL DEFAULT 'reportados',
+  status       VARCHAR(30)  NOT NULL DEFAULT 'reportados'
+               CHECK (status IN (
+                 'reportados', 'enviados', 'saiu_para_entrega',
+                 'retirar_nos_correios', 'requer_atencao', 'entregues',
+                 'inadimplencias', 'frustados', 'pagos'
+               )),
   comprovante  TEXT,
 
   -- Meta
