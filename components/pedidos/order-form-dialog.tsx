@@ -1,7 +1,7 @@
 // components/pedidos/order-form-dialog.tsx
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -103,6 +103,17 @@ export function OrderFormDialog({ open, onOpenChange, products, plans, order }: 
   const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Reset form when opening in create mode
+  useEffect(() => {
+    if (open && !order) {
+      setCpf(""); setNome(""); setEmail(""); setWhatsapp("");
+      setCep(""); setRua(""); setNumero(""); setBairro("");
+      setCidade(""); setEstado(""); setComplemento("");
+      setProductId(""); setPlanId(""); setComprovante(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }, [open, order]);
+
   const filteredPlans = plans.filter((p) => p.product_id === Number(productId));
 
   async function handleCepBlur() {
@@ -154,10 +165,14 @@ export function OrderFormDialog({ open, onOpenChange, products, plans, order }: 
       plan_id: planId ? Number(planId) : null,
       comprovante,
     };
-    const result = isEdit
-      ? await updateOrderAction(order!.id, data)
-      : await createOrderAction(data);
-    setSaving(false);
+    let result: { success?: true; error?: string };
+    try {
+      result = isEdit
+        ? await updateOrderAction(order!.id, data)
+        : await createOrderAction(data);
+    } finally {
+      setSaving(false);
+    }
     if ("error" in result) {
       toast.error(result.error as string);
     } else {
@@ -359,7 +374,11 @@ export function OrderFormDialog({ open, onOpenChange, products, plans, order }: 
                   />
                   <button
                     type="button"
-                    onClick={() => setComprovante(null)}
+                    aria-label="Remover comprovante"
+                    onClick={() => {
+                      setComprovante(null);
+                      if (fileInputRef.current) fileInputRef.current.value = "";
+                    }}
                     className="absolute -top-2 -right-2 rounded-full bg-destructive p-1 text-destructive-foreground"
                   >
                     <X className="h-3 w-3" />
