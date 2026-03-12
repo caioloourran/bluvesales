@@ -25,26 +25,101 @@ export interface OrderFormData {
 export async function createOrderAction(data: OrderFormData) {
   const session = await requireAuth();
 
+  let orderId: number;
   try {
-    await sql`
+    const result = await sql`
       INSERT INTO orders (
         cpf, nome, email, whatsapp,
         cep, rua, numero, bairro, cidade, estado, complemento,
-        product_id, plan_id, comprovante, seller_id
+        product_id, plan_id, comprovante, seller_id, origin
       ) VALUES (
         ${data.cpf}, ${data.nome}, ${data.email || null}, ${data.whatsapp},
         ${data.cep}, ${data.rua}, ${data.numero}, ${data.bairro},
         ${data.cidade}, ${data.estado}, ${data.complemento || null},
         ${data.product_id ?? null}, ${data.plan_id ?? null},
-        ${data.comprovante || null}, ${session.id}
-      )
+        ${data.comprovante || null}, ${session.id}, 'bluvesales'
+      ) RETURNING id
     `;
+    orderId = result[0].id;
+    // Set order_number so 123log can reference back
+    await sql`UPDATE orders SET order_number = ${String(orderId)} WHERE id = ${orderId}`;
   } catch {
     return { error: "Erro ao processar pedido" };
   }
 
+  // Send to outbound integrations (fire-and-forget, don't block the user)
+  sendToOutboundIntegrations(orderId, data).catch(() => {});
+
   revalidatePath("/pedidos");
   return { success: true };
+}
+
+async function sendToOutboundIntegrations(orderId: number, data: OrderFormData) {
+  // Find all active integrations with outbound configured
+  const integrations = await sql`
+    SELECT outbound_url, outbound_api_key
+    FROM api_keys
+    WHERE active = true AND outbound_url IS NOT NULL AND outbound_api_key IS NOT NULL
+  `;
+
+  if (integrations.length === 0) return;
+
+  // Build product list
+  const products: { name: string; quantity: number; unit_price: number }[] = [];
+  if (data.plan_id) {
+    const plans = await sql`
+      SELECT p.name as product_name, pl.name as plan_name, pl.sale_price_gross
+      FROM plans pl JOIN products p ON p.id = pl.product_id
+      WHERE pl.id = ${data.plan_id}
+    `;
+    if (plans.length > 0) {
+      products.push({
+        name: `${plans[0].product_name} - ${plans[0].plan_name}`,
+        quantity: 1,
+        unit_price: Number(plans[0].sale_price_gross) || 0,
+      });
+    }
+  } else if (data.product_id) {
+    const prods = await sql`SELECT name FROM products WHERE id = ${data.product_id}`;
+    if (prods.length > 0) {
+      products.push({ name: prods[0].name, quantity: 1, unit_price: 0 });
+    }
+  }
+
+  const payload = {
+    order_number: String(orderId),
+    origin: "bluvesales",
+    sale_type: "standard",
+    customer_name: data.nome,
+    customer_email: data.email || null,
+    customer_phone: data.whatsapp,
+    customer_type: "F",
+    customer_doc: data.cpf,
+    customer_address: data.rua,
+    customer_number: data.numero,
+    customer_complement: data.complemento || null,
+    customer_district: data.bairro,
+    customer_zipcode: data.cep,
+    customer_city: data.cidade,
+    customer_state: data.estado,
+    customer_country: "BR",
+    products,
+  };
+
+  for (const integration of integrations) {
+    try {
+      await fetch(integration.outbound_url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Api-Key ${integration.outbound_api_key}`,
+        },
+        body: JSON.stringify(payload),
+      });
+    } catch {
+      // Silently fail — don't block order creation
+    }
+  }
 }
 
 const VALID_STATUSES = [

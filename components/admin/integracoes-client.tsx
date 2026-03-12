@@ -55,6 +55,8 @@ interface Integration {
   api_key: string;
   active: boolean;
   created_at: string;
+  outbound_url: string | null;
+  outbound_api_key: string | null;
 }
 
 interface Props {
@@ -75,11 +77,15 @@ export function IntegracoesClient({ integrations }: Props) {
   // Form state
   const [origin, setOrigin] = useState("");
   const [active, setActive] = useState(true);
+  const [outboundUrl, setOutboundUrl] = useState("");
+  const [outboundApiKey, setOutboundApiKey] = useState("");
 
   function openCreate() {
     setEditTarget(null);
     setOrigin("");
     setActive(true);
+    setOutboundUrl("");
+    setOutboundApiKey("");
     setFormOpen(true);
   }
 
@@ -87,6 +93,8 @@ export function IntegracoesClient({ integrations }: Props) {
     setEditTarget(item);
     setOrigin(item.origin);
     setActive(item.active);
+    setOutboundUrl(item.outbound_url || "");
+    setOutboundApiKey(item.outbound_api_key || "");
     setFormOpen(true);
   }
 
@@ -100,6 +108,8 @@ export function IntegracoesClient({ integrations }: Props) {
       const result = await updateApiKey(editTarget.id, {
         origin,
         active,
+        outbound_url: outboundUrl,
+        outbound_api_key: outboundApiKey,
       });
       setSaving(false);
       if (result.error) {
@@ -110,7 +120,7 @@ export function IntegracoesClient({ integrations }: Props) {
         router.refresh();
       }
     } else {
-      const result = await createApiKey({ origin });
+      const result = await createApiKey({ origin, outbound_url: outboundUrl, outbound_api_key: outboundApiKey });
       setSaving(false);
       if (result.error) {
         toast.error(result.error);
@@ -291,12 +301,24 @@ export function IntegracoesClient({ integrations }: Props) {
                 {/* Endpoint */}
                 <div className="mb-4">
                   <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                    Endpoint
+                    Endpoint (recebimento)
                   </p>
                   <code className="block truncate rounded-md bg-muted px-2.5 py-1.5 font-mono text-xs text-muted-foreground">
                     POST /api/v1/pedidos/{item.origin}
                   </code>
                 </div>
+
+                {/* Outbound */}
+                {item.outbound_url && (
+                  <div className="mb-4">
+                    <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      Envio automático
+                    </p>
+                    <code className="block truncate rounded-md bg-muted px-2.5 py-1.5 font-mono text-xs text-muted-foreground">
+                      POST {item.outbound_url}
+                    </code>
+                  </div>
+                )}
 
                 {/* Footer */}
                 <div className="flex items-center justify-between border-t border-border pt-3">
@@ -377,6 +399,29 @@ export function IntegracoesClient({ integrations }: Props) {
                 </Select>
               </div>
             )}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                URL de envio (outbound)
+              </label>
+              <Input
+                placeholder="ex: https://api.123log.com.br/api/v1/pedidos/bluvesales"
+                value={outboundUrl}
+                onChange={(e) => setOutboundUrl(e.target.value)}
+              />
+              <p className="text-[10px] text-muted-foreground">
+                Se preenchido, pedidos criados serão enviados automaticamente para este endpoint
+              </p>
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                API Key de envio (outbound)
+              </label>
+              <Input
+                placeholder="Chave de API do sistema externo"
+                value={outboundApiKey}
+                onChange={(e) => setOutboundApiKey(e.target.value)}
+              />
+            </div>
           </div>
           <DialogFooter>
             <Button

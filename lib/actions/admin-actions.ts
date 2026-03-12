@@ -361,6 +361,8 @@ export async function deleteFee(id: number) {
 // ---- INTEGRATIONS (API Keys) ----
 export async function createApiKey(data: {
   origin: string;
+  outbound_url?: string;
+  outbound_api_key?: string;
 }) {
   await requireAdmin();
   if (!data.origin.trim()) return { error: "Origin obrigatório" };
@@ -372,8 +374,8 @@ export async function createApiKey(data: {
 
   try {
     await sql`
-      INSERT INTO api_keys (origin, api_key)
-      VALUES (${data.origin.trim().toLowerCase()}, ${apiKey})
+      INSERT INTO api_keys (origin, api_key, outbound_url, outbound_api_key)
+      VALUES (${data.origin.trim().toLowerCase()}, ${apiKey}, ${data.outbound_url?.trim() || null}, ${data.outbound_api_key?.trim() || null})
     `;
     revalidatePath("/integracoes");
     return { success: true, apiKey };
@@ -384,7 +386,7 @@ export async function createApiKey(data: {
 
 export async function updateApiKey(
   id: number,
-  data: { origin: string; active: boolean }
+  data: { origin: string; active: boolean; outbound_url?: string; outbound_api_key?: string }
 ) {
   await requireAdmin();
   if (!data.origin.trim()) return { error: "Origin obrigatório" };
@@ -393,7 +395,9 @@ export async function updateApiKey(
     await sql`
       UPDATE api_keys
       SET origin = ${data.origin.trim().toLowerCase()},
-          active = ${data.active}
+          active = ${data.active},
+          outbound_url = ${data.outbound_url?.trim() || null},
+          outbound_api_key = ${data.outbound_api_key?.trim() || null}
       WHERE id = ${id}
     `;
     revalidatePath("/integracoes");

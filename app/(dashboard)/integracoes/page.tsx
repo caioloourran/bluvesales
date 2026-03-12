@@ -10,7 +10,7 @@ export default async function IntegracoesPage() {
   await requireAdmin();
 
   const integrations = await sql`
-    SELECT id, origin, api_key, active, created_at
+    SELECT id, origin, api_key, active, created_at, outbound_url, outbound_api_key
     FROM api_keys
     ORDER BY created_at DESC
   `;
