@@ -17,6 +17,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogHeader,
@@ -98,7 +104,7 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
   const [sortField, setSortField] = useState<SortField>("created_at");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [expandedRow, setExpandedRow] = useState<number | null>(null);
-  const [sellerFilter, setSellerFilter] = useState("todos");
+  const [sellerFilter, setSellerFilter] = useState<string[]>([]);
 
   // Dialogs
   const [newOrderOpen, setNewOrderOpen] = useState(false);
@@ -108,18 +114,24 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
   const [statusTarget, setStatusTarget] = useState<Order | null>(null);
   const [statusSaving, setStatusSaving] = useState(false);
 
-  // Stage counts
+  // Seller-filtered base for counts
+  const sellerFilteredOrders = useMemo(() => {
+    if (sellerFilter.length === 0) return orders;
+    const ids = new Set(sellerFilter.map(Number));
+    return orders.filter(o => ids.has(o.seller_id));
+  }, [orders, sellerFilter]);
+
+  // Stage counts (respects seller filter)
   const stageCounts = useMemo(() => {
-    const counts: Record<string, number> = { todos: orders.length };
+    const counts: Record<string, number> = { todos: sellerFilteredOrders.length };
     STAGES.forEach(s => { if (s.key !== "todos") counts[s.key] = 0; });
-    orders.forEach(o => { if (counts[o.status] !== undefined) counts[o.status]++; });
+    sellerFilteredOrders.forEach(o => { if (counts[o.status] !== undefined) counts[o.status]++; });
     return counts;
-  }, [orders]);
+  }, [sellerFilteredOrders]);
 
   // Filter + sort
   const filtered = useMemo(() => {
-    let list = orders;
-    if (sellerFilter !== "todos") list = list.filter(o => o.seller_id === Number(sellerFilter));
+    let list = sellerFilteredOrders;
     if (activeStage !== "todos") list = list.filter(o => o.status === activeStage);
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -139,7 +151,7 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
       return 0;
     });
     return list;
-  }, [orders, sellerFilter, activeStage, search, sortField, sortDir]);
+  }, [sellerFilteredOrders, activeStage, search, sortField, sortDir]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
   const safePage = Math.min(page, totalPages);
@@ -223,7 +235,7 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
         <div>
           <h1 className="text-xl font-bold tracking-tight">Pedidos</h1>
           <p className="text-xs text-muted-foreground mt-0.5">
-            {orders.length} pedido{orders.length !== 1 ? "s" : ""} no total
+            {sellerFilteredOrders.length} pedido{sellerFilteredOrders.length !== 1 ? "s" : ""} no total
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -237,18 +249,54 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
             />
           </div>
           {sellers.length > 0 && (
-            <Select value={sellerFilter} onValueChange={v => { setSellerFilter(v); setPage(1); }}>
-              <SelectTrigger className="h-9 w-[180px] text-sm">
-                <Filter className="mr-1.5 h-3.5 w-3.5 text-muted-foreground" />
-                <SelectValue placeholder="Vendedor" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="todos">Todos vendedores</SelectItem>
-                {sellers.map(s => (
-                  <SelectItem key={s.id} value={String(s.id)}>{s.name}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline" size="sm" className="h-9 w-[200px] justify-start text-sm font-normal">
+                  <Filter className="mr-1.5 h-3.5 w-3.5 text-muted-foreground" />
+                  {sellerFilter.length === 0
+                    ? "Todos vendedores"
+                    : sellerFilter.length === 1
+                      ? sellers.find(s => String(s.id) === sellerFilter[0])?.name ?? "1 vendedor"
+                      : `${sellerFilter.length} vendedores`}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[220px] p-2" align="start">
+                <button
+                  type="button"
+                  onClick={() => { setSellerFilter([]); setPage(1); }}
+                  className={cn(
+                    "mb-1 w-full rounded-md px-2 py-1.5 text-left text-sm hover:bg-accent",
+                    sellerFilter.length === 0 && "font-semibold text-foreground"
+                  )}
+                >
+                  Todos vendedores
+                </button>
+                <div className="border-t border-border pt-1 space-y-0.5">
+                  {sellers.map(s => {
+                    const checked = sellerFilter.includes(String(s.id));
+                    return (
+                      <label
+                        key={s.id}
+                        className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent"
+                      >
+                        <Checkbox
+                          checked={checked}
+                          onCheckedChange={() => {
+                            setSellerFilter(prev =>
+                              checked
+                                ? prev.filter(id => id !== String(s.id))
+                                : [...prev, String(s.id)]
+                            );
+                            setPage(1);
+                          }}
+                        />
+                        {s.name}
+                      </label>
+                    );
+                  })}
+                </div>
+              </PopoverContent>
+            </Popover>
           )}
           <Button onClick={() => setNewOrderOpen(true)} size="sm">
             <Plus className="mr-1.5 h-4 w-4" />
