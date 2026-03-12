@@ -4,7 +4,7 @@
 import { useState, useMemo, Fragment } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Plus, Search, ChevronDown, ChevronUp, Pencil, Trash2, MessageCircle, RefreshCw } from "lucide-react";
+import { Plus, Search, ChevronDown, ChevronUp, Pencil, Trash2, MessageCircle, RefreshCw, Filter } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
@@ -29,6 +29,7 @@ import { OrderFormDialog } from "./order-form-dialog";
 import { deleteOrderAction, updateOrderSubStatusAction } from "@/lib/actions/orders-actions";
 import { cn } from "@/lib/utils";
 
+interface Seller { id: number; name: string }
 interface Product { id: number; name: string }
 interface Plan { id: number; product_id: number; plan_name: string }
 interface Order {
@@ -48,6 +49,7 @@ interface Order {
   plan_id: number | null;
   comprovante: string | null;
   status: string;
+  seller_id: number;
   status_envio: string | null;
   status_plataforma: string | null;
   status_pagamento: string | null;
@@ -83,9 +85,10 @@ interface Props {
   initialOrders: Order[];
   products: Product[];
   plans: Plan[];
+  sellers?: Seller[];
 }
 
-export function PedidosDashboard({ initialOrders, products, plans }: Props) {
+export function PedidosDashboard({ initialOrders, products, plans, sellers = [] }: Props) {
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [activeStage, setActiveStage] = useState("todos");
@@ -95,6 +98,7 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
   const [sortField, setSortField] = useState<SortField>("created_at");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [expandedRow, setExpandedRow] = useState<number | null>(null);
+  const [sellerFilter, setSellerFilter] = useState("todos");
 
   // Dialogs
   const [newOrderOpen, setNewOrderOpen] = useState(false);
@@ -115,6 +119,7 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
   // Filter + sort
   const filtered = useMemo(() => {
     let list = orders;
+    if (sellerFilter !== "todos") list = list.filter(o => o.seller_id === Number(sellerFilter));
     if (activeStage !== "todos") list = list.filter(o => o.status === activeStage);
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -134,7 +139,7 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
       return 0;
     });
     return list;
-  }, [orders, activeStage, search, sortField, sortDir]);
+  }, [orders, sellerFilter, activeStage, search, sortField, sortDir]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
   const safePage = Math.min(page, totalPages);
@@ -221,7 +226,7 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
             {orders.length} pedido{orders.length !== 1 ? "s" : ""} no total
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
@@ -231,6 +236,20 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
               className="w-64 pl-9 text-sm"
             />
           </div>
+          {sellers.length > 0 && (
+            <Select value={sellerFilter} onValueChange={v => { setSellerFilter(v); setPage(1); }}>
+              <SelectTrigger className="h-9 w-[180px] text-sm">
+                <Filter className="mr-1.5 h-3.5 w-3.5 text-muted-foreground" />
+                <SelectValue placeholder="Vendedor" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="todos">Todos vendedores</SelectItem>
+                {sellers.map(s => (
+                  <SelectItem key={s.id} value={String(s.id)}>{s.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
           <Button onClick={() => setNewOrderOpen(true)} size="sm">
             <Plus className="mr-1.5 h-4 w-4" />
             Cadastrar Pedido

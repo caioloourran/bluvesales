@@ -39,6 +39,11 @@ export default async function PedidosPage() {
         ORDER BY o.created_at DESC
       `;
 
+  // Fetch sellers for filter (only for non-sellers)
+  const sellers = isSeller
+    ? []
+    : await sql`SELECT id, name FROM users WHERE role = 'SELLER' ORDER BY name`;
+
   const products = await sql`SELECT id, name FROM products WHERE active = true ORDER BY name`;
   const plans = await sql`
     SELECT pl.id, pl.product_id, pl.name AS plan_name
@@ -52,6 +57,7 @@ export default async function PedidosPage() {
       initialOrders={orders as any}
       products={products as any}
       plans={plans as any}
+      sellers={sellers as any}
     />
   );
 }
