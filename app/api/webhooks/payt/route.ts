@@ -26,13 +26,14 @@ export async function POST(req: NextRequest) {
 
     // Payt V1 format:
     // - status: "paid" | "waiting_payment" | "refunded" | "chargeback" | etc.
-    // - link.sources.utm_id: our order ID (set in checkout URL)
-    // - transaction.payment_status: "paid"
+    // - link.query_params.utm_id: our order ID (passed in checkout URL)
+    // - link.sources.utm_id: fallback (Payt puts utm_id in query_params, not sources)
     // - transaction_id: Payt transaction ID
     const status = String(payload.status || "").toLowerCase();
     const link = payload.link as Record<string, unknown> | undefined;
+    const queryParams = link?.query_params as Record<string, unknown> | undefined;
     const sources = link?.sources as Record<string, unknown> | undefined;
-    const utmId = sources?.utm_id;
+    const utmId = queryParams?.utm_id ?? sources?.utm_id;
 
     if (utmId) {
       const orderId = Number(utmId);
