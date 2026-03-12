@@ -25,6 +25,7 @@ import {
   Menu,
   Gift,
   Package2,
+  Plug,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
@@ -68,6 +69,7 @@ const adminLinks = [
   { href: "/fees", label: "Taxas", icon: Receipt },
   { href: "/users", label: "Usuarios", icon: Users },
   { href: "/roleta", label: "Roleta", icon: Gift },
+  { href: "/integracoes", label: "Integrações", icon: Plug },
 ];
 
 const cobrancaLinks = [

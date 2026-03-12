@@ -358,6 +358,79 @@ export async function deleteFee(id: number) {
   }
 }
 
+// ---- INTEGRATIONS (API Keys) ----
+export async function createApiKey(data: {
+  origin: string;
+  sellerId: number;
+}) {
+  await requireAdmin();
+  if (!data.origin.trim()) return { error: "Origin obrigatório" };
+
+  // Generate a random API key
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  const apiKey = Array.from(bytes, b => b.toString(16).padStart(2, "0")).join("");
+
+  try {
+    await sql`
+      INSERT INTO api_keys (origin, api_key, seller_id)
+      VALUES (${data.origin.trim().toLowerCase()}, ${apiKey}, ${data.sellerId})
+    `;
+    revalidatePath("/integracoes");
+    return { success: true, apiKey };
+  } catch {
+    return { error: "Erro ao criar integração. Origin pode já existir." };
+  }
+}
+
+export async function updateApiKey(
+  id: number,
+  data: { origin: string; sellerId: number; active: boolean }
+) {
+  await requireAdmin();
+  if (!data.origin.trim()) return { error: "Origin obrigatório" };
+
+  try {
+    await sql`
+      UPDATE api_keys
+      SET origin = ${data.origin.trim().toLowerCase()},
+          seller_id = ${data.sellerId},
+          active = ${data.active}
+      WHERE id = ${id}
+    `;
+    revalidatePath("/integracoes");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao atualizar integração" };
+  }
+}
+
+export async function regenerateApiKey(id: number) {
+  await requireAdmin();
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  const apiKey = Array.from(bytes, b => b.toString(16).padStart(2, "0")).join("");
+
+  try {
+    await sql`UPDATE api_keys SET api_key = ${apiKey} WHERE id = ${id}`;
+    revalidatePath("/integracoes");
+    return { success: true, apiKey };
+  } catch {
+    return { error: "Erro ao regenerar chave" };
+  }
+}
+
+export async function deleteApiKey(id: number) {
+  await requireAdmin();
+  try {
+    await sql`DELETE FROM api_keys WHERE id = ${id}`;
+    revalidatePath("/integracoes");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao deletar integração" };
+  }
+}
+
 // ---- GOALS ----
 export async function updateUserGoal(userId: number, goal: number) {
   await requireAdmin();
