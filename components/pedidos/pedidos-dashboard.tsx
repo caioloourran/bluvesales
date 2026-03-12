@@ -4,7 +4,7 @@
 import { useState, useMemo, Fragment } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Plus, Search, ChevronDown, ChevronUp, Pencil, Trash2, MessageCircle, RefreshCw, Filter } from "lucide-react";
+import { Plus, Search, ChevronDown, ChevronUp, Pencil, Trash2, MessageCircle, RefreshCw, Filter, FileText, ExternalLink, Copy, Loader2 } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { OrderFormDialog } from "./order-form-dialog";
 import { deleteOrderAction, updateOrderSubStatusAction } from "@/lib/actions/orders-actions";
+import { generateBoletoAction } from "@/lib/actions/asaas-actions";
 import { cn } from "@/lib/utils";
 
 interface Seller { id: number; name: string }
@@ -60,6 +61,7 @@ interface Order {
   status_plataforma: string | null;
   status_pagamento: string | null;
   tracking_code: string | null;
+  boleto_url: string | null;
   seller_name: string;
   product_name: string | null;
   plan_name: string | null;
@@ -114,6 +116,7 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
   const [deleting, setDeleting] = useState(false);
   const [statusTarget, setStatusTarget] = useState<Order | null>(null);
   const [statusSaving, setStatusSaving] = useState(false);
+  const [boletoLoading, setBoletoLoading] = useState<number | null>(null);
 
   // Seller-filtered base for counts
   const sellerFilteredOrders = useMemo(() => {
@@ -205,6 +208,27 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
           : o
       ));
       setStatusTarget(prev => prev ? { ...prev, [field]: value, ...(result.newMainStatus ? { status: result.newMainStatus } : {}) } : null);
+    }
+  }
+
+  async function handleGenerateBoleto(order: Order) {
+    setBoletoLoading(order.id);
+    const result = await generateBoletoAction(order.id);
+    setBoletoLoading(null);
+    if (result.error) {
+      if (result.boleto_url) {
+        // Already generated — just show it
+        toast.info("Boleto já foi gerado anteriormente");
+        window.open(result.boleto_url, "_blank");
+      } else {
+        toast.error(result.error);
+      }
+    } else {
+      toast.success("Boleto gerado com sucesso!");
+      setOrders(prev => prev.map(o =>
+        o.id === order.id ? { ...o, boleto_url: result.boleto_url! } : o
+      ));
+      window.open(result.boleto_url!, "_blank");
     }
   }
 
@@ -439,6 +463,31 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
                               <RefreshCw className="mr-1.5 h-3.5 w-3.5" />
                               Editar Status
                             </Button>
+                            {order.boleto_url ? (
+                              <div className="flex gap-1">
+                                <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); window.open(order.boleto_url!, "_blank"); }}>
+                                  <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
+                                  Ver Boleto
+                                </Button>
+                                <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); navigator.clipboard.writeText(order.boleto_url!); toast.success("Link copiado!"); }}>
+                                  <Copy className="h-3.5 w-3.5" />
+                                </Button>
+                              </div>
+                            ) : (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                disabled={boletoLoading === order.id}
+                                onClick={(e) => { e.stopPropagation(); handleGenerateBoleto(order); }}
+                              >
+                                {boletoLoading === order.id ? (
+                                  <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+                                ) : (
+                                  <FileText className="mr-1.5 h-3.5 w-3.5" />
+                                )}
+                                Gerar Boleto
+                              </Button>
+                            )}
                             <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); openWhatsApp(order); }}>
                               <MessageCircle className="mr-1.5 h-3.5 w-3.5" />
                               WhatsApp
@@ -509,6 +558,21 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
                       <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); setStatusTarget(order); }}>
                         <RefreshCw className="mr-1 h-3 w-3" /> Status
                       </Button>
+                      {order.boleto_url ? (
+                        <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); window.open(order.boleto_url!, "_blank"); }}>
+                          <ExternalLink className="mr-1 h-3 w-3" /> Boleto
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          disabled={boletoLoading === order.id}
+                          onClick={(e) => { e.stopPropagation(); handleGenerateBoleto(order); }}
+                        >
+                          {boletoLoading === order.id ? <Loader2 className="mr-1 h-3 w-3 animate-spin" /> : <FileText className="mr-1 h-3 w-3" />}
+                          Boleto
+                        </Button>
+                      )}
                       <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); openWhatsApp(order); }}>
                         <MessageCircle className="mr-1 h-3 w-3" /> WhatsApp
                       </Button>
