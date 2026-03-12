@@ -123,6 +123,82 @@ export async function updateOrderAction(id: number, data: OrderFormData) {
   return { success: true };
 }
 
+const SUBSTATUS_FIELDS = ["status_envio", "status_plataforma", "status_pagamento"] as const;
+type SubStatusField = typeof SUBSTATUS_FIELDS[number];
+
+// Maps sub-status values to the main status (tab) the order should move to
+const SUBSTATUS_TO_MAIN: Record<string, Record<string, string>> = {
+  status_envio: { entregue: "entregues" },
+  status_plataforma: { cobrado: "inadimplencias" },
+  status_pagamento: { pago: "pagos" },
+};
+
+export async function updateOrderSubStatusAction(
+  id: number,
+  updates: { status_envio?: string; status_plataforma?: string; status_pagamento?: string }
+) {
+  const session = await requireAuth();
+
+  // Determine new main status from sub-status changes
+  let newMainStatus: string | null = null;
+  for (const field of SUBSTATUS_FIELDS) {
+    const value = updates[field];
+    if (value && SUBSTATUS_TO_MAIN[field]?.[value]) {
+      newMainStatus = SUBSTATUS_TO_MAIN[field][value];
+    }
+  }
+
+  try {
+    if (session.role === "SELLER") {
+      const result = newMainStatus
+        ? await sql`
+            UPDATE orders
+            SET status_envio = COALESCE(${updates.status_envio ?? null}, status_envio),
+                status_plataforma = COALESCE(${updates.status_plataforma ?? null}, status_plataforma),
+                status_pagamento = COALESCE(${updates.status_pagamento ?? null}, status_pagamento),
+                status = ${newMainStatus},
+                updated_at = NOW()
+            WHERE id = ${id} AND seller_id = ${session.id}
+          `
+        : await sql`
+            UPDATE orders
+            SET status_envio = COALESCE(${updates.status_envio ?? null}, status_envio),
+                status_plataforma = COALESCE(${updates.status_plataforma ?? null}, status_plataforma),
+                status_pagamento = COALESCE(${updates.status_pagamento ?? null}, status_pagamento),
+                updated_at = NOW()
+            WHERE id = ${id} AND seller_id = ${session.id}
+          `;
+      if (result.count === 0) return { error: "Pedido não encontrado" };
+    } else {
+      if (newMainStatus) {
+        await sql`
+          UPDATE orders
+          SET status_envio = COALESCE(${updates.status_envio ?? null}, status_envio),
+              status_plataforma = COALESCE(${updates.status_plataforma ?? null}, status_plataforma),
+              status_pagamento = COALESCE(${updates.status_pagamento ?? null}, status_pagamento),
+              status = ${newMainStatus},
+              updated_at = NOW()
+          WHERE id = ${id}
+        `;
+      } else {
+        await sql`
+          UPDATE orders
+          SET status_envio = COALESCE(${updates.status_envio ?? null}, status_envio),
+              status_plataforma = COALESCE(${updates.status_plataforma ?? null}, status_plataforma),
+              status_pagamento = COALESCE(${updates.status_pagamento ?? null}, status_pagamento),
+              updated_at = NOW()
+          WHERE id = ${id}
+        `;
+      }
+    }
+  } catch {
+    return { error: "Erro ao atualizar status" };
+  }
+
+  revalidatePath("/pedidos");
+  return { success: true, newMainStatus };
+}
+
 export async function deleteOrderAction(id: number) {
   const session = await requireAuth();
 

@@ -4,7 +4,7 @@
 import { useState, useMemo, Fragment } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Plus, Search, ChevronDown, ChevronUp, Pencil, Trash2, MessageCircle, Copy } from "lucide-react";
+import { Plus, Search, ChevronDown, ChevronUp, Pencil, Trash2, MessageCircle, RefreshCw } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,7 @@ import {
   AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
 import { OrderFormDialog } from "./order-form-dialog";
-import { deleteOrderAction, updateOrderStatusAction } from "@/lib/actions/orders-actions";
+import { deleteOrderAction, updateOrderSubStatusAction } from "@/lib/actions/orders-actions";
 import { cn } from "@/lib/utils";
 
 interface Product { id: number; name: string }
@@ -48,6 +48,9 @@ interface Order {
   plan_id: number | null;
   comprovante: string | null;
   status: string;
+  status_envio: string | null;
+  status_plataforma: string | null;
+  status_pagamento: string | null;
   seller_name: string;
   product_name: string | null;
   plan_name: string | null;
@@ -95,6 +98,8 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
   const [editOrder, setEditOrder] = useState<Order | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Order | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [statusTarget, setStatusTarget] = useState<Order | null>(null);
+  const [statusSaving, setStatusSaving] = useState(false);
 
   // Stage counts
   const stageCounts = useMemo(() => {
@@ -161,6 +166,24 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
       setOrders(prev => prev.filter(o => o.id !== deleteTarget.id));
       setDeleteTarget(null);
       setExpandedRow(null);
+    }
+  }
+
+  async function handleSubStatusChange(field: "status_envio" | "status_plataforma" | "status_pagamento", value: string) {
+    if (!statusTarget) return;
+    setStatusSaving(true);
+    const result = await updateOrderSubStatusAction(statusTarget.id, { [field]: value });
+    setStatusSaving(false);
+    if ("error" in result) {
+      toast.error(result.error as string);
+    } else {
+      toast.success("Status atualizado!");
+      setOrders(prev => prev.map(o =>
+        o.id === statusTarget.id
+          ? { ...o, [field]: value, ...(result.newMainStatus ? { status: result.newMainStatus } : {}) }
+          : o
+      ));
+      setStatusTarget(prev => prev ? { ...prev, [field]: value, ...(result.newMainStatus ? { status: result.newMainStatus } : {}) } : null);
     }
   }
 
@@ -335,7 +358,11 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
                               <img src={order.comprovante} alt="Comprovante" className="max-h-28 rounded-lg border object-contain" />
                             </div>
                           )}
-                          <div className="flex items-start gap-2 pt-5">
+                          <div className="flex flex-wrap items-start gap-2 pt-5">
+                            <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); setStatusTarget(order); }}>
+                              <RefreshCw className="mr-1.5 h-3.5 w-3.5" />
+                              Editar Status
+                            </Button>
                             <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); openWhatsApp(order); }}>
                               <MessageCircle className="mr-1.5 h-3.5 w-3.5" />
                               WhatsApp
@@ -402,6 +429,9 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
                       <p>Data: {formatDate(order.created_at)}</p>
                     </div>
                     <div className="flex flex-wrap gap-2 pt-1">
+                      <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); setStatusTarget(order); }}>
+                        <RefreshCw className="mr-1 h-3 w-3" /> Status
+                      </Button>
                       <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); openWhatsApp(order); }}>
                         <MessageCircle className="mr-1 h-3 w-3" /> WhatsApp
                       </Button>
@@ -507,6 +537,73 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
           onSuccess={handleOrderSuccess}
         />
       )}
+
+      {/* Status Editor Dialog */}
+      <AlertDialog open={!!statusTarget} onOpenChange={(open) => { if (!open) setStatusTarget(null); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Editar Status — Pedido #{statusTarget?.id}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {statusTarget?.nome}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="space-y-4 py-2">
+            {/* Status de Envio */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status de Envio</label>
+              <Select
+                value={statusTarget?.status_envio ?? ""}
+                onValueChange={(v) => handleSubStatusChange("status_envio", v)}
+                disabled={statusSaving}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="entregue">Entregue</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Status da Plataforma */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status da Plataforma</label>
+              <Select
+                value={statusTarget?.status_plataforma ?? ""}
+                onValueChange={(v) => handleSubStatusChange("status_plataforma", v)}
+                disabled={statusSaving}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="cobrado">Cobrado</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Status de Pagamento */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status de Pagamento</label>
+              <Select
+                value={statusTarget?.status_pagamento ?? ""}
+                onValueChange={(v) => handleSubStatusChange("status_pagamento", v)}
+                disabled={statusSaving}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="pago">Pago</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Fechar</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* Delete Confirmation */}
       <AlertDialog open={!!deleteTarget} onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}>
