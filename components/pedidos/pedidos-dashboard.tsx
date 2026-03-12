@@ -67,7 +67,7 @@ const STAGES = [
   { key: "entregues", label: "Entregues", color: "text-green-400", dot: "bg-green-400", pill: "bg-green-500/15", tabActive: "border-green-400 bg-green-950/60" },
   { key: "cobrados", label: "Cobrados", color: "text-amber-400", dot: "bg-amber-400", pill: "bg-amber-500/15", tabActive: "border-amber-400 bg-amber-950/60" },
   { key: "pagos", label: "Pagos", color: "text-emerald-400", dot: "bg-emerald-400", pill: "bg-emerald-500/15", tabActive: "border-emerald-400 bg-emerald-950/60" },
-  { key: "inadimplencias", label: "Inadimplências", color: "text-rose-500", dot: "bg-rose-500", pill: "bg-rose-500/15", tabActive: "border-rose-500 bg-rose-950/60" },
+  { key: "inadimplencias", label: "Jurídico", color: "text-rose-500", dot: "bg-rose-500", pill: "bg-rose-500/15", tabActive: "border-rose-500 bg-rose-950/60" },
   { key: "aguardando_devolucao", label: "Aguardando Devolução", color: "text-sky-400", dot: "bg-sky-400", pill: "bg-sky-500/15", tabActive: "border-sky-400 bg-sky-950/60" },
   { key: "devolvido", label: "Devolvido", color: "text-violet-400", dot: "bg-violet-400", pill: "bg-violet-500/15", tabActive: "border-violet-400 bg-violet-950/60" },
   { key: "frustrados", label: "Frustrados", color: "text-zinc-500", dot: "bg-zinc-500", pill: "bg-zinc-500/15", tabActive: "border-zinc-500 bg-zinc-800/50" },
