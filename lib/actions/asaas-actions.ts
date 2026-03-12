@@ -5,7 +5,7 @@ import { sql } from "@/lib/db";
 import { requireAuth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
-const ASAAS_API_URL = "https://api.asaas.com/api/v3";
+const ASAAS_API_URL = "https://api.asaas.com/v3";
 
 async function asaasFetch(path: string, options: RequestInit = {}) {
   const apiKey = process.env.ASAAS_API_KEY;
