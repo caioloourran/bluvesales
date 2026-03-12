@@ -6,20 +6,31 @@ import { requireAuth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
 const ASAAS_API_URL = "https://api.asaas.com/api/v3";
-const ASAAS_API_KEY = process.env.ASAAS_API_KEY!;
 
 async function asaasFetch(path: string, options: RequestInit = {}) {
+  const apiKey = process.env.ASAAS_API_KEY;
+  if (!apiKey) throw new Error("ASAAS_API_KEY não configurada");
+
   const res = await fetch(`${ASAAS_API_URL}${path}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
-      access_token: ASAAS_API_KEY,
+      access_token: apiKey,
       ...options.headers,
     },
   });
-  const data = await res.json();
+
+  const text = await res.text();
+  let data: Record<string, unknown>;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error(`Asaas retornou resposta inválida (${res.status}): ${text.slice(0, 200)}`);
+  }
+
   if (!res.ok) {
-    const msg = data.errors?.[0]?.description || data.message || "Erro na API Asaas";
+    const errors = data.errors as Array<{ description?: string }> | undefined;
+    const msg = errors?.[0]?.description || (data.message as string) || `Erro Asaas (${res.status})`;
     throw new Error(msg);
   }
   return data;
