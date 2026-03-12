@@ -15,5 +15,7 @@ export default async function IntegracoesPage() {
     ORDER BY created_at DESC
   `;
 
-  return <IntegracoesClient integrations={integrations as any} />;
+  const hasAsaasKey = !!process.env.ASAAS_API_KEY;
+
+  return <IntegracoesClient integrations={integrations as any} asaasConfigured={hasAsaasKey} />;
 }

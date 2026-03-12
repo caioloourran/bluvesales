@@ -14,6 +14,7 @@ import {
   EyeOff,
   Plug,
   Check,
+  CreditCard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -61,9 +62,10 @@ interface Integration {
 
 interface Props {
   integrations: Integration[];
+  asaasConfigured?: boolean;
 }
 
-export function IntegracoesClient({ integrations }: Props) {
+export function IntegracoesClient({ integrations, asaasConfigured }: Props) {
   const router = useRouter();
   const [formOpen, setFormOpen] = useState(false);
   const [editTarget, setEditTarget] = useState<Integration | null>(null);
@@ -360,6 +362,49 @@ export function IntegracoesClient({ integrations }: Props) {
           </div>
         )}
       </div>
+
+      {/* Asaas Fixed Integration Card */}
+      {asaasConfigured && (
+        <div className="border-t border-border px-4 py-4 sm:px-6">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            Integrações de Pagamento
+          </p>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="rounded-xl border border-border bg-card p-5">
+              <div className="mb-4 flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/15 text-blue-500">
+                    <CreditCard className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">Asaas</p>
+                    <p className="text-[10px] text-muted-foreground">Pagamentos e Cobranças</p>
+                  </div>
+                </div>
+                <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-500">
+                  Ativo
+                </span>
+              </div>
+              <div className="mb-4">
+                <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                  Funcionalidade
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Geração de boletos diretamente nos detalhes do pedido. Dados do cliente são enviados automaticamente.
+                </p>
+              </div>
+              <div>
+                <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                  Configuração
+                </p>
+                <code className="block truncate rounded-md bg-muted px-2.5 py-1.5 font-mono text-xs text-muted-foreground">
+                  Via variável de ambiente (ASAAS_API_KEY)
+                </code>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Create/Edit Dialog */}
       <Dialog open={formOpen} onOpenChange={setFormOpen}>
