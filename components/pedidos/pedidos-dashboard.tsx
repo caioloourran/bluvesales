@@ -239,6 +239,8 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
       <div className="flex gap-1.5 overflow-x-auto border-b border-border px-4 py-3 sm:px-6">
         {STAGES.map(s => {
           const isActive = activeStage === s.key;
+          const count = stageCounts[s.key] ?? 0;
+          const hasOrders = count > 0;
           return (
             <button
               key={s.key}
@@ -256,11 +258,11 @@ export function PedidosDashboard({ initialOrders, products, plans }: Props) {
               </span>
               <span className={cn(
                 "rounded-full px-1.5 py-0.5 text-[10px] font-bold tabular-nums",
-                isActive
+                isActive || hasOrders
                   ? `${s.pill} ${s.color}`
                   : "bg-muted text-muted-foreground"
               )}>
-                {stageCounts[s.key] ?? 0}
+                {count}
               </span>
             </button>
           );
