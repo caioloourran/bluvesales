@@ -59,6 +59,7 @@ interface Order {
   status_envio: string | null;
   status_plataforma: string | null;
   status_pagamento: string | null;
+  tracking_code: string | null;
   seller_name: string;
   product_name: string | null;
   plan_name: string | null;
@@ -417,6 +418,9 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
                               <p><span className="text-muted-foreground/60">CPF:</span> {order.cpf}</p>
                               <p><span className="text-muted-foreground/60">E-mail:</span> {order.email || "—"}</p>
                               <p><span className="text-muted-foreground/60">Vendedor:</span> {order.seller_name}</p>
+                              {order.tracking_code && (
+                                <p><span className="text-muted-foreground/60">Rastreio:</span> <span className="font-mono text-foreground">{order.tracking_code}</span></p>
+                              )}
                               <p>
                                 <span className="text-muted-foreground/60">Endereço:</span>{" "}
                                 {order.rua}, {order.numero}{order.complemento ? ` - ${order.complemento}` : ""} — {order.bairro}, {order.cidade}/{order.estado} — CEP {order.cep}
@@ -498,6 +502,7 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
                       <p>CPF: {order.cpf}</p>
                       <p>WhatsApp: {order.whatsapp}</p>
                       <p>Vendedor: {order.seller_name}</p>
+                      {order.tracking_code && <p>Rastreio: <span className="font-mono">{order.tracking_code}</span></p>}
                       <p>Data: {formatDate(order.created_at)}</p>
                     </div>
                     <div className="flex flex-wrap gap-2 pt-1">
