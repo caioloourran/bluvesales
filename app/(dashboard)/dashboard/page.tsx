@@ -1,6 +1,14 @@
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { calculateKPIs } from "@/lib/kpi";
+import {
+  calculateKPIs,
+  getOrderStats,
+  getOrdersByState,
+  getWeeklyChart,
+  getSellerRankings,
+  getCobrancaPerformance,
+  getDailyMetrics,
+} from "@/lib/kpi";
 import { getDateRange } from "@/lib/format";
 import { DashboardClient } from "@/components/dashboard/dashboard-client";
 
@@ -32,11 +40,27 @@ export default async function DashboardPage({ searchParams }: Props) {
 
   const isSeller = session.role === "SELLER";
   const sellerId = isSeller ? session.id : undefined;
-  const kpis = await calculateKPIs(dateFrom, dateTo, sellerId);
+
+  const [kpis, orderStats, stateRanking, weeklyData, sellerRankings, cobrancaPerf, dailyMetrics] =
+    await Promise.all([
+      calculateKPIs(dateFrom, dateTo, sellerId),
+      getOrderStats(dateFrom, dateTo, sellerId),
+      getOrdersByState(dateFrom, dateTo, sellerId),
+      getWeeklyChart(dateFrom, dateTo, sellerId),
+      isSeller ? Promise.resolve([]) : getSellerRankings(dateFrom, dateTo),
+      isSeller ? Promise.resolve([]) : getCobrancaPerformance(dateFrom, dateTo),
+      getDailyMetrics(dateFrom, dateTo, sellerId),
+    ]);
 
   return (
     <DashboardClient
       kpis={kpis}
+      orderStats={orderStats}
+      stateRanking={stateRanking}
+      weeklyData={weeklyData}
+      sellerRankings={sellerRankings}
+      cobrancaPerf={cobrancaPerf}
+      dailyMetrics={dailyMetrics}
       period={period}
       dateFrom={dateFrom}
       dateTo={dateTo}

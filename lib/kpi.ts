@@ -508,3 +508,173 @@ export async function getSellerRankings(
   rankings.sort((a, b) => b.profit - a.profit);
   return rankings;
 }
+
+// ---- Order Stats (frustrados, totals from orders table) ----
+export interface OrderStats {
+  totalOrders: number;
+  frustradosCount: number;
+  frustradosRate: number;
+  pagosCount: number;
+  cobradosCount: number;
+}
+
+export async function getOrderStats(
+  dateFrom: string,
+  dateTo: string,
+  sellerId?: number
+): Promise<OrderStats> {
+  const rows = sellerId
+    ? await sql`
+        SELECT
+          COUNT(*) as total,
+          COUNT(*) FILTER (WHERE status = 'frustrados') as frustrados,
+          COUNT(*) FILTER (WHERE status = 'pagos') as pagos,
+          COUNT(*) FILTER (WHERE status = 'cobrados') as cobrados
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
+          AND seller_id = ${sellerId}`
+    : await sql`
+        SELECT
+          COUNT(*) as total,
+          COUNT(*) FILTER (WHERE status = 'frustrados') as frustrados,
+          COUNT(*) FILTER (WHERE status = 'pagos') as pagos,
+          COUNT(*) FILTER (WHERE status = 'cobrados') as cobrados
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}`;
+
+  const total = Number(rows[0]?.total || 0);
+  const frustrados = Number(rows[0]?.frustrados || 0);
+  return {
+    totalOrders: total,
+    frustradosCount: frustrados,
+    frustradosRate: total > 0 ? frustrados / total : 0,
+    pagosCount: Number(rows[0]?.pagos || 0),
+    cobradosCount: Number(rows[0]?.cobrados || 0),
+  };
+}
+
+// ---- Orders by State (geographic ranking) ----
+export interface StateRanking {
+  estado: string;
+  count: number;
+}
+
+export async function getOrdersByState(
+  dateFrom: string,
+  dateTo: string,
+  sellerId?: number
+): Promise<StateRanking[]> {
+  const rows = sellerId
+    ? await sql`
+        SELECT UPPER(estado) as estado, COUNT(*) as count
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
+          AND seller_id = ${sellerId}
+        GROUP BY UPPER(estado)
+        ORDER BY count DESC
+        LIMIT 15`
+    : await sql`
+        SELECT UPPER(estado) as estado, COUNT(*) as count
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
+        GROUP BY UPPER(estado)
+        ORDER BY count DESC
+        LIMIT 15`;
+
+  return rows.map((r) => ({
+    estado: String(r.estado),
+    count: Number(r.count),
+  }));
+}
+
+// ---- Weekly Chart Data ----
+export interface WeeklyData {
+  weekLabel: string;
+  agendados: number;
+  aprovados: number;
+  frustrados: number;
+}
+
+export async function getWeeklyChart(
+  dateFrom: string,
+  dateTo: string,
+  sellerId?: number
+): Promise<WeeklyData[]> {
+  const rows = sellerId
+    ? await sql`
+        SELECT
+          date_trunc('week', created_at)::date as week_start,
+          COUNT(*) as total,
+          COUNT(*) FILTER (WHERE status = 'pagos') as aprovados,
+          COUNT(*) FILTER (WHERE status = 'frustrados') as frustrados
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
+          AND seller_id = ${sellerId}
+        GROUP BY week_start
+        ORDER BY week_start`
+    : await sql`
+        SELECT
+          date_trunc('week', created_at)::date as week_start,
+          COUNT(*) as total,
+          COUNT(*) FILTER (WHERE status = 'pagos') as aprovados,
+          COUNT(*) FILTER (WHERE status = 'frustrados') as frustrados
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
+        GROUP BY week_start
+        ORDER BY week_start`;
+
+  return rows.map((r) => {
+    const ws = new Date(r.week_start);
+    const label = ws.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+    return {
+      weekLabel: label,
+      agendados: Number(r.total),
+      aprovados: Number(r.aprovados),
+      frustrados: Number(r.frustrados),
+    };
+  });
+}
+
+// ---- Cobrança Performance (billing effectiveness per seller) ----
+export interface CobrancaPerformance {
+  sellerId: number;
+  sellerName: string;
+  totalOrders: number;
+  cobrados: number;
+  pagos: number;
+  frustrados: number;
+  conversionRate: number;
+}
+
+export async function getCobrancaPerformance(
+  dateFrom: string,
+  dateTo: string
+): Promise<CobrancaPerformance[]> {
+  const rows = await sql`
+    SELECT
+      u.id as seller_id,
+      u.name as seller_name,
+      COUNT(*) as total_orders,
+      COUNT(*) FILTER (WHERE o.status = 'cobrados') as cobrados,
+      COUNT(*) FILTER (WHERE o.status = 'pagos') as pagos,
+      COUNT(*) FILTER (WHERE o.status = 'frustrados') as frustrados
+    FROM orders o
+    JOIN users u ON u.id = o.seller_id
+    WHERE o.created_at::date >= ${dateFrom} AND o.created_at::date <= ${dateTo}
+    GROUP BY u.id, u.name
+    ORDER BY pagos DESC`;
+
+  return rows.map((r) => {
+    const total = Number(r.total_orders);
+    const pagos = Number(r.pagos);
+    return {
+      sellerId: r.seller_id,
+      sellerName: r.seller_name,
+      totalOrders: total,
+      cobrados: Number(r.cobrados),
+      pagos,
+      frustrados: Number(r.frustrados),
+      conversionRate: total > 0 ? pagos / total : 0,
+    };
+  });
+}
