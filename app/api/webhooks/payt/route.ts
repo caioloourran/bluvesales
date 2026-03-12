@@ -4,7 +4,6 @@ import { sql } from "@/lib/db";
 
 export async function POST(req: NextRequest) {
   try {
-    // Parse body — could be JSON or form-encoded
     const contentType = req.headers.get("content-type") || "";
     let payload: Record<string, unknown>;
 
@@ -14,7 +13,6 @@ export async function POST(req: NextRequest) {
       const formData = await req.formData();
       payload = Object.fromEntries(formData.entries());
     } else {
-      // Try JSON first, fallback to text
       const text = await req.text();
       try {
         payload = JSON.parse(text);
@@ -26,23 +24,41 @@ export async function POST(req: NextRequest) {
     // Log the webhook for debugging
     await sql`INSERT INTO webhook_logs (source, payload) VALUES ('payt', ${JSON.stringify(payload)})`;
 
-    // Try to find order by utm_id (which we set as order ID in the checkout URL)
-    const utmId = payload.utm_id ?? payload.utmId ?? payload.external_reference ?? payload.externalReference;
-    const status = payload.status ?? payload.transaction_status ?? payload.payment_status;
+    // Payt V1 format:
+    // - status: "paid" | "waiting_payment" | "refunded" | "chargeback" | etc.
+    // - link.sources.utm_id: our order ID (set in checkout URL)
+    // - transaction.payment_status: "paid"
+    // - transaction_id: Payt transaction ID
+    const status = String(payload.status || "").toLowerCase();
+    const link = payload.link as Record<string, unknown> | undefined;
+    const sources = link?.sources as Record<string, unknown> | undefined;
+    const utmId = sources?.utm_id;
 
-    if (utmId && status) {
+    if (utmId) {
       const orderId = Number(utmId);
       if (!isNaN(orderId) && orderId > 0) {
-        // Map Payt status to our status
-        const statusStr = String(status).toLowerCase();
-        const isPaid = statusStr === "approved" || statusStr === "aprovada" || statusStr === "finalizada" ||
-                       statusStr === "paid" || statusStr === "pago" || statusStr === "completed";
+        const transactionId = payload.transaction_id as string | undefined;
 
-        if (isPaid) {
+        if (status === "paid") {
           await sql`
             UPDATE orders
             SET status_pagamento = 'pago',
-                status = 'pagos'
+                status = 'pagos',
+                payt_transaction_id = ${transactionId || null}
+            WHERE id = ${orderId}
+          `;
+        } else if (status === "waiting_payment") {
+          await sql`
+            UPDATE orders
+            SET status_pagamento = 'aguardando',
+                payt_transaction_id = ${transactionId || null}
+            WHERE id = ${orderId}
+          `;
+        } else if (status === "refunded" || status === "chargeback") {
+          await sql`
+            UPDATE orders
+            SET status_pagamento = ${status},
+                payt_transaction_id = ${transactionId || null}
             WHERE id = ${orderId}
           `;
         }
@@ -52,12 +68,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ received: true }, { status: 200 });
   } catch (err) {
     console.error("Payt webhook error:", err);
-    // Always return 200 to avoid retries
     return NextResponse.json({ received: true }, { status: 200 });
   }
 }
 
-// Payt might send GET to verify the URL
 export async function GET() {
   return NextResponse.json({ status: "ok" });
 }
