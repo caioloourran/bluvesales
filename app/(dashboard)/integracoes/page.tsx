@@ -10,21 +10,10 @@ export default async function IntegracoesPage() {
   await requireAdmin();
 
   const integrations = await sql`
-    SELECT ak.id, ak.origin, ak.api_key, ak.seller_id, ak.active, ak.created_at,
-           u.name AS seller_name
-    FROM api_keys ak
-    JOIN users u ON u.id = ak.seller_id
-    ORDER BY ak.created_at DESC
+    SELECT id, origin, api_key, active, created_at
+    FROM api_keys
+    ORDER BY created_at DESC
   `;
 
-  const sellers = await sql`
-    SELECT id, name FROM users WHERE role = 'SELLER' ORDER BY name
-  `;
-
-  return (
-    <IntegracoesClient
-      integrations={integrations as any}
-      sellers={sellers as any}
-    />
-  );
+  return <IntegracoesClient integrations={integrations as any} />;
 }

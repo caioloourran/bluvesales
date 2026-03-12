@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+
   Dialog,
   DialogContent,
   DialogHeader,
@@ -48,27 +49,19 @@ import {
 } from "@/lib/actions/admin-actions";
 import { cn } from "@/lib/utils";
 
-interface Seller {
-  id: number;
-  name: string;
-}
-
 interface Integration {
   id: number;
   origin: string;
   api_key: string;
-  seller_id: number;
-  seller_name: string;
   active: boolean;
   created_at: string;
 }
 
 interface Props {
   integrations: Integration[];
-  sellers: Seller[];
 }
 
-export function IntegracoesClient({ integrations, sellers }: Props) {
+export function IntegracoesClient({ integrations }: Props) {
   const router = useRouter();
   const [formOpen, setFormOpen] = useState(false);
   const [editTarget, setEditTarget] = useState<Integration | null>(null);
@@ -81,13 +74,11 @@ export function IntegracoesClient({ integrations, sellers }: Props) {
 
   // Form state
   const [origin, setOrigin] = useState("");
-  const [sellerId, setSellerId] = useState("");
   const [active, setActive] = useState(true);
 
   function openCreate() {
     setEditTarget(null);
     setOrigin("");
-    setSellerId("");
     setActive(true);
     setFormOpen(true);
   }
@@ -95,21 +86,19 @@ export function IntegracoesClient({ integrations, sellers }: Props) {
   function openEdit(item: Integration) {
     setEditTarget(item);
     setOrigin(item.origin);
-    setSellerId(String(item.seller_id));
     setActive(item.active);
     setFormOpen(true);
   }
 
   async function handleSave() {
-    if (!origin.trim() || !sellerId) {
-      toast.error("Preencha todos os campos");
+    if (!origin.trim()) {
+      toast.error("Preencha o nome do sistema");
       return;
     }
     setSaving(true);
     if (editTarget) {
       const result = await updateApiKey(editTarget.id, {
         origin,
-        sellerId: Number(sellerId),
         active,
       });
       setSaving(false);
@@ -121,10 +110,7 @@ export function IntegracoesClient({ integrations, sellers }: Props) {
         router.refresh();
       }
     } else {
-      const result = await createApiKey({
-        origin,
-        sellerId: Number(sellerId),
-      });
+      const result = await createApiKey({ origin });
       setSaving(false);
       if (result.error) {
         toast.error(result.error);
@@ -250,9 +236,6 @@ export function IntegracoesClient({ integrations, sellers }: Props) {
                     </div>
                     <div>
                       <p className="text-sm font-semibold">{item.origin}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {item.seller_name}
-                      </p>
                     </div>
                   </div>
                   <span
@@ -374,23 +357,6 @@ export function IntegracoesClient({ integrations, sellers }: Props) {
                 value={origin}
                 onChange={(e) => setOrigin(e.target.value)}
               />
-            </div>
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                Vendedor associado
-              </label>
-              <Select value={sellerId} onValueChange={setSellerId}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione o vendedor..." />
-                </SelectTrigger>
-                <SelectContent>
-                  {sellers.map((s) => (
-                    <SelectItem key={s.id} value={String(s.id)}>
-                      {s.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
             {editTarget && (
               <div className="space-y-1.5">

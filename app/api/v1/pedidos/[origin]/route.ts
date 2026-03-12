@@ -61,7 +61,7 @@ export async function POST(
   const apiKey = match[1];
 
   const keyRows = await sql`
-    SELECT ak.seller_id, ak.origin
+    SELECT ak.origin
     FROM api_keys ak
     WHERE ak.api_key = ${apiKey}
       AND ak.origin = ${origin}
@@ -74,8 +74,6 @@ export async function POST(
       { status: 403 }
     );
   }
-
-  const sellerId = keyRows[0].seller_id as number;
 
   // --- Parse body ---
   let body: OrderPayload;
@@ -177,7 +175,7 @@ export async function POST(
       INSERT INTO orders (
         cpf, nome, email, whatsapp,
         cep, rua, numero, bairro, cidade, estado, complemento,
-        product_id, plan_id, seller_id,
+        product_id, plan_id,
         order_number, origin, sale_type, related_order_number,
         offer_id, offer_name, customer_type, customer_country,
         total_value, total_discount,
@@ -196,7 +194,6 @@ export async function POST(
         ${body.customer_complement ?? null},
         ${productId},
         ${planId},
-        ${sellerId},
         ${body.order_number},
         ${origin},
         ${saleType},

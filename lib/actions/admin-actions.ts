@@ -361,7 +361,6 @@ export async function deleteFee(id: number) {
 // ---- INTEGRATIONS (API Keys) ----
 export async function createApiKey(data: {
   origin: string;
-  sellerId: number;
 }) {
   await requireAdmin();
   if (!data.origin.trim()) return { error: "Origin obrigatório" };
@@ -373,8 +372,8 @@ export async function createApiKey(data: {
 
   try {
     await sql`
-      INSERT INTO api_keys (origin, api_key, seller_id)
-      VALUES (${data.origin.trim().toLowerCase()}, ${apiKey}, ${data.sellerId})
+      INSERT INTO api_keys (origin, api_key)
+      VALUES (${data.origin.trim().toLowerCase()}, ${apiKey})
     `;
     revalidatePath("/integracoes");
     return { success: true, apiKey };
@@ -385,7 +384,7 @@ export async function createApiKey(data: {
 
 export async function updateApiKey(
   id: number,
-  data: { origin: string; sellerId: number; active: boolean }
+  data: { origin: string; active: boolean }
 ) {
   await requireAdmin();
   if (!data.origin.trim()) return { error: "Origin obrigatório" };
@@ -394,7 +393,6 @@ export async function updateApiKey(
     await sql`
       UPDATE api_keys
       SET origin = ${data.origin.trim().toLowerCase()},
-          seller_id = ${data.sellerId},
           active = ${data.active}
       WHERE id = ${id}
     `;
