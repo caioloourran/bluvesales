@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS orders (
                CHECK (status IN (
                  'reportados', 'enviados', 'saiu_para_entrega',
                  'retirar_nos_correios', 'requer_atencao', 'entregues',
-                 'inadimplencias', 'frustrados', 'pagos'
+                 'cobrados', 'inadimplencias', 'frustrados', 'pagos'
                )),
   comprovante  TEXT,
 

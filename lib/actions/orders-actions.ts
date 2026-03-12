@@ -54,6 +54,7 @@ const VALID_STATUSES = [
   "retirar_nos_correios",
   "requer_atencao",
   "entregues",
+  "cobrados",
   "inadimplencias",
   "frustrados",
   "pagos",
@@ -129,7 +130,7 @@ type SubStatusField = typeof SUBSTATUS_FIELDS[number];
 // Maps sub-status values to the main status (tab) the order should move to
 const SUBSTATUS_TO_MAIN: Record<string, Record<string, string>> = {
   status_envio: { entregue: "entregues" },
-  status_plataforma: { cobrado: "inadimplencias" },
+  status_plataforma: { cobrado: "cobrados" },
   status_pagamento: { pago: "pagos" },
 };
 
