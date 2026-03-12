@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 import { validateApiKey } from "@/lib/api-auth";
 
+// Internal statuses (column names)
 const VALID_STATUSES = [
   "cadastrados",
   "enviados",
@@ -17,6 +18,36 @@ const VALID_STATUSES = [
   "frustrados",
   "pagos",
 ];
+
+// Maps courier/logistics status names to internal column statuses
+const STATUS_MAPPING: Record<string, string> = {
+  // Direct matches (already internal names)
+  cadastrados: "cadastrados",
+  enviados: "enviados",
+  saiu_para_entrega: "saiu_para_entrega",
+  retirar_nos_correios: "retirar_nos_correios",
+  requer_atencao: "requer_atencao",
+  entregues: "entregues",
+  cobrados: "cobrados",
+  inadimplencias: "inadimplencias",
+  aguardando_devolucao: "aguardando_devolucao",
+  devolvido: "devolvido",
+  frustrados: "frustrados",
+  pagos: "pagos",
+
+  // Courier-friendly aliases
+  enviado: "enviados",
+  saiu_entrega: "saiu_para_entrega",
+  em_transito: "saiu_para_entrega",
+  retirar_correios: "retirar_nos_correios",
+  aguardando_retirada: "retirar_nos_correios",
+  falha_entrega: "requer_atencao",
+  tentativa_falha: "requer_atencao",
+  extravio: "requer_atencao",
+  atraso: "requer_atencao",
+  devolvido_remetente: "requer_atencao",
+  entregue: "entregues",
+};
 
 export async function PUT(
   request: NextRequest,
@@ -43,9 +74,14 @@ export async function PUT(
     );
   }
 
-  if (!VALID_STATUSES.includes(body.status)) {
+  // Resolve status: try mapping first, then direct match
+  const inputStatus = body.status.toLowerCase().trim();
+  const resolvedStatus = STATUS_MAPPING[inputStatus];
+
+  if (!resolvedStatus) {
+    const allAccepted = Object.keys(STATUS_MAPPING).join(", ");
     return NextResponse.json(
-      { error: `Invalid status. Must be one of: ${VALID_STATUSES.join(", ")}` },
+      { error: `Invalid status "${body.status}". Accepted values: ${allAccepted}` },
       { status: 400 }
     );
   }
@@ -53,7 +89,7 @@ export async function PUT(
   // Update order
   const result = await sql`
     UPDATE orders
-    SET status = ${body.status}, updated_at = NOW()
+    SET status = ${resolvedStatus}, updated_at = NOW()
     WHERE id = ${Number(orderId)} AND origin = ${origin}
   `;
 
@@ -67,6 +103,7 @@ export async function PUT(
   return NextResponse.json({
     message: "Status updated",
     order_id: Number(orderId),
-    status: body.status,
+    status: resolvedStatus,
+    mapped_from: inputStatus !== resolvedStatus ? inputStatus : undefined,
   });
 }
