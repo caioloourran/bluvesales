@@ -353,7 +353,7 @@ export function IntegracoesClient({ integrations }: Props) {
                 Origin (nome do sistema)
               </label>
               <Input
-                placeholder="ex: coinzz, pagah, bertoldocrm"
+                placeholder="ex: 123log"
                 value={origin}
                 onChange={(e) => setOrigin(e.target.value)}
               />
