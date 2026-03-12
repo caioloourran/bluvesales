@@ -67,7 +67,7 @@ interface Order {
 
 const STAGES = [
   { key: "todos", label: "Todos", color: "text-zinc-400", dot: "bg-zinc-400", pill: "bg-zinc-500/10", tabActive: "border-zinc-400 bg-zinc-800/50" },
-  { key: "reportados", label: "Cadastrados", color: "text-blue-400", dot: "bg-blue-400", pill: "bg-blue-500/15", tabActive: "border-blue-400 bg-blue-950/60" },
+  { key: "cadastrados", label: "Cadastrados", color: "text-blue-400", dot: "bg-blue-400", pill: "bg-blue-500/15", tabActive: "border-blue-400 bg-blue-950/60" },
   { key: "enviados", label: "Enviados", color: "text-purple-400", dot: "bg-purple-400", pill: "bg-purple-500/15", tabActive: "border-purple-400 bg-purple-950/60" },
   { key: "saiu_para_entrega", label: "Saiu p/ Entrega", color: "text-orange-400", dot: "bg-orange-400", pill: "bg-orange-500/15", tabActive: "border-orange-400 bg-orange-950/60" },
   { key: "retirar_nos_correios", label: "Retirar Correios", color: "text-yellow-400", dot: "bg-yellow-400", pill: "bg-yellow-500/15", tabActive: "border-yellow-400 bg-yellow-950/60" },

@@ -48,7 +48,7 @@ export async function createOrderAction(data: OrderFormData) {
 }
 
 const VALID_STATUSES = [
-  "reportados",
+  "cadastrados",
   "enviados",
   "saiu_para_entrega",
   "retirar_nos_correios",

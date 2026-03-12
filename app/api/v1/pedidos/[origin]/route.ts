@@ -182,7 +182,7 @@ export async function POST(
         ${body.customer_country},
         ${parseFloat(body.total_value)},
         ${parseFloat(body.total_discount)},
-        'reportados'
+        'cadastrados'
       )
       RETURNING id
     `;

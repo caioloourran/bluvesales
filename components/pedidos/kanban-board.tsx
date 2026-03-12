@@ -39,8 +39,8 @@ interface Order {
 
 const KANBAN_COLUMNS = [
   {
-    id: "reportados",
-    label: "Reportados",
+    id: "cadastrados",
+    label: "Cadastrados",
     headerClass: "bg-blue-500/20 text-blue-700 dark:text-blue-300",
     bodyClass: "bg-blue-500/5",
   },

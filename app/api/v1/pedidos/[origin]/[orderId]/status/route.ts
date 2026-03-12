@@ -4,7 +4,7 @@ import { sql } from "@/lib/db";
 import { validateApiKey } from "@/lib/api-auth";
 
 const VALID_STATUSES = [
-  "reportados",
+  "cadastrados",
   "enviados",
   "saiu_para_entrega",
   "retirar_nos_correios",
