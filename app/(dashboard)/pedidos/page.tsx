@@ -46,7 +46,7 @@ export default async function PedidosPage() {
 
   const products = await sql`SELECT id, name FROM products WHERE active = true ORDER BY name`;
   const plans = await sql`
-    SELECT pl.id, pl.product_id, pl.name AS plan_name
+    SELECT pl.id, pl.product_id, pl.name AS plan_name, pl.payt_checkout_id
     FROM plans pl
     WHERE pl.active = true
     ORDER BY pl.name

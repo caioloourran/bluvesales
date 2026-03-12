@@ -43,6 +43,7 @@ interface Plan {
   sale_price_net: string | null;
   product_cost: string;
   shipping_cost: string;
+  payt_checkout_id: string | null;
   active: boolean;
 }
 
@@ -67,6 +68,7 @@ export function PlansClient({ plans, products }: Props) {
   const [net, setNet] = useState("");
   const [productCost, setProductCost] = useState("");
   const [shippingCost, setShippingCost] = useState("");
+  const [paytCheckoutId, setPaytCheckoutId] = useState("");
   const [active, setActive] = useState(true);
 
   function openCreate() {
@@ -77,6 +79,7 @@ export function PlansClient({ plans, products }: Props) {
     setNet("");
     setProductCost("");
     setShippingCost("");
+    setPaytCheckoutId("");
     setActive(true);
     setDialogOpen(true);
   }
@@ -89,6 +92,7 @@ export function PlansClient({ plans, products }: Props) {
     setNet(p.sale_price_net || "");
     setProductCost(p.product_cost || "0");
     setShippingCost(p.shipping_cost || "0");
+    setPaytCheckoutId(p.payt_checkout_id || "");
     setActive(p.active);
     setDialogOpen(true);
   }
@@ -101,6 +105,7 @@ export function PlansClient({ plans, products }: Props) {
       salePriceNet: net ? Number(net) : null,
       productCost: Number(productCost) || 0,
       shippingCost: Number(shippingCost) || 0,
+      paytCheckoutId: paytCheckoutId.trim() || null,
       active,
     };
     startTransition(async () => {
@@ -178,6 +183,11 @@ export function PlansClient({ plans, products }: Props) {
               <div className="flex flex-col gap-1.5">
                 <Label>Frete (R$)</Label>
                 <Input type="number" step="0.01" value={shippingCost} onChange={(e) => setShippingCost(e.target.value)} placeholder="0.00" />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label>Payt Checkout ID</Label>
+                <Input value={paytCheckoutId} onChange={(e) => setPaytCheckoutId(e.target.value)} placeholder="Ex: d996bee9380f388cb5c3e14ca2a7009d" />
+                <p className="text-[10px] text-muted-foreground">ID do checkout na Payt para gerar link de pagamento com dados do cliente</p>
               </div>
               <div className="flex items-center gap-2">
                 <Switch checked={active} onCheckedChange={setActive} />

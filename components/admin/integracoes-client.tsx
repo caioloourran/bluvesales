@@ -363,13 +363,13 @@ export function IntegracoesClient({ integrations, asaasConfigured }: Props) {
         )}
       </div>
 
-      {/* Asaas Fixed Integration Card */}
-      {asaasConfigured && (
-        <div className="border-t border-border px-4 py-4 sm:px-6">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Integrações de Pagamento
-          </p>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      {/* Payment Integrations Cards */}
+      <div className="border-t border-border px-4 py-4 sm:px-6">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          Integrações de Pagamento
+        </p>
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {asaasConfigured && (
             <div className="rounded-xl border border-border bg-card p-5">
               <div className="mb-4 flex items-start justify-between">
                 <div className="flex items-center gap-3">
@@ -402,9 +402,41 @@ export function IntegracoesClient({ integrations, asaasConfigured }: Props) {
                 </code>
               </div>
             </div>
+          )}
+          <div className="rounded-xl border border-border bg-card p-5">
+            <div className="mb-4 flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/15 text-purple-500">
+                  <CreditCard className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">Payt</p>
+                  <p className="text-[10px] text-muted-foreground">Checkout de Pagamento</p>
+                </div>
+              </div>
+              <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-500">
+                Ativo
+              </span>
+            </div>
+            <div className="mb-4">
+              <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Funcionalidade
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Link de checkout com dados do cliente preenchidos automaticamente. Configurável por plano.
+              </p>
+            </div>
+            <div>
+              <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Configuração
+              </p>
+              <code className="block truncate rounded-md bg-muted px-2.5 py-1.5 font-mono text-xs text-muted-foreground">
+                Payt Checkout ID no cadastro de cada plano
+              </code>
+            </div>
           </div>
         </div>
-      )}
+      </div>
 
       {/* Create/Edit Dialog */}
       <Dialog open={formOpen} onOpenChange={setFormOpen}>

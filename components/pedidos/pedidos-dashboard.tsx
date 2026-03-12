@@ -4,7 +4,7 @@
 import { useState, useMemo, Fragment } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Plus, Search, ChevronDown, ChevronUp, Pencil, Trash2, MessageCircle, RefreshCw, Filter, FileText, ExternalLink, Copy, Loader2 } from "lucide-react";
+import { Plus, Search, ChevronDown, ChevronUp, Pencil, Trash2, MessageCircle, RefreshCw, Filter, FileText, ExternalLink, Copy, Loader2, Link2 } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
@@ -38,7 +38,7 @@ import { cn } from "@/lib/utils";
 
 interface Seller { id: number; name: string }
 interface Product { id: number; name: string }
-interface Plan { id: number; product_id: number; plan_name: string }
+interface Plan { id: number; product_id: number; plan_name: string; payt_checkout_id?: string | null }
 interface Order {
   id: number;
   cpf: string;
@@ -229,6 +229,33 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
         o.id === order.id ? { ...o, boleto_url: result.boleto_url! } : o
       ));
       window.open(result.boleto_url!, "_blank");
+    }
+  }
+
+  function getPaytUrl(order: Order): string | null {
+    if (!order.plan_id) return null;
+    const plan = plans.find(p => p.id === order.plan_id);
+    if (!plan?.payt_checkout_id) return null;
+    const params = new URLSearchParams();
+    params.set("full_name", order.nome);
+    params.set("document", order.cpf.replace(/\D/g, ""));
+    params.set("phone", order.whatsapp.replace(/\D/g, ""));
+    params.set("zipcode", order.cep);
+    params.set("street", order.rua);
+    params.set("number_address", order.numero);
+    params.set("neighborhood", order.bairro);
+    params.set("city", order.cidade);
+    if (order.complemento) params.set("complement", order.complemento);
+    params.set("utm_source", "bluvesales");
+    params.set("utm_id", String(order.id));
+    return `https://checkout.payt.com.br/${plan.payt_checkout_id}?${params.toString()}`;
+  }
+
+  function handleCopyPaytLink(order: Order) {
+    const url = getPaytUrl(order);
+    if (url) {
+      navigator.clipboard.writeText(url);
+      toast.success("Link Payt copiado!");
     }
   }
 
@@ -488,6 +515,17 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
                                 Gerar Boleto
                               </Button>
                             )}
+                            {getPaytUrl(order) && (
+                              <div className="flex gap-1">
+                                <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); window.open(getPaytUrl(order)!, "_blank"); }}>
+                                  <Link2 className="mr-1.5 h-3.5 w-3.5" />
+                                  Link Payt
+                                </Button>
+                                <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); handleCopyPaytLink(order); }}>
+                                  <Copy className="h-3.5 w-3.5" />
+                                </Button>
+                              </div>
+                            )}
                             <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); openWhatsApp(order); }}>
                               <MessageCircle className="mr-1.5 h-3.5 w-3.5" />
                               WhatsApp
@@ -571,6 +609,11 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
                         >
                           {boletoLoading === order.id ? <Loader2 className="mr-1 h-3 w-3 animate-spin" /> : <FileText className="mr-1 h-3 w-3" />}
                           Boleto
+                        </Button>
+                      )}
+                      {getPaytUrl(order) && (
+                        <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); handleCopyPaytLink(order); }}>
+                          <Link2 className="mr-1 h-3 w-3" /> Payt
                         </Button>
                       )}
                       <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); openWhatsApp(order); }}>

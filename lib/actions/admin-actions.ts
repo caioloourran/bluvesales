@@ -59,6 +59,7 @@ const planSchema = z.object({
   salePriceNet: z.coerce.number().min(0).nullable().optional(),
   productCost: z.coerce.number().min(0).default(0),
   shippingCost: z.coerce.number().min(0).default(0),
+  paytCheckoutId: z.string().nullable().optional(),
   active: z.boolean().default(true),
 });
 
@@ -69,6 +70,7 @@ export async function createPlan(data: {
   salePriceNet?: number | null;
   productCost?: number;
   shippingCost?: number;
+  paytCheckoutId?: string | null;
   active: boolean;
 }) {
   await requireAdmin();
@@ -77,8 +79,8 @@ export async function createPlan(data: {
 
   try {
     await sql`
-      INSERT INTO plans (product_id, name, sale_price_gross, sale_price_net, product_cost, shipping_cost, active)
-      VALUES (${parsed.data.productId}, ${parsed.data.name}, ${parsed.data.salePriceGross}, ${parsed.data.salePriceNet || null}, ${parsed.data.productCost}, ${parsed.data.shippingCost}, ${parsed.data.active})
+      INSERT INTO plans (product_id, name, sale_price_gross, sale_price_net, product_cost, shipping_cost, payt_checkout_id, active)
+      VALUES (${parsed.data.productId}, ${parsed.data.name}, ${parsed.data.salePriceGross}, ${parsed.data.salePriceNet || null}, ${parsed.data.productCost}, ${parsed.data.shippingCost}, ${parsed.data.paytCheckoutId || null}, ${parsed.data.active})
     `;
     revalidatePath("/plans");
     return { success: true };
@@ -96,6 +98,7 @@ export async function updatePlan(
     salePriceNet?: number | null;
     productCost?: number;
     shippingCost?: number;
+    paytCheckoutId?: string | null;
     active: boolean;
   }
 ) {
@@ -108,6 +111,7 @@ export async function updatePlan(
       UPDATE plans SET product_id = ${parsed.data.productId}, name = ${parsed.data.name},
       sale_price_gross = ${parsed.data.salePriceGross}, sale_price_net = ${parsed.data.salePriceNet || null},
       product_cost = ${parsed.data.productCost}, shipping_cost = ${parsed.data.shippingCost},
+      payt_checkout_id = ${parsed.data.paytCheckoutId || null},
       active = ${parsed.data.active}, updated_at = NOW() WHERE id = ${id}
     `;
     revalidatePath("/plans");
