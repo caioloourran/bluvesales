@@ -49,19 +49,6 @@ export function DashboardClient({
       {/* Header */}
       <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-lg font-semibold text-primary-foreground shadow-md shadow-primary/20">
-            B
-          </div>
-          <div>
-            <h1 className="text-xl font-semibold tracking-tight text-foreground">
-              Bluve Nutrition
-            </h1>
-            <p className="mt-px text-xs text-muted-foreground">
-              Central de Operacoes — Performance & AfterPay
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3.5">
           <div className="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
             <span className="d-blink inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
             Ao vivo
