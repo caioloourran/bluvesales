@@ -40,14 +40,17 @@ interface User {
   created_at: string;
   avatar: string | null;
   monthly_goal: number;
+  affiliate_name?: string | null;
 }
 
 interface Props {
   users: User[];
   teamGoal: number;
+  isAffiliate?: boolean;
+  affiliateId?: number;
 }
 
-export function UsersClient({ users, teamGoal }: Props) {
+export function UsersClient({ users, teamGoal, isAffiliate, affiliateId }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -81,17 +84,19 @@ export function UsersClient({ users, teamGoal }: Props) {
 
   function handleSave() {
     startTransition(async () => {
+      const effectiveRole = isAffiliate ? "SELLER" : role;
       const result = editing
         ? await updateUser(editing.id, {
             name,
             email,
             password: password || undefined,
-            role,
+            role: effectiveRole,
+            affiliateId,
           })
-        : await createUser({ name, email, password, role });
+        : await createUser({ name, email, password, role: effectiveRole, affiliateId });
       if (result.error) toast.error(result.error);
       else {
-        if (editing) await updateUserGoal(editing.id, monthlyGoal);
+        if (editing && !isAffiliate) await updateUserGoal(editing.id, monthlyGoal);
         toast.success(editing ? "Usuario atualizado!" : "Usuario criado!");
         setDialogOpen(false);
         router.refresh();
@@ -123,8 +128,8 @@ export function UsersClient({ users, teamGoal }: Props) {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Usuarios</h1>
-          <p className="text-sm text-muted-foreground">Gerencie vendedores e administradores</p>
+          <h1 className="text-2xl font-bold text-foreground">{isAffiliate ? "Vendedores" : "Usuarios"}</h1>
+          <p className="text-sm text-muted-foreground">{isAffiliate ? "Gerencie seus vendedores" : "Gerencie vendedores e administradores"}</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
@@ -149,29 +154,34 @@ export function UsersClient({ users, teamGoal }: Props) {
                 <Label>{editing ? "Nova Senha (deixe vazio para manter)" : "Senha"}</Label>
                 <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={editing ? "Nova senha" : "Senha"} />
               </div>
-              <div className="flex flex-col gap-1.5">
-                <Label>Perfil</Label>
-                <Select value={role} onValueChange={setRole}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="SELLER">Vendedor</SelectItem>
-                    <SelectItem value="ADMIN_MASTER">Administrador</SelectItem>
-                    <SelectItem value="COBRANCA">Cobranca</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <Label>Meta Mensal (agendamentos)</Label>
-                <Input
-                  type="number"
-                  min={0}
-                  value={monthlyGoal}
-                  onChange={(e) => setMonthlyGoal(Number(e.target.value))}
-                  placeholder="0"
-                />
-              </div>
+              {!isAffiliate && (
+                <div className="flex flex-col gap-1.5">
+                  <Label>Perfil</Label>
+                  <Select value={role} onValueChange={setRole}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="SELLER">Vendedor</SelectItem>
+                      <SelectItem value="ADMIN_MASTER">Administrador</SelectItem>
+                      <SelectItem value="COBRANCA">Cobranca</SelectItem>
+                      <SelectItem value="AFFILIATE">Afiliado</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+              {!isAffiliate && (
+                <div className="flex flex-col gap-1.5">
+                  <Label>Meta Mensal (agendamentos)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    value={monthlyGoal}
+                    onChange={(e) => setMonthlyGoal(Number(e.target.value))}
+                    placeholder="0"
+                  />
+                </div>
+              )}
               <Button onClick={handleSave} disabled={isPending}>
                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Salvar
@@ -181,29 +191,31 @@ export function UsersClient({ users, teamGoal }: Props) {
         </Dialog>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Meta da Equipe</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center gap-3">
-            <div className="flex flex-col gap-1">
-              <Label>Agendamentos por mês (equipe)</Label>
-              <Input
-                type="number"
-                min={0}
-                value={teamGoalInput}
-                onChange={(e) => setTeamGoalInput(Number(e.target.value))}
-                className="w-40"
-              />
+      {!isAffiliate && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Meta da Equipe</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center gap-3">
+              <div className="flex flex-col gap-1">
+                <Label>Agendamentos por mês (equipe)</Label>
+                <Input
+                  type="number"
+                  min={0}
+                  value={teamGoalInput}
+                  onChange={(e) => setTeamGoalInput(Number(e.target.value))}
+                  className="w-40"
+                />
+              </div>
+              <Button onClick={handleSaveTeamGoal} disabled={isPending} className="mt-5" size="sm">
+                {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Salvar
+              </Button>
             </div>
-            <Button onClick={handleSaveTeamGoal} disabled={isPending} className="mt-5" size="sm">
-              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Salvar
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>
@@ -219,6 +231,7 @@ export function UsersClient({ users, teamGoal }: Props) {
                   <TableHead>Nome</TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Perfil</TableHead>
+                  {!isAffiliate && <TableHead>Afiliado</TableHead>}
                   <TableHead className="w-24">Acoes</TableHead>
                 </TableRow>
               </TableHeader>
@@ -228,10 +241,15 @@ export function UsersClient({ users, teamGoal }: Props) {
                     <TableCell className="font-medium">{u.name}</TableCell>
                     <TableCell>{u.email}</TableCell>
                     <TableCell>
-                      <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${u.role === "ADMIN_MASTER" ? "bg-chart-1/10 text-chart-1" : u.role === "COBRANCA" ? "bg-yellow-500/10 text-yellow-600" : "bg-chart-2/10 text-chart-2"}`}>
-                        {u.role === "ADMIN_MASTER" ? "Admin" : u.role === "COBRANCA" ? "Cobranca" : "Vendedor"}
+                      <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${u.role === "ADMIN_MASTER" ? "bg-chart-1/10 text-chart-1" : u.role === "COBRANCA" ? "bg-yellow-500/10 text-yellow-600" : u.role === "AFFILIATE" ? "bg-purple-500/10 text-purple-600" : "bg-chart-2/10 text-chart-2"}`}>
+                        {u.role === "ADMIN_MASTER" ? "Admin" : u.role === "COBRANCA" ? "Cobranca" : u.role === "AFFILIATE" ? "Afiliado" : "Vendedor"}
                       </span>
                     </TableCell>
+                    {!isAffiliate && (
+                      <TableCell className="text-xs text-muted-foreground">
+                        {u.affiliate_name || "—"}
+                      </TableCell>
+                    )}
                     <TableCell>
                       <div className="flex items-center gap-1">
                         <Button variant="ghost" size="icon" onClick={() => openEdit(u)}>

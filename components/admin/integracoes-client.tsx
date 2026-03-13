@@ -47,6 +47,7 @@ import {
   updateApiKey,
   regenerateApiKey,
   deleteApiKey,
+  updateAffiliateCheckoutId,
 } from "@/lib/actions/admin-actions";
 import { cn } from "@/lib/utils";
 
@@ -63,9 +64,11 @@ interface Integration {
 interface Props {
   integrations: Integration[];
   asaasConfigured?: boolean;
+  isAffiliate?: boolean;
+  paytCheckoutId?: string;
 }
 
-export function IntegracoesClient({ integrations, asaasConfigured }: Props) {
+export function IntegracoesClient({ integrations, asaasConfigured, isAffiliate, paytCheckoutId: initialCheckoutId }: Props) {
   const router = useRouter();
   const [formOpen, setFormOpen] = useState(false);
   const [editTarget, setEditTarget] = useState<Integration | null>(null);
@@ -75,6 +78,10 @@ export function IntegracoesClient({ integrations, asaasConfigured }: Props) {
   const [newKeyDialog, setNewKeyDialog] = useState<string | null>(null);
   const [visibleKeys, setVisibleKeys] = useState<Set<number>>(new Set());
   const [copiedId, setCopiedId] = useState<number | null>(null);
+
+  // Affiliate checkout ID
+  const [checkoutId, setCheckoutId] = useState(initialCheckoutId || "");
+  const [savingCheckout, setSavingCheckout] = useState(false);
 
   // Form state
   const [origin, setOrigin] = useState("");
@@ -172,6 +179,57 @@ export function IntegracoesClient({ integrations, asaasConfigured }: Props) {
     setCopiedId(id);
     toast.success("Chave copiada!");
     setTimeout(() => setCopiedId(null), 2000);
+  }
+
+  async function handleSaveCheckoutId() {
+    setSavingCheckout(true);
+    const result = await updateAffiliateCheckoutId(checkoutId);
+    setSavingCheckout(false);
+    if (result.error) toast.error(result.error);
+    else toast.success("Checkout ID salvo com sucesso!");
+  }
+
+  // Affiliate view: only Payt Checkout ID config
+  if (isAffiliate) {
+    return (
+      <div className="flex h-full flex-col">
+        <div className="border-b border-border px-4 py-4 sm:px-6">
+          <h1 className="text-xl font-bold tracking-tight">Integrações</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">Configure seu Checkout ID da Payt</p>
+        </div>
+        <div className="flex-1 px-4 py-6 sm:px-6">
+          <div className="mx-auto max-w-lg rounded-xl border border-border bg-card p-6">
+            <div className="mb-5 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/15 text-purple-500">
+                <CreditCard className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold">Payt Checkout</p>
+                <p className="text-[10px] text-muted-foreground">Link de pagamento para seus pedidos</p>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  Checkout ID
+                </label>
+                <Input
+                  placeholder="Ex: abc123..."
+                  value={checkoutId}
+                  onChange={(e) => setCheckoutId(e.target.value)}
+                />
+                <p className="text-[10px] text-muted-foreground">
+                  Este ID será usado para gerar links de pagamento nos seus pedidos
+                </p>
+              </div>
+              <Button onClick={handleSaveCheckoutId} disabled={savingCheckout} size="sm">
+                {savingCheckout ? "Salvando..." : "Salvar Checkout ID"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   function maskKey(key: string) {

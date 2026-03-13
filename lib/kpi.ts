@@ -468,14 +468,17 @@ export async function getDailyResults(
 // ---- Seller Rankings (efficient: 3 queries total, not N per seller) ----
 export async function getSellerRankings(
   dateFrom: string,
-  dateTo: string
+  dateTo: string,
+  affiliateId?: number
 ): Promise<SellerRanking[]> {
   const fees = await getActiveFees();
   const saleFees = fees.filter((f) => f.applies_to === "SALE");
   const investmentFees = fees.filter((f) => f.applies_to === "INVESTMENT");
 
-  // 1. All sellers
-  const sellers = await sql`SELECT id, name, avatar, monthly_goal FROM users WHERE role = 'SELLER' ORDER BY name`;
+  // 1. All sellers (or affiliate's sellers only)
+  const sellers = affiliateId
+    ? await sql`SELECT id, name, avatar, monthly_goal FROM users WHERE role = 'SELLER' AND affiliate_id = ${affiliateId} ORDER BY name`
+    : await sql`SELECT id, name, avatar, monthly_goal FROM users WHERE role = 'SELLER' ORDER BY name`;
 
   // 2. Ad data grouped by seller - single query
   const adData = await sql`

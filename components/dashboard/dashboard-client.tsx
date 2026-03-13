@@ -29,6 +29,7 @@ interface DashboardClientProps {
   dateFrom: string;
   dateTo: string;
   isAdmin: boolean;
+  isAffiliate?: boolean;
 }
 
 export function DashboardClient({
@@ -43,7 +44,9 @@ export function DashboardClient({
   dateFrom,
   dateTo,
   isAdmin,
+  isAffiliate,
 }: DashboardClientProps) {
+  const showAdminSections = isAdmin || isAffiliate;
   return (
     <div className="flex flex-col gap-7">
       {/* Header */}
@@ -61,7 +64,7 @@ export function DashboardClient({
 
       {/* Section: Performance Comercial */}
       <SectionLabel dotClass="bg-primary" label="Performance Comercial" />
-      <DashTopKpis kpis={kpis} orderStats={orderStats} isAdmin={isAdmin} />
+      <DashTopKpis kpis={kpis} orderStats={orderStats} isAdmin={isAdmin || !!isAffiliate} />
       {isAdmin && <DashDualBlocks kpis={kpis} />}
 
       {/* Section: AfterPay */}
@@ -73,16 +76,16 @@ export function DashboardClient({
       )}
 
       {/* Main Grid: Chart + Funnel */}
-      <div className={`grid grid-cols-1 gap-4 ${isAdmin ? "xl:grid-cols-[5fr_3fr]" : ""}`}>
-        {isAdmin && <DashRevenueChart dailyMetrics={dailyMetrics} />}
+      <div className={`grid grid-cols-1 gap-4 ${showAdminSections ? "xl:grid-cols-[5fr_3fr]" : ""}`}>
+        {showAdminSections && <DashRevenueChart dailyMetrics={dailyMetrics} />}
         <DashFunnel data={funnelData} />
       </div>
 
-      {/* Bottom Grid: Performance + Ring (admin only) */}
-      {isAdmin && (sellerRankings.length > 0 || cobrancaPerf.length > 0) && (
-        <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+      {/* Bottom Grid: Performance + Ring */}
+      {showAdminSections && sellerRankings.length > 0 && (
+        <div className={`grid grid-cols-1 gap-4 ${isAdmin ? "xl:grid-cols-2" : ""}`}>
           <DashPerformance sellers={sellerRankings} cobranca={cobrancaPerf} />
-          <DashPaymentRing funnelData={funnelData} kpis={kpis} />
+          {isAdmin && <DashPaymentRing funnelData={funnelData} kpis={kpis} />}
         </div>
       )}
 

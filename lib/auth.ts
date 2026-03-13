@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { createHash } from "crypto";
 import { sql } from "./db";
 
-export type UserRole = "ADMIN_MASTER" | "SELLER" | "COBRANCA";
+export type UserRole = "ADMIN_MASTER" | "SELLER" | "COBRANCA" | "AFFILIATE";
 
 export interface SessionUser {
   id: number;
@@ -100,6 +100,14 @@ export async function requireAuth(): Promise<SessionUser> {
 export async function requireAdmin(): Promise<SessionUser> {
   const session = await requireAuth();
   if (session.role !== "ADMIN_MASTER") {
+    redirect("/dashboard");
+  }
+  return session;
+}
+
+export async function requireAdminOrAffiliate(): Promise<SessionUser> {
+  const session = await requireAuth();
+  if (session.role !== "ADMIN_MASTER" && session.role !== "AFFILIATE") {
     redirect("/dashboard");
   }
   return session;

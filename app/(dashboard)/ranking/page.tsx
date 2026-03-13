@@ -22,7 +22,10 @@ export default async function RankingPage({ searchParams }: Props) {
   const dateFrom = tab === "today" ? today : firstOfMonthBrazil();
   const dateTo = today;
 
-  const rankings = await getSellerRankings(dateFrom, dateTo);
+  const isAffiliate = session.role === "AFFILIATE";
+  const affiliateId = isAffiliate ? session.id : undefined;
+
+  const rankings = await getSellerRankings(dateFrom, dateTo, affiliateId);
 
   const settingsRows = await sql`SELECT team_goal FROM ranking_settings WHERE id = 1`;
   const teamGoal = Number(settingsRows[0]?.team_goal ?? 0);
@@ -33,7 +36,7 @@ export default async function RankingPage({ searchParams }: Props) {
     <RankingClient
       rankings={rankings}
       tab={tab}
-      isAdmin={isAdmin}
+      isAdmin={isAdmin || isAffiliate}
       currentUserId={session.id}
       teamGoal={teamGoal}
     />

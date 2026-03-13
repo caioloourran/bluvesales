@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { createHash } from "crypto";
 import { sql } from "@/lib/db";
-import { requireAdmin } from "@/lib/auth";
+import { requireAdmin, requireAdminOrAffiliate } from "@/lib/auth";
 
 // ---- PRODUCTS ----
 const productSchema = z.object({
@@ -166,7 +166,8 @@ const userSchema = z.object({
   name: z.string().min(1, "Nome obrigatorio"),
   email: z.string().email("Email invalido"),
   password: z.string().min(4, "Senha deve ter ao menos 4 caracteres").optional(),
-  role: z.enum(["ADMIN_MASTER", "SELLER", "COBRANCA"]),
+  role: z.enum(["ADMIN_MASTER", "SELLER", "COBRANCA", "AFFILIATE"]),
+  affiliateId: z.coerce.number().int().positive().optional(),
 });
 
 export async function createUser(data: {
@@ -174,8 +175,14 @@ export async function createUser(data: {
   email: string;
   password: string;
   role: string;
+  affiliateId?: number;
 }) {
-  await requireAdmin();
+  const session = await requireAdminOrAffiliate();
+  // Affiliates can only create SELLERs linked to themselves
+  if (session.role === "AFFILIATE") {
+    data.role = "SELLER";
+    data.affiliateId = session.id;
+  }
   const parsed = userSchema.safeParse(data);
   if (!parsed.success) return { error: parsed.error.errors[0].message };
   if (!parsed.data.password) return { error: "Senha obrigatoria" };
@@ -184,8 +191,8 @@ export async function createUser(data: {
 
   try {
     await sql`
-      INSERT INTO users (name, email, password_hash, role)
-      VALUES (${parsed.data.name}, ${parsed.data.email}, ${hash}, ${parsed.data.role})
+      INSERT INTO users (name, email, password_hash, role, affiliate_id)
+      VALUES (${parsed.data.name}, ${parsed.data.email}, ${hash}, ${parsed.data.role}, ${parsed.data.affiliateId || null})
     `;
     revalidatePath("/users");
     return { success: true };
@@ -196,9 +203,16 @@ export async function createUser(data: {
 
 export async function updateUser(
   id: number,
-  data: { name: string; email: string; password?: string; role: string }
+  data: { name: string; email: string; password?: string; role: string; affiliateId?: number }
 ) {
-  await requireAdmin();
+  const session = await requireAdminOrAffiliate();
+  // Affiliates can only edit their own sellers
+  if (session.role === "AFFILIATE") {
+    const rows = await sql`SELECT id FROM users WHERE id = ${id} AND affiliate_id = ${session.id}`;
+    if (rows.length === 0) return { error: "Sem permissao para editar este usuario" };
+    data.role = "SELLER";
+    data.affiliateId = session.id;
+  }
   const parsed = userSchema.safeParse(data);
   if (!parsed.success) return { error: parsed.error.errors[0].message };
 
@@ -223,7 +237,11 @@ export async function updateUser(
 }
 
 export async function deleteUser(id: number) {
-  await requireAdmin();
+  const session = await requireAdminOrAffiliate();
+  if (session.role === "AFFILIATE") {
+    const rows = await sql`SELECT id FROM users WHERE id = ${id} AND affiliate_id = ${session.id}`;
+    if (rows.length === 0) return { error: "Sem permissao para deletar este usuario" };
+  }
   try {
     await sql`DELETE FROM users WHERE id = ${id}`;
     revalidatePath("/users");
@@ -434,6 +452,19 @@ export async function deleteApiKey(id: number) {
     return { success: true };
   } catch {
     return { error: "Erro ao deletar integração" };
+  }
+}
+
+// ---- AFFILIATE CHECKOUT ID ----
+export async function updateAffiliateCheckoutId(checkoutId: string) {
+  const session = await requireAdminOrAffiliate();
+  if (session.role !== "AFFILIATE") return { error: "Apenas afiliados podem alterar o Checkout ID" };
+  try {
+    await sql`UPDATE users SET payt_checkout_id = ${checkoutId.trim() || null} WHERE id = ${session.id}`;
+    revalidatePath("/integracoes");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao salvar Checkout ID" };
   }
 }
 

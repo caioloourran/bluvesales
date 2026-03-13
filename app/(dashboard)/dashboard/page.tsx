@@ -41,7 +41,9 @@ export default async function DashboardPage({ searchParams }: Props) {
   }
 
   const isSeller = session.role === "SELLER";
+  const isAffiliate = session.role === "AFFILIATE";
   const sellerId = isSeller ? session.id : undefined;
+  const affiliateId = isAffiliate ? session.id : undefined;
 
   const [kpis, orderStats, stateRanking, weeklyData, sellerRankings, cobrancaPerf, dailyMetrics, funnelData, agingData] =
     await Promise.all([
@@ -49,11 +51,11 @@ export default async function DashboardPage({ searchParams }: Props) {
       getOrderStats(dateFrom, dateTo, sellerId),
       getOrdersByState(dateFrom, dateTo, sellerId),
       getWeeklyChart(dateFrom, dateTo, sellerId),
-      isSeller ? Promise.resolve([]) : getSellerRankings(dateFrom, dateTo),
-      isSeller ? Promise.resolve([]) : getCobrancaPerformance(dateFrom, dateTo),
+      isSeller ? Promise.resolve([]) : getSellerRankings(dateFrom, dateTo, affiliateId),
+      isSeller || isAffiliate ? Promise.resolve([]) : getCobrancaPerformance(dateFrom, dateTo),
       getDailyMetrics(dateFrom, dateTo, sellerId),
       getFunnelData(dateFrom, dateTo, sellerId),
-      isSeller ? Promise.resolve([]) : getAgingData(dateFrom, dateTo),
+      isSeller || isAffiliate ? Promise.resolve([]) : getAgingData(dateFrom, dateTo),
     ]);
 
   return (
@@ -70,7 +72,8 @@ export default async function DashboardPage({ searchParams }: Props) {
       period={period}
       dateFrom={dateFrom}
       dateTo={dateTo}
-      isAdmin={!isSeller}
+      isAdmin={!isSeller && !isAffiliate}
+      isAffiliate={isAffiliate}
     />
   );
 }

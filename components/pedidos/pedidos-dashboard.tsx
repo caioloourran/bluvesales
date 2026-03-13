@@ -95,9 +95,10 @@ interface Props {
   products: Product[];
   plans: Plan[];
   sellers?: Seller[];
+  userRole?: string;
 }
 
-export function PedidosDashboard({ initialOrders, products, plans, sellers = [] }: Props) {
+export function PedidosDashboard({ initialOrders, products, plans, sellers = [], userRole }: Props) {
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [activeStage, setActiveStage] = useState("todos");
@@ -490,7 +491,7 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
                               <RefreshCw className="mr-1.5 h-3.5 w-3.5" />
                               Editar Status
                             </Button>
-                            {order.boleto_url ? (
+                            {userRole !== "AFFILIATE" && (order.boleto_url ? (
                               <div className="flex gap-1">
                                 <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); window.open(order.boleto_url!, "_blank"); }}>
                                   <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
@@ -514,7 +515,7 @@ export function PedidosDashboard({ initialOrders, products, plans, sellers = [] 
                                 )}
                                 Gerar Boleto
                               </Button>
-                            )}
+                            ))}
                             {getPaytUrl(order) && (
                               <div className="flex gap-1">
                                 <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); window.open(getPaytUrl(order)!, "_blank"); }}>

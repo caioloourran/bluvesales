@@ -90,6 +90,16 @@ const sellerLinks = [
   { href: "/financeiro", label: "Financeiro", icon: Wallet },
 ];
 
+const affiliateLinks = [
+  { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
+  { href: "/pedidos", label: "Pedidos", icon: Package2 },
+  { href: "/sales", label: "Vendas", icon: ShoppingCart },
+  { href: "/history", label: "Historico", icon: ClipboardList },
+  { href: "/ranking", label: "Ranking", icon: Trophy },
+  { href: "/users", label: "Vendedores", icon: Users },
+  { href: "/integracoes", label: "Integrações", icon: Plug },
+];
+
 function getInitials(name: string): string {
   const parts = name.trim().split(/\s+/);
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
@@ -119,7 +129,7 @@ function resizeToBase64(file: File): Promise<string> {
 export function AppSidebar({ userName, userRole, userAvatar, roletaEnabled }: AppSidebarProps) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  const baseLinks = userRole === "ADMIN_MASTER" ? adminLinks : userRole === "COBRANCA" ? cobrancaLinks : sellerLinks;
+  const baseLinks = userRole === "ADMIN_MASTER" ? adminLinks : userRole === "COBRANCA" ? cobrancaLinks : userRole === "AFFILIATE" ? affiliateLinks : sellerLinks;
   const links = userRole === "SELLER" && roletaEnabled
     ? [...baseLinks, { href: "/roleta-vendedor", label: "Roleta", icon: Gift }]
     : baseLinks;
@@ -181,7 +191,7 @@ export function AppSidebar({ userName, userRole, userAvatar, roletaEnabled }: Ap
 
   const initials = getInitials(userName);
   const currentAvatar = userAvatar || null;
-  const roleLabel = userRole === "ADMIN_MASTER" ? "Administrador" : userRole === "COBRANCA" ? "Cobranca" : "Vendedor";
+  const roleLabel = userRole === "ADMIN_MASTER" ? "Administrador" : userRole === "COBRANCA" ? "Cobranca" : userRole === "AFFILIATE" ? "Afiliado" : "Vendedor";
 
   // Shared sidebar content (used in both desktop aside and mobile Sheet)
   const sidebarContent = (
