@@ -54,12 +54,36 @@ export default async function PedidosPage() {
   }
 
   const products = await sql`SELECT id, name FROM products WHERE active = true ORDER BY name`;
-  const plans = await sql`
+  const plansRaw = await sql`
     SELECT pl.id, pl.product_id, pl.name AS plan_name, pl.payt_checkout_id
     FROM plans pl
     WHERE pl.active = true
     ORDER BY pl.name
   `;
+
+  // Override checkout IDs with affiliate's when applicable
+  let plans = plansRaw;
+  const affiliateIdForCheckout = isAffiliate
+    ? session.id
+    : isSeller
+      ? (await sql`SELECT affiliate_id FROM users WHERE id = ${session.id}`)[0]?.affiliate_id
+      : null;
+
+  if (affiliateIdForCheckout) {
+    const affCheckouts = await sql`
+      SELECT plan_id, payt_checkout_id
+      FROM affiliate_plan_checkouts
+      WHERE affiliate_id = ${affiliateIdForCheckout}
+    `;
+    const affMap: Record<number, string> = {};
+    for (const row of affCheckouts) {
+      affMap[row.plan_id] = row.payt_checkout_id;
+    }
+    plans = plansRaw.map((p: any) => ({
+      ...p,
+      payt_checkout_id: affMap[p.id] || p.payt_checkout_id,
+    }));
+  }
 
   return (
     <PedidosDashboard
