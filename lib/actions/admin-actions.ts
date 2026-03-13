@@ -468,6 +468,26 @@ export async function updateAffiliateCheckoutId(checkoutId: string) {
   }
 }
 
+export async function upsertAffiliatePlanCheckout(planId: number, checkoutId: string) {
+  const session = await requireAdminOrAffiliate();
+  if (session.role !== "AFFILIATE") return { error: "Apenas afiliados podem alterar Checkout ID de planos" };
+  try {
+    if (checkoutId.trim()) {
+      await sql`
+        INSERT INTO affiliate_plan_checkouts (affiliate_id, plan_id, payt_checkout_id)
+        VALUES (${session.id}, ${planId}, ${checkoutId.trim()})
+        ON CONFLICT (affiliate_id, plan_id) DO UPDATE SET payt_checkout_id = ${checkoutId.trim()}, updated_at = NOW()
+      `;
+    } else {
+      await sql`DELETE FROM affiliate_plan_checkouts WHERE affiliate_id = ${session.id} AND plan_id = ${planId}`;
+    }
+    revalidatePath("/plans");
+    return { success: true };
+  } catch {
+    return { error: "Erro ao salvar Checkout ID do plano" };
+  }
+}
+
 // ---- GOALS ----
 export async function updateUserGoal(userId: number, goal: number) {
   await requireAdmin();

@@ -96,6 +96,7 @@ const affiliateLinks = [
   { href: "/sales", label: "Vendas", icon: ShoppingCart },
   { href: "/history", label: "Historico", icon: ClipboardList },
   { href: "/ranking", label: "Ranking", icon: Trophy },
+  { href: "/plans", label: "Planos", icon: Layers },
   { href: "/users", label: "Vendedores", icon: Users },
   { href: "/integracoes", label: "Integrações", icon: Plug },
 ];
