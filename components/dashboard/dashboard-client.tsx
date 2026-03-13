@@ -86,8 +86,8 @@ export function DashboardClient({
       )}
 
       {/* Main Grid: Chart + Funnel */}
-      <div className="grid grid-cols-1 gap-4 xl:grid-cols-[5fr_3fr]">
-        <DashRevenueChart dailyMetrics={dailyMetrics} />
+      <div className={`grid grid-cols-1 gap-4 ${isAdmin ? "xl:grid-cols-[5fr_3fr]" : ""}`}>
+        {isAdmin && <DashRevenueChart dailyMetrics={dailyMetrics} />}
         <DashFunnel data={funnelData} />
       </div>
 
