@@ -678,3 +678,91 @@ export async function getCobrancaPerformance(
     };
   });
 }
+
+// ---- Funnel Data (order status breakdown for funnel visualization) ----
+export interface FunnelData {
+  total: number;
+  enviados: number;
+  entregues: number;
+  cobrados: number;
+  pagos: number;
+  inadimplentes: number;
+  frustrados: number;
+}
+
+export async function getFunnelData(
+  dateFrom: string,
+  dateTo: string,
+  sellerId?: number
+): Promise<FunnelData> {
+  const rows = sellerId
+    ? await sql`
+        SELECT
+          COUNT(*) as total,
+          COUNT(*) FILTER (WHERE status IN ('enviados','saiu_para_entrega','retirar_nos_correios')) as enviados,
+          COUNT(*) FILTER (WHERE status = 'entregues') as entregues,
+          COUNT(*) FILTER (WHERE status = 'cobrados') as cobrados,
+          COUNT(*) FILTER (WHERE status = 'pagos') as pagos,
+          COUNT(*) FILTER (WHERE status = 'inadimplencias') as inadimplentes,
+          COUNT(*) FILTER (WHERE status = 'frustrados') as frustrados
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
+          AND seller_id = ${sellerId}`
+    : await sql`
+        SELECT
+          COUNT(*) as total,
+          COUNT(*) FILTER (WHERE status IN ('enviados','saiu_para_entrega','retirar_nos_correios')) as enviados,
+          COUNT(*) FILTER (WHERE status = 'entregues') as entregues,
+          COUNT(*) FILTER (WHERE status = 'cobrados') as cobrados,
+          COUNT(*) FILTER (WHERE status = 'pagos') as pagos,
+          COUNT(*) FILTER (WHERE status = 'inadimplencias') as inadimplentes,
+          COUNT(*) FILTER (WHERE status = 'frustrados') as frustrados
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}`;
+
+  const r = rows[0];
+  return {
+    total: Number(r?.total || 0),
+    enviados: Number(r?.enviados || 0),
+    entregues: Number(r?.entregues || 0),
+    cobrados: Number(r?.cobrados || 0),
+    pagos: Number(r?.pagos || 0),
+    inadimplentes: Number(r?.inadimplentes || 0),
+    frustrados: Number(r?.frustrados || 0),
+  };
+}
+
+// ---- Aging Data (receivables aging) ----
+export interface AgingBucket {
+  label: string;
+  count: number;
+  value: number;
+}
+
+export async function getAgingData(
+  dateFrom: string,
+  dateTo: string
+): Promise<AgingBucket[]> {
+  const rows = await sql`
+    SELECT
+      COUNT(*) FILTER (WHERE EXTRACT(DAY FROM NOW() - o.created_at) <= 7) as cnt_0_7,
+      COUNT(*) FILTER (WHERE EXTRACT(DAY FROM NOW() - o.created_at) BETWEEN 8 AND 15) as cnt_8_15,
+      COUNT(*) FILTER (WHERE EXTRACT(DAY FROM NOW() - o.created_at) BETWEEN 16 AND 30) as cnt_16_30,
+      COUNT(*) FILTER (WHERE EXTRACT(DAY FROM NOW() - o.created_at) > 30) as cnt_30p,
+      COALESCE(SUM(CASE WHEN EXTRACT(DAY FROM NOW() - o.created_at) <= 7 THEN p.sale_price_gross ELSE 0 END), 0) as val_0_7,
+      COALESCE(SUM(CASE WHEN EXTRACT(DAY FROM NOW() - o.created_at) BETWEEN 8 AND 15 THEN p.sale_price_gross ELSE 0 END), 0) as val_8_15,
+      COALESCE(SUM(CASE WHEN EXTRACT(DAY FROM NOW() - o.created_at) BETWEEN 16 AND 30 THEN p.sale_price_gross ELSE 0 END), 0) as val_16_30,
+      COALESCE(SUM(CASE WHEN EXTRACT(DAY FROM NOW() - o.created_at) > 30 THEN p.sale_price_gross ELSE 0 END), 0) as val_30p
+    FROM orders o
+    LEFT JOIN plans p ON p.id = o.plan_id
+    WHERE o.status IN ('cobrados', 'inadimplencias', 'requer_atencao')
+      AND o.created_at::date >= ${dateFrom} AND o.created_at::date <= ${dateTo}`;
+
+  const r = rows[0];
+  return [
+    { label: "A vencer (0-7 dias)", count: Number(r?.cnt_0_7 || 0), value: Number(r?.val_0_7 || 0) },
+    { label: "Vencido 1-15 dias", count: Number(r?.cnt_8_15 || 0), value: Number(r?.val_8_15 || 0) },
+    { label: "Vencido 16-30 dias", count: Number(r?.cnt_16_30 || 0), value: Number(r?.val_16_30 || 0) },
+    { label: "Vencido 30+ dias", count: Number(r?.cnt_30p || 0), value: Number(r?.val_30p || 0) },
+  ];
+}

@@ -2,24 +2,12 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 
 const periods = [
-  { value: "today", label: "Hoje" },
-  { value: "yesterday", label: "Ontem" },
-  { value: "7d", label: "Ultimos 7 dias" },
-  { value: "30d", label: "Ultimos 30 dias" },
-  { value: "month", label: "Mes atual" },
-  { value: "custom", label: "Personalizado" },
+  { value: "7d", label: "7D" },
+  { value: "30d", label: "30D" },
+  { value: "month", label: "Mes" },
+  { value: "custom", label: "Custom" },
 ];
 
 interface PeriodFilterProps {
@@ -28,11 +16,7 @@ interface PeriodFilterProps {
   dateTo: string;
 }
 
-export function PeriodFilter({
-  period,
-  dateFrom,
-  dateTo,
-}: PeriodFilterProps) {
+export function PeriodFilter({ period, dateFrom, dateTo }: PeriodFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [customFrom, setCustomFrom] = useState(dateFrom);
@@ -59,46 +43,67 @@ export function PeriodFilter({
   }
 
   return (
-    <div className="flex flex-wrap items-end gap-3">
-      <div className="flex flex-col gap-1.5">
-        <Label className="text-xs text-muted-foreground">Periodo</Label>
-        <Select value={selected} onValueChange={handlePeriodChange}>
-          <SelectTrigger className="w-48">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {periods.map((p) => (
-              <SelectItem key={p.value} value={p.value}>
-                {p.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+    <div className="flex flex-wrap items-center gap-3">
+      <div
+        className="flex overflow-hidden rounded-[10px] border"
+        style={{ background: "var(--d-card)", borderColor: "var(--d-border)" }}
+      >
+        {periods.map((p) => (
+          <button
+            key={p.value}
+            onClick={() => handlePeriodChange(p.value)}
+            className="px-[18px] py-[7px] text-xs font-medium transition-all"
+            style={{
+              background: selected === p.value ? "var(--d-green-s)" : "transparent",
+              color: selected === p.value ? "var(--d-green)" : "var(--d-t400)",
+              fontFamily: "inherit",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            {p.label}
+          </button>
+        ))}
       </div>
       {selected === "custom" && (
-        <>
-          <div className="flex flex-col gap-1.5">
-            <Label className="text-xs text-muted-foreground">De</Label>
-            <Input
-              type="date"
-              value={customFrom}
-              onChange={(e) => setCustomFrom(e.target.value)}
-              className="w-40"
-            />
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <Label className="text-xs text-muted-foreground">Ate</Label>
-            <Input
-              type="date"
-              value={customTo}
-              onChange={(e) => setCustomTo(e.target.value)}
-              className="w-40"
-            />
-          </div>
-          <Button onClick={handleCustomApply} size="sm">
+        <div className="flex items-center gap-2">
+          <input
+            type="date"
+            value={customFrom}
+            onChange={(e) => setCustomFrom(e.target.value)}
+            className="rounded-lg border px-3 py-1.5 text-xs"
+            style={{
+              background: "var(--d-card)",
+              borderColor: "var(--d-border)",
+              color: "var(--d-t200)",
+              colorScheme: "dark",
+            }}
+          />
+          <input
+            type="date"
+            value={customTo}
+            onChange={(e) => setCustomTo(e.target.value)}
+            className="rounded-lg border px-3 py-1.5 text-xs"
+            style={{
+              background: "var(--d-card)",
+              borderColor: "var(--d-border)",
+              color: "var(--d-t200)",
+              colorScheme: "dark",
+            }}
+          />
+          <button
+            onClick={handleCustomApply}
+            className="rounded-lg px-3 py-1.5 text-xs font-medium"
+            style={{
+              background: "var(--d-green-s)",
+              color: "var(--d-green)",
+              border: "1px solid rgba(52,211,153,0.12)",
+              cursor: "pointer",
+            }}
+          >
             Aplicar
-          </Button>
-        </>
+          </button>
+        </div>
       )}
     </div>
   );

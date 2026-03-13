@@ -8,6 +8,8 @@ import {
   getSellerRankings,
   getCobrancaPerformance,
   getDailyMetrics,
+  getFunnelData,
+  getAgingData,
 } from "@/lib/kpi";
 import { getDateRange } from "@/lib/format";
 import { DashboardClient } from "@/components/dashboard/dashboard-client";
@@ -41,7 +43,7 @@ export default async function DashboardPage({ searchParams }: Props) {
   const isSeller = session.role === "SELLER";
   const sellerId = isSeller ? session.id : undefined;
 
-  const [kpis, orderStats, stateRanking, weeklyData, sellerRankings, cobrancaPerf, dailyMetrics] =
+  const [kpis, orderStats, stateRanking, weeklyData, sellerRankings, cobrancaPerf, dailyMetrics, funnelData, agingData] =
     await Promise.all([
       calculateKPIs(dateFrom, dateTo, sellerId),
       getOrderStats(dateFrom, dateTo, sellerId),
@@ -50,6 +52,8 @@ export default async function DashboardPage({ searchParams }: Props) {
       isSeller ? Promise.resolve([]) : getSellerRankings(dateFrom, dateTo),
       isSeller ? Promise.resolve([]) : getCobrancaPerformance(dateFrom, dateTo),
       getDailyMetrics(dateFrom, dateTo, sellerId),
+      getFunnelData(dateFrom, dateTo, sellerId),
+      isSeller ? Promise.resolve([]) : getAgingData(dateFrom, dateTo),
     ]);
 
   return (
@@ -61,6 +65,8 @@ export default async function DashboardPage({ searchParams }: Props) {
       sellerRankings={sellerRankings}
       cobrancaPerf={cobrancaPerf}
       dailyMetrics={dailyMetrics}
+      funnelData={funnelData}
+      agingData={agingData}
       period={period}
       dateFrom={dateFrom}
       dateTo={dateTo}
