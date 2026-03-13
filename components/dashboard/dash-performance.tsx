@@ -9,12 +9,12 @@ interface Props {
 }
 
 const AVATAR_COLORS = [
-  { bg: "var(--d-green-s)", text: "var(--d-green)" },
-  { bg: "var(--d-blue-s)", text: "var(--d-blue)" },
-  { bg: "var(--d-purple-s)", text: "var(--d-purple)" },
-  { bg: "var(--d-amber-s)", text: "var(--d-amber)" },
-  { bg: "var(--d-red-s)", text: "var(--d-red)" },
-  { bg: "var(--d-orange-s)", text: "var(--d-orange)" },
+  "bg-primary/10 text-primary",
+  "bg-blue-500/10 text-blue-500",
+  "bg-violet-500/10 text-violet-500",
+  "bg-amber-500/10 text-amber-500",
+  "bg-rose-500/10 text-rose-500",
+  "bg-emerald-500/10 text-emerald-500",
 ];
 
 function getInitials(name: string) {
@@ -23,23 +23,16 @@ function getInitials(name: string) {
 
 export function DashPerformance({ sellers, cobranca }: Props) {
   return (
-    <div className="d-card d-animate p-6">
-      <div className="mb-5 flex items-center justify-between">
-        <h3 className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--d-t100)" }}>
-          <span className="opacity-50">👥</span>
-          Performance por Atendente
-        </h3>
+    <div className="d-animate overflow-hidden rounded-2xl border border-border/60 bg-card p-6">
+      <div className="mb-5">
+        <h3 className="text-sm font-semibold text-foreground">Performance por Atendente</h3>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr style={{ borderBottom: "1px solid var(--d-border)" }}>
-              {["Atendente", "Vendas", "Confirm.", "Inadimpl.", "Lucro"].map((h) => (
-                <th
-                  key={h}
-                  className="px-2.5 pb-3 text-left text-[9.5px] font-semibold uppercase tracking-[1.2px]"
-                  style={{ color: "var(--d-t500)", textAlign: h === "Lucro" ? "right" : "left" }}
-                >
+            <tr className="border-b border-border/60">
+              {["Atendente", "Vendas", "Confirm.", "Inadimpl.", "Lucro"].map((h, i) => (
+                <th key={h} className={`px-2.5 pb-3 text-[9.5px] font-semibold uppercase tracking-[1.2px] text-muted-foreground ${i === 4 ? "text-right" : "text-left"}`}>
                   {h}
                 </th>
               ))}
@@ -51,43 +44,32 @@ export function DashPerformance({ sellers, cobranca }: Props) {
               const inadRate = cob ? (cob.frustrados / Math.max(cob.totalOrders, 1)) : 0;
               const confirmRate = cob ? cob.conversionRate : 0;
               const ac = AVATAR_COLORS[i % AVATAR_COLORS.length];
-
               return (
-                <tr
-                  key={s.sellerId}
-                  style={{ borderBottom: "1px solid rgba(255,255,255,0.025)" }}
-                >
-                  <td className="px-2.5 py-[11px] text-[12.5px]" style={{ color: "var(--d-t300)" }}>
-                    <span
-                      className="mr-2 inline-flex h-7 w-7 items-center justify-center rounded-[7px] align-middle text-[10.5px] font-semibold"
-                      style={{ background: ac.bg, color: ac.text }}
-                    >
+                <tr key={s.sellerId} className="border-b border-border/30 transition-colors hover:bg-muted/30">
+                  <td className="px-2.5 py-[11px] text-[12.5px] text-foreground">
+                    <span className={`mr-2 inline-flex h-7 w-7 items-center justify-center rounded-[7px] align-middle text-[10.5px] font-semibold ${ac}`}>
                       {getInitials(s.sellerName)}
                     </span>
                     {s.sellerName}
                   </td>
-                  <td className="px-2.5 py-[11px] text-[12.5px]" style={{ color: "var(--d-t300)" }}>
-                    {formatNumber(s.salesQty)}
-                  </td>
+                  <td className="px-2.5 py-[11px] text-[12.5px] text-foreground">{formatNumber(s.salesQty)}</td>
                   <td className="px-2.5 py-[11px]">
-                    <span
-                      className="inline-flex rounded-full px-2 py-0.5 text-[10.5px] font-semibold"
-                      style={{
-                        background: confirmRate >= 0.4 ? "var(--d-green-s)" : confirmRate >= 0.25 ? "var(--d-amber-s)" : "var(--d-red-s)",
-                        color: confirmRate >= 0.4 ? "var(--d-green)" : confirmRate >= 0.25 ? "var(--d-amber)" : "var(--d-red)",
-                      }}
-                    >
+                    <span className={`inline-flex rounded-full px-2 py-0.5 text-[10.5px] font-semibold ${
+                      confirmRate >= 0.4 ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                      : confirmRate >= 0.25 ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                      : "bg-rose-500/10 text-rose-500"
+                    }`}>
                       {formatPercent(confirmRate)}
                     </span>
                   </td>
-                  <td className="px-2.5 py-[11px] text-[12.5px]" style={{
-                    color: inadRate > 0.15 ? "var(--d-red)" : inadRate > 0.08 ? "var(--d-amber)" : "var(--d-green)"
-                  }}>
+                  <td className={`px-2.5 py-[11px] text-[12.5px] ${
+                    inadRate > 0.15 ? "text-rose-500" : inadRate > 0.08 ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400"
+                  }`}>
                     {formatPercent(inadRate)}
                   </td>
-                  <td className="px-2.5 py-[11px] text-right text-[12.5px] font-semibold" style={{
-                    color: s.profit >= 0 ? "var(--d-t100)" : "var(--d-red)"
-                  }}>
+                  <td className={`px-2.5 py-[11px] text-right text-[12.5px] font-semibold ${
+                    s.profit >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500"
+                  }`}>
                     {formatBRL(s.profit)}
                   </td>
                 </tr>

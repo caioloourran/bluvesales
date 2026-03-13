@@ -2,6 +2,8 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const periods = [
   { value: "7d", label: "7D" },
@@ -44,22 +46,16 @@ export function PeriodFilter({ period, dateFrom, dateTo }: PeriodFilterProps) {
 
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <div
-        className="flex overflow-hidden rounded-[10px] border"
-        style={{ background: "var(--d-card)", borderColor: "var(--d-border)" }}
-      >
+      <div className="flex overflow-hidden rounded-lg border border-border bg-card">
         {periods.map((p) => (
           <button
             key={p.value}
             onClick={() => handlePeriodChange(p.value)}
-            className="px-[18px] py-[7px] text-xs font-medium transition-all"
-            style={{
-              background: selected === p.value ? "var(--d-green-s)" : "transparent",
-              color: selected === p.value ? "var(--d-green)" : "var(--d-t400)",
-              fontFamily: "inherit",
-              border: "none",
-              cursor: "pointer",
-            }}
+            className={`px-4 py-1.5 text-xs font-medium transition-all ${
+              selected === p.value
+                ? "bg-primary/10 text-primary"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
           >
             {p.label}
           </button>
@@ -67,42 +63,9 @@ export function PeriodFilter({ period, dateFrom, dateTo }: PeriodFilterProps) {
       </div>
       {selected === "custom" && (
         <div className="flex items-center gap-2">
-          <input
-            type="date"
-            value={customFrom}
-            onChange={(e) => setCustomFrom(e.target.value)}
-            className="rounded-lg border px-3 py-1.5 text-xs"
-            style={{
-              background: "var(--d-card)",
-              borderColor: "var(--d-border)",
-              color: "var(--d-t200)",
-              colorScheme: "dark",
-            }}
-          />
-          <input
-            type="date"
-            value={customTo}
-            onChange={(e) => setCustomTo(e.target.value)}
-            className="rounded-lg border px-3 py-1.5 text-xs"
-            style={{
-              background: "var(--d-card)",
-              borderColor: "var(--d-border)",
-              color: "var(--d-t200)",
-              colorScheme: "dark",
-            }}
-          />
-          <button
-            onClick={handleCustomApply}
-            className="rounded-lg px-3 py-1.5 text-xs font-medium"
-            style={{
-              background: "var(--d-green-s)",
-              color: "var(--d-green)",
-              border: "1px solid rgba(52,211,153,0.12)",
-              cursor: "pointer",
-            }}
-          >
-            Aplicar
-          </button>
+          <Input type="date" value={customFrom} onChange={(e) => setCustomFrom(e.target.value)} className="h-8 w-36 text-xs" />
+          <Input type="date" value={customTo} onChange={(e) => setCustomTo(e.target.value)} className="h-8 w-36 text-xs" />
+          <Button onClick={handleCustomApply} size="sm" variant="outline" className="h-8 text-xs">Aplicar</Button>
         </div>
       )}
     </div>

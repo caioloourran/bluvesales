@@ -2,6 +2,7 @@
 
 import { formatBRL, formatNumber, formatPercent } from "@/lib/format";
 import type { KPIData } from "@/lib/kpi";
+import { Calendar, CheckSquare } from "lucide-react";
 
 interface Props {
   kpis: KPIData;
@@ -17,64 +18,58 @@ export function DashDualBlocks({ kpis }: Props) {
   const ticketMedio = kpis.approvedCount > 0 ? kpis.approvedRevenue / kpis.approvedCount : 0;
 
   return (
-    <div className="grid grid-cols-1 gap-3.5 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       {/* Agendado */}
-      <div className="d-card d-animate overflow-hidden p-6" style={{ animationDelay: "0.2s" }}>
+      <div className="d-animate overflow-hidden rounded-2xl border border-border/60 bg-card p-6" style={{ animationDelay: "0.2s" }}>
         <div className="mb-5 flex items-center gap-2.5">
-          <div
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-sm"
-            style={{ background: "var(--d-amber-s)", color: "var(--d-amber)" }}
-          >
-            📅
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10 text-blue-500">
+            <Calendar className="h-4 w-4" />
           </div>
-          <h3 className="text-[15px] font-semibold" style={{ color: "var(--d-t100)" }}>Agendado</h3>
+          <h3 className="text-[15px] font-semibold text-foreground">Agendado</h3>
         </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <MiniKpi label="Faturamento Agendado" value={formatBRL(kpis.grossValue)} sub="Total agendado" valueColor="var(--d-green)" />
-          <MiniKpi label="ROAS Agendado" value={`${formatNumber(scheduledRoas, 2)}x`} sub={`Fat. agendado: ${formatBRL(kpis.grossValue)}`} valueColor="var(--d-amber)" />
+          <MiniKpi label="Faturamento Agendado" value={formatBRL(kpis.grossValue)} sub="Total agendado" valueClass="text-blue-600 dark:text-blue-400" />
+          <MiniKpi label="ROAS Agendado" value={`${formatNumber(scheduledRoas, 2)}x`} sub={`Fat: ${formatBRL(kpis.grossValue)}`} valueClass="text-amber-600 dark:text-amber-400" />
           <MiniKpi label="CPA de Agendamento" value={scheduledCpa !== null ? formatBRL(scheduledCpa) : "\u2014"} sub={`${formatNumber(kpis.salesQty)} agendamentos`} />
           <MiniKpi label="Agendamentos" value={formatNumber(kpis.salesQty)} sub="no periodo" />
-          <MiniKpi label="Lucro Estimado" value={formatBRL(kpis.profit)} sub="Se todos pagarem" valueColor={kpis.profit >= 0 ? "var(--d-green)" : "var(--d-red)"} />
-          <MiniKpi label="Leads p/ Agendamento" value={leadsPerSchedule !== null ? formatNumber(leadsPerSchedule, 1) : "\u2014"} sub={`${formatNumber(kpis.leads)} leads / ${formatNumber(kpis.salesQty)} agend.`} valueColor="var(--d-cyan)" />
+          <MiniKpi label="Lucro Estimado" value={formatBRL(kpis.profit)} sub="Se todos pagarem" valueClass={kpis.profit >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500"} />
+          <MiniKpi label="Leads p/ Agendamento" value={leadsPerSchedule !== null ? formatNumber(leadsPerSchedule, 1) : "\u2014"} sub={`${formatNumber(kpis.leads)} leads / ${formatNumber(kpis.salesQty)} agend.`} valueClass="text-primary" />
         </div>
       </div>
 
       {/* Aprovado */}
-      <div className="d-card d-animate overflow-hidden p-6" style={{ animationDelay: "0.24s" }}>
+      <div className="d-animate overflow-hidden rounded-2xl border border-border/60 bg-card p-6" style={{ animationDelay: "0.24s" }}>
         <div className="mb-5 flex items-center gap-2.5">
-          <div
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-sm"
-            style={{ background: "var(--d-green-s)", color: "var(--d-green)" }}
-          >
-            ✓
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500">
+            <CheckSquare className="h-4 w-4" />
           </div>
-          <h3 className="text-[15px] font-semibold" style={{ color: "var(--d-t100)" }}>Aprovado</h3>
+          <h3 className="text-[15px] font-semibold text-foreground">Aprovado</h3>
         </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <MiniKpi label="Faturamento Aprovado" value={formatBRL(kpis.approvedRevenue)} sub="Pag. aprovados (R$)" valueColor="var(--d-green)" />
-          <MiniKpi label="ROAS Aprovado" value={`${formatNumber(approvedRoas, 2)}x`} sub={`Pag. aprovados: ${formatBRL(kpis.approvedRevenue)}`} valueColor="var(--d-amber)" />
-          <MiniKpi label="CPA de Aprovados" value={approvedCpa !== null ? formatBRL(approvedCpa) : "\u2014"} sub={`${formatNumber(kpis.approvedCount)} aprovados`} valueColor="var(--d-orange)" />
+          <MiniKpi label="Faturamento Aprovado" value={formatBRL(kpis.approvedRevenue)} sub="Pag. aprovados (R$)" valueClass="text-emerald-600 dark:text-emerald-400" />
+          <MiniKpi label="ROAS Aprovado" value={`${formatNumber(approvedRoas, 2)}x`} sub={`Pag: ${formatBRL(kpis.approvedRevenue)}`} valueClass="text-amber-600 dark:text-amber-400" />
+          <MiniKpi label="CPA de Aprovados" value={approvedCpa !== null ? formatBRL(approvedCpa) : "\u2014"} sub={`${formatNumber(kpis.approvedCount)} aprovados`} valueClass="text-orange-600 dark:text-orange-400" />
           <MiniKpi label="Pag. Aprovados" value={formatNumber(kpis.approvedCount)} sub="no periodo" />
-          <MiniKpi label="Taxa Conversao" value={formatPercent(conversionRate)} sub={`${formatNumber(kpis.approvedCount)} / ${formatNumber(kpis.salesQty)} agendados`} valueColor="var(--d-green)" />
-          <MiniKpi label="Ticket Medio" value={formatBRL(ticketMedio)} sub="por aprovado" valueColor="var(--d-cyan)" />
+          <MiniKpi label="Taxa Conversao" value={formatPercent(conversionRate)} sub={`${formatNumber(kpis.approvedCount)} / ${formatNumber(kpis.salesQty)} agendados`} valueClass="text-emerald-600 dark:text-emerald-400" />
+          <MiniKpi label="Ticket Medio" value={formatBRL(ticketMedio)} sub="por aprovado" valueClass="text-primary" />
         </div>
       </div>
     </div>
   );
 }
 
-function MiniKpi({ label, value, sub, valueColor }: {
-  label: string; value: string; sub: string; valueColor?: string;
+function MiniKpi({ label, value, sub, valueClass }: {
+  label: string; value: string; sub: string; valueClass?: string;
 }) {
   return (
-    <div className="rounded-[10px] border px-3.5 py-4" style={{ background: "var(--d-elevated)", borderColor: "var(--d-border)" }}>
-      <p className="text-[9.5px] font-semibold uppercase leading-snug tracking-[1.2px]" style={{ color: "var(--d-t400)" }}>
+    <div className="rounded-[10px] border border-border/40 bg-muted/30 px-3.5 py-4">
+      <p className="text-[9.5px] font-semibold uppercase leading-snug tracking-[1.2px] text-muted-foreground">
         {label}
       </p>
-      <p className="mt-2 text-xl font-bold leading-none" style={{ color: valueColor || "var(--d-t100)", letterSpacing: "-0.02em" }}>
+      <p className={`mt-2 text-xl font-bold leading-none tracking-tight ${valueClass || "text-foreground"}`}>
         {value}
       </p>
-      <p className="mt-1 text-[11px]" style={{ color: "var(--d-t400)" }}>{sub}</p>
+      <p className="mt-1 text-[11px] text-muted-foreground">{sub}</p>
     </div>
   );
 }

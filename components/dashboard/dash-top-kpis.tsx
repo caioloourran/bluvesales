@@ -2,6 +2,7 @@
 
 import { formatBRL, formatNumber, formatPercent } from "@/lib/format";
 import type { KPIData, OrderStats } from "@/lib/kpi";
+import { TrendingDown, Users, Percent, DollarSign, ShoppingBag, BarChart2, Zap } from "lucide-react";
 
 interface Props {
   kpis: KPIData;
@@ -16,42 +17,14 @@ export function DashTopKpis({ kpis, orderStats, isAdmin }: Props) {
   if (!isAdmin) {
     return (
       <div className="grid grid-cols-2 gap-3.5 lg:grid-cols-4">
-        <KpiCard
-          label="Pedidos Agendados"
-          value={formatNumber(kpis.salesQty)}
-          sub="no periodo"
-          accentColor="var(--d-blue)"
-          accentBg="var(--d-blue-s)"
-          icon="📋"
-          delay={0}
-        />
-        <KpiCard
-          label="Fat. Agendado"
-          value={formatBRL(kpis.grossValue)}
-          sub="Total agendado"
-          accentColor="var(--d-green)"
-          accentBg="var(--d-green-s)"
-          icon="💰"
-          delay={1}
-        />
-        <KpiCard
-          label="Total de Leads"
-          value={formatNumber(kpis.leads)}
-          sub={`CPL: ${kpis.cpl !== null ? formatBRL(kpis.cpl) : "N/A"}`}
-          accentColor="var(--d-purple)"
-          accentBg="var(--d-purple-s)"
-          icon="👥"
-          delay={2}
-        />
-        <KpiCard
-          label="Leads p/ Agend."
-          value={leadsPerSchedule !== null ? formatNumber(leadsPerSchedule, 1) : "\u2014"}
-          sub={`${formatNumber(kpis.leads)} leads / ${formatNumber(kpis.salesQty)} agend.`}
-          accentColor="var(--d-cyan)"
-          accentBg="rgba(34,211,238,0.1)"
-          icon="\u26A1"
-          delay={3}
-        />
+        <KpiCard label="Pedidos Agendados" value={formatNumber(kpis.salesQty)} sub="no periodo"
+          icon={<ShoppingBag className="h-4 w-4" />} accentClass="text-primary bg-primary/10" delay={0} />
+        <KpiCard label="Fat. Agendado" value={formatBRL(kpis.grossValue)} sub="Total agendado"
+          icon={<BarChart2 className="h-4 w-4" />} accentClass="text-blue-500 bg-blue-500/10" valueClass="text-blue-600 dark:text-blue-400" delay={1} />
+        <KpiCard label="Total de Leads" value={formatNumber(kpis.leads)} sub={`CPL: ${kpis.cpl !== null ? formatBRL(kpis.cpl) : "N/A"}`}
+          icon={<Users className="h-4 w-4" />} accentClass="text-violet-500 bg-violet-500/10" delay={2} />
+        <KpiCard label="Leads p/ Agend." value={leadsPerSchedule !== null ? formatNumber(leadsPerSchedule, 1) : "\u2014"} sub={`${formatNumber(kpis.leads)} leads / ${formatNumber(kpis.salesQty)} agend.`}
+          icon={<Zap className="h-4 w-4" />} accentClass="text-amber-500 bg-amber-500/10" valueClass="text-amber-600 dark:text-amber-400" delay={3} />
       </div>
     );
   }
@@ -62,39 +35,39 @@ export function DashTopKpis({ kpis, orderStats, isAdmin }: Props) {
         label="Gastos em Anuncios"
         value={formatBRL(kpis.investment)}
         sub={kpis.daysInPeriod > 0 ? `${kpis.daysInPeriod} dia${kpis.daysInPeriod > 1 ? "s" : ""} registrado${kpis.daysInPeriod > 1 ? "s" : ""}` : "Nenhum registro"}
-        accentColor="var(--d-red)"
-        accentBg="var(--d-red-s)"
-        valueColor="var(--d-red)"
-        icon="\uD83D\uDCE2"
+        icon={<TrendingDown className="h-4 w-4" />}
+        accentClass="text-rose-500 bg-rose-500/10"
+        valueClass="text-rose-500"
+        barClass="bg-rose-500"
         delay={0}
       />
       <KpiCard
         label="Total de Leads"
         value={formatNumber(kpis.leads)}
         sub={`CPL medio: ${kpis.cpl !== null ? formatBRL(kpis.cpl) : "N/A"}`}
-        accentColor="var(--d-purple)"
-        accentBg="var(--d-purple-s)"
-        icon="\uD83D\uDC65"
+        icon={<Users className="h-4 w-4" />}
+        accentClass="text-violet-500 bg-violet-500/10"
+        barClass="bg-violet-500"
         delay={1}
       />
       <KpiCard
-        label="Taxa Lead \u2192 Pagamento"
+        label="Taxa Lead Pagamento"
         value={formatPercent(leadToPayment)}
         sub={kpis.daysInPeriod > 0 ? `${kpis.daysInPeriod} dia${kpis.daysInPeriod > 1 ? "s" : ""} registrado${kpis.daysInPeriod > 1 ? "s" : ""}` : "Nenhum registro"}
-        accentColor="var(--d-amber)"
-        accentBg="var(--d-amber-s)"
-        valueColor="var(--d-amber)"
-        icon="%"
+        icon={<Percent className="h-4 w-4" />}
+        accentClass="text-amber-500 bg-amber-500/10"
+        valueClass="text-amber-600 dark:text-amber-400"
+        barClass="bg-amber-500"
         delay={2}
       />
       <KpiCard
         label="Lucro Total (Periodo)"
         value={formatBRL(kpis.approvedProfit)}
         sub="Somente pagamentos aprovados"
-        accentColor={kpis.approvedProfit >= 0 ? "var(--d-green)" : "var(--d-red)"}
-        accentBg={kpis.approvedProfit >= 0 ? "var(--d-green-s)" : "var(--d-red-s)"}
-        valueColor={kpis.approvedProfit >= 0 ? "var(--d-green)" : "var(--d-red)"}
-        icon="$"
+        icon={<DollarSign className="h-4 w-4" />}
+        accentClass={kpis.approvedProfit >= 0 ? "text-emerald-500 bg-emerald-500/10" : "text-rose-500 bg-rose-500/10"}
+        valueClass={kpis.approvedProfit >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500"}
+        barClass={kpis.approvedProfit >= 0 ? "bg-emerald-500" : "bg-rose-500"}
         delay={3}
       />
     </div>
@@ -102,37 +75,30 @@ export function DashTopKpis({ kpis, orderStats, isAdmin }: Props) {
 }
 
 function KpiCard({
-  label, value, sub, accentColor, accentBg, valueColor, icon, delay,
+  label, value, sub, icon, accentClass, valueClass, barClass, delay,
 }: {
   label: string; value: string; sub: string;
-  accentColor: string; accentBg: string;
-  valueColor?: string; icon: string; delay: number;
+  icon: React.ReactNode; accentClass: string;
+  valueClass?: string; barClass?: string; delay: number;
 }) {
   return (
     <div
-      className="d-card d-animate relative overflow-hidden px-6 py-5"
+      className="d-animate relative overflow-hidden rounded-2xl border border-border/60 bg-card p-5 transition-all hover:border-border hover:shadow-sm"
       style={{ animationDelay: `${delay * 0.04}s` }}
     >
-      <div
-        className="absolute bottom-0 left-0 top-0 w-[3px]"
-        style={{ background: accentColor, borderRadius: "0 3px 3px 0" }}
-      />
-      <div
-        className="absolute right-[18px] top-4 flex h-9 w-9 items-center justify-center rounded-[10px] text-base"
-        style={{ background: accentBg, color: accentColor }}
-      >
+      {barClass && (
+        <div className={`absolute bottom-0 left-0 top-0 w-[3px] rounded-r ${barClass}`} />
+      )}
+      <div className={`absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-[10px] ${accentClass}`}>
         {icon}
       </div>
-      <p className="text-[10.5px] font-semibold uppercase tracking-[1.4px]" style={{ color: "var(--d-t400)" }}>
+      <p className="text-[10.5px] font-semibold uppercase tracking-[1.4px] text-muted-foreground">
         {label}
       </p>
-      <p
-        className="mt-2.5 text-[28px] font-bold leading-none"
-        style={{ color: valueColor || "var(--d-t100)", letterSpacing: "-0.03em" }}
-      >
+      <p className={`mt-2.5 text-[28px] font-bold leading-none tracking-tight ${valueClass || "text-foreground"}`}>
         {value}
       </p>
-      <p className="mt-1.5 text-xs" style={{ color: "var(--d-t400)" }}>{sub}</p>
+      <p className="mt-1.5 text-xs text-muted-foreground">{sub}</p>
     </div>
   );
 }
