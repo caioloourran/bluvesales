@@ -1,7 +1,6 @@
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { calculateKPIs } from "@/lib/kpi";
-import { getDateRange } from "@/lib/format";
+import { sql } from "@/lib/db";
 import { getSellerWithdrawals, getSellerWithdrawnTotal } from "@/lib/actions/withdrawal-actions";
 import { FinanceiroClient } from "@/components/financeiro/financeiro-client";
 
@@ -9,23 +8,38 @@ export const metadata = {
   title: "Financeiro - Comissoes",
 };
 
+async function getSellerApprovedCommission(sellerId: number): Promise<number> {
+  const rows = await sql`
+    SELECT COUNT(*) as qty, p.sale_price_gross, COALESCE(sc.percent, 0) as commission_pct
+    FROM orders o
+    JOIN plans p ON p.id = o.plan_id
+    LEFT JOIN seller_commissions sc ON sc.seller_id = o.seller_id AND sc.plan_id = o.plan_id
+    WHERE o.seller_id = ${sellerId} AND o.status = 'pagos'
+    GROUP BY p.sale_price_gross, sc.percent
+  `;
+  let total = 0;
+  for (const row of rows) {
+    total += Number(row.qty) * Number(row.sale_price_gross) * (Number(row.commission_pct) / 100);
+  }
+  return total;
+}
+
 export default async function FinanceiroPage() {
   const session = await getSession();
   if (!session) redirect("/login");
   if (session.role !== "SELLER") redirect("/dashboard");
 
-  // Get all-time KPIs for approved commission (use a wide date range)
-  const allTimeRange = { from: "2020-01-01", to: new Date().toISOString().split("T")[0] };
-  const kpis = await calculateKPIs(allTimeRange.from, allTimeRange.to, session.id);
+  const [approvedCommission, withdrawals, withdrawnTotal] = await Promise.all([
+    getSellerApprovedCommission(session.id),
+    getSellerWithdrawals(session.id),
+    getSellerWithdrawnTotal(session.id),
+  ]);
 
-  const withdrawals = await getSellerWithdrawals(session.id);
-  const withdrawnTotal = await getSellerWithdrawnTotal(session.id);
-
-  const availableBalance = Math.max(kpis.approvedCommission - withdrawnTotal, 0);
+  const availableBalance = Math.max(approvedCommission - withdrawnTotal, 0);
 
   return (
     <FinanceiroClient
-      approvedCommission={kpis.approvedCommission}
+      approvedCommission={approvedCommission}
       withdrawnTotal={withdrawnTotal}
       availableBalance={availableBalance}
       withdrawals={withdrawals}

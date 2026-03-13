@@ -258,7 +258,6 @@ export async function calculateKPIs(
   const approvedAgg = processSalesRows(approvedRows, approveFees);
   const approvedCount = approvedAgg.salesQty;
   const approvedRevenue = approvedAgg.grossValue;
-  const approvedCommission = approvedAgg.grossCommission;
   const approvedProfit = approvedRevenue
     - approvedAgg.platformFees
     - approvedAgg.netCommission
@@ -266,6 +265,26 @@ export async function calculateKPIs(
     - approvedAgg.shippingCosts
     - approvedAgg.discounts
     - investment - investmentTax;
+
+  // Approved commission from orders with status 'pagos' linked to seller
+  let approvedCommission = 0;
+  if (sellerId) {
+    const paidOrderRows = await sql`
+      SELECT COUNT(*) as qty, p.sale_price_gross, COALESCE(sc.percent, 0) as commission_pct
+      FROM orders o
+      JOIN plans p ON p.id = o.plan_id
+      LEFT JOIN seller_commissions sc ON sc.seller_id = o.seller_id AND sc.plan_id = o.plan_id
+      WHERE o.seller_id = ${sellerId} AND o.status = 'pagos'
+        AND o.created_at >= ${dateFrom} AND o.created_at <= ${dateTo}::date + INTERVAL '1 day'
+      GROUP BY p.sale_price_gross, sc.percent
+    `;
+    for (const row of paidOrderRows) {
+      const qty = Number(row.qty);
+      const gross = Number(row.sale_price_gross);
+      const pct = Number(row.commission_pct) / 100;
+      approvedCommission += qty * gross * pct;
+    }
+  }
 
   return {
     investment, leads,
