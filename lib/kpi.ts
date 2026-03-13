@@ -186,7 +186,8 @@ function processSalesRows(rows: SalesRow[], saleFees: Fee[]): SalesAgg {
 export async function calculateKPIs(
   dateFrom: string,
   dateTo: string,
-  sellerId?: number
+  sellerId?: number,
+  affiliateId?: number
 ): Promise<KPIData> {
   const fees = await getActiveFees();
   const saleFees = fees.filter((f) => f.applies_to === "SALE");
@@ -196,6 +197,8 @@ export async function calculateKPIs(
   // Ad metrics - single query
   const adRows = sellerId
     ? await sql`SELECT COALESCE(SUM(investment), 0) as total_investment, COALESCE(SUM(leads), 0) as total_leads, COALESCE(SUM(purchases_count), 0) as total_purchases, COUNT(DISTINCT date) as days_count FROM daily_ad_metrics WHERE date >= ${dateFrom} AND date <= ${dateTo} AND seller_id = ${sellerId}`
+    : affiliateId
+    ? await sql`SELECT COALESCE(SUM(investment), 0) as total_investment, COALESCE(SUM(leads), 0) as total_leads, COALESCE(SUM(purchases_count), 0) as total_purchases, COUNT(DISTINCT date) as days_count FROM daily_ad_metrics WHERE date >= ${dateFrom} AND date <= ${dateTo} AND seller_id IN (SELECT id FROM users WHERE affiliate_id = ${affiliateId})`
     : await sql`SELECT COALESCE(SUM(investment), 0) as total_investment, COALESCE(SUM(leads), 0) as total_leads, COALESCE(SUM(purchases_count), 0) as total_purchases, COUNT(DISTINCT date) as days_count FROM daily_ad_metrics WHERE date >= ${dateFrom} AND date <= ${dateTo}`;
 
   const investment = Number(adRows[0].total_investment);
@@ -212,6 +215,15 @@ export async function calculateKPIs(
         JOIN plans p ON p.id = dse.plan_id
         LEFT JOIN seller_commissions sc ON sc.seller_id = dse.seller_id AND sc.plan_id = dse.plan_id
         WHERE dse.date >= ${dateFrom} AND dse.date <= ${dateTo} AND dse.seller_id = ${sellerId}`
+    : affiliateId
+    ? await sql`
+        SELECT dse.quantity, dse.discount, dse.payment_method, p.sale_price_gross, p.sale_price_net,
+          COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
+          COALESCE(sc.percent, 0) as commission_pct
+        FROM daily_sales_entries dse
+        JOIN plans p ON p.id = dse.plan_id
+        LEFT JOIN seller_commissions sc ON sc.seller_id = dse.seller_id AND sc.plan_id = dse.plan_id
+        WHERE dse.date >= ${dateFrom} AND dse.date <= ${dateTo} AND dse.seller_id IN (SELECT id FROM users WHERE affiliate_id = ${affiliateId})`
     : await sql`
         SELECT dse.quantity, dse.discount, dse.payment_method, p.sale_price_gross, p.sale_price_net,
           COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
@@ -247,6 +259,15 @@ export async function calculateKPIs(
         JOIN plans p ON p.id = dap.plan_id
         LEFT JOIN seller_commissions sc ON sc.seller_id = ${sellerId} AND sc.plan_id = dap.plan_id
         WHERE dap.date >= ${dateFrom} AND dap.date <= ${dateTo}`
+    : affiliateId
+    ? await sql`
+        SELECT dap.quantity, dap.discount, dap.payment_method, p.sale_price_gross, p.sale_price_net,
+          COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
+          0 as commission_pct
+        FROM daily_approved_payments dap
+        JOIN plans p ON p.id = dap.plan_id
+        WHERE dap.date >= ${dateFrom} AND dap.date <= ${dateTo}
+          AND dap.seller_id IN (SELECT id FROM users WHERE affiliate_id = ${affiliateId})`
     : await sql`
         SELECT dap.quantity, dap.discount, dap.payment_method, p.sale_price_gross, p.sale_price_net,
           COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
@@ -302,7 +323,8 @@ export async function calculateKPIs(
 export async function getDailyMetrics(
   dateFrom: string,
   dateTo: string,
-  sellerId?: number
+  sellerId?: number,
+  affiliateId?: number
 ): Promise<DailyMetric[]> {
   const fees = await getActiveFees();
   const saleFees = fees.filter((f) => f.applies_to === "SALE");
@@ -314,6 +336,8 @@ export async function getDailyMetrics(
   // 2. Ad data grouped by date - single query
   const adData = sellerId
     ? await sql`SELECT date, SUM(investment) as inv, SUM(leads) as lds FROM daily_ad_metrics WHERE date >= ${dateFrom} AND date <= ${dateTo} AND seller_id = ${sellerId} GROUP BY date`
+    : affiliateId
+    ? await sql`SELECT date, SUM(investment) as inv, SUM(leads) as lds FROM daily_ad_metrics WHERE date >= ${dateFrom} AND date <= ${dateTo} AND seller_id IN (SELECT id FROM users WHERE affiliate_id = ${affiliateId}) GROUP BY date`
     : await sql`SELECT date, SUM(investment) as inv, SUM(leads) as lds FROM daily_ad_metrics WHERE date >= ${dateFrom} AND date <= ${dateTo} GROUP BY date`;
 
   const adMap = new Map<string, { inv: number; lds: number }>();
@@ -332,6 +356,15 @@ export async function getDailyMetrics(
         JOIN plans p ON p.id = dse.plan_id
         LEFT JOIN seller_commissions sc ON sc.seller_id = dse.seller_id AND sc.plan_id = dse.plan_id
         WHERE dse.date >= ${dateFrom} AND dse.date <= ${dateTo} AND dse.seller_id = ${sellerId}`
+    : affiliateId
+    ? await sql`
+        SELECT dse.date, dse.quantity, dse.discount, dse.payment_method, p.sale_price_gross,
+          COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
+          COALESCE(sc.percent, 0) as commission_pct
+        FROM daily_sales_entries dse
+        JOIN plans p ON p.id = dse.plan_id
+        LEFT JOIN seller_commissions sc ON sc.seller_id = dse.seller_id AND sc.plan_id = dse.plan_id
+        WHERE dse.date >= ${dateFrom} AND dse.date <= ${dateTo} AND dse.seller_id IN (SELECT id FROM users WHERE affiliate_id = ${affiliateId})`
     : await sql`
         SELECT dse.date, dse.quantity, dse.discount, dse.payment_method, p.sale_price_gross,
           COALESCE(p.product_cost, 0) as product_cost, COALESCE(p.shipping_cost, 0) as shipping_cost,
@@ -555,7 +588,8 @@ export interface OrderStats {
 export async function getOrderStats(
   dateFrom: string,
   dateTo: string,
-  sellerId?: number
+  sellerId?: number,
+  affiliateId?: number
 ): Promise<OrderStats> {
   const rows = sellerId
     ? await sql`
@@ -567,6 +601,16 @@ export async function getOrderStats(
         FROM orders
         WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
           AND seller_id = ${sellerId}`
+    : affiliateId
+    ? await sql`
+        SELECT
+          COUNT(*) as total,
+          COUNT(*) FILTER (WHERE status = 'frustrados') as frustrados,
+          COUNT(*) FILTER (WHERE status = 'pagos') as pagos,
+          COUNT(*) FILTER (WHERE status = 'cobrados') as cobrados
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
+          AND seller_id IN (SELECT id FROM users WHERE affiliate_id = ${affiliateId})`
     : await sql`
         SELECT
           COUNT(*) as total,
@@ -596,7 +640,8 @@ export interface StateRanking {
 export async function getOrdersByState(
   dateFrom: string,
   dateTo: string,
-  sellerId?: number
+  sellerId?: number,
+  affiliateId?: number
 ): Promise<StateRanking[]> {
   const rows = sellerId
     ? await sql`
@@ -604,6 +649,15 @@ export async function getOrdersByState(
         FROM orders
         WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
           AND seller_id = ${sellerId}
+        GROUP BY UPPER(estado)
+        ORDER BY count DESC
+        LIMIT 15`
+    : affiliateId
+    ? await sql`
+        SELECT UPPER(estado) as estado, COUNT(*) as count
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
+          AND seller_id IN (SELECT id FROM users WHERE affiliate_id = ${affiliateId})
         GROUP BY UPPER(estado)
         ORDER BY count DESC
         LIMIT 15`
@@ -632,7 +686,8 @@ export interface WeeklyData {
 export async function getWeeklyChart(
   dateFrom: string,
   dateTo: string,
-  sellerId?: number
+  sellerId?: number,
+  affiliateId?: number
 ): Promise<WeeklyData[]> {
   const rows = sellerId
     ? await sql`
@@ -644,6 +699,18 @@ export async function getWeeklyChart(
         FROM orders
         WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
           AND seller_id = ${sellerId}
+        GROUP BY week_start
+        ORDER BY week_start`
+    : affiliateId
+    ? await sql`
+        SELECT
+          date_trunc('week', created_at)::date as week_start,
+          COUNT(*) as total,
+          COUNT(*) FILTER (WHERE status = 'pagos') as aprovados,
+          COUNT(*) FILTER (WHERE status = 'frustrados') as frustrados
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
+          AND seller_id IN (SELECT id FROM users WHERE affiliate_id = ${affiliateId})
         GROUP BY week_start
         ORDER BY week_start`
     : await sql`
@@ -727,7 +794,8 @@ export interface FunnelData {
 export async function getFunnelData(
   dateFrom: string,
   dateTo: string,
-  sellerId?: number
+  sellerId?: number,
+  affiliateId?: number
 ): Promise<FunnelData> {
   const rows = sellerId
     ? await sql`
@@ -742,6 +810,19 @@ export async function getFunnelData(
         FROM orders
         WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
           AND seller_id = ${sellerId}`
+    : affiliateId
+    ? await sql`
+        SELECT
+          COUNT(*) as total,
+          COUNT(*) FILTER (WHERE status IN ('enviados','saiu_para_entrega','retirar_nos_correios')) as enviados,
+          COUNT(*) FILTER (WHERE status = 'entregues') as entregues,
+          COUNT(*) FILTER (WHERE status = 'cobrados') as cobrados,
+          COUNT(*) FILTER (WHERE status = 'pagos') as pagos,
+          COUNT(*) FILTER (WHERE status = 'inadimplencias') as inadimplentes,
+          COUNT(*) FILTER (WHERE status = 'frustrados') as frustrados
+        FROM orders
+        WHERE created_at::date >= ${dateFrom} AND created_at::date <= ${dateTo}
+          AND seller_id IN (SELECT id FROM users WHERE affiliate_id = ${affiliateId})`
     : await sql`
         SELECT
           COUNT(*) as total,

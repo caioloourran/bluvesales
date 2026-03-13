@@ -47,14 +47,14 @@ export default async function DashboardPage({ searchParams }: Props) {
 
   const [kpis, orderStats, stateRanking, weeklyData, sellerRankings, cobrancaPerf, dailyMetrics, funnelData, agingData] =
     await Promise.all([
-      calculateKPIs(dateFrom, dateTo, sellerId),
-      getOrderStats(dateFrom, dateTo, sellerId),
-      getOrdersByState(dateFrom, dateTo, sellerId),
-      getWeeklyChart(dateFrom, dateTo, sellerId),
+      calculateKPIs(dateFrom, dateTo, sellerId, affiliateId),
+      getOrderStats(dateFrom, dateTo, sellerId, affiliateId),
+      getOrdersByState(dateFrom, dateTo, sellerId, affiliateId),
+      getWeeklyChart(dateFrom, dateTo, sellerId, affiliateId),
       isSeller ? Promise.resolve([]) : getSellerRankings(dateFrom, dateTo, affiliateId),
       isSeller || isAffiliate ? Promise.resolve([]) : getCobrancaPerformance(dateFrom, dateTo),
-      getDailyMetrics(dateFrom, dateTo, sellerId),
-      getFunnelData(dateFrom, dateTo, sellerId),
+      getDailyMetrics(dateFrom, dateTo, sellerId, affiliateId),
+      getFunnelData(dateFrom, dateTo, sellerId, affiliateId),
       isSeller || isAffiliate ? Promise.resolve([]) : getAgingData(dateFrom, dateTo),
     ]);
 
