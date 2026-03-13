@@ -26,6 +26,8 @@ import {
   Gift,
   Package2,
   Plug,
+  Wallet,
+  ArrowDownToLine,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
@@ -67,6 +69,7 @@ const adminLinks = [
   { href: "/plans", label: "Planos", icon: Layers },
   { href: "/commissions", label: "Comissoes", icon: Percent },
   { href: "/fees", label: "Taxas", icon: Receipt },
+  { href: "/saques", label: "Saques", icon: ArrowDownToLine },
   { href: "/users", label: "Usuarios", icon: Users },
   { href: "/roleta", label: "Roleta", icon: Gift },
   { href: "/integracoes", label: "Integrações", icon: Plug },
@@ -84,6 +87,7 @@ const sellerLinks = [
   { href: "/sales", label: "Vendas", icon: ShoppingCart },
   { href: "/history", label: "Historico", icon: ClipboardList },
   { href: "/ranking", label: "Ranking", icon: Trophy },
+  { href: "/financeiro", label: "Financeiro", icon: Wallet },
 ];
 
 function getInitials(name: string): string {

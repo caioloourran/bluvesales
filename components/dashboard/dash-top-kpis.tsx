@@ -2,7 +2,7 @@
 
 import { formatBRL, formatNumber, formatPercent } from "@/lib/format";
 import type { KPIData, OrderStats } from "@/lib/kpi";
-import { TrendingDown, Users, Percent, DollarSign, ShoppingBag, BarChart2, Zap } from "lucide-react";
+import { TrendingDown, Users, Percent, DollarSign, ShoppingBag, BarChart2, Zap, BadgeCheck } from "lucide-react";
 
 interface Props {
   kpis: KPIData;
@@ -16,7 +16,7 @@ export function DashTopKpis({ kpis, orderStats, isAdmin }: Props) {
 
   if (!isAdmin) {
     return (
-      <div className="grid grid-cols-2 gap-3.5 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3.5 lg:grid-cols-5">
         <KpiCard label="Pedidos Agendados" value={formatNumber(kpis.salesQty)} sub="no periodo"
           icon={<ShoppingBag className="h-4 w-4" />} accentClass="text-primary bg-primary/10" delay={0} />
         <KpiCard label="Fat. Agendado" value={formatBRL(kpis.grossValue)} sub="Total agendado"
@@ -29,6 +29,12 @@ export function DashTopKpis({ kpis, orderStats, isAdmin }: Props) {
           valueClass={kpis.grossCommission >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500"}
           barClass={kpis.grossCommission >= 0 ? "bg-emerald-500" : "bg-rose-500"}
           delay={3} />
+        <KpiCard label="Comissão Aprovada" value={formatBRL(kpis.approvedCommission)} sub="Pagamentos confirmados"
+          icon={<BadgeCheck className="h-4 w-4" />}
+          accentClass="text-emerald-500 bg-emerald-500/10"
+          valueClass="text-emerald-600 dark:text-emerald-400"
+          barClass="bg-emerald-500"
+          delay={4} />
       </div>
     );
   }
