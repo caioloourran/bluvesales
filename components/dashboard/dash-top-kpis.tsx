@@ -23,11 +23,11 @@ export function DashTopKpis({ kpis, orderStats, isAdmin }: Props) {
           icon={<BarChart2 className="h-4 w-4" />} accentClass="text-blue-500 bg-blue-500/10" valueClass="text-blue-600 dark:text-blue-400" delay={1} />
         <KpiCard label="Total de Leads" value={formatNumber(kpis.leads)} sub={`CPL: ${kpis.cpl !== null ? formatBRL(kpis.cpl) : "N/A"}`}
           icon={<Users className="h-4 w-4" />} accentClass="text-violet-500 bg-violet-500/10" delay={2} />
-        <KpiCard label="Lucro Estimado" value={formatBRL(kpis.netCommission)} sub="Baseado na sua comissao"
+        <KpiCard label="Comissão Estimada" value={formatBRL(kpis.grossCommission)} sub="Baseado no fat. bruto"
           icon={<DollarSign className="h-4 w-4" />}
-          accentClass={kpis.netCommission >= 0 ? "text-emerald-500 bg-emerald-500/10" : "text-rose-500 bg-rose-500/10"}
-          valueClass={kpis.netCommission >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500"}
-          barClass={kpis.netCommission >= 0 ? "bg-emerald-500" : "bg-rose-500"}
+          accentClass={kpis.grossCommission >= 0 ? "text-emerald-500 bg-emerald-500/10" : "text-rose-500 bg-rose-500/10"}
+          valueClass={kpis.grossCommission >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500"}
+          barClass={kpis.grossCommission >= 0 ? "bg-emerald-500" : "bg-rose-500"}
           delay={3} />
       </div>
     );
