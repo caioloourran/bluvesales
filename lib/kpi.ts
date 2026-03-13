@@ -275,7 +275,6 @@ export async function calculateKPIs(
       JOIN plans p ON p.id = o.plan_id
       LEFT JOIN seller_commissions sc ON sc.seller_id = o.seller_id AND sc.plan_id = o.plan_id
       WHERE o.seller_id = ${sellerId} AND o.status = 'pagos'
-        AND o.created_at >= ${dateFrom} AND o.created_at <= ${dateTo}::date + INTERVAL '1 day'
       GROUP BY p.sale_price_gross, sc.percent
     `;
     for (const row of paidOrderRows) {
