@@ -65,7 +65,7 @@ async function sendToOutboundIntegrations(orderId: number, data: OrderFormData) 
   if (integrations.length === 0) return;
 
   // Build product list
-  const products: { name: string; quantity: number; unit_price: number }[] = [];
+  const products: { code: string; name: string; price: string; quantity: string; total_amount: string }[] = [];
   if (data.plan_id) {
     const plans = await sql`
       SELECT p.name as product_name, pl.name as plan_name, pl.sale_price_gross
@@ -73,16 +73,19 @@ async function sendToOutboundIntegrations(orderId: number, data: OrderFormData) 
       WHERE pl.id = ${data.plan_id}
     `;
     if (plans.length > 0) {
+      const price = (Number(plans[0].sale_price_gross) || 0).toFixed(2);
       products.push({
+        code: `PLAN-${data.plan_id}`,
         name: `${plans[0].product_name} - ${plans[0].plan_name}`,
-        quantity: 1,
-        unit_price: Number(plans[0].sale_price_gross) || 0,
+        price,
+        quantity: "1",
+        total_amount: price,
       });
     }
   } else if (data.product_id) {
     const prods = await sql`SELECT name FROM products WHERE id = ${data.product_id}`;
     if (prods.length > 0) {
-      products.push({ name: prods[0].name, quantity: 1, unit_price: 0 });
+      products.push({ code: `PROD-${data.product_id}`, name: prods[0].name, price: "0.00", quantity: "1", total_amount: "0.00" });
     }
   }
 
@@ -104,7 +107,7 @@ async function sendToOutboundIntegrations(orderId: number, data: OrderFormData) 
     customer_state: data.estado,
     customer_country: "BR",
     products,
-    total_value: products.reduce((sum, p) => sum + p.unit_price * p.quantity, 0).toFixed(2),
+    total_value: products.reduce((sum, p) => sum + Number(p.total_amount), 0).toFixed(2),
     total_discount: "0.00",
     is_after_pay: true,
   };
