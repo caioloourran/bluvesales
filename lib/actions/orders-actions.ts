@@ -68,14 +68,14 @@ async function sendToOutboundIntegrations(orderId: number, data: OrderFormData) 
   const products: { code: string; name: string; price: string; quantity: string; total_amount: string }[] = [];
   if (data.plan_id) {
     const plans = await sql`
-      SELECT p.name as product_name, pl.name as plan_name, pl.sale_price_gross
+      SELECT p.name as product_name, pl.name as plan_name, pl.sale_price_gross, pl.sku
       FROM plans pl JOIN products p ON p.id = pl.product_id
       WHERE pl.id = ${data.plan_id}
     `;
     if (plans.length > 0) {
       const price = (Number(plans[0].sale_price_gross) || 0).toFixed(2);
       products.push({
-        code: `PLAN-${data.plan_id}`,
+        code: plans[0].sku || `PLAN-${data.plan_id}`,
         name: `${plans[0].product_name} - ${plans[0].plan_name}`,
         price,
         quantity: "1",
