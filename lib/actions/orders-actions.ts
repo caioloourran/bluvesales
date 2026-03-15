@@ -104,6 +104,7 @@ async function sendToOutboundIntegrations(orderId: number, data: OrderFormData) 
     customer_state: data.estado,
     customer_country: "BR",
     products,
+    is_after_pay: true,
   };
 
   for (const integration of integrations) {
