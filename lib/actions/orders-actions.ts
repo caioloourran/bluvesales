@@ -113,7 +113,7 @@ async function sendToOutboundIntegrations(orderId: number, data: OrderFormData) 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Api-Key ${integration.outbound_api_key}`,
+          Authorization: `Bearer ${integration.outbound_api_key}`,
         },
         body: JSON.stringify(payload),
       });
