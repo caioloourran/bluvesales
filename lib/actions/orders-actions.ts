@@ -104,6 +104,8 @@ async function sendToOutboundIntegrations(orderId: number, data: OrderFormData) 
     customer_state: data.estado,
     customer_country: "BR",
     products,
+    total_value: products.reduce((sum, p) => sum + p.unit_price * p.quantity, 0).toFixed(2),
+    total_discount: "0.00",
     is_after_pay: true,
   };
 
